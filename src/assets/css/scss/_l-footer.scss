@@ -1,0 +1,23 @@
+@charset "utf-8";
+
+.l-footer {
+    align-items: center;
+    border-top: 1px solid $color--border;
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    margin-top: 50px;
+
+    &__inner {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        min-width: $mainW;
+        position: relative;
+        width: $mainW;
+    }
+    &__copyright {
+        text-align: center;
+    }
+}

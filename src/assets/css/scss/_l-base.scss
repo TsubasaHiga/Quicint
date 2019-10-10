@@ -1,0 +1,58 @@
+@charset "utf-8";
+
+html {
+    height: 100%;
+}
+
+body {
+    margin: 0 auto;
+    min-height: 100%;
+    position: relative;
+    width: 100%;
+
+    @include media(lg) {
+        min-width: $mainW;
+    }
+
+    // アンチエイリアス
+    // -webkit-font-smoothing: subpixel-antialiased;
+    // -moz-osx-font-smoothing: unset;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2),
+        (min-resolution: 2dppx) {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+.l-page {
+    background-color: $color--white;
+    position: relative;
+    margin-top: 50px;
+}
+
+.l-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    min-width: $mainW;
+    position: relative;
+    width: $mainW;
+
+    @include media(sm) {
+        min-width: 100%;
+        padding: 0 $spSpace;
+        width: 100%;
+    }
+}
+
+.l-lg {
+    @include media(sm) {
+        display: none !important;
+    }
+}
+
+.l-sm {
+    @include media(lg) {
+        display: none !important;
+    }
+}

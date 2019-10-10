@@ -1,0 +1,18 @@
+@charset "utf-8";
+
+.l-nav {
+    align-items: center;
+    display: flex;
+    &__list {
+        align-items: center;
+        display: flex;
+    }
+    &__item {
+        @include notfirst {
+            margin-left: 15px;
+        }
+    }
+    &__link {
+
+    }
+}

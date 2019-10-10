@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+.l-header {
+    border-bottom: 1px solid $color--border;
+    &__inner {
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+        height: 100px;
+        margin: 0 auto;
+        min-width: $mainW;
+        position: relative;
+        width: $mainW;
+
+        .logo {
+            &__image {
+
+            }
+        }
+    }
+}

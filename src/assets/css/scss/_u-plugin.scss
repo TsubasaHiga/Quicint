@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+// stickyfill.js
+// ----------------------------------------------------------
+.sticky:before,
+.sticky:after {
+    content: '';
+    display: table;
+}
