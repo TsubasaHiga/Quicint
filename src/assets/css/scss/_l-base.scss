@@ -28,6 +28,10 @@ body {
     background-color: $color--white;
     position: relative;
     margin-top: 50px;
+
+    @include media(sm) {
+        margin-top: 20px;
+    }
 }
 
 .l-container {

@@ -43,31 +43,12 @@ pre {
     white-space: pre-wrap;
 }
 
-sub,
-sup {
-    font-size: 75%;
-    line-height: 0;
-    position: relative;
-    vertical-align: baseline;
-}
-
-sup {
-    top: -.5em;
-}
-
-sub {
-    bottom: -.25em;
-}
-
-// link
 a {
     @include hoverOpacity(.6);
 
     color: $color--link;
     outline: none;
     text-decoration: none;
-    transition: background-color 100ms, border-color 100ms, color 100ms,
-        opacity 100ms;
 }
 
 // image
@@ -82,9 +63,12 @@ video {
 table {
     max-width: 100%;
     width: 100%;
+    border-collapse: collapse;
+    border: 1px solid $color--border;
 
     th,
     td {
+        border: 1px solid $color--border;
         word-break: break-all;
     }
 }
@@ -166,4 +150,8 @@ textarea::-moz-selection {
 // IE11のクリアボタンを非表示
 input::-ms-clear {
     display: none;
+}
+
+ul,ol {
+    list-style-position: inside
 }

@@ -14,17 +14,41 @@ closetPolyfill();
 
 let deviceType;
 
-window.addEventListener(
-  'resize',
-  debounce(300, () => {
-    deviceType = getDeviceType();
+const hmbInit = () => {
 
-  }),
-  false
-);
+  let isActive  = false;
+
+  const show = () => {
+    isActive = true;
+    el.html.classList.add('is-nav-active');
+  };
+  const hide = () => {
+    isActive = false;
+    el.html.classList.remove('is-nav-active');
+  };
+
+  el.hmb.addEventListener('click', () => {
+    isActive ? hide() : show();
+  });
+  el.hmb__bg.addEventListener('click', () => {
+    isActive ? hide() : show();
+  });
+
+  window.addEventListener('resize',debounce(300, () => {
+    if (isActive) {
+      hide();
+    }
+  }),false);
+}
+
+window.addEventListener('resize',debounce(300, () => {
+  deviceType = getDeviceType();
+
+}),false);
 
 window.addEventListener('load', () => {
   objectFitImages();
+  hmbInit();
 
   // Get deviceType.
   deviceType = getDeviceType();
@@ -32,8 +56,8 @@ window.addEventListener('load', () => {
 });
 
 // 横スクロールでｈeader動かす.
-if (getDeviceType() === 'lg') {
-  window.addEventListener('scroll', () => {
-    el.header.style.left = -window.scrollX + 'px';
-  });
-}
+// if (getDeviceType() === 'lg') {
+//   window.addEventListener('scroll', () => {
+//     el.header.style.left = -window.scrollX + 'px';
+//   });
+// }

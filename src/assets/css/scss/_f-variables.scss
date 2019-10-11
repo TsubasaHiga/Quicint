@@ -8,10 +8,10 @@ $bodyW: 1280px;
 $bodySpaceTB: 50px;
 $bodySpaceLR: 40px;
 $mainW: 1280px;
-$headerH: 80px;
-$spHeaderH: 80px;
+$headerH: 100px;
+$spHeaderH: 60px;
 $navW: 230px;
-$space: 50px;
+$space: 30px;
 $spSpace: 20px;
 
 // font
@@ -28,7 +28,7 @@ $lineHeight: (24/14);
 // ----------------------------------------------------------
 $color--body: #fff;
 
-$color--text: rgba(#000, .85);
+$color--text: #121212;
 $color--text-thin: #eeeef4;
 $color--text-gray: #ccc;
 
@@ -51,7 +51,6 @@ $color--brand--facebook: #3b5998;
 $color--brand--note: #2dcdb5;
 $color--brand--chatwork: #f03748;
 $color--brand--github: #333;
-
 $color--brand--hatebu: #06afe0;
 
 // グラデーション
@@ -88,3 +87,8 @@ $easeInOutCirc: cubic-bezier(.785, .135, .15, .86);
 $easeInBack: cubic-bezier(.6, -.28, .735, .045);
 $easeOutBack: cubic-bezier(.175, .885, .32, 1.275);
 $easeInOutBack: cubic-bezier(.68, -.55, .265, 1.55);
+
+// 共通easing
+// ----------------------------------------------------------
+$comMS: 300ms;
+$comES: $easeOutCubic;

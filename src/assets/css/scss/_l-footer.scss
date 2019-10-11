@@ -20,4 +20,11 @@
     &__copyright {
         text-align: center;
     }
+
+    @include media(sm) {
+        &__inner {
+            min-width: 100%;
+            width: 100%;
+        }
+    }
 }

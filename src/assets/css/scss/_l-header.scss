@@ -2,11 +2,14 @@
 
 .l-header {
     border-bottom: 1px solid $color--border;
+    position: relative;
+    z-index: 1;
     &__inner {
         align-items: center;
+        background-color: #fff;
         display: flex;
         justify-content: space-between;
-        height: 100px;
+        height: $headerH;
         margin: 0 auto;
         min-width: $mainW;
         position: relative;
@@ -16,6 +19,92 @@
             &__image {
 
             }
+        }
+    }
+
+    @include media(sm) {
+        &__inner {
+            height: $spHeaderH;
+            min-width: 100%;
+            padding: 0 $spSpace;
+            width: 100%;
+        }
+    }
+}
+
+.l-hmb {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: $spHeaderH;
+    width: $spHeaderH;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    span {
+        $color:#fff;
+        $height: 1px;
+        $width: calc(100% - 38px);
+        $line-space: 10px;
+
+        position: relative;
+        height: $height;
+        width: $width;
+        background-color: $color;
+        transition: $comMS $comES;;
+
+        &:before,
+        &:after {
+            @include icon-ini;
+            background-color: $color;
+            height: $height;
+            width: 100%;
+            position: absolute;
+            transition: $comMS $comES;
+            will-change: transform;
+        }
+        &:before {
+            top: #{-$line-space};
+            left: 0;
+        }
+
+        &:after {
+            bottom: #{-$line-space};
+            left: 0;
+        }
+
+        .is-nav-active & {
+            background: none;
+            &:before {
+                transform: rotate(135deg);
+                top: calc(50%);
+            }
+            &:after {
+                transform: rotate(-135deg);
+                top: calc(50%);
+            }
+        }
+    }
+
+    &-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: rgba(#000, .8);
+        z-index: -1;
+
+        transition: $comMS $comES;
+        will-change: opacity;
+
+        opacity: 0;
+        visibility: hidden;
+
+        .is-nav-active & {
+            opacity: 1;
+            visibility: visible;
         }
     }
 }

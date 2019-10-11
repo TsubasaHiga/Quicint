@@ -9,7 +9,7 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 
 ``` bash
 # Clone.
-$ git clone git@github.com/TsubasaHiga/quicint.git name-of-your-project
+$ git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
 
 # Firts init.
 $ npm install # or yarn install
@@ -91,6 +91,15 @@ Quicintの仕様、及び対応環境は以下の通りです。
 - iOS Safari
 
 ※ Firefox ESR対応などのイレギュラー時は`package.json`の**browserslist**項目を適切な値に変更することでSCSS対応が可能です。
+
+## チェック
+
+- W3C：No errors
+- Lighthouse（PC / SP）
+  - Performance：100
+  - Accessibility：100
+  - Best Practices：100
+  - SEO：100
 
 ## .gitignore
 https://www.gitignore.io/api/node,macos,windows

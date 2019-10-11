@@ -1,12 +1,11 @@
 @charset "utf-8";
 
-// npm install
-@import '~/ress/ress.css';
+// npm plugins
+@import '~ress/ress.css';
 
 // default
 @import 'scss/f-variables';
 @import 'scss/f-mixin';
-// @import 'scss/f-reset';
 @import 'scss/f-base';
 @import 'scss/c-button';
 @import 'scss/c-form';

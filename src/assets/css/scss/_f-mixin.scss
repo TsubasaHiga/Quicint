@@ -254,6 +254,8 @@
 @mixin hoverOpacity($opacity, $ms:false, $ease:false) {
     @if $ease {
         transition: opacity $ms $ease;
+    } @else {
+        transition: opacity $comMS $comES;
     }
 
     &:hover {

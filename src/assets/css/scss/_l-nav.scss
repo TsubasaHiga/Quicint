@@ -6,13 +6,67 @@
     &__list {
         align-items: center;
         display: flex;
+        list-style: none;
     }
     &__item {
-        @include notfirst {
-            margin-left: 15px;
+        position: relative;
+        @include media(lg) {
+            &:before {
+                $borderH: 15px;
+                @include icon-ini;
+                background-color: $color--border;
+                height: $borderH;
+                width: 1px;
+                position: absolute;
+                left: 0;
+                top: calc(50% - #{$borderH/2});
+            }
+            @include notfirst {
+                margin-left: 15px;
+                padding-left: 15px;
+            }
         }
     }
     &__link {
+        @include hoverOpacity(.8);
+        color: $color--text;
+        display: inline-block;
+    }
 
+    @include media(sm) {
+        background-color: #f5f6f7;
+        position: absolute;
+        left: 0;
+        top: $spHeaderH;
+        width: 100%;
+
+        transition: $comMS $comES;
+
+        opacity: 0;
+        visibility: hidden;
+        will-change: opacity;
+
+        .is-nav-active & {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        &__list {
+            align-items: flex-start;
+            flex-direction: column;
+            width: 100%;
+            padding: $spSpace;
+        }
+        &__item {
+            width: 100%;
+            @include notfirst {
+                margin-top: 10px;
+                border-top: 1px solid $color--border;
+                padding-top: 10px;
+            }
+        }
+        &__link {
+            width: 100%;
+        }
     }
 }

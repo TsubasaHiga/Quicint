@@ -1,5 +1,5 @@
 {
-  "name": "quicint",
+  "name": "Quicint",
   "version": "1.0.0",
   "description": "Quick initialize HTML5 Boilerplate",
   "main": "index.js",
@@ -8,15 +8,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/TsubasaHiga/quicint.git"
+    "url": "git+https://github.com/TsubasaHiga/Quicint.git"
   },
   "keywords": [],
   "author": "HigaTsubasa",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/TsubasaHiga/quicint/issues"
+    "url": "https://github.com/TsubasaHiga/Quicint/issues"
   },
-  "homepage": "https://github.com/TsubasaHiga/quicint#readme",
+  "homepage": "https://github.com/TsubasaHiga/Quicint#readme",
   "browserslist": [
     "> 0.5% in JP"
   ],
@@ -29,6 +29,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-es2015": "^6.24.1",
     "browser-sync": "^2.26.7",
+    "connect-ssi": "^1.1.1",
     "crypto": "^1.0.1",
     "css-declaration-sorter": "^4.0.1",
     "css-loader": "^3.2.0",
@@ -37,6 +38,7 @@
     "date-utils": "^1.2.21",
     "del": "^5.1.0",
     "eslint": "^6.5.1",
+    "fs": "0.0.1-security",
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-changed": "^4.0.2",
