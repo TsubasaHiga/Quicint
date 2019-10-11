@@ -154,8 +154,9 @@ $RECYCLE.BIN/
 # CUSTOM
 *.map
 *map/
+env.json
 
 dist/assets/css/
 dist/assets/js/
 dist/assets/images/
-dist/*.html
+dist/**/*.html
