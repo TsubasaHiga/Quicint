@@ -42,6 +42,7 @@
     "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.1",
     "gulp-changed": "^4.0.2",
+    "gulp-file-include": "^2.1.0",
     "gulp-htmlmin": "^5.0.1",
     "gulp-imagemin": "^6.1.1",
     "gulp-newer": "^1.4.0",

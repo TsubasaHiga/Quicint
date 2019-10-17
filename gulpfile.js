@@ -16,6 +16,7 @@ const cssDeclarationSorter = require('css-declaration-sorter');
 const crypto = require('crypto');
 const dateutils = require('date-utils');
 const del = require('del');
+const fileinclude = require('gulp-file-include');
 const fs = require('fs');
 const gulp = require('gulp');
 const htmlmin = require('gulp-htmlmin');
@@ -110,12 +111,11 @@ gulp.task('htmlmin', () => {
   let revision = crypto.randomBytes(8).toString('hex');
   return gulp
     .src(env.io.input.html + '**/*.html')
-    .pipe(
-      htmlmin({
-        // collapseWhitespace : true,
-        removeComments : true
-      })
-    )
+    .pipe(fileinclude({
+      prefix   : '@@',
+      basepath : '@file'
+    }))
+    .pipe(htmlmin(env.htmlmin))
     .pipe(
       replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
     )
