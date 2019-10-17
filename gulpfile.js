@@ -147,8 +147,6 @@ gulp.task('img', () => {
         }),
         mozjpeg({
           quality     : 85,
-          dcScanOpt   : 2,
-          dct         : 'float',
           progressive : true
         }),
         imagemin.svgo(),
