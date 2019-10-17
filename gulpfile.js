@@ -110,7 +110,10 @@ gulp.task('css', () => {
 gulp.task('htmlmin', () => {
   let revision = crypto.randomBytes(8).toString('hex');
   return gulp
-    .src(env.io.input.html + '**/*.html')
+    .src([
+      env.io.input.html + '**/*.html',
+      '!' + env.io.input.html + 'inc/*.html'
+    ])
     .pipe(fileinclude({
       prefix   : '@@',
       basepath : '@file'
