@@ -7,14 +7,14 @@ import Swiper from 'swiper';
 /* ---------------------------------------------------------------- */
 
 export const page2 = () => {
-  const mySwiper = new Swiper ('.swiper-container', {
+  const mySwiper = new Swiper('.swiper-container', {
     loop       : true,
     pagination : {
-      el : '.swiper-pagination',
+      el : '.swiper-pagination'
     },
     navigation : {
       nextEl : '.swiper-button-next',
-      prevEl : '.swiper-button-prev',
-    },
-  })
+      prevEl : '.swiper-button-prev'
+    }
+  });
 };

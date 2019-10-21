@@ -41,37 +41,22 @@ const env = JSON.parse(fs.readFileSync('./env.json', 'utf8'));
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
 
-/**
- *
- * 以下各種タスク記述
- *
- * @description
-     - 可読性維持の為、タスク間は3行改行して記述する
-     - 固有設定は変数として初期設定項目に記述する
-     - なるべく簡潔な記述を行いメンテナンス性を維持する
- *
- */
-
-// console.log(env.browsersync);
-
 // BrowserSync - tsk is sync.
-gulp.task('sync', () => {
-  browserSync.init(env.browsersync);
-});
+const sync = () => browserSync.init(env.browsersync);
 
 // BrowserSync - task is reload.
-gulp.task('reload', done => {
+const reload = cb => {
   browserSync.reload();
-  done();
-});
+  cb();
+};
 
 // Clean.
-gulp.task('clean', () => {
+const clean = () => {
   return del(env.io.output.img + '**/*.{png,jpg,gif,svg}');
-});
+};
 
 // Scss compile.
-gulp.task('css', () => {
+const scss = () => {
   return gulp
     .src(env.io.input.css + '**/*.scss')
     .pipe(
@@ -104,29 +89,31 @@ gulp.task('css', () => {
     .pipe(sourcemaps.write('/maps'))
     .pipe(gulp.dest(env.io.output.css))
     .pipe(browserSync.stream());
-});
+};
 
 // HTML minify.
-gulp.task('htmlmin', () => {
+const html = () => {
   let revision = crypto.randomBytes(8).toString('hex');
   return gulp
     .src([
       env.io.input.html + '**/*.html',
       '!' + env.io.input.html + 'inc/*.html'
     ])
-    .pipe(fileinclude({
-      prefix   : '@@',
-      basepath : '@file'
-    }))
+    .pipe(
+      fileinclude({
+        prefix   : '@@',
+        basepath : '@file'
+      })
+    )
     .pipe(htmlmin(env.htmlmin))
     .pipe(
       replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
     )
     .pipe(gulp.dest(env.io.output.html));
-});
+};
 
 // Img compressed.
-gulp.task('img', () => {
+const img = () => {
   return gulp
     .src(env.io.input.img + '**/*.{png,jpg,gif,svg}')
     .pipe(
@@ -155,10 +142,10 @@ gulp.task('img', () => {
       ])
     )
     .pipe(gulp.dest(env.io.output.img));
-});
+};
 
 // WebpackStream.
-gulp.task('js', () => {
+const js = () => {
   return gulp
     .src(env.io.input.js + '**/*.js')
     .pipe(
@@ -172,21 +159,18 @@ gulp.task('js', () => {
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest(env.io.output.js))
     .pipe(browserSync.stream());
-});
+};
 
 // Watch files.
-gulp.task('watch', () => {
-  gulp.watch(env.io.input.css + '**/*.scss', gulp.task('css'));
-  gulp.watch(env.io.input.img + '**/*', gulp.series('clean', 'img'));
-  gulp.watch(env.io.input.js + '**/*.js', gulp.task('js'));
-  gulp.watch(env.io.input.html + '**/*.html', { interval : 250 }, gulp.series('htmlmin', 'reload'));
-});
+const watch = () => {
+  gulp.watch(env.io.input.css + '**/*.scss', gulp.task(scss));
+  gulp.watch(env.io.input.img + '**/*', gulp.series(clean, img));
+  gulp.watch(env.io.input.js + '**/*.js', gulp.task(js));
+  gulp.watch(
+    env.io.input.html + '**/*.html',
+    { interval : 250 },
+    gulp.series(html, reload)
+  );
+};
 
-/**
- *
- * タスクリスト
- *
- */
-
-// Defalut + Sync task.
-gulp.task('default', gulp.parallel('watch', 'sync'));
+exports.default = gulp.parallel(watch, sync);

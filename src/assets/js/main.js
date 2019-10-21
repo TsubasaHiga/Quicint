@@ -7,7 +7,7 @@ import { throttle, debounce } from 'throttle-debounce';
 import 'nodelist-foreach-polyfill';
 import { el, define } from './define';
 import { getDeviceType, closetPolyfill } from './functions';
-import { page2 } from './page2';
+import { page2 } from './page/page2';
 
 /* ---------------------------------------------------------------- */
 
@@ -19,8 +19,7 @@ closetPolyfill();
  * @description ハンバーガーメニューの処理を行います
  */
 const hmbInit = () => {
-
-  let isActive  = false;
+  let isActive = false;
 
   const show = () => {
     isActive = true;
@@ -40,12 +39,16 @@ const hmbInit = () => {
     isActive ? hide() : show();
   });
 
-  window.addEventListener('resize',debounce(300, () => {
-    if (isActive) {
-      hide();
-    }
-  }),false);
-}
+  window.addEventListener(
+    'resize',
+    debounce(300, () => {
+      if (isActive) {
+        hide();
+      }
+    }),
+    false
+  );
+};
 
 window.addEventListener('load', () => {
   objectFitImages();
