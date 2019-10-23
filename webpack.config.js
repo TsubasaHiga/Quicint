@@ -6,6 +6,8 @@
  *
  */
 const webpack = require('webpack');
+const TerserPlugin = require('terser-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 
 const config = {
   watch : false,
@@ -30,7 +32,10 @@ const config = {
                 [
                   '@babel/preset-env',
                   {
-                    modules : false
+                    modules : false,
+                    targets : {
+                      node : 'current'
+                    }
                   }
                 ]
               ]
@@ -49,7 +54,25 @@ const config = {
         ]
       }
     ]
-  }
+  },
+  optimization : {
+    minimizer : [
+      new TerserPlugin({
+        terserOptions : {
+          compress : { drop_console : true },
+          output   : {
+            comments : 'all'
+          }
+        }
+      })
+    ]
+  },
+  plugins : [
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV)
+    }),
+    new HardSourceWebpackPlugin()
+  ]
 };
 
 module.exports = config;
