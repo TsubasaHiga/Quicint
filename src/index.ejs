@@ -1,10 +1,13 @@
-@@include('inc/head.html',{
-  "title": "Quicint（クイント）",
-  "description": "サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです"
-})
+<%
+var meta = {
+  title:'Quicint（クイント）',
+  desc:'サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです'
+};
+%>
+<%- include('./inc/_head', meta) %>
 
 <body id="gotop" class="page-top">
-  @@include('inc/header.html')
+  <%- include('./inc/_header') %>
 
   <!-- main -->
   <main class="l-page">
@@ -107,6 +110,6 @@
     </div>
   </main>
 
-  @@include('inc/footer.html')
+  <%- include('./inc/_footer') %>
 </body>
 </html>

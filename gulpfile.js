@@ -16,10 +16,11 @@ const cssDeclarationSorter = require('css-declaration-sorter');
 const crypto = require('crypto');
 const dateutils = require('date-utils');
 const del = require('del');
+const ejs = require('gulp-ejs');
 const fileinclude = require('gulp-file-include');
 const fs = require('fs');
 const gulp = require('gulp');
-const htmlmin = require('gulp-htmlmin');
+// const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
 const mozjpeg = require('imagemin-mozjpeg');
 const mqpacker = require('css-mqpacker');
@@ -30,6 +31,7 @@ const plumber = require('gulp-plumber');
 const pngquant = require('imagemin-pngquant');
 const postcss = require('gulp-postcss');
 const replace = require('gulp-replace');
+const rename = require('gulp-rename');
 const sourcemaps = require('gulp-sourcemaps');
 const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
@@ -91,24 +93,12 @@ const scss = () => {
     .pipe(browserSync.stream());
 };
 
-// HTML minify.
-const html = () => {
-  let revision = crypto.randomBytes(8).toString('hex');
+// EJS
+const ejsCompile = () => {
   return gulp
-    .src([
-      env.io.input.html + '**/*.html',
-      '!' + env.io.input.html + 'inc/*.html'
-    ])
-    .pipe(
-      fileinclude({
-        prefix   : '@@',
-        basepath : '@file'
-      })
-    )
-    .pipe(htmlmin(env.htmlmin))
-    .pipe(
-      replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
-    )
+    .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.scss'])
+    .pipe(ejs({}, {}, { ext : '.html' }))
+    .pipe(rename({ extname : '.html' }))
     .pipe(gulp.dest(env.io.output.html));
 };
 
@@ -167,11 +157,11 @@ const watch = () => {
   gulp.watch(env.io.input.img + '**/*', img);
   gulp.watch(env.io.input.js + '**/*.js', js);
   gulp.watch(
-    env.io.input.html + '**/*.html',
+    env.io.input.ejs + '**/*.ejs',
     { interval : 250 },
-    gulp.series(html, reload)
+    gulp.series(ejsCompile, reload)
   );
 };
 
 exports.default = gulp.parallel(watch, sync);
-exports.img_reset = gulp.series(clean, img)
+exports.img_reset = gulp.series(clean, img);
