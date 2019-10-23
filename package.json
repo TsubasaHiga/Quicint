@@ -4,7 +4,10 @@
   "description": "Quick initialize HTML5 Boilerplate",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "NODE_ENV=development gulp",
+    "img": "NODE_ENV=development gulp img_reset",
+    "production": "NODE_ENV=production gulp comp"
   },
   "repository": {
     "type": "git",
@@ -55,6 +58,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
     "gulp-zip": "^5.0.1",
+    "hard-source-webpack-plugin": "^0.13.1",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-pngquant": "^8.0.0",
     "lazysizes": "^5.1.2",
@@ -64,11 +68,13 @@
     "picturefill": "^3.0.3",
     "prettier-stylelint": "^0.4.2",
     "ress": "^2.0.1",
+    "stickyfilljs": "^2.1.0",
     "style-loader": "^1.0.0",
-    "stylelint-config-standard": "^19.0.0",
+    "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^3.1.1",
     "sweet-scroll": "^4.0.0",
     "swiper": "^5.1.0",
+    "terser-webpack-plugin": "^2.2.1",
     "throttle-debounce": "^2.1.0",
     "webpack": "^4.41.0",
     "webpack-cli": "^3.3.9",
