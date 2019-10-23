@@ -3,47 +3,85 @@
 .l-nav {
     align-items: center;
     display: flex;
+
+    @include media(lg) {
+        height: 100%;
+    }
+
     &__list {
         align-items: center;
         display: flex;
+        height: 100%;
         list-style: none;
     }
+
     &__item {
+        height: 100%;
         position: relative;
+
         @include media(lg) {
             &:before {
                 $borderH: 15px;
+
                 @include icon-ini;
+
                 background-color: $color--border;
                 height: $borderH;
-                width: 1px;
-                position: absolute;
                 left: 0;
+                position: absolute;
                 top: calc(50% - #{$borderH/2});
+                width: 1px;
             }
+
             @include notfirst {
                 margin-left: 15px;
                 padding-left: 15px;
             }
         }
     }
+
     &__link {
         @include hoverOpacity(.8);
+
+        align-items: center;
         color: $color--text;
-        display: inline-block;
+        display: inline-flex;
+        justify-content: center;
+        position: relative;
+
+        @include media(lg) {
+            height: 100%;
+
+            &:after {
+                @include icon-ini;
+
+                background-color: #000;
+                bottom: 0;
+                height: 2px;
+                left: 0;
+                opacity: 0;
+                position: absolute;
+                transition: $comMS $comES;
+                visibility: hidden;
+                width: 100%;
+            }
+
+            &.is-active:after {
+                opacity: 1;
+                visibility: visible;
+            }
+        }
     }
 
     @include media(sm) {
         background-color: #f5f6f7;
-        position: absolute;
         left: 0;
-        top: $spHeaderH;
-        width: 100%;
-
-        transition: $comMS $comES;
-
         opacity: 0;
+        position: absolute;
+        top: $spHeaderH;
+        transition: $comMS $comES;
         visibility: hidden;
+        width: 100%;
         will-change: opacity;
 
         .is-nav-active & {
@@ -54,17 +92,20 @@
         &__list {
             align-items: flex-start;
             flex-direction: column;
-            width: 100%;
             padding: $spSpace;
+            width: 100%;
         }
+
         &__item {
             width: 100%;
+
             @include notfirst {
-                margin-top: 10px;
                 border-top: 1px solid $color--border;
+                margin-top: 10px;
                 padding-top: 10px;
             }
         }
+
         &__link {
             width: 100%;
         }

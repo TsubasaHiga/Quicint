@@ -10,11 +10,13 @@ export const el = {
   header  : document.getElementsByTagName('header')[0],
   main    : document.getElementsByTagName('main')[0],
   footer  : document.getElementsByTagName('footer')[0],
+  nav     : document.querySelectorAll('.l-nav__link'),
   hmb     : document.querySelector('#hmb'),
-  hmb__bg : document.querySelector('#hmb__bg')
+  hmb__bg : document.querySelector('#hmb__bg'),
+  sticky  : document.querySelectorAll('.sticky')
 };
 
 export const define = {
   breakpoint : 767,
-  bodyclass  : el.body.classList.value,
+  bodyclass  : el.body.classList.value
 };

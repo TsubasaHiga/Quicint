@@ -41,10 +41,10 @@ const env = JSON.parse(fs.readFileSync('./env.json', 'utf8'));
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
 
-// BrowserSync - tsk is sync.
+// BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync);
 
-// BrowserSync - task is reload.
+// BrowserSync - reload.
 const reload = cb => {
   browserSync.reload();
   cb();
@@ -163,9 +163,9 @@ const js = () => {
 
 // Watch files.
 const watch = () => {
-  gulp.watch(env.io.input.css + '**/*.scss', gulp.task(scss));
-  gulp.watch(env.io.input.img + '**/*', gulp.series(clean, img));
-  gulp.watch(env.io.input.js + '**/*.js', gulp.task(js));
+  gulp.watch(env.io.input.css + '**/*.scss', scss);
+  gulp.watch(env.io.input.img + '**/*', img);
+  gulp.watch(env.io.input.js + '**/*.js', js);
   gulp.watch(
     env.io.input.html + '**/*.html',
     { interval : 250 },
@@ -174,3 +174,4 @@ const watch = () => {
 };
 
 exports.default = gulp.parallel(watch, sync);
+exports.img_reset = gulp.series(clean, img)
