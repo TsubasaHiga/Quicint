@@ -1,13 +1,17 @@
 'use strict';
 
 import objectFitImages from 'object-fit-images';
+import Stickyfill from 'stickyfilljs';
 import lazysizes from 'lazysizes';
 import SweetScroll from 'sweet-scroll';
 import { throttle, debounce } from 'throttle-debounce';
 import 'nodelist-foreach-polyfill';
 import { el, define } from './define';
 import { getDeviceType, closetPolyfill } from './functions';
-import { page2 } from './page/page2';
+
+import { pageNameTop } from './page/page-top';
+import { pageName2 } from './page/page-2';
+import { pageName3 } from './page/page-3';
 
 /* ---------------------------------------------------------------- */
 
@@ -50,11 +54,44 @@ const hmbInit = () => {
   );
 };
 
+/**
+ * navCurrent
+ * @description ナビのカレント処理を行います
+ */
+const navCurrent = target => {
+  for (let i = 0; i < target.length; i++) {
+    if (define.bodyclass === target[i].dataset.linkname) {
+      target[i].classList.add('is-active');
+      break;
+    }
+  }
+};
+
 window.addEventListener('load', () => {
+  // Polyfill object-fit
   objectFitImages();
+
+  // stickyfilljs
+  Stickyfill.add(el.sticky);
+
+  // ハンバーガーメニュー
   hmbInit();
 
+  // ナビカレント
+  navCurrent(el.nav);
+
+  // page-top
+  if (define.bodyclass.match(/page-top/g)) {
+    pageNameTop();
+  }
+
+  // page2
   if (define.bodyclass.match(/page-2/g)) {
-    page2();
+    pageName2();
+  }
+
+  // page3
+  if (define.bodyclass.match(/page-3/g)) {
+    pageName3();
   }
 });

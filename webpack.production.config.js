@@ -7,16 +7,16 @@
  */
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const LicensePack = require('license-info-webpack-plugin').default;
 
 const config = {
   watch : false,
-  mode  : 'development',
+  mode  : 'production',
   entry : {
     bundle : './src/assets/js/main.js'
   },
   output : {
-    path     : __dirname,
+    path     : __dirname + '/dist/assets/js/',
     filename : '[name].js'
   },
   devtool : 'cheap-module-source-map',
@@ -61,7 +61,7 @@ const config = {
         terserOptions : {
           compress : { drop_console : true },
           output   : {
-            comments : 'all'
+            comments : false
           }
         }
       })
@@ -71,7 +71,9 @@ const config = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV)
     }),
-    new HardSourceWebpackPlugin()
+    new LicensePack({
+      glob : '{LICENSE,license,License}*'
+    })
   ]
 };
 

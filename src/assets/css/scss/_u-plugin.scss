@@ -1,9 +1,48 @@
 @charset "utf-8";
 
 // stickyfill.js
-// ----------------------------------------------------------
-.sticky:before,
-.sticky:after {
-    content: '';
-    display: table;
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+
+    &:before,
+    &:after {
+        content: '';
+        display: table;
+    }
+}
+
+// swiper.js
+.swiper {
+    &-button-next,
+    &-button-prev {
+        letter-spacing: 0;
+    }
+
+    &-container {
+        height: 500px;
+        opacity: 0;
+        transition: $comMS $comES;
+        visibility: hidden;
+        width: 100%;
+
+        @include media(sm) {
+            height: 300px;
+        }
+
+        &.swiper-container-initialized {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &-slide {
+        img {
+            @include object-fit(cover);
+
+            height: 100%;
+            width: 100%;
+        }
+    }
 }

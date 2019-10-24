@@ -1,6 +1,8 @@
 @charset "utf-8";
 
 .l-breadcrumbs {
+    margin-bottom: 20px;
+
     &__inner {
         @include fz(12, 12, 400);
 
