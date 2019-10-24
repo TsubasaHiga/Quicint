@@ -37,11 +37,14 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const zip = require('gulp-zip');
 
+require('date-utils');
+
 // 環境設定ファイルの読み込み.
 const env = JSON.parse(fs.readFileSync('./env.json', 'utf8'));
 
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
+const webpackConfig_build = require('./webpack.production.config');
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync);
@@ -176,6 +179,22 @@ const js = () => {
     .pipe(browserSync.stream());
 };
 
+// WebpackStream build
+const jsBuild = () => {
+  return gulp
+    .src(env.io.input.js + '**/*.js')
+    .pipe(
+      plumber({
+        errorHandler : err => {
+          console.log(err.messageFormatted);
+          this.emit('end');
+        }
+      })
+    )
+    .pipe(webpackStream(webpackConfig_build, webpack))
+    .pipe(gulp.dest(env.io.output.js));
+};
+
 // Watch files.
 const watch = () => {
   gulp.watch(env.io.input.css + '**/*.scss', scss);
@@ -188,5 +207,42 @@ const watch = () => {
   );
 };
 
+// 納品ディレクトリ作成
+const genDir = (dirname) => {
+  dirname = (typeof dirname !== 'undefined') ? dirname : 'publish_data';
+  let distname = 'dist';
+  return gulp
+    .src([
+      distname + '/**/*',
+      '!' + distname + '/**/maps',
+      '!' + distname + '/**/*.map',
+      '!' + distname + '/**/*.DS_Store',
+      '!' + distname + '/**/*.LICENSE',
+      '!' + distname + '/**/*Thumbs.db'
+    ])
+    .pipe(zip(dirname + '.zip'))
+    .pipe(gulp.dest(env.publishDir))
+    .pipe(
+      notify({
+        title   : '納品データを作成しました 👍',
+        message : '出力先：' + env.publishDir + dirname + '.zip'
+      })
+    );
+};
+
+// 納品タスク
+const filePackage = (cb) => {
+  // サイト設定ファイルの読み込み.
+  const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
+
+  // 納品ファイル作成
+  let dt = new Date();
+  let date = dt.toFormat('YYMMDD-HHMI');
+  let dirname = 'publish__' + date + '__' + siteSetting.publishFileName;
+  genDir(dirname);
+  cb();
+}
+
 exports.default = gulp.parallel(watch, sync);
 exports.img_reset = gulp.series(clean, img);
+exports.publish = gulp.series(scss, ejsCompile, jsBuild, filePackage, js);
