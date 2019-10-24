@@ -22,6 +22,7 @@ const fs = require('fs');
 const gulp = require('gulp');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
+const gulpif = require('gulp-if');
 const mozjpeg = require('imagemin-mozjpeg');
 const mqpacker = require('css-mqpacker');
 const newer = require('gulp-newer');
@@ -121,7 +122,11 @@ const ejsCompile = () => {
         )
       )
       .pipe(rename({ extname : '.html' }))
-      .pipe(htmlmin(env.htmlmin))
+      .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(env.htmlmin)))
+      .pipe(gulpif(process.env.NODE_ENV === 'production', htmlmin({
+        'collapseWhitespace' : true,
+        'removeComments'     : true
+      })))
       .pipe(
         replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
       )
