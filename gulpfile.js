@@ -230,7 +230,7 @@ const genDir = dirname => {
     .pipe(
       notify({
         title   : '納品データを作成しました 👍',
-        message : '出力先：' + env.publishDir + dirname + '.zip'
+        message : '出力先：' + env.publishDir + '/' + dirname + '.zip'
       })
     );
 };

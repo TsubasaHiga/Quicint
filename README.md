@@ -124,15 +124,16 @@ Quicintの仕様、及び対応環境は以下の通りです。
     "reloadOnRestart": true
   },
   "htmlmin": {
-    "collapseWhitespace": true,
-    "removeComments": true
+    "collapseWhitespace": false,
+    "removeComments": false
   },
+  "publishDir" : "/Users/higa/Desktop",
   "io": {
     "input": {
       "css": "src/assets/css/",
       "img": "src/assets/images/",
       "js": "src/assets/js/",
-      "html": "src/"
+      "ejs": "src/"
     },
     "output": {
       "css": "dist/assets/css/",
