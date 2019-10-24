@@ -22,6 +22,7 @@ const fs = require('fs');
 const gulp = require('gulp');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
+const gulpif = require('gulp-if');
 const mozjpeg = require('imagemin-mozjpeg');
 const mqpacker = require('css-mqpacker');
 const newer = require('gulp-newer');
@@ -37,11 +38,14 @@ const webpack = require('webpack');
 const webpackStream = require('webpack-stream');
 const zip = require('gulp-zip');
 
+require('date-utils');
+
 // 環境設定ファイルの読み込み.
 const env = JSON.parse(fs.readFileSync('./env.json', 'utf8'));
 
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
+const webpackConfig_build = require('./webpack.production.config');
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync);
@@ -101,30 +105,34 @@ const ejsCompile = () => {
   // 乱数生成
   let revision = crypto.randomBytes(8).toString('hex');
 
-  return (
-    gulp
-      .src([
-        env.io.input.ejs + '**/*.ejs',
-        '!' + env.io.input.ejs + '**/_*.ejs'
-      ])
-      .pipe(
-        ejs(
-          {
-            node_env    : process.env.NODE_ENV,
-            siteSetting : siteSetting
-          },
-          {},
-          { ext : '.html' }
-        )
+  return gulp
+    .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
+    .pipe(
+      ejs(
+        {
+          node_env    : process.env.NODE_ENV,
+          siteSetting : siteSetting
+        },
+        {},
+        { ext : '.html' }
       )
-      .pipe(rename({ extname : '.html' }))
-      // .pipe(htmlmin(env.htmlmin))
-      .pipe(
-        replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
+    )
+    .pipe(rename({ extname : '.html' }))
+    .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(env.htmlmin)))
+    .pipe(
+      gulpif(
+        process.env.NODE_ENV === 'production',
+        htmlmin({
+          collapseWhitespace : true,
+          removeComments     : true
+        })
       )
+    )
+    .pipe(
+      replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
+    )
 
-      .pipe(gulp.dest(env.io.output.html))
-  );
+    .pipe(gulp.dest(env.io.output.html));
 };
 
 // Img compressed.
@@ -176,6 +184,22 @@ const js = () => {
     .pipe(browserSync.stream());
 };
 
+// WebpackStream build
+const jsBuild = () => {
+  return gulp
+    .src(env.io.input.js + '**/*.js')
+    .pipe(
+      plumber({
+        errorHandler : err => {
+          console.log(err.messageFormatted);
+          this.emit('end');
+        }
+      })
+    )
+    .pipe(webpackStream(webpackConfig_build, webpack))
+    .pipe(gulp.dest(env.io.output.js));
+};
+
 // Watch files.
 const watch = () => {
   gulp.watch(env.io.input.css + '**/*.scss', scss);
@@ -188,5 +212,42 @@ const watch = () => {
   );
 };
 
+// 納品ディレクトリ作成
+const genDir = dirname => {
+  dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data';
+  let distname = 'dist';
+  return gulp
+    .src([
+      distname + '/**/*',
+      '!' + distname + '/**/maps',
+      '!' + distname + '/**/*.map',
+      '!' + distname + '/**/*.DS_Store',
+      '!' + distname + '/**/*.LICENSE',
+      '!' + distname + '/**/*Thumbs.db'
+    ])
+    .pipe(zip(dirname + '.zip'))
+    .pipe(gulp.dest(env.publishDir))
+    .pipe(
+      notify({
+        title   : '納品データを作成しました 👍',
+        message : '出力先：' + env.publishDir + dirname + '.zip'
+      })
+    );
+};
+
+// 納品タスク
+const filePackage = cb => {
+  // サイト設定ファイルの読み込み.
+  const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
+
+  // 納品ファイル作成
+  let dt = new Date();
+  let date = dt.toFormat('YYMMDD-HHMI');
+  let dirname = 'publish__' + date + '__' + siteSetting.publishFileName;
+  genDir(dirname);
+  cb();
+};
+
 exports.default = gulp.parallel(watch, sync);
 exports.img_reset = gulp.series(clean, img);
+exports.publish = gulp.series(scss, ejsCompile, jsBuild, filePackage, js);
