@@ -121,7 +121,7 @@ const ejsCompile = () => {
         )
       )
       .pipe(rename({ extname : '.html' }))
-      // .pipe(htmlmin(env.htmlmin))
+      .pipe(htmlmin(env.htmlmin))
       .pipe(
         replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
       )
