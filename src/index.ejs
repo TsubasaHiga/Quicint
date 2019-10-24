@@ -1,17 +1,17 @@
 <%
-var meta = {
-  title:'Quicint（クイント）',
+var pageData = {
+  pageName: 'page-top',
+  title:'トップページ',
   desc:'サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです'
 };
 %>
-<%- include('./inc/_head', meta) %>
 
-<body id="gotop" class="page-top">
-  <%- include('./inc/_header') %>
-
+<%- include('./inc/_head', {meta: pageData}) %>
   <!-- main -->
   <main class="l-page">
     <div class="l-container">
+
+      <!-- contents -->
       <p>Quicintでの要素（プレーン）の見え方のプレビューです。</p>
       <h2>H2 見出し2</h2>
       <h3>H3 見出し3</h3>
@@ -107,9 +107,7 @@ var meta = {
       <sub>subタグ｜サンプルテキストです。</sub>
       <sup>supタグ｜サンプルテキストです。</sup>
       <var>varタグ｜サンプルテキストです。</var>
+
     </div>
   </main>
-
-  <%- include('./inc/_footer') %>
-</body>
-</html>
+<%- include('./inc/_footer') %>

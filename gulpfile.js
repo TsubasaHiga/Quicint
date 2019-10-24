@@ -20,7 +20,7 @@ const ejs = require('gulp-ejs');
 const fileinclude = require('gulp-file-include');
 const fs = require('fs');
 const gulp = require('gulp');
-// const htmlmin = require('gulp-htmlmin');
+const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
 const mozjpeg = require('imagemin-mozjpeg');
 const mqpacker = require('css-mqpacker');
@@ -95,11 +95,36 @@ const scss = () => {
 
 // EJS
 const ejsCompile = () => {
-  return gulp
-    .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.scss'])
-    .pipe(ejs({}, {}, { ext : '.html' }))
-    .pipe(rename({ extname : '.html' }))
-    .pipe(gulp.dest(env.io.output.html));
+  // サイト設定ファイルの読み込み.
+  let siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
+
+  // 乱数生成
+  let revision = crypto.randomBytes(8).toString('hex');
+
+  return (
+    gulp
+      .src([
+        env.io.input.ejs + '**/*.ejs',
+        '!' + env.io.input.ejs + '**/_*.ejs'
+      ])
+      .pipe(
+        ejs(
+          {
+            node_env    : process.env.NODE_ENV,
+            siteSetting : siteSetting
+          },
+          {},
+          { ext : '.html' }
+        )
+      )
+      .pipe(rename({ extname : '.html' }))
+      // .pipe(htmlmin(env.htmlmin))
+      .pipe(
+        replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
+      )
+
+      .pipe(gulp.dest(env.io.output.html))
+  );
 };
 
 // Img compressed.

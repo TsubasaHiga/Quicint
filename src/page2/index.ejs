@@ -1,30 +1,30 @@
-@@include('../inc/head.html',{
-  "title": "Page2｜Quicint（クイント）",
-  "description": "サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです"
-})
+<%
+var pageData = {
+  pageName: 'page-2',
+  title:'ページ2',
+  desc:'サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです',
+  hierarchy: [
+    {
+      title: "ページ2",
+      link: "/page2/"
+    }
+  ]
+};
+%>
 
-<body id="gotop" class="page-2">
-  @@include('../inc/header.html')
-
+<%- include('../inc/_head', {meta: pageData}) %>
   <!-- main -->
   <main class="l-page">
     <div class="l-container">
+      <%- include('../inc/_breadcrumbs', {meta: pageData}) %>
 
-      @@include('../inc/breadcrumbs.html', {
-        "hierarchy": [
-          {
-            "title": "Page2",
-            "link": "page2"
-          }
-        ]
-      })
-
-      <div class="swiper-container" style="height:300px; width: 600px;">
+      <!-- contents -->
+      <div class="swiper-container">
         <div class="swiper-wrapper">
-          <div class="swiper-slide"><img src="../assets/images/page2/img-01.jpg"></div>
-          <div class="swiper-slide"><img src="../assets/images/page2/img-02.jpg"></div>
-          <div class="swiper-slide"><img src="../assets/images/page2/img-03.jpg"></div>
-          <div class="swiper-slide"><img src="../assets/images/page2/img-04.jpg"></div>
+          <div class="swiper-slide"><img src="../assets/images/page2/img-01.jpg" alt="slide image1"></div>
+          <div class="swiper-slide"><img src="../assets/images/page2/img-02.jpg" alt="slide image2"></div>
+          <div class="swiper-slide"><img src="../assets/images/page2/img-03.jpg" alt="slide image3"></div>
+          <div class="swiper-slide"><img src="../assets/images/page2/img-04.jpg" alt="slide image4"></div>
         </div>
         <div class="swiper-pagination"></div>
         <div class="swiper-button-prev"></div>
@@ -33,7 +33,4 @@
 
     </div>
   </main>
-
-  @@include('../inc/footer.html')
-</body>
-</html>
+<%- include('../inc/_footer') %>

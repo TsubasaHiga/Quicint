@@ -1,28 +1,26 @@
-@@include('../inc/head.html',{
-  "title": "Page3｜Quicint（クイント）",
-  "description": "サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです"
-})
+<%
+var pageData = {
+  pageName: 'page-3',
+  title:'ページ3',
+  desc:'サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです',
+  hierarchy: [
+    {
+      title: "ページ3",
+      link: "/page3/"
+    }
+  ]
+};
+%>
 
-<body id="gotop" class="page-3">
-  @@include('../inc/header.html')
-
+<%- include('../inc/_head', {meta: pageData}) %>
   <!-- main -->
   <main class="l-page">
     <div class="l-container">
+      <%- include('../inc/_breadcrumbs', {meta: pageData}) %>
 
-      @@include('../inc/breadcrumbs.html', {
-        "hierarchy": [
-          {
-            "title": "Page3",
-            "link": "page3"
-          }
-        ]
-      })
-
+      <!-- contents -->
       <p>ページ3です。</p>
+
     </div>
   </main>
-
-  @@include('../inc/footer.html')
-</body>
-</html>
+<%- include('../inc/_footer') %>
