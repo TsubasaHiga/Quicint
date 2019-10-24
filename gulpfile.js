@@ -105,34 +105,34 @@ const ejsCompile = () => {
   // 乱数生成
   let revision = crypto.randomBytes(8).toString('hex');
 
-  return (
-    gulp
-      .src([
-        env.io.input.ejs + '**/*.ejs',
-        '!' + env.io.input.ejs + '**/_*.ejs'
-      ])
-      .pipe(
-        ejs(
-          {
-            node_env    : process.env.NODE_ENV,
-            siteSetting : siteSetting
-          },
-          {},
-          { ext : '.html' }
-        )
+  return gulp
+    .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
+    .pipe(
+      ejs(
+        {
+          node_env    : process.env.NODE_ENV,
+          siteSetting : siteSetting
+        },
+        {},
+        { ext : '.html' }
       )
-      .pipe(rename({ extname : '.html' }))
-      .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(env.htmlmin)))
-      .pipe(gulpif(process.env.NODE_ENV === 'production', htmlmin({
-        'collapseWhitespace' : true,
-        'removeComments'     : true
-      })))
-      .pipe(
-        replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
+    )
+    .pipe(rename({ extname : '.html' }))
+    .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(env.htmlmin)))
+    .pipe(
+      gulpif(
+        process.env.NODE_ENV === 'production',
+        htmlmin({
+          collapseWhitespace : true,
+          removeComments     : true
+        })
       )
+    )
+    .pipe(
+      replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
+    )
 
-      .pipe(gulp.dest(env.io.output.html))
-  );
+    .pipe(gulp.dest(env.io.output.html));
 };
 
 // Img compressed.
@@ -213,8 +213,8 @@ const watch = () => {
 };
 
 // 納品ディレクトリ作成
-const genDir = (dirname) => {
-  dirname = (typeof dirname !== 'undefined') ? dirname : 'publish_data';
+const genDir = dirname => {
+  dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data';
   let distname = 'dist';
   return gulp
     .src([
@@ -236,7 +236,7 @@ const genDir = (dirname) => {
 };
 
 // 納品タスク
-const filePackage = (cb) => {
+const filePackage = cb => {
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
 
@@ -246,7 +246,7 @@ const filePackage = (cb) => {
   let dirname = 'publish__' + date + '__' + siteSetting.publishFileName;
   genDir(dirname);
   cb();
-}
+};
 
 exports.default = gulp.parallel(watch, sync);
 exports.img_reset = gulp.series(clean, img);
