@@ -27,14 +27,11 @@ $ npm install # or yarn install
 # Start Server
 $ npm run dev
 
-# img reset
-$ npm run img
-
 # Publish
 $ npm run production
 
-# delete cache hard-source-webpack-plugin
-$ rm -rf node_modules/.cache/hard-source/
+# img reset
+$ npm run img
 ```
 
 ## 仕様
@@ -45,6 +42,7 @@ Quicintの仕様、及び対応環境は以下の通りです。
 | --- | --- |
 | パッケージマネージャー | npm |
 | コンパイル環境、タスクランナー | Gulp v4 |
+| テンプレートエンジン | EJS |
 | CSS トランスパイラ | SCSS + Gulp |
 | CSS設計 | FLOCSS |
 | JavaScript モジュールバンドラ | Webpack |
@@ -54,7 +52,7 @@ Quicintの仕様、及び対応環境は以下の通りです。
 | Lint環境 | ESlint / Stylelint |
 | .gitignore | [gitignore.io](https://www.gitignore.io/api/node,macos,windows) |
 
-### 使用プラグイン（フロント）
+### フロント側で使用プラグイン
 
 以下プラグインはデフォルトでインストールされています。
 
@@ -144,6 +142,22 @@ Quicintの仕様、及び対応環境は以下の通りです。
     }
   }
 }
+```
+
+## サイト設定ファイル
+
+サイト固有の値を記述するファイルを`setting.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
+
+``` json
+{
+  "siteName": "HTML5案件用のボイラープレートQuicit",
+  "siteDomain": "https://example.com",
+  "metaAuthor": "サンプルテキスト",
+  "metaAppid": "0123456789",
+  "metaTwitterSite": "サンプルテキスト",
+  "metaTwitterCreator": "サンプルテキスト"
+}
+
 ```
 
 ## 対応ブラウザ
