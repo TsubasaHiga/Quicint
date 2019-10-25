@@ -32,6 +32,9 @@ $ npm run production
 
 # img reset
 $ npm run img
+
+# json file check
+$ npm run json-check
 ```
 
 ## 仕様

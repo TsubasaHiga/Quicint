@@ -13,6 +13,7 @@ const connectSSI = require('connect-ssi');
 const css = require('gulp-sass');
 const cssnano = require('cssnano');
 const cssDeclarationSorter = require('css-declaration-sorter');
+const colors = require('colors');
 const crypto = require('crypto');
 const dateutils = require('date-utils');
 const del = require('del');
@@ -20,9 +21,10 @@ const ejs = require('gulp-ejs');
 const fileinclude = require('gulp-file-include');
 const fs = require('fs');
 const gulp = require('gulp');
+const gulpif = require('gulp-if');
 const htmlmin = require('gulp-htmlmin');
 const imagemin = require('gulp-imagemin');
-const gulpif = require('gulp-if');
+const jsonlint = require('gulp-jsonlint');
 const mozjpeg = require('imagemin-mozjpeg');
 const mqpacker = require('css-mqpacker');
 const newer = require('gulp-newer');
@@ -46,6 +48,25 @@ const env = JSON.parse(fs.readFileSync('./env.json', 'utf8'));
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
 const webpackConfig_build = require('./webpack.production.config');
+
+// json file check task.
+const jsoncFileCeck = cb => {
+  gulp
+    .src([
+      env.io.env,
+      env.io.siteSetting
+    ])
+    .pipe(jsonlint())
+    .pipe(jsonlint.reporter());
+
+  console.log('---------------------------'.green);
+  console.log('json file check OK! Ready..'.bold.green);
+  console.log('- OK: env.json'.cyan);
+  console.log('- OK: setting.json'.cyan);
+  console.log('---------------------------'.green);
+
+  cb();
+};
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync);
@@ -212,6 +233,11 @@ const watch = () => {
   );
 };
 
+// Start.
+const devStart = () => {
+  gulp.parallel(watch, sync);
+}
+
 // 納品ディレクトリ作成
 const genDir = dirname => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data';
@@ -248,6 +274,7 @@ const filePackage = cb => {
   cb();
 };
 
-exports.default = gulp.parallel(watch, sync);
+exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync));
+exports.json_check = jsoncFileCeck;
 exports.img_reset = gulp.series(clean, img);
 exports.publish = gulp.series(scss, ejsCompile, jsBuild, filePackage, js);
