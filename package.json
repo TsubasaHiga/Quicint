@@ -1,5 +1,5 @@
 {
-  "name": "Quicint",
+  "name": "quicint",
   "version": "0.1.0",
   "description": "Quick initialize HTML5 EJS Boilerplate",
   "main": "src/assets/js/main.js",
