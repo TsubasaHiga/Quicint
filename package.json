@@ -1,7 +1,7 @@
 {
   "name": "Quicint",
   "version": "0.1.0",
-  "description": "Quick initialize HTML5 Boilerplate",
+  "description": "Quick initialize HTML5 EJS Boilerplate",
   "main": "src/assets/js/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -14,7 +14,11 @@
     "type": "git",
     "url": "git+https://github.com/TsubasaHiga/Quicint.git"
   },
-  "keywords": [],
+  "keywords": [
+    "HTML5 EJS Boilerplate",
+    "HTML TEMPLATE",
+    "EJS"
+  ],
   "author": "HigaTsubasa",
   "license": "MIT",
   "bugs": {

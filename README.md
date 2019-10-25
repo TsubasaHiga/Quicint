@@ -3,9 +3,9 @@
 </div>
 
 # Quicint
-*Quick initialize HTML5 Boilerplate（すぐ出来るHTML5ボイラープレート）*
+*Quick initialize HTML5 EJS Boilerplate（すぐ出来るHTML5 EJSボイラープレート）*
 
-Quicint（クイント）はHTML5案件用のボイラープレートです。[Percolator（PHP案件用ボイラープレート）](https://github.com/TsubasaHiga/Percolator)をForkし、HTML5版用として個人開発を行っております。
+Quicint（クイント）はHTML5案件用のボイラープレートです。[Percolator（PHP案件用ボイラープレート）](https://github.com/TsubasaHiga/Percolator)をForkし、HTML5版用として個人開発を行っております。テンプレートエンジンはEJSを使用しております。
 
 ## Install
 
