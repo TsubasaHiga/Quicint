@@ -42,8 +42,18 @@ const zip = require('gulp-zip');
 
 require('date-utils');
 
+// ファイル存在判定.
+const isExistFile = (file) => {
+  try {
+    fs.statSync(file);
+    return true
+  } catch(err) {
+    if(err.code === 'ENOENT') return false
+  }
+};
+
 // 環境設定ファイルの読み込み.
-const env = JSON.parse(fs.readFileSync('./env.json', 'utf8'));
+const env = (isExistFile('./env.json')) ? JSON.parse(fs.readFileSync('./env.json', 'utf8')) : '';
 
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
@@ -51,19 +61,29 @@ const webpackConfig_build = require('./webpack.production.config');
 
 // json file check task.
 const jsoncFileCeck = cb => {
-  gulp
-    .src([
-      env.io.env,
-      env.io.siteSetting
-    ])
-    .pipe(jsonlint())
-    .pipe(jsonlint.reporter());
 
-  console.log('---------------------------'.green);
-  console.log('json file check OK! Ready..'.bold.green);
-  console.log('- OK: env.json'.cyan);
-  console.log('- OK: setting.json'.cyan);
-  console.log('---------------------------'.green);
+  // サイト設定ファイルの読み込み.
+  const siteSetting = (isExistFile('./setting.json')) ? JSON.parse(fs.readFileSync('./setting.json', 'utf8')) : '';
+
+  if( env && siteSetting ) {
+    gulp
+      .src([
+        env.io.env,
+        env.io.siteSetting
+      ])
+      .pipe(jsonlint())
+      .pipe(jsonlint.reporter());
+
+    console.log('---------------------------'.green);
+    console.log('json file check OK! Ready..'.bold.green);
+    console.log('- OK: env.json'.cyan);
+    console.log('- OK: setting.json'.cyan);
+    console.log('---------------------------'.green);
+  } else {
+    console.log('------------------------------'.red);
+    console.log('The json file cannot be read..'.bold.red);
+    console.log('------------------------------'.red);
+  }
 
   cb();
 };
