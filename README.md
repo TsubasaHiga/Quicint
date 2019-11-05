@@ -43,6 +43,18 @@ npm run img
 
 # json file check task
 npm run json-check
+
+# lint stylesheet
+npm run lint:stylesheet
+
+# lint fix stylesheet
+npm run format:stylesheet
+
+# lint js
+npm run lint:js
+
+# lint fix js
+npm run format:js
 ```
 
 ## 仕様
