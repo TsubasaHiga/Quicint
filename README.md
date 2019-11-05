@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/33184716/67154026-5feeaa80-f32f-11e9-811b-f3ac13c972ed.png" width="600" height="180" alt="Quicint">
+  <img src="https://user-images.githubusercontent.com/33184716/68190466-cdb5fa00-fff0-11e9-8d82-1b39dbea8ceb.png" width="600" height="180" alt="Quicint">
 </div>
 
 # Quicint
