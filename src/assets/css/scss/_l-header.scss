@@ -17,6 +17,7 @@
         width: $mainW;
 
         .logo {
+
             &__txt {
                 @include fz(26, 26, 700);
 
@@ -26,6 +27,7 @@
     }
 
     @include media(sm) {
+
         &__inner {
             height: $spHeaderH;
             min-width: 100%;

@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 // stickyfill.js
+
 .sticky {
     position: -webkit-sticky;
     position: sticky;
@@ -8,13 +9,15 @@
 
     &:before,
     &:after {
-        content: '';
+        content: "";
         display: table;
     }
 }
 
 // swiper.js
+
 .swiper {
+
     &-button-next,
     &-button-prev {
         letter-spacing: 0;
@@ -38,6 +41,7 @@
     }
 
     &-slide {
+
         img {
             @include object-fit(cover);
 

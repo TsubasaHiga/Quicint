@@ -3,26 +3,31 @@
 .c-input,
 .c-select,
 .c-textarea {
+
     .is-error & {
     }
 }
 
 // input
 // ----------------------------------------------------------
+
 .c-input {
 }
 // Chromeでオートフィルした時にinputが黄色くなるのを回避
+
 input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 100px $color--white inset !important;
 }
 
 // textarea
 // ----------------------------------------------------------
+
 .c-textarea {
 }
 
 // placeholder
 // ----------------------------------------------------------
+
 :placeholder-shown {
     color: $color--gray;
 }

@@ -4,8 +4,8 @@
     align-items: center;
     border-top: 1px solid $color--border;
     display: flex;
-    justify-content: center;
     height: 50px;
+    justify-content: center;
     margin-top: 50px;
 
     &__inner {
@@ -17,11 +17,13 @@
         position: relative;
         width: $mainW;
     }
+
     &__copyright {
         text-align: center;
     }
 
     @include media(sm) {
+
         &__inner {
             min-width: 100%;
             width: 100%;

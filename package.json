@@ -4,18 +4,22 @@
   "description": "Quick initialize HTML5 EJS Boilerplate",
   "main": "src/assets/js/main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint:css": "stylelint --fix src/assets/css/scss/**/*.scss",
-    "format:css": "prettier-stylelint --quiet --write src/assets/css/scss/**/*.scss",
     "dev": "NODE_ENV=development gulp",
+    "production": "NODE_ENV=production gulp publish",
     "json-check": "NODE_ENV=development gulp json_check",
     "img": "NODE_ENV=development gulp img_reset",
-    "production": "NODE_ENV=production gulp publish",
+    "lint:stylesheet": "stylelint --fix src/assets/css/scss/**/*.scss",
+    "format:stylesheet": "prettier-stylelint --quiet --write src/assets/css/scss/**/*.scss",
     "precommit":"lint-staged"
   },
-  "lint-staged":{
-    "*.scss":[
-      "npm format:css && npm lint:css",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.scss": [
+      "yarn format:stylesheet && yarn lint:stylesheet",
       "git add"
     ]
   },
@@ -93,8 +97,10 @@
     "stickyfilljs": "^2.1.0",
     "style-loader": "^1.0.0",
     "stylelint": "^11.1.1",
+    "stylelint-config-prettier": "^6.0.0",
     "stylelint-config-standard": "^18.3.0",
     "stylelint-order": "^3.1.1",
+    "stylelint-scss": "^3.12.1",
     "sweet-scroll": "^4.0.0",
     "swiper": "^5.1.0",
     "terser-webpack-plugin": "^2.2.1",

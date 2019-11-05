@@ -34,6 +34,7 @@ body {
 }
 
 // text
+
 strong,
 em {
     font-weight: 700;
@@ -52,6 +53,7 @@ a {
 }
 
 // image
+
 img,
 svg,
 video {
@@ -60,11 +62,12 @@ video {
 }
 
 // table
+
 table {
+    border: 1px solid $color--border;
+    border-collapse: collapse;
     max-width: 100%;
     width: 100%;
-    border-collapse: collapse;
-    border: 1px solid $color--border;
 
     th,
     td {
@@ -74,6 +77,7 @@ table {
 }
 
 // form
+
 input,
 button,
 select,
@@ -98,11 +102,11 @@ textarea {
     appearance: none;
 }
 
-input[type='checkbox'] {
+input[type = "checkbox"] {
     appearance: checkbox;
 }
 
-input[type='radio'] {
+input[type = "radio"] {
     appearance: radio;
 }
 
@@ -110,8 +114,8 @@ textarea {
     resize: none;
 }
 
-input[type='button'],
-input[type='submit'],
+input[type = "button"],
+input[type = "submit"],
 button {
     background: none;
     border: 0;
@@ -124,6 +128,7 @@ button {
 
 // テキスト選択時のスタイル
 // 同じ内容でも分けて指定しないと効かない
+
 ::selection {
     background: #06c;
     color: $color--white;
@@ -135,6 +140,7 @@ button {
 }
 
 // Macだと入力中の文字に::selectionが効いてしまい、見えなくなるため
+
 input::selection,
 textarea::selection {
     background: #ddd;
@@ -148,10 +154,12 @@ textarea::-moz-selection {
 }
 
 // IE11のクリアボタンを非表示
+
 input::-ms-clear {
     display: none;
 }
 
-ul,ol {
-    list-style-position: inside
+ul,
+ol {
+    list-style-position: inside;
 }

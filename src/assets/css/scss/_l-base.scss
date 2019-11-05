@@ -26,8 +26,8 @@ body {
 
 .l-page {
     background-color: $color--white;
-    position: relative;
     margin-top: 50px;
+    position: relative;
 
     @include media(sm) {
         margin-top: 20px;
