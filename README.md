@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://user-images.githubusercontent.com/33184716/68190466-cdb5fa00-fff0-11e9-8d82-1b39dbea8ceb.png" width="600" height="180" alt="Quicint">
+  <img src="https://user-images.githubusercontent.com/33184716/68190819-7fedc180-fff1-11e9-821c-d88d559e53fd.png" width="600" height="180" alt="Quicint">
 </div>
 
 # Quicint
@@ -12,6 +12,8 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 環境の用意は以下より可能です。
 
 ### npm package
+
+npm: [quicint](https://www.npmjs.com/package/quicint)
 
 ``` bash
 npm i quicint
