@@ -33,17 +33,6 @@ body {
     }
 }
 
-// text
-
-strong,
-em {
-    font-weight: 700;
-}
-
-pre {
-    white-space: pre-wrap;
-}
-
 a {
     @include hoverOpacity(.6);
 
@@ -74,83 +63,6 @@ table {
         border: 1px solid $color--border;
         word-break: break-all;
     }
-}
-
-// form
-
-input,
-button,
-select,
-textarea {
-    color: inherit;
-    font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
-    margin: 0;
-    outline: none;
-    padding: 0;
-    vertical-align: middle;
-
-    &::-moz-focus-inner {
-        border: 0;
-    }
-}
-
-input,
-button,
-textarea {
-    appearance: none;
-}
-
-input[type = "checkbox"] {
-    appearance: checkbox;
-}
-
-input[type = "radio"] {
-    appearance: radio;
-}
-
-textarea {
-    resize: none;
-}
-
-input[type = "button"],
-input[type = "submit"],
-button {
-    background: none;
-    border: 0;
-    cursor: pointer;
-}
-
-button {
-    overflow: visible; //IE11
-}
-
-// テキスト選択時のスタイル
-// 同じ内容でも分けて指定しないと効かない
-
-::selection {
-    background: #06c;
-    color: $color--white;
-}
-
-::-moz-selection {
-    background: #06c;
-    color: $color--white;
-}
-
-// Macだと入力中の文字に::selectionが効いてしまい、見えなくなるため
-
-input::selection,
-textarea::selection {
-    background: #ddd;
-    color: $color--text;
-}
-
-input::-moz-selection,
-textarea::-moz-selection {
-    background: #ddd;
-    color: $color--text;
 }
 
 // IE11のクリアボタンを非表示
