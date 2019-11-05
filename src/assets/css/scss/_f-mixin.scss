@@ -348,14 +348,14 @@
 
 // 16__safarionly
 // ----------------------------------------------------------
-@mixin safarionly($className) {
-
-    _::-webkit-full-page-media,
-    _:future,
-    :root $$classname {
-        @content;
-    }
-}
+// @mixin safarionly($className) {
+//
+//     _::-webkit-full-page-media,
+//     _:future,
+//     :root $$classname {
+//         @content;
+//     }
+// }
 
 // 17__first, notfirst
 // ----------------------------------------------------------
