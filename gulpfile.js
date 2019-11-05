@@ -46,9 +46,9 @@ require('date-utils');
 const isExistFile = (file) => {
   try {
     fs.statSync(file);
-    return true
-  } catch(err) {
-    if(err.code === 'ENOENT') return false
+    return true;
+  } catch (err) {
+    if (err.code === 'ENOENT') return false;
   }
 };
 
@@ -57,15 +57,14 @@ const env = (isExistFile('./env.json')) ? JSON.parse(fs.readFileSync('./env.json
 
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config');
-const webpackConfig_build = require('./webpack.production.config');
+const webpackConfigBuild = require('./webpack.production.config');
 
 // json file check task.
 const jsoncFileCeck = cb => {
-
   // サイト設定ファイルの読み込み.
   const siteSetting = (isExistFile('./setting.json')) ? JSON.parse(fs.readFileSync('./setting.json', 'utf8')) : '';
 
-  if( env && siteSetting ) {
+  if (env && siteSetting) {
     gulp
       .src([
         env.io.env,
@@ -108,7 +107,7 @@ const scss = () => {
     .src(env.io.input.css + '**/*.scss')
     .pipe(
       plumber({
-        errorHandler : err => {
+        errorHandler: err => {
           console.log(err.messageFormatted);
           this.emit('end');
         }
@@ -117,9 +116,9 @@ const scss = () => {
     .pipe(sourcemaps.init())
     .pipe(
       css({
-        precision : 5,
-        importer  : packageImporter({
-          extensions : ['.scss', '.css']
+        precision: 5,
+        importer: packageImporter({
+          extensions: ['.scss', '.css']
         })
       })
     )
@@ -127,9 +126,9 @@ const scss = () => {
     .pipe(
       postcss([
         mqpacker(),
-        cssnano({ autoprefixer : false }),
+        cssnano({ autoprefixer: false }),
         cssDeclarationSorter({
-          order : 'smacss'
+          order: 'smacss'
         })
       ])
     )
@@ -141,31 +140,31 @@ const scss = () => {
 // EJS
 const ejsCompile = () => {
   // サイト設定ファイルの読み込み.
-  let siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
+  const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
 
   // 乱数生成
-  let revision = crypto.randomBytes(8).toString('hex');
+  const revision = crypto.randomBytes(8).toString('hex');
 
   return gulp
     .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
     .pipe(
       ejs(
         {
-          node_env    : process.env.NODE_ENV,
-          siteSetting : siteSetting
+          node_env: process.env.NODE_ENV,
+          siteSetting: siteSetting
         },
         {},
-        { ext : '.html' }
+        { ext: '.html' }
       )
     )
-    .pipe(rename({ extname : '.html' }))
+    .pipe(rename({ extname: '.html' }))
     .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(env.htmlmin)))
     .pipe(
       gulpif(
         process.env.NODE_ENV === 'production',
         htmlmin({
-          collapseWhitespace : true,
-          removeComments     : true
+          collapseWhitespace: true,
+          removeComments: true
         })
       )
     )
@@ -182,23 +181,23 @@ const img = () => {
     .src(env.io.input.img + '**/*.{png,jpg,gif,svg}')
     .pipe(
       plumber({
-        errorHandler : err => {
+        errorHandler: err => {
           console.log(err.messageFormatted);
           this.emit('end');
         }
       })
     )
-    .pipe(newer(env.io.output.img)) //srcとdistを比較して異なるものだけ処理
+    .pipe(newer(env.io.output.img)) // srcとdistを比較して異なるものだけ処理
     .pipe(
       imagemin([
         pngquant({
-          quality : [0.5, 0.9],
-          speed   : 1,
-          floyd   : 0
+          quality: [0.5, 0.9],
+          speed: 1,
+          floyd: 0
         }),
         mozjpeg({
-          quality     : 85,
-          progressive : true
+          quality: 85,
+          progressive: true
         }),
         imagemin.svgo(),
         imagemin.optipng(),
@@ -214,7 +213,7 @@ const js = () => {
     .src(env.io.input.js + '**/*.js')
     .pipe(
       plumber({
-        errorHandler : err => {
+        errorHandler: err => {
           console.log(err.messageFormatted);
           this.emit('end');
         }
@@ -231,13 +230,13 @@ const jsBuild = () => {
     .src(env.io.input.js + '**/*.js')
     .pipe(
       plumber({
-        errorHandler : err => {
+        errorHandler: err => {
           console.log(err.messageFormatted);
           this.emit('end');
         }
       })
     )
-    .pipe(webpackStream(webpackConfig_build, webpack))
+    .pipe(webpackStream(webpackConfigBuild, webpack))
     .pipe(gulp.dest(env.io.output.js));
 };
 
@@ -248,7 +247,7 @@ const watch = () => {
   gulp.watch(env.io.input.js + '**/*.js', js);
   gulp.watch(
     env.io.input.ejs + '**/*.ejs',
-    { interval : 250 },
+    { interval: 250 },
     gulp.series(ejsCompile, reload)
   );
 };
@@ -256,12 +255,12 @@ const watch = () => {
 // Start.
 const devStart = () => {
   gulp.parallel(watch, sync);
-}
+};
 
 // 納品ディレクトリ作成
 const genDir = dirname => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data';
-  let distname = 'dist';
+  const distname = 'dist';
   return gulp
     .src([
       distname + '/**/*',
@@ -275,8 +274,8 @@ const genDir = dirname => {
     .pipe(gulp.dest(env.publishDir))
     .pipe(
       notify({
-        title   : '納品データを作成しました 👍',
-        message : '出力先：' + env.publishDir + '/' + dirname + '.zip'
+        title: '納品データを作成しました 👍',
+        message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
       })
     );
 };
@@ -287,9 +286,9 @@ const filePackage = cb => {
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'));
 
   // 納品ファイル作成
-  let dt = new Date();
-  let date = dt.toFormat('YYMMDD-HHMI');
-  let dirname = 'publish__' + date + '__' + siteSetting.publishFileName;
+  const dt = new Date();
+  const date = dt.toFormat('YYMMDD-HHMI');
+  const dirname = 'publish__' + date + '__' + siteSetting.publishFileName;
   genDir(dirname);
   cb();
 };
