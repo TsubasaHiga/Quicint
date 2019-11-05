@@ -58,7 +58,7 @@ const hmbInit = () => {
  * navCurrent
  * @description ナビのカレント処理を行います
  */
-const navCurrent = target => {
+const navCurrent = (target) => {
   for (let i = 0; i < target.length; i++) {
     if (define.bodyclass === target[i].dataset.linkname) {
       target[i].classList.add('is-active');
