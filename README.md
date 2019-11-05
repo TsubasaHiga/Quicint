@@ -11,30 +11,50 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 
 環境の用意は以下より可能です。
 
+### npm package
+
+``` bash
+npm i quicint
+```
+
+### git clone
+
 ``` bash
 # Clone
-$ git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
+git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
 
 # Init
-$ npm install # or yarn install
+npm install # or yarn install
 ```
 
 ## Command
 
-開発に関するコマンドは以下より確認下さい。
+コマンドは以下よりご確認下さい。
 
 ``` bash
-# Start Server
-$ npm run dev
+# dev mode
+npm run dev
 
-# Publish
-$ npm run production
+# publish mode
+npm run production
 
-# img reset
-$ npm run img
+# img reset task
+npm run img
 
-# json file check
-$ npm run json-check
+# json file check task
+npm run json-check
+
+# lint stylesheet
+npm run lint:stylesheet
+
+# lint fix stylesheet
+npm run format:stylesheet
+
+# lint js
+npm run lint:js
+
+# lint fix js
+npm run format:js
 ```
 
 ## 仕様
@@ -71,7 +91,8 @@ Quicintの仕様、及び対応環境は以下の通りです。
 
 ### ディレクトリ構造
 
-`tree -a -I "node_modules|.git" -N -L 2 --dirsfirst`で表示したディレクトリ構造
+第2階層までのディレクトリ構造です。`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。
+納品タスクでコピーされるディレクトリも`dist`になります。
 
 ```
 .
@@ -81,30 +102,35 @@ Quicintの仕様、及び対応環境は以下の通りです。
 |   |   |-- fonts/
 |   |   |-- images/
 |   |   `-- js/
-|   |-- hoge1
-|   |-- hoge2
-|   |-- hoge3
-|   |-- hoge4
-|   |-- inc
+|   |-- page2
+|   |-- page3
+|   |-- sitemap
 |   `-- index.html
 |-- src
-|   |-- css
-|   |-- images
-|   `-- js
+|   |-- assets
+|   |   |-- css/
+|   |   |-- images/
+|   |   `-- js/
+|   |-- inc
+|   |-- page2
+|   |-- page3
+|   |-- sitemap
+|   `-- index.ejs
 |-- .babelrc
 |-- .eslintrc
 |-- .gitignore
-|-- .htaccess
 |-- .stylelintrc
-|-- LICENSE
-|-- README.md
+|-- env.json
 |-- gulpfile.js
+|-- LICENSE
 |-- package.json
+|-- README.md
+|-- setting.json
 |-- webpack.dev.config.js
 `-- webpack.prod.config.js
 ```
 
-## 環境依存設定ファイル
+## 環境依存設定
 
 環境に依存する設定は以下を`env.json`としてルートディレクトリに設置することで有効になります。
 
@@ -143,12 +169,14 @@ Quicintの仕様、及び対応環境は以下の通りです。
       "img": "dist/assets/images/",
       "js": "dist/assets/js/",
       "html": "dist/"
-    }
+    },
+    "env": "./env.json",
+    "siteSetting": "./setting.json"
   }
 }
 ```
 
-## サイト設定ファイル
+## サイト設定
 
 サイト固有の値を記述するファイルを`setting.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
 
@@ -159,24 +187,25 @@ Quicintの仕様、及び対応環境は以下の通りです。
   "metaAuthor": "サンプルテキスト",
   "metaAppid": "0123456789",
   "metaTwitterSite": "サンプルテキスト",
-  "metaTwitterCreator": "サンプルテキスト"
+  "metaTwitterCreator": "サンプルテキスト",
+  "publishFileName" : "Quicint",
+  "themeColor": "#000"
 }
-
 ```
 
 ## 対応ブラウザ
 
 全て最新バージョンに対応。
 
-- Google Chrome
-- Firefox
-- Safari（macOS）
-- IE11
-- Edge
-- Android Chrome
-- iOS Safari
-
-※ Firefox ESR対応などのイレギュラー時は`package.json`の**browserslist**項目を適切な値に変更することでSCSS対応が可能です。
+| ブラウザ名 | 対応バージョン |
+| --- | --- |
+| Google Chrome | 最新 |
+| Firefox | 最新 |
+| Safari(macOS) | 最新 |
+| IE11 | Windows10 |
+| Edge | 最新 |
+| Safari(iOS) | 最新iOS |
+| Google Chrome(Android) | 最新 |
 
 ## Licence
 

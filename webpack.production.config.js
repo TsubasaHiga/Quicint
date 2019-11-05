@@ -32,10 +32,7 @@ const config = {
                 [
                   '@babel/preset-env',
                   {
-                    modules : false,
-                    targets : {
-                      node : 'current'
-                    }
+                    modules : false
                   }
                 ]
               ]

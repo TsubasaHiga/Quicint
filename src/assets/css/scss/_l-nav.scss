@@ -20,6 +20,7 @@
         position: relative;
 
         @include media(lg) {
+
             &:before {
                 $borderH: 15px;
 

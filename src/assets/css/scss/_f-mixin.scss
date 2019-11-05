@@ -102,50 +102,50 @@
 // 06__media query
 // ----------------------------------------------------------
 @mixin media($size, $px: false) {
-    @if ($size == 'sm') {
+    @if ($size == "sm") {
         @media screen and (max-width: $breakPoint - 1) {
             @content;
         }
     }
 
- @else if ($size == 'lg') {
+    @else if ($size == "lg") {
         @media screen and (min-width: $breakPoint), print {
             @content;
         }
     }
 
- @else if ($size == 'HR') {
+    @else if ($size == "HR") {
         @media screen and (min-width: $breakPointHR) {
             @content;
         }
     }
 
- @else if ($size == 'retina') {
+    @else if ($size == "retina") {
         @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
             @content;
         }
     }
 
     @if ($px) {
-        @if ($size == 'max-width') {
+        @if ($size == "max-width") {
             @media screen and (max-width: $px) {
                 @content;
             }
         }
 
- @else if ($size == 'min-width') {
+        @else if ($size == "min-width") {
             @media screen and (min-width: $px) {
                 @content;
             }
         }
 
- @else if ($size == 'max-height') {
+        @else if ($size == "max-height") {
             @media screen and (max-height: $px) {
                 @content;
             }
         }
 
- @else if ($size == 'min-height') {
+        @else if ($size == "min-height") {
             @media screen and (min-height: $px) {
                 @content;
             }
@@ -165,19 +165,19 @@
     vertical-align: middle;
     width: #{$width}px;
     //角度
-    @if ($deg == 'left') {
+    @if ($deg == "left") {
         transform: rotate(135deg);
     }
 
- @else if ($deg == 'top') {
+    @else if ($deg == "top") {
         transform: rotate(225deg);
     }
 
- @else if ($deg == 'right') {
+    @else if ($deg == "right") {
         transform: rotate(-45deg);
     }
 
- @else if ($deg == 'bottom') {
+    @else if ($deg == "bottom") {
         transform: rotate(45deg);
     }
 
@@ -196,7 +196,8 @@
 ) {
     position: relative;
 
-    @if ($position == 'top') {
+    @if ($position == "top") {
+
         &:after {
             border-color: transparent transparent $color transparent;
             border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
@@ -205,7 +206,8 @@
         }
     }
 
- @else if ($position == 'right') {
+    @else if ($position == "right") {
+
         &:after {
             border-color: transparent transparent transparent $color;
             border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
@@ -214,7 +216,8 @@
         }
     }
 
- @else if ($position == 'bottom') {
+    @else if ($position == "bottom") {
+
         &:after {
             border-color: $color transparent transparent transparent;
             border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
@@ -223,7 +226,8 @@
         }
     }
 
- @else if ($position == 'left') {
+    @else if ($position == "left") {
+
         &:after {
             border-color: transparent $color transparent transparent;
             border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
@@ -234,7 +238,7 @@
 
     &:after {
         border-style: solid;
-        content: '';
+        content: "";
         display: inline-block;
         height: 0;
         position: absolute;
@@ -245,16 +249,18 @@
 // 09__疑似要素初期化
 // ----------------------------------------------------------
 @mixin icon-ini {
-    content: '';
+    content: "";
     display: inline-block;
 }
 
 // 10__ホバーで透過
 // ----------------------------------------------------------
-@mixin hoverOpacity($opacity, $ms:false, $ease:false) {
+@mixin hoverOpacity($opacity, $ms: false, $ease: false) {
     @if $ease {
         transition: opacity $ms $ease;
-    } @else {
+    }
+
+    @else {
         transition: opacity $comMS $comES;
     }
 
@@ -272,17 +278,18 @@
     @if $position {
         -o-object-position: $position;
         object-position: $position;
-        font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+        font-family: "object-fit: #{$fit}; object-position: #{$position}";
     }
 
- @else {
-        font-family: 'object-fit: #{$fit}';
+    @else {
+        font-family: "object-fit: #{$fit}";
     }
 }
 
 // 12__formスタイルリセット
 // ----------------------------------------------------------
 @mixin formReset() {
+
     input,
     button,
     textarea,
@@ -342,9 +349,10 @@
 // 16__safarionly
 // ----------------------------------------------------------
 @mixin safarionly($className) {
+
     _::-webkit-full-page-media,
     _:future,
-    :root $className {
+    :root $$classname {
         @content;
     }
 }
@@ -352,12 +360,14 @@
 // 17__first, notfirst
 // ----------------------------------------------------------
 @mixin first {
+
     &:first-of-type {
         @content;
     }
 }
 
 @mixin notfirst {
+
     &:not(:first-of-type) {
         @content;
     }
@@ -366,12 +376,14 @@
 // 18__last, notlast
 // ----------------------------------------------------------
 @mixin last {
+
     &:last-of-type {
         @content;
     }
 }
 
 @mixin notlast {
+
     &:not(:last-of-type) {
         @content;
     }
@@ -393,6 +405,7 @@
 // 21__placeholder
 // ----------------------------------------------------------
 @mixin placeholder {
+
     &:placeholder-shown {
         @content;
     }
@@ -417,6 +430,7 @@
 // 22__picture100
 // ----------------------------------------------------------
 @mixin picture100 {
+
     picture,
     source,
     img {
@@ -431,27 +445,27 @@
 // ----------------------------------------------------------
 @mixin tryangle($width, $height, $color, $rotate) {
     border-style: solid;
-    content: '';
+    content: "";
     height: 0;
     position: absolute;
     width: 0;
 
-    @if ($rotate == 'top') {
+    @if ($rotate == "top") {
         border-color: transparent transparent $color transparent;
         border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
     }
 
- @else if ($rotate == 'right') {
+    @else if ($rotate == "right") {
         border-color: transparent transparent transparent $color;
         border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
     }
 
- @else if ($rotate == 'bottom') {
+    @else if ($rotate == "bottom") {
         border-color: $color transparent transparent transparent;
         border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
     }
 
- @else if ($rotate == 'left') {
+    @else if ($rotate == "left") {
         border-color: transparent $color transparent transparent;
         border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
     }
@@ -462,7 +476,7 @@
 @mixin circle($width, $height, $color) {
     background-color: #{$color};
     border-radius: 50%;
-    content: '';
+    content: "";
     height: #{$height}px;
     position: absolute;
     width: #{$width}px;
@@ -472,7 +486,7 @@
 // ----------------------------------------------------------
 @mixin square($width, $height, $color) {
     background-color: #{$color};
-    content: '';
+    content: "";
     height: #{$height}px;
     position: absolute;
     width: #{$width}px;
