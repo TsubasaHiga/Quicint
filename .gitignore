@@ -153,7 +153,7 @@ $RECYCLE.BIN/
 
 # CUSTOM
 *.map
-*map/
+#*map/
 env.json
 
 dist/assets/css/
