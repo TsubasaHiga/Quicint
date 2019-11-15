@@ -23,6 +23,7 @@ const fs = require('fs');
 const gulp = require('gulp');
 const gulpif = require('gulp-if');
 const htmlmin = require('gulp-htmlmin');
+const htmlbeautify = require('gulp-html-beautify');
 const imagemin = require('gulp-imagemin');
 const jsonlint = require('gulp-jsonlint');
 const mozjpeg = require('imagemin-mozjpeg');
@@ -185,7 +186,7 @@ const ejsCompile = () => {
     .pipe(
       replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
     )
-
+    .pipe(htmlbeautify(env.htmlbeautify))
     .pipe(gulp.dest(env.io.output.html));
 };
 
