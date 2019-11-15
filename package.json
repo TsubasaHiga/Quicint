@@ -78,6 +78,7 @@
     "gulp-changed": "^4.0.2",
     "gulp-ejs": "^4.1.2",
     "gulp-file-include": "^2.1.0",
+    "gulp-html-beautify": "^1.0.1",
     "gulp-htmlmin": "^5.0.1",
     "gulp-if": "^3.0.0",
     "gulp-imagemin": "^6.1.1",
