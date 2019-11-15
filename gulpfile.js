@@ -177,10 +177,7 @@ const ejsCompile = () => {
     .pipe(
       gulpif(
         process.env.NODE_ENV === 'production',
-        htmlmin({
-          collapseWhitespace: true,
-          removeComments: true
-        })
+        htmlmin(env.htmlminProduction)
       )
     )
     .pipe(
