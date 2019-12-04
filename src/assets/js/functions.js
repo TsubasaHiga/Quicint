@@ -1,6 +1,6 @@
-'use strict';
-import { el, define } from './define';
-import 'nodelist-foreach-polyfill';
+'use strict'
+import { el, define } from './define'
+import 'nodelist-foreach-polyfill'
 
 /* ---------------------------------------------------------------- */
 
@@ -10,10 +10,10 @@ import 'nodelist-foreach-polyfill';
  * @description breakpointとウインドウサイズを比較してlgかsmか返します
  */
 export const getDeviceType = () => {
-  let windowWidth = window.innerWidth;
-  let deviceType = windowWidth > define.breakpoint ? 'lg' : 'sm';
-  return deviceType;
-};
+  const windowWidth = window.innerWidth
+  const deviceType = windowWidth > define.breakpoint ? 'lg' : 'sm'
+  return deviceType
+}
 
 /**
  * closet polyfill.
@@ -24,18 +24,18 @@ export const closetPolyfill = () => {
   if (!Element.prototype.matches) {
     Element.prototype.matches =
       Element.prototype.msMatchesSelector ||
-      Element.prototype.webkitMatchesSelector;
+      Element.prototype.webkitMatchesSelector
   }
 
   if (!Element.prototype.closest) {
-    Element.prototype.closest = function(s) {
-      var el = this;
+    Element.prototype.closest = function (s) {
+      var el = this
 
       do {
-        if (el.matches(s)) return el;
-        el = el.parentElement || el.parentNode;
-      } while (el !== null && el.nodeType === 1);
-      return null;
-    };
+        if (el.matches(s)) return el
+        el = el.parentElement || el.parentNode
+      } while (el !== null && el.nodeType === 1)
+      return null
+    }
   }
-};
+}

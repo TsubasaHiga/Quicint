@@ -4,7 +4,7 @@
         "es6": true
     },
     "extends": [
-        "semistandard"
+        "standard"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -15,6 +15,6 @@
         "sourceType": "module"
     },
     "rules": {
-      "no-unused-vars": 0
+        "no-unused-vars": 0
     }
 }

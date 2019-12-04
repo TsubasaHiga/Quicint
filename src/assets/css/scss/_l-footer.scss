@@ -1,32 +1,32 @@
 @charset "utf-8";
 
 .l-footer {
+  align-items: center;
+  border-top: 1px solid $color--border;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  margin-top: 50px;
+
+  &__inner {
     align-items: center;
-    border-top: 1px solid $color--border;
     display: flex;
-    height: 50px;
     justify-content: center;
-    margin-top: 50px;
+    margin: 0 auto;
+    min-width: $mainW;
+    position: relative;
+    width: $mainW;
+  }
+
+  &__copyright {
+    text-align: center;
+  }
+
+  @include media(sm) {
 
     &__inner {
-        align-items: center;
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-        min-width: $mainW;
-        position: relative;
-        width: $mainW;
+      min-width: 100%;
+      width: 100%;
     }
-
-    &__copyright {
-        text-align: center;
-    }
-
-    @include media(sm) {
-
-        &__inner {
-            min-width: 100%;
-            width: 100%;
-        }
-    }
+  }
 }
