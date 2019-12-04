@@ -34,8 +34,8 @@ npm install # or yarn install
 コマンドは以下よりご確認下さい。
 
 ``` bash
-# dev mode
-npm run dev
+# serve mode
+npm run serve
 
 # publish mode
 npm run production

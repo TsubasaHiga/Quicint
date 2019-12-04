@@ -5,34 +5,34 @@
  * @description production に設定すると最適化、 development に設定するとソースマップ有効.
  *
  */
-const webpack = require('webpack');
-const TerserPlugin = require('terser-webpack-plugin');
-const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
+const webpack = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 const config = {
-  watch : false,
-  mode  : 'development',
-  entry : {
-    bundle : './src/assets/js/main.js'
+  watch: false,
+  mode: 'development',
+  entry: {
+    bundle: './src/assets/js/main.js'
   },
-  output : {
-    path     : __dirname,
-    filename : '[name].js'
+  output: {
+    path: __dirname,
+    filename: '[name].js'
   },
-  devtool : 'cheap-module-source-map',
-  module  : {
-    rules : [
+  devtool: 'cheap-module-source-map',
+  module: {
+    rules: [
       {
-        test : /\.js$/,
-        use  : [
+        test: /\.js$/,
+        use: [
           {
-            loader  : 'babel-loader',
-            options : {
-              presets : [
+            loader: 'babel-loader',
+            options: {
+              presets: [
                 [
                   '@babel/preset-env',
                   {
-                    modules : false
+                    modules: false
                   }
                 ]
               ]
@@ -41,35 +41,35 @@ const config = {
         ]
       },
       {
-        test : /\.css/,
-        use  : [
+        test: /\.css/,
+        use: [
           'style-loader',
           {
-            loader  : 'css-loader',
-            options : { url : false }
+            loader: 'css-loader',
+            options: { url: false }
           }
         ]
       }
     ]
   },
-  optimization : {
-    minimizer : [
+  optimization: {
+    minimizer: [
       new TerserPlugin({
-        terserOptions : {
-          compress : { drop_console : true },
-          output   : {
-            comments : 'all'
+        terserOptions: {
+          compress: { drop_console: true },
+          output: {
+            comments: 'all'
           }
         }
       })
     ]
   },
-  plugins : [
+  plugins: [
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV' : JSON.stringify(process.env.NODE_ENV)
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }),
     new HardSourceWebpackPlugin()
   ]
-};
+}
 
-module.exports = config;
+module.exports = config

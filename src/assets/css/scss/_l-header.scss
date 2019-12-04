@@ -1,118 +1,118 @@
 @charset "utf-8";
 
 .l-header {
-    border-bottom: 1px solid $color--border;
+  border-bottom: 1px solid $color--border;
+  position: relative;
+  z-index: 9;
+
+  &__inner {
+    align-items: center;
+    background-color: #fff;
+    display: flex;
+    height: $headerH;
+    justify-content: space-between;
+    margin: 0 auto;
+    min-width: $mainW;
     position: relative;
-    z-index: 9;
+    width: $mainW;
+
+    .logo {
+
+      &__txt {
+        @include fz(26, 26, 700);
+
+        color: $color--text;
+      }
+    }
+  }
+
+  @include media(sm) {
 
     &__inner {
-        align-items: center;
-        background-color: #fff;
-        display: flex;
-        height: $headerH;
-        justify-content: space-between;
-        margin: 0 auto;
-        min-width: $mainW;
-        position: relative;
-        width: $mainW;
-
-        .logo {
-
-            &__txt {
-                @include fz(26, 26, 700);
-
-                color: $color--text;
-            }
-        }
+      height: $spHeaderH;
+      min-width: 100%;
+      padding: 0 $spSpace;
+      width: 100%;
     }
-
-    @include media(sm) {
-
-        &__inner {
-            height: $spHeaderH;
-            min-width: 100%;
-            padding: 0 $spSpace;
-            width: 100%;
-        }
-    }
+  }
 }
 
 .l-hmb {
-    align-items: center;
-    background-color: #000;
-    display: flex;
-    height: $spHeaderH;
-    justify-content: center;
-    position: absolute;
-    right: 0;
+  align-items: center;
+  background-color: #000;
+  display: flex;
+  height: $spHeaderH;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: $spHeaderH;
+
+  span {
+    $color: #fff;
+    $height: 1px;
+    $width: calc(100% - 38px);
+    $line-space: 10px;
+
+    background-color: $color;
+    height: $height;
+    position: relative;
+    transition: $comMS $comES;
+    width: $width;
+
+    &:before,
+    &:after {
+      @include icon-ini;
+
+      background-color: $color;
+      height: $height;
+      position: absolute;
+      transition: $comMS $comES;
+      width: 100%;
+      will-change: transform;
+    }
+
+    &:before {
+      left: 0;
+      top: #{-$line-space};
+    }
+
+    &:after {
+      bottom: #{-$line-space};
+      left: 0;
+    }
+
+    .is-nav-active & {
+      background: none;
+
+      &:before {
+        top: calc(50%);
+        transform: rotate(135deg);
+      }
+
+      &:after {
+        top: calc(50%);
+        transform: rotate(-135deg);
+      }
+    }
+  }
+
+  &-bg {
+    background-color: rgba(#000, .8);
+    height: 100%;
+    left: 0;
+    opacity: 0;
+    position: fixed;
     top: 0;
-    width: $spHeaderH;
+    transition: $comMS $comES;
+    visibility: hidden;
+    width: 100%;
+    will-change: opacity;
+    z-index: -1;
 
-    span {
-        $color: #fff;
-        $height: 1px;
-        $width: calc(100% - 38px);
-        $line-space: 10px;
-
-        background-color: $color;
-        height: $height;
-        position: relative;
-        transition: $comMS $comES;
-        width: $width;
-
-        &:before,
-        &:after {
-            @include icon-ini;
-
-            background-color: $color;
-            height: $height;
-            position: absolute;
-            transition: $comMS $comES;
-            width: 100%;
-            will-change: transform;
-        }
-
-        &:before {
-            left: 0;
-            top: #{-$line-space};
-        }
-
-        &:after {
-            bottom: #{-$line-space};
-            left: 0;
-        }
-
-        .is-nav-active & {
-            background: none;
-
-            &:before {
-                top: calc(50%);
-                transform: rotate(135deg);
-            }
-
-            &:after {
-                top: calc(50%);
-                transform: rotate(-135deg);
-            }
-        }
+    .is-nav-active & {
+      opacity: 1;
+      visibility: visible;
     }
-
-    &-bg {
-        background-color: rgba(#000, .8);
-        height: 100%;
-        left: 0;
-        opacity: 0;
-        position: fixed;
-        top: 0;
-        transition: $comMS $comES;
-        visibility: hidden;
-        width: 100%;
-        will-change: opacity;
-        z-index: -1;
-
-        .is-nav-active & {
-            opacity: 1;
-            visibility: visible;
-        }
-    }
+  }
 }

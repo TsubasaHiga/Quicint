@@ -21,36 +21,37 @@ var siteDomain = (node_env === 'production' ) ? siteSetting.siteDomain : 'http:/
 
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width">
-  <meta name="format-detection" content="telephone=no">
-  <title><%= meta.title %>｜<%= siteSetting.siteName %></title>
-  <meta name="description" content="<%= meta.desc %>">
-  <meta name="author" content="<%= siteSetting.metaAuthor %>">
-  <meta property="og:locale" content="ja_JP">
-  <meta property="og:type" content="<%= ogtype %>">
-  <meta property="og:title" content="<%= meta.title %>｜<%= siteSetting.siteName %>">
-  <meta property="og:description" content="<%= meta.desc %>">
-  <meta property="og:url" content="<%= siteDomain + canonicalUrl %>">
-  <meta property="og:site_name" content="<%= siteSetting.siteName %>">
-  <meta property="og:image" content="<%= siteDomain %>/assets/images/ogpimg.png">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="fb:app_id" content="<%= siteSetting.metaAppid %>">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:site" content="<%= siteSetting.metaTwitterSite %>">
-  <meta name="twitter:creator" content="<%= siteSetting.metaTwitterCreator %>">
-  <meta name="theme-color" content="<%= siteSetting.themeColor %>">
-  <link rel="canonical" href="<%= siteDomain + canonicalUrl %>">
-  <link rel="shortcut icon" href="/assets/images/favicon.ico">
-  <link rel="preload" as="style" href="/assets/css/style.css?rev">
-  <link rel="preload" as="script" href="/assets/js/bundle.js?rev">
-  <link rel="stylesheet" href="/assets/css/style.css?rev">
 
-  <%- include('_analytics-head') %>
-</head>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <meta name="format-detection" content="telephone=no">
+    <title><%= meta.title %>｜<%= siteSetting.siteName %></title>
+    <meta name="description" content="<%= meta.desc %>">
+    <meta name="author" content="<%= siteSetting.metaAuthor %>">
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:type" content="<%= ogtype %>">
+    <meta property="og:title" content="<%= meta.title %>｜<%= siteSetting.siteName %>">
+    <meta property="og:description" content="<%= meta.desc %>">
+    <meta property="og:url" content="<%= siteDomain + canonicalUrl %>">
+    <meta property="og:site_name" content="<%= siteSetting.siteName %>">
+    <meta property="og:image" content="<%= siteDomain %>/assets/images/ogpimg.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="fb:app_id" content="<%= siteSetting.metaAppid %>">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="<%= siteSetting.metaTwitterSite %>">
+    <meta name="twitter:creator" content="<%= siteSetting.metaTwitterCreator %>">
+    <meta name="theme-color" content="<%= siteSetting.themeColor %>">
+    <link rel="canonical" href="<%= siteDomain + canonicalUrl %>">
+    <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <link rel="preload" as="style" href="/assets/css/style.css?rev">
+    <link rel="preload" as="script" href="/assets/js/bundle.js?rev">
+    <link rel="stylesheet" href="/assets/css/style.css?rev">
 
-<body id="gotop" class="<%= meta.pageName %>">
-<%- include('_header', {meta: meta}) %>
+    <%- include('_analytics-head') %>
+  </head>
+
+  <body id="gotop" class="<%= meta.pageName %>">
+    <%- include('_header', {meta: meta}) %>
