@@ -1,36 +1,36 @@
 @charset "utf-8";
 
 .l-breadcrumbs {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 
-    &__inner {
-        @include fz(12, 12, 400);
+  &__inner {
+    @include fz(12, 12, 400);
 
-        align-items: center;
-        display: flex;
+    align-items: center;
+    display: flex;
 
-        > span {
-            align-items: center;
-            display: inline-flex;
+    > span {
+      align-items: center;
+      display: inline-flex;
 
-            @include notfirst {
-                margin-left: 10px;
+      @include notfirst {
+        margin-left: 10px;
 
-                &:before {
-                    @include arrow(7, 1, $color--text, right);
+        &:before {
+          @include arrow(7, 1, $color--text, right);
 
-                    margin-right: 13px;
-                }
-            }
+          margin-right: 13px;
         }
-
-        a {
-            color: $color--text;
-            letter-spacing: .5px;
-        }
+      }
     }
 
-    @include media(sm) {
-        display: none;
+    a {
+      color: $color--text;
+      letter-spacing: .5px;
     }
+  }
+
+  @include media(sm) {
+    display: none;
+  }
 }

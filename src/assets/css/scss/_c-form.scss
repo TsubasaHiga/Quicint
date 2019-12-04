@@ -8,7 +8,7 @@
 // Chromeでオートフィルした時にinputが黄色くなるのを回避
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0 100px $color--white inset !important;
+  -webkit-box-shadow: 0 0 0 100px $color--white inset !important;
 }
 
 // textarea
@@ -21,27 +21,27 @@ input:-webkit-autofill {
 // ----------------------------------------------------------
 
 :placeholder-shown {
-    color: $color--gray;
+  color: $color--gray;
 }
 
 ::-webkit-input-placeholder {
-    color: $color--gray;
+  color: $color--gray;
 }
 
 :-moz-placeholder {
-    color: $color--gray;
-    opacity: 1;
+  color: $color--gray;
+  opacity: 1;
 }
 
 ::-moz-placeholder {
-    color: $color--gray;
-    opacity: 1;
+  color: $color--gray;
+  opacity: 1;
 }
 
 :-ms-input-placeholder {
-    color: $color--gray;
+  color: $color--gray;
 }
 
 .c-select.is-empty {
-    color: $color--gray;
+  color: $color--gray;
 }

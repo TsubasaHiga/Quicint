@@ -3,50 +3,50 @@
 // stickyfill.js
 
 .sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 
-    &:before,
-    &:after {
-        content: "";
-        display: table;
-    }
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
 }
 
 // swiper.js
 
 .swiper {
 
-    &-button-next,
-    &-button-prev {
-        letter-spacing: 0;
+  &-button-next,
+  &-button-prev {
+    letter-spacing: 0;
+  }
+
+  &-container {
+    height: 500px;
+    opacity: 0;
+    transition: $comMS $comES;
+    visibility: hidden;
+    width: 100%;
+
+    @include media(sm) {
+      height: 300px;
     }
 
-    &-container {
-        height: 500px;
-        opacity: 0;
-        transition: $comMS $comES;
-        visibility: hidden;
-        width: 100%;
-
-        @include media(sm) {
-            height: 300px;
-        }
-
-        &.swiper-container-initialized {
-            opacity: 1;
-            visibility: visible;
-        }
+    &.swiper-container-initialized {
+      opacity: 1;
+      visibility: visible;
     }
+  }
 
-    &-slide {
+  &-slide {
 
-        img {
-            @include object-fit(cover);
+    img {
+      @include object-fit(cover);
 
-            height: 100%;
-            width: 100%;
-        }
+      height: 100%;
+      width: 100%;
     }
+  }
 }

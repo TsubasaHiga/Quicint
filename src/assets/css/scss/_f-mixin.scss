@@ -33,318 +33,318 @@
 // 01__画像置換
 // ----------------------------------------------------------
 @mixin hideText() {
-    color: transparent;
-    font: 0/0 a;
-    overflow: hidden;
-    text-shadow: none;
+  color: transparent;
+  font: 0/0 a;
+  overflow: hidden;
+  text-shadow: none;
 }
 
 // 02__テキスト省略
 // ----------------------------------------------------------
 @mixin ellipsis() {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin notEllipsis() {
-    overflow: inherit;
-    text-overflow: inherit;
-    white-space: inherit;
+  overflow: inherit;
+  text-overflow: inherit;
+  white-space: inherit;
 }
 
 // 03__フォントサイズとラインハイトまとめて指定
 // ----------------------------------------------------------
 @mixin fz($size, $height: false, $weight: false) {
-    font-size: #{$size}px;
+  font-size: #{$size}px;
 
-    @if $weight {
-        font-weight: $weight;
-    }
+  @if $weight {
+    font-weight: $weight;
+  }
 
-    @if $height {
-        line-height: $height / $size;
-    }
+  @if $height {
+    line-height: $height / $size;
+  }
 }
 
 @mixin fzs($size, $height: false, $weight: false) {
-    $size: $size/2;
-    $height: $height/2;
+  $size: $size/2;
+  $height: $height/2;
 
-    font-size: #{$size}px;
+  font-size: #{$size}px;
 
-    @if $weight {
-        font-weight: $weight;
-    }
+  @if $weight {
+    font-weight: $weight;
+  }
 
-    @if $height {
-        line-height: $height / $size;
-    }
+  @if $height {
+    line-height: $height / $size;
+  }
 }
 
 // 04__letter-spacingをトラッキングの数値から計算
 // ----------------------------------------------------------
 @mixin letterSpacing($tracking) {
-    letter-spacing: #{$tracking / 1000}em;
+  letter-spacing: #{$tracking / 1000}em;
 }
 
 // 05__gradation
 // ----------------------------------------------------------
 @mixin gradation($topColor, $bottomColor, $angle: to bottom) {
-    background: mix(
-        $topColor,
-        $bottomColor,
-        50%
-    ); //開始色と終了色の中間の色を背景色に指定
+  background: mix(
+    $topColor,
+    $bottomColor,
+    50%
+  ); //開始色と終了色の中間の色を背景色に指定
 
-    background: linear-gradient($angle, $topColor, $bottomColor);
+  background: linear-gradient($angle, $topColor, $bottomColor);
 }
 
 // 06__media query
 // ----------------------------------------------------------
 @mixin media($size, $px: false) {
-    @if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
-            @content;
-        }
+  @if ($size == "sm") {
+    @media screen and (max-width: $breakPoint - 1) {
+      @content;
+    }
+  }
+
+  @else if ($size == "lg") {
+    @media screen and (min-width: $breakPoint), print {
+      @content;
+    }
+  }
+
+  @else if ($size == "HR") {
+    @media screen and (min-width: $breakPointHR) {
+      @content;
+    }
+  }
+
+  @else if ($size == "retina") {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+      @content;
+    }
+  }
+
+  @if ($px) {
+    @if ($size == "max-width") {
+      @media screen and (max-width: $px) {
+        @content;
+      }
     }
 
-    @else if ($size == "lg") {
-        @media screen and (min-width: $breakPoint), print {
-            @content;
-        }
+    @else if ($size == "min-width") {
+      @media screen and (min-width: $px) {
+        @content;
+      }
     }
 
-    @else if ($size == "HR") {
-        @media screen and (min-width: $breakPointHR) {
-            @content;
-        }
+    @else if ($size == "max-height") {
+      @media screen and (max-height: $px) {
+        @content;
+      }
     }
 
-    @else if ($size == "retina") {
-        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
-            @content;
-        }
+    @else if ($size == "min-height") {
+      @media screen and (min-height: $px) {
+        @content;
+      }
     }
-
-    @if ($px) {
-        @if ($size == "max-width") {
-            @media screen and (max-width: $px) {
-                @content;
-            }
-        }
-
-        @else if ($size == "min-width") {
-            @media screen and (min-width: $px) {
-                @content;
-            }
-        }
-
-        @else if ($size == "max-height") {
-            @media screen and (max-height: $px) {
-                @content;
-            }
-        }
-
-        @else if ($size == "min-height") {
-            @media screen and (min-height: $px) {
-                @content;
-            }
-        }
-    }
+  }
 }
 
 // 07__くの字矢印
 // ----------------------------------------------------------
 @mixin arrow($width, $bold, $color, $deg) {
-    @include icon-ini;
+  @include icon-ini;
 
-    border-color: $color;
-    border-style: solid;
-    border-width: 0 #{$bold}px #{$bold}px 0;
-    height: #{$width}px;
-    vertical-align: middle;
-    width: #{$width}px;
-    //角度
-    @if ($deg == "left") {
-        transform: rotate(135deg);
-    }
+  border-color: $color;
+  border-style: solid;
+  border-width: 0 #{$bold}px #{$bold}px 0;
+  height: #{$width}px;
+  vertical-align: middle;
+  width: #{$width}px;
+  //角度
+  @if ($deg == "left") {
+    transform: rotate(135deg);
+  }
 
-    @else if ($deg == "top") {
-        transform: rotate(225deg);
-    }
+  @else if ($deg == "top") {
+    transform: rotate(225deg);
+  }
 
-    @else if ($deg == "right") {
-        transform: rotate(-45deg);
-    }
+  @else if ($deg == "right") {
+    transform: rotate(-45deg);
+  }
 
-    @else if ($deg == "bottom") {
-        transform: rotate(45deg);
-    }
+  @else if ($deg == "bottom") {
+    transform: rotate(45deg);
+  }
 
-    @include ie11only() {
-        margin-bottom: 1px !important;
-    }
+  @include ie11only() {
+    margin-bottom: 1px !important;
+  }
 }
 
 // 08__三角
 // ----------------------------------------------------------
 @mixin balloonArrow(
-    $width: 10px,
-    $height: 5px,
-    $color: #000,
-    $position: bottom
+  $width: 10px,
+  $height: 5px,
+  $color: #000,
+  $position: bottom
 ) {
-    position: relative;
+  position: relative;
 
-    @if ($position == "top") {
-
-        &:after {
-            border-color: transparent transparent $color transparent;
-            border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
-            left: calc(50% - #{$width/2}px);
-            top: -#{$height}px;
-        }
-    }
-
-    @else if ($position == "right") {
-
-        &:after {
-            border-color: transparent transparent transparent $color;
-            border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
-            right: -#{$height}px;
-            top: calc(50% - #{$width/2}px);
-        }
-    }
-
-    @else if ($position == "bottom") {
-
-        &:after {
-            border-color: $color transparent transparent transparent;
-            border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
-            bottom: -#{$height}px;
-            left: calc(50% - #{$width/2}px);
-        }
-    }
-
-    @else if ($position == "left") {
-
-        &:after {
-            border-color: transparent $color transparent transparent;
-            border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
-            left: -#{$height}px;
-            top: calc(50% - #{$width/2}px);
-        }
-    }
+  @if ($position == "top") {
 
     &:after {
-        border-style: solid;
-        content: "";
-        display: inline-block;
-        height: 0;
-        position: absolute;
-        width: 0;
+      border-color: transparent transparent $color transparent;
+      border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
+      left: calc(50% - #{$width/2}px);
+      top: -#{$height}px;
     }
+  }
+
+  @else if ($position == "right") {
+
+    &:after {
+      border-color: transparent transparent transparent $color;
+      border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
+      right: -#{$height}px;
+      top: calc(50% - #{$width/2}px);
+    }
+  }
+
+  @else if ($position == "bottom") {
+
+    &:after {
+      border-color: $color transparent transparent transparent;
+      border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
+      bottom: -#{$height}px;
+      left: calc(50% - #{$width/2}px);
+    }
+  }
+
+  @else if ($position == "left") {
+
+    &:after {
+      border-color: transparent $color transparent transparent;
+      border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
+      left: -#{$height}px;
+      top: calc(50% - #{$width/2}px);
+    }
+  }
+
+  &:after {
+    border-style: solid;
+    content: "";
+    display: inline-block;
+    height: 0;
+    position: absolute;
+    width: 0;
+  }
 }
 
 // 09__疑似要素初期化
 // ----------------------------------------------------------
 @mixin icon-ini {
-    content: "";
-    display: inline-block;
+  content: "";
+  display: inline-block;
 }
 
 // 10__ホバーで透過
 // ----------------------------------------------------------
 @mixin hoverOpacity($opacity, $ms: false, $ease: false) {
-    @if $ease {
-        transition: opacity $ms $ease;
-    }
+  @if $ease {
+    transition: opacity $ms $ease;
+  }
 
-    @else {
-        transition: opacity $comMS $comES;
-    }
+  @else {
+    transition: opacity $comMS $comES;
+  }
 
-    &:hover {
-        opacity: $opacity;
-    }
+  &:hover {
+    opacity: $opacity;
+  }
 }
 
 // 11__object-fit ie用Polyfill
 // ----------------------------------------------------------
 @mixin object-fit($fit: fill, $position: null) {
-    -o-object-fit: $fit;
-    object-fit: $fit;
+  -o-object-fit: $fit;
+  object-fit: $fit;
 
-    @if $position {
-        -o-object-position: $position;
-        object-position: $position;
-        font-family: "object-fit: #{$fit}; object-position: #{$position}";
-    }
+  @if $position {
+    -o-object-position: $position;
+    object-position: $position;
+    font-family: "object-fit: #{$fit}; object-position: #{$position}";
+  }
 
-    @else {
-        font-family: "object-fit: #{$fit}";
-    }
+  @else {
+    font-family: "object-fit: #{$fit}";
+  }
 }
 
 // 12__formスタイルリセット
 // ----------------------------------------------------------
 @mixin formReset() {
 
-    input,
-    button,
-    textarea,
-    select {
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
-        background: none;
-        border: none;
-        border-radius: 0;
-        margin: 0;
-        outline: none;
-        padding: 0;
-    }
+  input,
+  button,
+  textarea,
+  select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    outline: none;
+    padding: 0;
+  }
 
-    select::-ms-expand {
-        display: none;
-    }
+  select::-ms-expand {
+    display: none;
+  }
 }
 
 // 13__ie11only
 // ----------------------------------------------------------
 @mixin ie11only {
-    @media all and (-ms-high-contrast: none), print {
-        @content;
-    }
+  @media all and (-ms-high-contrast: none), print {
+    @content;
+  }
 }
 
 @mixin ie11only_sm {
-    @media screen and (max-width: $breakPoint - 1) and (-ms-high-contrast: none) {
-        @content;
-    }
+  @media screen and (max-width: $breakPoint - 1) and (-ms-high-contrast: none) {
+    @content;
+  }
 }
 
 @mixin ie11only_lg {
-    @media screen and (min-width: $breakPoint) and (-ms-high-contrast: none) {
-        @content;
-    }
+  @media screen and (min-width: $breakPoint) and (-ms-high-contrast: none) {
+    @content;
+  }
 }
 
 // 14__edgeonly
 // ----------------------------------------------------------
 @mixin edgeonly {
-    @supports (-ms-ime-align: auto) {
-        @content;
-    }
+  @supports (-ms-ime-align: auto) {
+    @content;
+  }
 }
 
 // 15__ffonly
 // ----------------------------------------------------------
 @mixin ffonly {
-    @-moz-document url-prefix() {
-        @content;
-    }
+  @-moz-document url-prefix() {
+    @content;
+  }
 }
 
 // 16__safarionly
@@ -362,163 +362,163 @@
 // ----------------------------------------------------------
 @mixin first {
 
-    &:first-of-type {
-        @content;
-    }
+  &:first-of-type {
+    @content;
+  }
 }
 
 @mixin notfirst {
 
-    &:not(:first-of-type) {
-        @content;
-    }
+  &:not(:first-of-type) {
+    @content;
+  }
 }
 
 // 18__last, notlast
 // ----------------------------------------------------------
 @mixin last {
 
-    &:last-of-type {
-        @content;
-    }
+  &:last-of-type {
+    @content;
+  }
 }
 
 @mixin notlast {
 
-    &:not(:last-of-type) {
-        @content;
-    }
+  &:not(:last-of-type) {
+    @content;
+  }
 }
 
 // 19__expand
 // ----------------------------------------------------------
 @mixin expand($top, $right, $bottom, $left) {
-    margin: #{$top}px #{$right}px #{$bottom}px #{$left}px;
+  margin: #{$top}px #{$right}px #{$bottom}px #{$left}px;
 }
 
 // 20__expansion
 // ----------------------------------------------------------
 @mixin expansion($verticale, $horizontal, $scale) {
-    transform: scale($scale);
-    transform-origin: $verticale $horizontal;
+  transform: scale($scale);
+  transform-origin: $verticale $horizontal;
 }
 
 // 21__placeholder
 // ----------------------------------------------------------
 @mixin placeholder {
 
-    &:placeholder-shown {
-        @content;
-    }
+  &:placeholder-shown {
+    @content;
+  }
 
-    &::-webkit-input-placeholder {
-        @content;
-    }
+  &::-webkit-input-placeholder {
+    @content;
+  }
 
-    &:-moz-placeholder {
-        @content;
-    }
+  &:-moz-placeholder {
+    @content;
+  }
 
-    &::-moz-placeholder {
-        @content;
-    }
+  &::-moz-placeholder {
+    @content;
+  }
 
-    &:-ms-input-placeholder {
-        @content;
-    }
+  &:-ms-input-placeholder {
+    @content;
+  }
 }
 
 // 22__picture100
 // ----------------------------------------------------------
 @mixin picture100 {
 
-    picture,
-    source,
-    img {
-        @include object-fit(cover);
+  picture,
+  source,
+  img {
+    @include object-fit(cover);
 
-        height: 100%;
-        width: 100%;
-    }
+    height: 100%;
+    width: 100%;
+  }
 }
 
 // 23__triangle
 // ----------------------------------------------------------
 @mixin triangle($width, $height, $color, $rotate) {
-    border-style: solid;
-    content: "";
-    height: 0;
-    position: absolute;
-    width: 0;
+  border-style: solid;
+  content: "";
+  height: 0;
+  position: absolute;
+  width: 0;
 
-    @if ($rotate == "top") {
-        border-color: transparent transparent $color transparent;
-        border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
-    }
+  @if ($rotate == "top") {
+    border-color: transparent transparent $color transparent;
+    border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
+  }
 
-    @else if ($rotate == "right") {
-        border-color: transparent transparent transparent $color;
-        border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
-    }
+  @else if ($rotate == "right") {
+    border-color: transparent transparent transparent $color;
+    border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
+  }
 
-    @else if ($rotate == "bottom") {
-        border-color: $color transparent transparent transparent;
-        border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
-    }
+  @else if ($rotate == "bottom") {
+    border-color: $color transparent transparent transparent;
+    border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
+  }
 
-    @else if ($rotate == "left") {
-        border-color: transparent $color transparent transparent;
-        border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
-    }
+  @else if ($rotate == "left") {
+    border-color: transparent $color transparent transparent;
+    border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
+  }
 }
 
 // 24__circle
 // ----------------------------------------------------------
 @mixin circle($width, $height, $color) {
-    background-color: #{$color};
-    border-radius: 50%;
-    content: "";
-    height: #{$height}px;
-    position: absolute;
-    width: #{$width}px;
+  background-color: #{$color};
+  border-radius: 50%;
+  content: "";
+  height: #{$height}px;
+  position: absolute;
+  width: #{$width}px;
 }
 
 // 25__square
 // ----------------------------------------------------------
 @mixin square($width, $height, $color) {
-    background-color: #{$color};
-    content: "";
-    height: #{$height}px;
-    position: absolute;
-    width: #{$width}px;
+  background-color: #{$color};
+  content: "";
+  height: #{$height}px;
+  position: absolute;
+  width: #{$width}px;
 }
 
 // 26__rightTriangle
 // ----------------------------------------------------------
 @mixin rightTriangle($width, $color, $rotate) {
-    border-style: solid;
-    content: "";
-    height: 0;
-    position: absolute;
-    width: 0;
+  border-style: solid;
+  content: "";
+  height: 0;
+  position: absolute;
+  width: 0;
 
-    @if ($rotate == 1) {
-        border-color: $color transparent transparent transparent;
-        border-width: #{$width}px #{$width}px 0 0;
-    }
+  @if ($rotate == 1) {
+    border-color: $color transparent transparent transparent;
+    border-width: #{$width}px #{$width}px 0 0;
+  }
 
-    @else if ($rotate == 2) {
-        border-color: transparent $color transparent transparent;
-        border-width: 0 #{$width}px 0 #{$width}px 0;
-    }
+  @else if ($rotate == 2) {
+    border-color: transparent $color transparent transparent;
+    border-width: 0 #{$width}px 0 #{$width}px 0;
+  }
 
-    @else if ($rotate == 3) {
-        border-color: transparent transparent $color transparent;
-        border-width: 0 0 #{$width}px #{$width}px;
-    }
+  @else if ($rotate == 3) {
+    border-color: transparent transparent $color transparent;
+    border-width: 0 0 #{$width}px #{$width}px;
+  }
 
-    @else if ($rotate == 4) {
-        border-color: transparent transparent transparent $color;
-        border-width: #{$width}px 0 0 #{$width}px;
-    }
+  @else if ($rotate == 4) {
+    border-color: transparent transparent transparent $color;
+    border-width: #{$width}px 0 0 #{$width}px;
+  }
 }
