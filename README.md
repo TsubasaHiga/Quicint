@@ -40,23 +40,23 @@ npm run serve
 # publish mode
 npm run production
 
-# img reset task
+# img recompile task
 npm run img
 
 # json file check task
 npm run json-check
 
-# lint stylesheet
-npm run lint:stylesheet
+# lint css
+npm run lint:css
 
-# lint fix stylesheet
-npm run format:stylesheet
+# lint fix css
+npm run fix:css
 
 # lint js
 npm run lint:js
 
 # lint fix js
-npm run format:js
+npm run fix:js
 ```
 
 ## 仕様
