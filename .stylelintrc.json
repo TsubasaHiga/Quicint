@@ -42,7 +42,8 @@
                     "each",
                     "include",
                     "mixin",
-                    "for"
+                    "for",
+                    "extend"
                 ]
             }
         ],
