@@ -46,6 +46,10 @@ var siteDomain = (node_env === 'production' ) ? siteSetting.siteDomain : 'http:/
     <meta name="theme-color" content="<%= siteSetting.themeColor %>">
     <link rel="canonical" href="<%= siteDomain + canonicalUrl %>">
     <link rel="shortcut icon" href="/assets/images/favicon.ico">
+    <!--
+      If load Google fonts
+      <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    -->
     <link rel="preload" as="style" href="/assets/css/style.css?rev">
     <link rel="preload" as="script" href="/assets/js/bundle.js?rev">
     <link rel="stylesheet" href="/assets/css/style.css?rev">
