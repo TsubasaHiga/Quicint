@@ -1,19 +1,42 @@
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/33184716/68190819-7fedc180-fff1-11e9-821c-d88d559e53fd.png" width="600" height="180" alt="Quicint">
-</div>
+[img-github-release]: https://img.shields.io/github/v/release/TsubasaHiga/Quicint.svg?style=flat-square
+[img-npm]: https://img.shields.io/npm/v/quicint.svg?style=flat-square
+[img-npm-downloads]: https://img.shields.io/npm/dt/quicint.svg?style=flat-square
 
-# Quicint
+[url-github]: https://github.com/TsubasaHiga/Quicint
+[url-github-releases]: https://github.com/TsubasaHiga/Quicint/releases
+[url-npm]: https://www.npmjs.com/package/quicint
+
+[img-js]: https://img.shields.io/badge/Javascript-000.svg?logo=javascript&style=flat-square
+[img-css3]: https://img.shields.io/badge/-CSS3-000.svg?logo=css3&style=flat-square
+[img-html5]: https://img.shields.io/badge/-HTML5-000.svg?logo=html5&style=flat-square
+[img-gulp]: https://img.shields.io/badge/Gulp-000.svg?logo=gulp&style=flat-square
+[img-webpack]: https://img.shields.io/badge/-Webpack-000.svg?logo=webpack&style=flat-square
+[img-eslint]: https://img.shields.io/badge/-ESLint-000.svg?logo=eslint&style=flat-square
+
+
+![logo](docs/assets/images/logo.png)
+
+[![NPM version][img-npm]][url-npm]
+[![NPM downloads][img-npm-downloads]][url-npm]
+
 *Quick initialize HTML5 EJS Boilerplate（すぐ出来るHTML5 EJSボイラープレート）*
 
-Quicint（クイント）はHTML5案件用のボイラープレートです。[Percolator（PHP案件用ボイラープレート）](https://github.com/TsubasaHiga/Percolator)をForkし、HTML5版用として個人開発を行っております。テンプレートエンジンはEJSを使用しております。
+Quicint（クイント）はHTML5案件用のボイラープレートです。[Percolator](https://github.com/TsubasaHiga/Percolator)（PHP案件用ボイラープレート）をForkし、静的サイト構築用として個人開発を行っています。
 
-## Install
+テンプレートエンジンにはEJSを使用している為、ページの量産が比較的簡単に出来る特徴を持っています。約50ページ未満の静的ページ制作には最適でしょう。
 
-環境の用意は以下より可能です。
+同梱している`env.json`と`setting.json`を有効化することで直ぐに制作を始められます。
 
-### npm package
+![js][img-js]
+![js][img-css3]
+![js][img-html5]
+![js][img-gulp]
+![js][img-webpack]
+![js][img-eslint]
 
-npm: [quicint](https://www.npmjs.com/package/quicint)
+## Quick Start
+
+### npm
 
 ``` bash
 npm i quicint
@@ -22,79 +45,49 @@ npm i quicint
 ### git clone
 
 ``` bash
-# Clone
 git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
-
-# Init
 npm install # or yarn install
 ```
 
 ## Command
 
-コマンドは以下よりご確認下さい。
+### 一般系
 
 ``` bash
-# serve mode
+# serve mode：各種コンパイルタスクを利用出来ます。通常はこちらで制作を行います
 npm run serve
 
-# publish mode
+# publish mode：納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します
 npm run production
 
-# img recompile task
+# img recompile task：画像再圧縮タスクです。`src`と`dist`での画像数が合わなくなった場合にリセット目的で使用します
 npm run img
 
-# json file check task
+# json file check task：各種jsonファイルのチェックタスクです
 npm run json-check
 
-# lint css
+```
+
+### Lint系
+
+``` bash
+
+# lint css：CSS / SCSSファイルのlintタスクです
 npm run lint:css
 
-# lint fix css
+# lint fix css：CSS / SCSSファイルの自動修正タスクです
 npm run fix:css
 
-# lint js
+# lint js：JSファイルのlintタスクです
 npm run lint:js
 
-# lint fix js
+# lint fix js：JSファイルの自動修正タスクです
 npm run fix:js
 ```
 
-## 仕様
-
-Quicintの仕様、及び対応環境は以下の通りです。
-
-| 項目 | 詳細 |
-| --- | --- |
-| パッケージマネージャー | npm |
-| コンパイル環境、タスクランナー | Gulp v4 |
-| テンプレートエンジン | EJS |
-| CSS トランスパイラ | SCSS + Gulp |
-| CSS設計 | FLOCSS |
-| JavaScript モジュールバンドラ | Webpack |
-| JavaScript ライブラリ | Vanilla JS（Pure JS） |
-| JavaScript モジュールバンドラ | Webpack |
-| インストールパッケージリスト | 参照：`package.json` |
-| Lint環境 | ESlint / Stylelint |
-| .gitignore | [gitignore.io](https://www.gitignore.io/api/node,macos,windows) |
-
-### フロント側で使用プラグイン
-
-以下プラグインはデフォルトでインストールされています。
-
-| プラグイン名 | 用途 |
-| --- | --- |
-| ress | reset.css |
-| lazysizes | 遅延読み込みプラグイン |
-| object-fit-images | `object-fit`のPolyfill |
-| picturefill | `<picture>`タグのPolyfill |
-| sweet-scroll | ページスクロール用プラグイン |
-| swiper | スライダー用プラグイン |
-| yakuhanjp | 約物半角化用日本語フォント |
-
 ### ディレクトリ構造
 
-第2階層までのディレクトリ構造です。`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。
-納品タスクでコピーされるディレクトリも`dist`になります。
+第2階層までのディレクトリ構造です。`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。納品タスクでコピーされるディレクトリも`dist`になります。
 
 ```
 .
@@ -194,6 +187,38 @@ Quicintの仕様、及び対応環境は以下の通りです。
   "themeColor": "#000"
 }
 ```
+
+## 仕様
+
+Quicintの仕様、及び対応環境は以下の通りです。
+
+| 項目 | 詳細 |
+| --- | --- |
+| パッケージマネージャー | npm |
+| コンパイル環境、タスクランナー | Gulp v4 |
+| テンプレートエンジン | EJS |
+| CSS トランスパイラ | SCSS + Gulp |
+| CSS設計 | FLOCSS |
+| JavaScript モジュールバンドラ | Webpack |
+| JavaScript ライブラリ | Vanilla JS（Pure JS） |
+| JavaScript モジュールバンドラ | Webpack |
+| インストールパッケージリスト | 参照：`package.json` |
+| Lint環境 | ESlint / Stylelint |
+| .gitignore | [gitignore.io](https://www.gitignore.io/api/node,macos,windows) |
+
+### フロント側で使用プラグイン
+
+以下プラグインはデフォルトでインストールされています。
+
+| プラグイン名 | 用途 |
+| --- | --- |
+| ress | reset.css |
+| lazysizes | 遅延読み込みプラグイン |
+| object-fit-images | `object-fit`のPolyfill |
+| picturefill | `<picture>`タグのPolyfill |
+| sweet-scroll | ページスクロール用プラグイン |
+| swiper | スライダー用プラグイン |
+| yakuhanjp | 約物半角化用日本語フォント |
 
 ## 対応ブラウザ
 
