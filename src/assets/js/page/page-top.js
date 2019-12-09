@@ -1,9 +1,9 @@
 'use strict'
-import { el, define } from '../define'
+import DEFINE from '../constant/define'
+import EL from '../constant/elements'
+
 import 'nodelist-foreach-polyfill'
 
-/* ---------------------------------------------------------------- */
-
-export const pageNameTop = () => {
+export default () => {
   console.warn('page-top')
 }

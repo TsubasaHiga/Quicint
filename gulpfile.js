@@ -65,11 +65,15 @@ const jsoncFileCeck = cb => {
   // サイト設定ファイルの読み込み.
   const siteSetting = (isExistFile('./setting.json')) ? JSON.parse(fs.readFileSync('./setting.json', 'utf8')) : ''
 
-  if (env && siteSetting) {
+  // ejs defineファイルの読み込み.
+  const ejsDefine = (isExistFile('./ejs-define.json')) ? JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8')) : ''
+
+  if (env && siteSetting && ejsDefine) {
     gulp
       .src([
         env.io.env,
-        env.io.siteSetting
+        env.io.siteSetting,
+        env.io.ejsDefine
       ])
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
@@ -100,7 +104,7 @@ const browserSyncCallbacksSettings = {
     })
   }
 }
-env.browsersync.callbacks = browserSyncCallbacksSettings
+// env.browsersync.callbacks = browserSyncCallbacksSettings
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync)
@@ -157,6 +161,9 @@ const ejsCompile = () => {
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
+  // ejs defineファイルの読み込み.
+  const ejsDefine = JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8'))
+
   // 乱数生成
   const revision = crypto.randomBytes(8).toString('hex')
 
@@ -166,7 +173,8 @@ const ejsCompile = () => {
       ejs(
         {
           node_env: process.env.NODE_ENV,
-          siteSetting: siteSetting
+          siteSetting: siteSetting,
+          ejsDefine: ejsDefine
         },
         {},
         { ext: '.html' }
