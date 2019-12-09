@@ -39,6 +39,12 @@ a {
   color: $color--link;
   outline: none;
   text-decoration: none;
+
+  a[href ^= "tel:"] {
+    @include media(lg) {
+      pointer-events: none;
+    }
+  }
 }
 
 // image
@@ -48,6 +54,13 @@ svg,
 video {
   max-width: 100%;
   vertical-align: top;
+}
+
+picture {
+
+  img {
+    width: 100%;
+  }
 }
 
 // table
