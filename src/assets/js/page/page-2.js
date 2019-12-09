@@ -1,12 +1,12 @@
 'use strict'
-import { el, define } from '../define'
+import DEFINE from '../constant/define'
+import EL from '../constant/elements'
+
 import 'nodelist-foreach-polyfill'
 import 'swiper/css/swiper.min.css'
 import Swiper from 'swiper'
 
-/* ---------------------------------------------------------------- */
-
-export const pageName2 = () => {
+export default () => {
   console.warn('page2')
 
   const mySwiper = new Swiper('.swiper-container', {
