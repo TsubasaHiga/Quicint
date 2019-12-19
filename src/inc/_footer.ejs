@@ -1,9 +1,13 @@
+<%
+// ドメインセット
+var siteUrl = (node_env === 'production' ) ? siteSetting.siteUrl : localurl;
+%>
 <footer class="l-footer">
   <div class="l-footer__inner">
     <p class="l-footer__copyright">©Quicint</p>
   </div>
 </footer>
-<script src="/assets/js/bundle.js?rev" defer="defer"></script>
+<script src="<%= siteUrl %>assets/js/bundle.js?rev" defer="defer"></script>
 <%- include('_analytics-footer') %>
 </body>
 

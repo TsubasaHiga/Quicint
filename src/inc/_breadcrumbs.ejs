@@ -1,4 +1,6 @@
 <%
+// ドメインセット
+var siteUrl = (node_env === 'production' ) ? siteSetting.siteUrl : localurl;
 var ejsDefine = (typeof ejsDefine === 'undefined') ? '' : ejsDefine;
 var meta = (typeof meta === 'undefined') ? '' : meta;
 if(meta) {
@@ -6,7 +8,7 @@ if(meta) {
 <div class="l-breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
   <div class="l-breadcrumbs__inner">
     <span property="itemListElement" typeof="ListItem">
-      <a property="item" typeof="WebPage" title="トップ" href="/" class="home">
+      <a property="item" typeof="WebPage" title="トップ" href="<%= siteUrl %>" class="home">
         <span property="name">トップ</span>
       </a>
       <meta property="position" content="1">

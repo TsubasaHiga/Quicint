@@ -157,7 +157,8 @@ const scss = () => {
 }
 
 // EJS
-const ejsCompile = () => {
+const ejsCompile = (mode = false) => {
+  console.log(mode)
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
@@ -167,12 +168,16 @@ const ejsCompile = () => {
   // 乱数生成
   const revision = crypto.randomBytes(8).toString('hex')
 
+  // urlセット
+  const url = browserSync.getOption('urls').get('external') + '/'
+
   return gulp
     .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
     .pipe(
       ejs(
         {
           node_env: process.env.NODE_ENV,
+          localurl: url,
           siteSetting: siteSetting,
           ejsDefine: ejsDefine
         },
@@ -278,7 +283,7 @@ const devStart = () => {
 }
 
 // 納品ディレクトリ作成
-const genDir = dirname => {
+const genDir = (dirname, type) => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data'
   const distname = 'dist'
   return gulp
@@ -290,18 +295,52 @@ const genDir = dirname => {
       '!' + distname + '/**/*.LICENSE',
       '!' + distname + '/**/*Thumbs.db'
     ])
-    .pipe(zip(dirname + '.zip'))
-    .pipe(gulp.dest(env.publishDir))
+    .pipe(gulpif(
+      type === 'zip',
+      zip(dirname + '.zip')
+    ))
+    .pipe(gulpif(
+      type === 'zip',
+      gulp.dest(env.publishDir)
+    ))
+    .pipe(gulpif(
+      (type === 'publish' || type === 'publish-rootpath'),
+      gulp.dest(dirname)
+    ))
     .pipe(
-      notify({
-        title: '納品データを作成しました 👍',
+      gulpif(type === 'zip', notify({
+        title: '納品データをZIP化しました 🗜',
         message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
-      })
+      }))
+    )
+    .pipe(
+      gulpif(type === 'publish', notify({
+        title: 'productionデータを作成しました 👍'
+      }))
+    )
+    .pipe(
+      gulpif(type === 'publish-rootpath', notify({
+        title: 'production（ルートパス版）データを作成しました 👍'
+      }))
     )
 }
 
+// 書き出しタスク（production）
+const genPublishDir = cb => {
+  const dirname = 'dist-production'
+  genDir(dirname, 'publish')
+  cb()
+}
+
+// 書き出しタスク（production root path）
+const genPublishRootPathDir = cb => {
+  const dirname = 'dist-production-rootpath'
+  genDir(dirname, 'publish-rootpath')
+  cb()
+}
+
 // 納品タスク
-const filePackage = cb => {
+const genZipArchive = cb => {
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
@@ -309,11 +348,13 @@ const filePackage = cb => {
   const dt = new Date()
   const date = dt.toFormat('YYMMDD-HHMI')
   const dirname = 'publish__' + date + '__' + siteSetting.publishFileName
-  genDir(dirname)
+  genDir(dirname, 'zip')
   cb()
 }
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.json_check = jsoncFileCeck
 exports.img_reset = gulp.series(clean, img)
-exports.publish = gulp.series(scss, ejsCompile, jsBuild, filePackage, js)
+exports.production = gulp.series(scss, ejsCompile, jsBuild, genPublishDir, js)
+exports.productionRoot = gulp.series(scss, ejsCompile('rootpath'), jsBuild, genPublishRootPathDir, js)
+exports.zip = gulp.series(scss, ejsCompile, jsBuild, genZipArchive, js)

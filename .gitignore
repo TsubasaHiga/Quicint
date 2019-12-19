@@ -160,3 +160,6 @@ dist/assets/css/
 dist/assets/js/
 dist/assets/images/
 dist/**/*.html
+
+dist-production
+dist-production-rootpath
