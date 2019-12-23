@@ -44,6 +44,10 @@ var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '/';
     <meta name="theme-color" content="<%= siteSetting.themeColor %>">
     <link rel="canonical" href="<%= siteurl + canonicalUrl %>">
     <link rel="shortcut icon" href="<%= siteurl %>assets/images/favicon.ico">
+    <!--
+    If load Google fonts
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin>
+    -->
     <link rel="preload" as="style" href="<%= siteurl %>assets/css/style.css?rev">
     <link rel="preload" as="script" href="<%= siteurl %>assets/js/bundle.js?rev">
     <link rel="stylesheet" href="<%= siteurl %>assets/css/style.css?rev">
