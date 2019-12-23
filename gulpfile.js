@@ -9,16 +9,13 @@
 // プラグイン読み込み.
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
-const connectSSI = require('connect-ssi')
 const css = require('gulp-sass')
 const cssnano = require('cssnano')
 const cssDeclarationSorter = require('css-declaration-sorter')
 const colors = require('colors')
 const crypto = require('crypto')
-const dateutils = require('date-utils')
 const del = require('del')
 const ejs = require('gulp-ejs')
-const fileinclude = require('gulp-file-include')
 const fs = require('fs')
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
@@ -41,10 +38,8 @@ const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const zip = require('gulp-zip')
 
-require('date-utils')
-
 // ファイル存在判定.
-const isExistFile = (file) => {
+const isExistFile = file => {
   try {
     fs.statSync(file)
     return true
@@ -54,7 +49,9 @@ const isExistFile = (file) => {
 }
 
 // 環境設定ファイルの読み込み.
-const env = (isExistFile('./env.json')) ? JSON.parse(fs.readFileSync('./env.json', 'utf8')) : ''
+const env = isExistFile('./env.json')
+  ? JSON.parse(fs.readFileSync('./env.json', 'utf8'))
+  : ''
 
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config')
@@ -63,18 +60,18 @@ const webpackConfigBuild = require('./webpack.production.config')
 // json file check task.
 const jsoncFileCeck = cb => {
   // サイト設定ファイルの読み込み.
-  const siteSetting = (isExistFile('./setting.json')) ? JSON.parse(fs.readFileSync('./setting.json', 'utf8')) : ''
+  const siteSetting = isExistFile('./setting.json')
+    ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+    : ''
 
   // ejs defineファイルの読み込み.
-  const ejsDefine = (isExistFile('./ejs-define.json')) ? JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8')) : ''
+  const ejsDefine = isExistFile('./ejs-define.json')
+    ? JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8'))
+    : ''
 
   if (env && siteSetting && ejsDefine) {
     gulp
-      .src([
-        env.io.env,
-        env.io.siteSetting,
-        env.io.ejsDefine
-      ])
+      .src([env.io.env, env.io.siteSetting, env.io.ejsDefine])
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
@@ -104,7 +101,7 @@ const browserSyncCallbacksSettings = {
     })
   }
 }
-// env.browsersync.callbacks = browserSyncCallbacksSettings
+env.browsersync.callbacks = browserSyncCallbacksSettings
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync)
@@ -115,9 +112,14 @@ const reload = cb => {
   cb()
 }
 
-// Clean.
-const clean = () => {
+// CleanImg.
+const cleanImg = () => {
   return del(env.io.output.img + '**/*.{png,jpg,gif,svg}')
+}
+
+// CleanEjs.
+const cleanEjs = () => {
+  return del(env.io.output.html + '**/*.html')
 }
 
 // Scss compile.
@@ -157,7 +159,7 @@ const scss = () => {
 }
 
 // EJS
-const ejsCompile = () => {
+const ejsCompile = (mode = false) => {
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
@@ -167,12 +169,25 @@ const ejsCompile = () => {
   // 乱数生成
   const revision = crypto.randomBytes(8).toString('hex')
 
+  let url = ''
+  // urlセット
+  if (process.env.NODE_ENV === 'production') {
+    if (mode !== 'fullpath') {
+      url = '/'
+    } else {
+      url = siteSetting.siteDomain + '/'
+    }
+  } else {
+    url = browserSync.getOption('urls').get('external') + '/'
+  }
+
   return gulp
     .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
     .pipe(
       ejs(
         {
           node_env: process.env.NODE_ENV,
+          siteurl: url,
           siteSetting: siteSetting,
           ejsDefine: ejsDefine
         },
@@ -272,36 +287,64 @@ const watch = () => {
   )
 }
 
-// Start.
-const devStart = () => {
-  gulp.parallel(watch, sync)
-}
-
 // 納品ディレクトリ作成
-const genDir = dirname => {
+const genDir = (dirname, type) => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data'
   const distname = 'dist'
-  return gulp
-    .src([
-      distname + '/**/*',
-      '!' + distname + '/**/maps',
-      '!' + distname + '/**/*.map',
-      '!' + distname + '/**/*.DS_Store',
-      '!' + distname + '/**/*.LICENSE',
-      '!' + distname + '/**/*Thumbs.db'
-    ])
-    .pipe(zip(dirname + '.zip'))
-    .pipe(gulp.dest(env.publishDir))
-    .pipe(
-      notify({
-        title: '納品データを作成しました 👍',
-        message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
-      })
-    )
+  if (type === 'zip') {
+    return gulp
+      .src([
+        distname + '/**/*',
+        '!' + distname + '/**/maps',
+        '!' + distname + '/**/*.map',
+        '!' + distname + '/**/*.DS_Store',
+        '!' + distname + '/**/*.LICENSE',
+        '!' + distname + '/**/*Thumbs.db'
+      ])
+      .pipe(zip(dirname + '.zip'))
+      .pipe(gulp.dest(env.publishDir))
+      .pipe(
+        notify({
+          title: '納品データをZIP化しました 🗜',
+          message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
+        })
+      )
+  } else {
+    return gulp
+      .src([
+        distname + '/**/*',
+        '!' + distname + '/**/maps',
+        '!' + distname + '/**/*.map',
+        '!' + distname + '/**/*.DS_Store',
+        '!' + distname + '/**/*.LICENSE',
+        '!' + distname + '/**/*Thumbs.db'
+      ])
+      .pipe(gulp.dest(dirname))
+  }
+}
+
+// 書き出しタスク（production）
+const genPublishDir = cb => {
+  const dirname = 'dist-production'
+  genDir(dirname, 'publish')
+  cb()
+}
+
+// 書き出しタスク（production full path）
+const genPublishFullPathDir = cb => {
+  const dirname = 'dist-production-fullpath'
+  genDir(dirname, 'publish-fullpath')
+  cb()
+}
+
+// 書き出しタスク（production full path）EJSコンパイル呼び出し
+const ejsCompileFullPath = cb => {
+  ejsCompile('fullpath')
+  cb()
 }
 
 // 納品タスク
-const filePackage = cb => {
+const genZipArchive = cb => {
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
@@ -309,11 +352,21 @@ const filePackage = cb => {
   const dt = new Date()
   const date = dt.toFormat('YYMMDD-HHMI')
   const dirname = 'publish__' + date + '__' + siteSetting.publishFileName
-  genDir(dirname)
+  genDir(dirname, 'zip')
   cb()
 }
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.json_check = jsoncFileCeck
-exports.img_reset = gulp.series(clean, img)
-exports.publish = gulp.series(scss, ejsCompile, jsBuild, filePackage, js)
+exports.img_reset = gulp.series(cleanImg, img)
+exports.production = gulp.series(scss, ejsCompile, jsBuild, genPublishDir, js)
+exports.productionFullpath = gulp.series(
+  scss,
+  ejsCompileFullPath,
+  jsBuild,
+  genPublishFullPathDir,
+  js,
+  ejsCompile
+)
+exports.zip = gulp.series(scss, ejsCompile, jsBuild, genZipArchive, js)
+exports.ejs_reset = gulp.series(cleanEjs, ejsCompile)

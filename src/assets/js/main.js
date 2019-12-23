@@ -5,13 +5,14 @@ import EL from './constant/elements'
 
 import getDeviceType from './helper/getDeviceType'
 import closetPolyfill from './helper/polyfillCloset'
-//
+
 import objectFitImages from 'object-fit-images'
 import Stickyfill from 'stickyfilljs'
 import lazysizes from 'lazysizes'
 import SweetScroll from 'sweet-scroll'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
+import UAParser from 'ua-parser-js'
 
 import pageNameTop from './page/page-top'
 import pageName2 from './page/page-2'
@@ -67,7 +68,24 @@ const navCurrent = (target) => {
   }
 }
 
+/**
+ * UA情報を<html>タグにdatasetとして追加します
+ * 文字列にスペースが付く場合はハイフンで繋がれます
+ */
+const addUaDataset = () => {
+  const ua = UAParser()
+  const uaString = {
+    browserName: (ua.browser.name).toLowerCase().replace(' ', '-'),
+    osName: (ua.os.name).toLowerCase().replace(' ', '-')
+  }
+  EL.HTML.dataset.browser = uaString.browserName
+  EL.HTML.dataset.os = uaString.osName
+}
+
 window.addEventListener('load', () => {
+  // set ua dataset
+  addUaDataset()
+
   // Polyfill object-fit
   objectFitImages()
 
