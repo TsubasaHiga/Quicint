@@ -5,7 +5,7 @@ import EL from './constant/elements'
 
 import getDeviceType from './helper/getDeviceType'
 import closetPolyfill from './helper/polyfillCloset'
-//
+
 import objectFitImages from 'object-fit-images'
 import Stickyfill from 'stickyfilljs'
 import lazysizes from 'lazysizes'
