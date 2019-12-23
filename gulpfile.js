@@ -112,9 +112,14 @@ const reload = cb => {
   cb()
 }
 
-// Clean.
-const clean = () => {
+// CleanImg.
+const cleanImg = () => {
   return del(env.io.output.img + '**/*.{png,jpg,gif,svg}')
+}
+
+// CleanEjs.
+const cleanEjs = () => {
+  return del(env.io.output.html + '**/*.html')
 }
 
 // Scss compile.
@@ -353,7 +358,7 @@ const genZipArchive = cb => {
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.json_check = jsoncFileCeck
-exports.img_reset = gulp.series(clean, img)
+exports.img_reset = gulp.series(cleanImg, img)
 exports.production = gulp.series(scss, ejsCompile, jsBuild, genPublishDir, js)
 exports.productionFullpath = gulp.series(
   scss,
@@ -364,3 +369,4 @@ exports.productionFullpath = gulp.series(
   ejsCompile
 )
 exports.zip = gulp.series(scss, ejsCompile, jsBuild, genZipArchive, js)
+exports.ejs_reset = gulp.series(cleanEjs, ejsCompile)
