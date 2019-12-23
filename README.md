@@ -57,6 +57,9 @@ npm install # or yarn install
 # serve mode：各種コンパイルタスクを利用出来ます。通常はこちらで制作を行います
 npm run serve
 
+# development mode：developmentビルドを行います。`dist/`配下に書き出されます
+npm run development
+
 # production mode：productionビルドを行います。`publish/`配下に書き出されます
 npm run production
 
