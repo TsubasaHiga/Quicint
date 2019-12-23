@@ -9,16 +9,13 @@
 // プラグイン読み込み.
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
-const connectSSI = require('connect-ssi')
 const css = require('gulp-sass')
 const cssnano = require('cssnano')
 const cssDeclarationSorter = require('css-declaration-sorter')
 const colors = require('colors')
 const crypto = require('crypto')
-const dateutils = require('date-utils')
 const del = require('del')
 const ejs = require('gulp-ejs')
-const fileinclude = require('gulp-file-include')
 const fs = require('fs')
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
@@ -40,8 +37,6 @@ const sourcemaps = require('gulp-sourcemaps')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const zip = require('gulp-zip')
-
-require('date-utils')
 
 // ファイル存在判定.
 const isExistFile = file => {
