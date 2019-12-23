@@ -162,4 +162,4 @@ dist/assets/images/
 dist/**/*.html
 
 dist-production
-dist-production-rootpath
+dist-production-fullpath

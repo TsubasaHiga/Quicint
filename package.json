@@ -5,7 +5,8 @@
     "main": "src/assets/js/main.js",
     "scripts": {
         "serve": "NODE_ENV=development gulp",
-        "production": "NODE_ENV=production gulp publish",
+        "production": "NODE_ENV=production gulp production",
+        "production:fullpath": "NODE_ENV=production gulp productionFullpath",
         "zip": "NODE_ENV=production gulp zip",
         "json-check": "NODE_ENV=development gulp json_check",
         "img": "NODE_ENV=development gulp img_reset",

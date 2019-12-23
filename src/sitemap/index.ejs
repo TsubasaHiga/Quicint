@@ -1,6 +1,4 @@
 <%
-// ドメインセット
-var siteUrl = (node_env === 'production' ) ? siteSetting.siteUrl : localurl;
 var ejsDefine = (typeof ejsDefine === 'undefined') ? '' : ejsDefine;
 var pageData = {
   pageName: 'sitemap',
@@ -24,12 +22,12 @@ var pageData = {
     <!-- contents -->
     <p>サイトマップです。</p>
     <ul>
-      <li><a href="<%= siteUrl %>">HOME</a></li>
-      <li><a href="<%= siteUrl %>page1/">Page1</a></li>
-      <li><a href="<%= siteUrl %>page2/">Page2</a></li>
-      <li><a href="<%= siteUrl %>page2/page2-2/">Page2-2</a></li>
-      <li><a href="<%= siteUrl %>page3/">Page3</a></li>
-      <li><a href="<%= siteUrl %>sitemap/">サイトマップ</a></li>
+      <li><a href="<%= siteurl %>">HOME</a></li>
+      <li><a href="<%= siteurl %>page1/">Page1</a></li>
+      <li><a href="<%= siteurl %>page2/">Page2</a></li>
+      <li><a href="<%= siteurl %>page2/page2-2/">Page2-2</a></li>
+      <li><a href="<%= siteurl %>page3/">Page3</a></li>
+      <li><a href="<%= siteurl %>sitemap/">サイトマップ</a></li>
     </ul>
 
   </div>

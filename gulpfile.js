@@ -44,7 +44,7 @@ const zip = require('gulp-zip')
 require('date-utils')
 
 // ファイル存在判定.
-const isExistFile = (file) => {
+const isExistFile = file => {
   try {
     fs.statSync(file)
     return true
@@ -54,7 +54,9 @@ const isExistFile = (file) => {
 }
 
 // 環境設定ファイルの読み込み.
-const env = (isExistFile('./env.json')) ? JSON.parse(fs.readFileSync('./env.json', 'utf8')) : ''
+const env = isExistFile('./env.json')
+  ? JSON.parse(fs.readFileSync('./env.json', 'utf8'))
+  : ''
 
 // webpackの設定ファイルの読み込み.
 const webpackConfig = require('./webpack.config')
@@ -63,18 +65,18 @@ const webpackConfigBuild = require('./webpack.production.config')
 // json file check task.
 const jsoncFileCeck = cb => {
   // サイト設定ファイルの読み込み.
-  const siteSetting = (isExistFile('./setting.json')) ? JSON.parse(fs.readFileSync('./setting.json', 'utf8')) : ''
+  const siteSetting = isExistFile('./setting.json')
+    ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+    : ''
 
   // ejs defineファイルの読み込み.
-  const ejsDefine = (isExistFile('./ejs-define.json')) ? JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8')) : ''
+  const ejsDefine = isExistFile('./ejs-define.json')
+    ? JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8'))
+    : ''
 
   if (env && siteSetting && ejsDefine) {
     gulp
-      .src([
-        env.io.env,
-        env.io.siteSetting,
-        env.io.ejsDefine
-      ])
+      .src([env.io.env, env.io.siteSetting, env.io.ejsDefine])
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
@@ -104,7 +106,7 @@ const browserSyncCallbacksSettings = {
     })
   }
 }
-// env.browsersync.callbacks = browserSyncCallbacksSettings
+env.browsersync.callbacks = browserSyncCallbacksSettings
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(env.browsersync)
@@ -158,7 +160,6 @@ const scss = () => {
 
 // EJS
 const ejsCompile = (mode = false) => {
-  console.log(mode)
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
 
@@ -168,8 +169,17 @@ const ejsCompile = (mode = false) => {
   // 乱数生成
   const revision = crypto.randomBytes(8).toString('hex')
 
+  let url = ''
   // urlセット
-  const url = browserSync.getOption('urls').get('external') + '/'
+  if (process.env.NODE_ENV === 'production') {
+    if (mode !== 'fullpath') {
+      url = '/'
+    } else {
+      url = siteSetting.siteDomain + '/'
+    }
+  } else {
+    url = browserSync.getOption('urls').get('external') + '/'
+  }
 
   return gulp
     .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
@@ -177,7 +187,7 @@ const ejsCompile = (mode = false) => {
       ejs(
         {
           node_env: process.env.NODE_ENV,
-          localurl: url,
+          siteurl: url,
           siteSetting: siteSetting,
           ejsDefine: ejsDefine
         },
@@ -277,52 +287,40 @@ const watch = () => {
   )
 }
 
-// Start.
-const devStart = () => {
-  gulp.parallel(watch, sync)
-}
-
 // 納品ディレクトリ作成
 const genDir = (dirname, type) => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data'
   const distname = 'dist'
-  return gulp
-    .src([
-      distname + '/**/*',
-      '!' + distname + '/**/maps',
-      '!' + distname + '/**/*.map',
-      '!' + distname + '/**/*.DS_Store',
-      '!' + distname + '/**/*.LICENSE',
-      '!' + distname + '/**/*Thumbs.db'
-    ])
-    .pipe(gulpif(
-      type === 'zip',
-      zip(dirname + '.zip')
-    ))
-    .pipe(gulpif(
-      type === 'zip',
-      gulp.dest(env.publishDir)
-    ))
-    .pipe(gulpif(
-      (type === 'publish' || type === 'publish-rootpath'),
-      gulp.dest(dirname)
-    ))
-    .pipe(
-      gulpif(type === 'zip', notify({
-        title: '納品データをZIP化しました 🗜',
-        message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
-      }))
-    )
-    .pipe(
-      gulpif(type === 'publish', notify({
-        title: 'productionデータを作成しました 👍'
-      }))
-    )
-    .pipe(
-      gulpif(type === 'publish-rootpath', notify({
-        title: 'production（ルートパス版）データを作成しました 👍'
-      }))
-    )
+  if (type === 'zip') {
+    return gulp
+      .src([
+        distname + '/**/*',
+        '!' + distname + '/**/maps',
+        '!' + distname + '/**/*.map',
+        '!' + distname + '/**/*.DS_Store',
+        '!' + distname + '/**/*.LICENSE',
+        '!' + distname + '/**/*Thumbs.db'
+      ])
+      .pipe(zip(dirname + '.zip'))
+      .pipe(gulp.dest(env.publishDir))
+      .pipe(
+        notify({
+          title: '納品データをZIP化しました 🗜',
+          message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
+        })
+      )
+  } else {
+    return gulp
+      .src([
+        distname + '/**/*',
+        '!' + distname + '/**/maps',
+        '!' + distname + '/**/*.map',
+        '!' + distname + '/**/*.DS_Store',
+        '!' + distname + '/**/*.LICENSE',
+        '!' + distname + '/**/*Thumbs.db'
+      ])
+      .pipe(gulp.dest(dirname))
+  }
 }
 
 // 書き出しタスク（production）
@@ -332,10 +330,16 @@ const genPublishDir = cb => {
   cb()
 }
 
-// 書き出しタスク（production root path）
-const genPublishRootPathDir = cb => {
-  const dirname = 'dist-production-rootpath'
-  genDir(dirname, 'publish-rootpath')
+// 書き出しタスク（production full path）
+const genPublishFullPathDir = cb => {
+  const dirname = 'dist-production-fullpath'
+  genDir(dirname, 'publish-fullpath')
+  cb()
+}
+
+// 書き出しタスク（production full path）EJSコンパイル呼び出し
+const ejsCompileFullPath = cb => {
+  ejsCompile('fullpath')
   cb()
 }
 
@@ -356,5 +360,12 @@ exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.json_check = jsoncFileCeck
 exports.img_reset = gulp.series(clean, img)
 exports.production = gulp.series(scss, ejsCompile, jsBuild, genPublishDir, js)
-exports.productionRoot = gulp.series(scss, ejsCompile('rootpath'), jsBuild, genPublishRootPathDir, js)
+exports.productionFullpath = gulp.series(
+  scss,
+  ejsCompileFullPath,
+  jsBuild,
+  genPublishFullPathDir,
+  js,
+  ejsCompile
+)
 exports.zip = gulp.series(scss, ejsCompile, jsBuild, genZipArchive, js)
