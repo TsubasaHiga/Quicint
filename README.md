@@ -57,11 +57,21 @@ npm install # or yarn install
 # serve mode：各種コンパイルタスクを利用出来ます。通常はこちらで制作を行います
 npm run serve
 
-# publish mode：納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します
+# production mode：productionビルドを行います。`publish/`配下に書き出されます
 npm run production
 
-# img recompile task：画像再圧縮タスクです。`src`と`dist`での画像数が合わなくなった場合にリセット目的で使用します
+# production fullpath mode：productionビルドを行います。
+# PATH名が`setting.json`ファイルの`siteDomain`を用いるのが特徴です。`publish-fullpath/`配下に書き出されます
+npm run production:fullpath
+
+# zip mode：納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します
+npm run zip
+
+# img recompile task：画像再圧縮タスクです。`src`と`dist`で画像数が合わなくなった場合にリセット目的で使用します
 npm run img
+
+# ejs recompile task：ejsファイルの再コンパイルタスクです。`dist`に書き出されたHTMLファイルを全削除し、再度出力します
+npm run ejs
 
 # json file check task：各種jsonファイルのチェックタスクです
 npm run json-check
@@ -112,17 +122,22 @@ npm run fix:js
 |   |-- sitemap
 |   `-- index.ejs
 |-- .babelrc
-|-- .eslintrc
+|-- .editorconfig
+|-- .eslintrc.json
 |-- .gitignore
-|-- .stylelintrc
+|-- .stylelintrc.json
+|-- ejs-define.json
 |-- env.json
+|-- env.json.sample
 |-- gulpfile.js
 |-- LICENSE
+|-- package-lock.json
 |-- package.json
 |-- README.md
 |-- setting.json
-|-- webpack.dev.config.js
-`-- webpack.prod.config.js
+|-- webpack.config.js
+|-- webpack.production.config.js
+`-- yarn.lock
 ```
 
 ## 環境依存設定
@@ -131,43 +146,52 @@ npm run fix:js
 
 ``` json
 {
-  "browsersync": {
-    "browser": "google chrome",
-    "server": {
-      "baseDir": "./dist"
+    "browsersync": {
+        "browser": "google chrome",
+        "server": {
+            "baseDir": "./dist"
+        },
+        "notify": false,
+        "open": false,
+        "ghostMode": {
+            "clicks": false,
+            "forms": false,
+            "scroll": false
+        },
+        "port": 3000,
+        "https": false,
+        "reloadOnRestart": true
     },
-    "notify": false,
-    "open": false,
-    "ghostMode": {
-      "clicks": false,
-      "forms": false,
-      "scroll": false
+    "htmlmin": {
+        "collapseWhitespace": false,
+        "removeComments": false
     },
-    "port": 3000,
-    "https": false,
-    "reloadOnRestart": true
-  },
-  "htmlmin": {
-    "collapseWhitespace": false,
-    "removeComments": false
-  },
-  "publishDir" : "/Users/higa/Desktop",
-  "io": {
-    "input": {
-      "css": "src/assets/css/",
-      "img": "src/assets/images/",
-      "js": "src/assets/js/",
-      "ejs": "src/"
+    "htmlminProduction": {
+        "collapseWhitespace": true,
+        "removeComments": true
     },
-    "output": {
-      "css": "dist/assets/css/",
-      "img": "dist/assets/images/",
-      "js": "dist/assets/js/",
-      "html": "dist/"
+    "htmlbeautify": {
+        "indent_size": 2,
+        "preserve_newlines": false
     },
-    "env": "./env.json",
-    "siteSetting": "./setting.json"
-  }
+    "publishDir": "/Users/higa/Desktop",
+    "io": {
+        "input": {
+            "css": "src/assets/css/",
+            "img": "src/assets/images/",
+            "js": "src/assets/js/",
+            "ejs": "src/"
+        },
+        "output": {
+            "css": "dist/assets/css/",
+            "img": "dist/assets/images/",
+            "js": "dist/assets/js/",
+            "html": "dist/"
+        },
+        "env": "./env.json",
+        "siteSetting": "./setting.json",
+        "ejsDefine": "./ejs-define.json"
+    }
 }
 ```
 
@@ -177,15 +201,16 @@ npm run fix:js
 
 ``` json
 {
-  "siteName": "HTML5案件用のボイラープレートQuicit",
-  "siteDomain": "https://example.com",
-  "metaAuthor": "サンプルテキスト",
-  "metaAppid": "0123456789",
-  "metaTwitterSite": "サンプルテキスト",
-  "metaTwitterCreator": "サンプルテキスト",
-  "publishFileName" : "Quicint",
-  "themeColor": "#000"
+    "siteName": "HTML5案件用のボイラープレートQuicit",
+    "siteDomain": "https://example.com",
+    "metaAuthor": "サンプルテキスト",
+    "metaAppid": "0123456789",
+    "metaTwitterSite": "サンプルテキスト",
+    "metaTwitterCreator": "サンプルテキスト",
+    "publishFileName": "Quicint",
+    "themeColor": "#000"
 }
+
 ```
 
 ## 仕様
