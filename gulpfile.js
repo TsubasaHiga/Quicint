@@ -155,7 +155,7 @@ const scss = () => {
     )
     .pipe(sourcemaps.write('/maps'))
     .pipe(gulp.dest(env.io.output.css))
-    .pipe(browserSync.stream())
+    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
 // EJS
@@ -171,14 +171,19 @@ const ejsCompile = (mode = false) => {
 
   let url = ''
   // urlセット
-  if (process.env.NODE_ENV === 'production') {
-    if (mode !== 'fullpath') {
-      url = '/'
+  // console.log(browserSync)
+  if (browserSync.active === true) {
+    if (process.env.NODE_ENV === 'production') {
+      if (mode !== 'fullpath') {
+        url = '/'
+      } else {
+        url = siteSetting.siteDomain + '/'
+      }
     } else {
-      url = siteSetting.siteDomain + '/'
+      url = browserSync.getOption('urls').get('external') + '/'
     }
   } else {
-    url = browserSync.getOption('urls').get('external') + '/'
+    url = '/'
   }
 
   return gulp
@@ -249,14 +254,14 @@ const js = () => {
     .pipe(
       plumber({
         errorHandler: err => {
-          console.log(err.messageFormatted)
+          console.log(err)
           this.emit('end')
         }
       })
     )
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest(env.io.output.js))
-    .pipe(browserSync.stream())
+    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
 // WebpackStream build
@@ -359,14 +364,18 @@ const genZipArchive = cb => {
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.json_check = jsoncFileCeck
 exports.img_reset = gulp.series(cleanImg, img)
-exports.production = gulp.series(scss, ejsCompile, jsBuild, genPublishDir, js)
+exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
+exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genPublishDir, js)
 exports.productionFullpath = gulp.series(
+  jsoncFileCeck,
   scss,
+  cleanImg,
+  img,
   ejsCompileFullPath,
   jsBuild,
   genPublishFullPathDir,
   js,
   ejsCompile
 )
-exports.zip = gulp.series(scss, ejsCompile, jsBuild, genZipArchive, js)
+exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genZipArchive, js)
 exports.ejs_reset = gulp.series(cleanEjs, ejsCompile)

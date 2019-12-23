@@ -13,7 +13,7 @@ if(meta) {
     </span>
     <% for(i in meta.hierarchy) { %>
     <span property="itemListElement" typeof="ListItem">
-      <a property="item" typeof="WebPage" title="<%= meta.hierarchy[i].title %>" href="<%= meta.hierarchy[i].link %>">
+      <a property="item" typeof="WebPage" title="<%= meta.hierarchy[i].title %>" href="<%= siteurl + meta.hierarchy[i].link %>">
         <span property="name"><%= meta.hierarchy[i].title %></span>
       </a>
       <meta property="position" content="<%= ++i + 1 %>">
