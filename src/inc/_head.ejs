@@ -15,9 +15,6 @@ var ogtype = (meta.pageName === 'page-top') ? 'website' : 'article';
 
 // カノニカルセット
 var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '/';
-
-// ドメインセット
-var siteDomain = (node_env === 'production' ) ? siteSetting.siteDomain : 'http://localhost';
 %>
 
 <!DOCTYPE html>
@@ -35,9 +32,9 @@ var siteDomain = (node_env === 'production' ) ? siteSetting.siteDomain : 'http:/
     <meta property="og:type" content="<%= ogtype %>">
     <meta property="og:title" content="<%= meta.title %>｜<%= siteSetting.siteName %>">
     <meta property="og:description" content="<%= meta.desc %>">
-    <meta property="og:url" content="<%= siteDomain + canonicalUrl %>">
+    <meta property="og:url" content="<%= siteurl + canonicalUrl %>">
     <meta property="og:site_name" content="<%= siteSetting.siteName %>">
-    <meta property="og:image" content="<%= siteDomain %>/assets/images/ogpimg.png">
+    <meta property="og:image" content="<%= siteurl %>assets/images/ogpimg.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="fb:app_id" content="<%= siteSetting.metaAppid %>">
@@ -45,11 +42,11 @@ var siteDomain = (node_env === 'production' ) ? siteSetting.siteDomain : 'http:/
     <meta name="twitter:site" content="<%= siteSetting.metaTwitterSite %>">
     <meta name="twitter:creator" content="<%= siteSetting.metaTwitterCreator %>">
     <meta name="theme-color" content="<%= siteSetting.themeColor %>">
-    <link rel="canonical" href="<%= siteDomain + canonicalUrl %>">
-    <link rel="shortcut icon" href="/assets/images/favicon.ico">
-    <link rel="preload" as="style" href="/assets/css/style.css?rev">
-    <link rel="preload" as="script" href="/assets/js/bundle.js?rev">
-    <link rel="stylesheet" href="/assets/css/style.css?rev">
+    <link rel="canonical" href="<%= siteurl + canonicalUrl %>">
+    <link rel="shortcut icon" href="<%= siteurl %>assets/images/favicon.ico">
+    <link rel="preload" as="style" href="<%= siteurl %>assets/css/style.css?rev">
+    <link rel="preload" as="script" href="<%= siteurl %>assets/js/bundle.js?rev">
+    <link rel="stylesheet" href="<%= siteurl %>assets/css/style.css?rev">
 
     <%- include('_analytics-head') %>
   </head>

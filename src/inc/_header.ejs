@@ -6,7 +6,7 @@ var meta = (typeof meta === 'undefined') ? '' : meta;
 
 <header class="l-header">
   <div class="l-header__inner">
-    <a class="logo" href="/">
+    <a class="logo" href="<%= siteurl %>">
       <% if(meta.pageName === 'page-top') { %>
       <h1 class="logo__txt">Quicint</h1>
       <% } else { %>
@@ -16,16 +16,16 @@ var meta = (typeof meta === 'undefined') ? '' : meta;
     <nav class='l-nav'>
       <ul class="l-nav__list">
         <li class="l-nav__item">
-          <a class="l-nav__link" data-linkname="page-top" href="/">HOME</a>
+          <a class="l-nav__link" data-linkname="page-top" href="<%= siteurl %>">HOME</a>
         </li>
         <li class="l-nav__item">
-          <a class="l-nav__link" data-linkname="page-2" href="/page2/">Page2</a>
+          <a class="l-nav__link" data-linkname="page-2" href="<%= siteurl %>page2/">Page2</a>
         </li>
         <li class="l-nav__item">
-          <a class="l-nav__link" data-linkname="page-3" href="/page3/">Page3</a>
+          <a class="l-nav__link" data-linkname="page-3" href="<%= siteurl %>page3/">Page3</a>
         </li>
         <li class="l-nav__item">
-          <a class="l-nav__link" data-linkname="sitemap" href="/sitemap/">サイトマップ</a>
+          <a class="l-nav__link" data-linkname="sitemap" href="<%= siteurl %>sitemap/">サイトマップ</a>
         </li>
       </ul>
     </nav>
