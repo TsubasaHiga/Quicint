@@ -5,6 +5,7 @@
     "main": "src/assets/js/main.js",
     "scripts": {
         "serve": "NODE_ENV=development gulp",
+        "development": "NODE_ENV=development gulp development",
         "production": "NODE_ENV=production gulp production",
         "production:fullpath": "NODE_ENV=production gulp productionFullpath",
         "zip": "NODE_ENV=production gulp zip",
@@ -119,6 +120,7 @@
         "swiper": "^5.2.1",
         "terser-webpack-plugin": "^2.3.1",
         "throttle-debounce": "^2.1.0",
+        "ua-parser-js": "^0.7.21",
         "webpack": "^4.41.4",
         "webpack-cli": "^3.3.10",
         "webpack-stream": "^5.2.1",
