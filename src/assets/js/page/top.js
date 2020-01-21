@@ -2,12 +2,11 @@
 import DEFINE from '../constant/define'
 import EL from '../constant/elements'
 
-import 'nodelist-foreach-polyfill'
 import 'swiper/css/swiper.min.css'
 import Swiper from 'swiper'
 
 export default () => {
-  console.warn('page2')
+  console.warn('top')
 
   const mySwiper = new Swiper('.swiper-container', {
     loop: true,

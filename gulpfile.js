@@ -261,7 +261,7 @@ const js = () => {
     )
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest(env.io.output.js))
-    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
+  // .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
 // WebpackStream build
@@ -284,7 +284,7 @@ const jsBuild = () => {
 const watch = () => {
   gulp.watch(env.io.input.css + '**/*.scss', scss)
   gulp.watch(env.io.input.img + '**/*', img)
-  gulp.watch(env.io.input.js + '**/*.js', js)
+  gulp.watch(env.io.input.js + '**/*.js', gulp.series(js, ejsCompile, reload))
   gulp.watch(
     env.io.input.ejs + '**/*.ejs',
     { interval: 250 },
