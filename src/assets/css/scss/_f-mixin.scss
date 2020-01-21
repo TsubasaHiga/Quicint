@@ -14,21 +14,23 @@
 // 10. ホバーで透過
 // 11. object-fit ie用Polyfill
 // 12. formスタイルリセット
-// 13. ie11only
-// 14. edgeonly
-// 15. ffonly
-// 16. safarionly
-// 17. first, notfirst
-// 18. last, notlast
-// 19. expand
-// 20. expansion
-// 21. placeholder
-// 22. picture100
-// 23. triangle
-// 24. circle
-// 25. square
-// 26. rightTriangle
-// 27. isoscelesTriangle
+// 13. ie11（lg / sm）
+// 14. edge（lg / sm）
+// 15. firefox（lg / sm）
+// 16. safari（lg / sm）
+// 17. tablet (portrait / landscape)
+// 18. ipados (portrait / landscape)
+// 19. first, notfirst
+// 20. last, notlast
+// 21. expand
+// 22. expansion
+// 23. placeholder
+// 24. picture100
+// 25. triangle
+// 26. circle
+// 27. square
+// 28. rightTriangle
+// 29. isoscelesTriangle
 // ----------------------------------------------------------
 
 // 01__画像置換
@@ -110,6 +112,12 @@
     }
   }
 
+  @if ($size == "se") {
+    @media screen and (max-width: 360px) {
+      @content;
+    }
+  }
+
   @else if ($size == "lg") {
     @media screen and (min-width: $breakPoint), print {
       @content;
@@ -183,7 +191,7 @@
     transform: rotate(45deg);
   }
 
-  @include ie11only() {
+  @include ie11() {
     margin-bottom: 1px !important;
   }
 }
@@ -312,54 +320,143 @@
   }
 }
 
-// 13__ie11only
+// 13__ie11 (lg / sm)
 // ----------------------------------------------------------
-@mixin ie11only {
-  @media all and (-ms-high-contrast: none), print {
-    @content;
+@mixin ie11($size: false) {
+
+  html[data-browser = "ie"][data-browserversion = "11"] & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: $breakPoint) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: $breakPoint - 1) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
   }
 }
 
-@mixin ie11only_sm {
-  @media screen and (max-width: $breakPoint - 1) and (-ms-high-contrast: none) {
-    @content;
-  }
-}
-
-@mixin ie11only_lg {
-  @media screen and (min-width: $breakPoint) and (-ms-high-contrast: none) {
-    @content;
-  }
-}
-
-// 14__edgeonly
+// 14__edge (lg / sm)
 // ----------------------------------------------------------
-@mixin edgeonly {
-  @supports (-ms-ime-align: auto) {
-    @content;
+@mixin edge {
+
+  html[data-browser = "edge"] & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: $breakPoint) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: $breakPoint - 1) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
   }
 }
 
-// 15__ffonly
+// 15__firefox (lg / sm)
 // ----------------------------------------------------------
-@mixin ffonly {
-  @-moz-document url-prefix() {
-    @content;
+@mixin firefox {
+
+  html[data-browser = "firefox"] & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: $breakPoint) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: $breakPoint - 1) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
   }
 }
 
-// 16__safarionly
+// 16__safari (lg / sm)
 // ----------------------------------------------------------
-// @mixin safarionly($className) {
-//
-//     _::-webkit-full-page-media,
-//     _:future,
-//     :root $$classname {
-//         @content;
-//     }
-// }
+@mixin safari {
 
-// 17__first, notfirst
+  html[data-browser = "safari"] & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: $breakPoint) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: $breakPoint - 1) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
+  }
+}
+
+// 17__tablet (portrait / landscape)
+// ----------------------------------------------------------
+@mixin tablet($orientation) {
+  @if ($orientation) {
+
+    html[data-type = "tablet"][data-orientation = "#{$orientation}"] & {
+      @content;
+    }
+  }
+
+  @else {
+
+    html[data-type = "tablet"] & {
+      @content;
+    }
+  }
+}
+
+// 18__ipados (portrait / landscape) ラップトップだけどタッチサポートしているデバイス全般
+// ----------------------------------------------------------
+@mixin ipados($orientation) {
+  @if ($orientation) {
+
+    html[data-type = "laptop"][data-os = "mac-os"][data-browser = "safari"][data-touchsupport = "true"][data-orientation = "#{$orientation}"] & {
+      @content;
+    }
+  }
+
+  @else {
+
+    html[data-type = "laptop"][data-os = "mac-os"][data-browser = "safari"][data-touchsupport = "true"] & {
+      @content;
+    }
+  }
+}
+
+// 19__first, notfirst
 // ----------------------------------------------------------
 @mixin first {
 
@@ -375,7 +472,7 @@
   }
 }
 
-// 18__last, notlast
+// 20__last, notlast
 // ----------------------------------------------------------
 @mixin last {
 
@@ -391,20 +488,20 @@
   }
 }
 
-// 19__expand
+// 21__expand
 // ----------------------------------------------------------
 @mixin expand($top, $right, $bottom, $left) {
   margin: #{$top}px #{$right}px #{$bottom}px #{$left}px;
 }
 
-// 20__expansion
+// 22__expansion
 // ----------------------------------------------------------
 @mixin expansion($verticale, $horizontal, $scale) {
   transform: scale($scale);
   transform-origin: $verticale $horizontal;
 }
 
-// 21__placeholder
+// 23__placeholder
 // ----------------------------------------------------------
 @mixin placeholder {
 
@@ -429,7 +526,7 @@
   }
 }
 
-// 22__picture100
+// 24__picture100
 // ----------------------------------------------------------
 @mixin picture100 {
 
@@ -443,7 +540,7 @@
   }
 }
 
-// 23__triangle
+// 25__triangle
 // ----------------------------------------------------------
 @mixin triangle($width, $height, $color, $rotate) {
   border-style: solid;
@@ -473,7 +570,7 @@
   }
 }
 
-// 24__circle
+// 26__circle
 // ----------------------------------------------------------
 @mixin circle($width, $height, $color) {
   background-color: #{$color};
@@ -484,7 +581,7 @@
   width: #{$width}px;
 }
 
-// 25__square
+// 27__square
 // ----------------------------------------------------------
 @mixin square($width, $height, $color) {
   background-color: #{$color};
@@ -494,7 +591,7 @@
   width: #{$width}px;
 }
 
-// 26__rightTriangle
+// 28__rightTriangle
 // ----------------------------------------------------------
 @mixin rightTriangle($width, $color, $rotate) {
   border-style: solid;
@@ -524,7 +621,7 @@
   }
 }
 
-// 27__isoscelesTriangle
+// 29__isoscelesTriangle
 // ----------------------------------------------------------
 @mixin isoscelesTriangle($width, $height, $color, $rotate) {
   border-style: solid;
