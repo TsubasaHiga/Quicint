@@ -12,6 +12,7 @@ import getDocumentH from './helper/getDocumentHeight'
 import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
 import isTouchSupport from './helper/isTouchSupport'
 import navCurrent from './helper/navCurrent'
+import getOrientation from './helper/getOrientation'
 
 // plugins
 import objectFitImages from 'object-fit-images'
@@ -44,6 +45,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // stickyfilljs
   Stickyfill.add(EL.STICKY)
+
+  // getOrientation
+  getOrientation()
 })
 
 /**
