@@ -11,7 +11,7 @@ for(i in meta.hierarchy) {
   hierarchy_length++;
 }
 // ogtype
-var ogtype = (meta.pageName === 'page-top') ? 'website' : 'article';
+var ogtype = (meta.pageName === 'top') ? 'website' : 'article';
 
 // カノニカルセット
 var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '/';

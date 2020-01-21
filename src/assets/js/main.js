@@ -3,113 +3,95 @@
 import DEFINE from './constant/define'
 import EL from './constant/elements'
 
-import getDeviceType from './helper/getDeviceType'
+// helper
 import closetPolyfill from './helper/polyfillCloset'
+import hmb from './helper/hmb'
+import uaDataset from './helper/uaDataset'
+import sweetScrollInit from './helper/sweetScrollInit'
+import getDocumentH from './helper/getDocumentHeight'
+import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
+import isTouchSupport from './helper/isTouchSupport'
+import navCurrent from './helper/navCurrent'
 
+// plugins
 import objectFitImages from 'object-fit-images'
 import Stickyfill from 'stickyfilljs'
 import lazysizes from 'lazysizes'
-import SweetScroll from 'sweet-scroll'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
-import UAParser from 'ua-parser-js'
 
-import pageNameTop from './page/page-top'
-import pageName2 from './page/page-2'
-import pageName3 from './page/page-3'
-
-// closet polyfill.
-closetPolyfill()
+// page scripts
+import pageNameTop from './page/top'
 
 /**
- * ハンバーガーメニューの処理を行います
+ * DOMCONTENTLOADED
  */
-const hmbInit = () => {
-  let isActive = false
-
-  const show = () => {
-    isActive = true
-    EL.HTML.classList.add('is-nav-active')
-  }
-
-  const hide = () => {
-    isActive = false
-    EL.HTML.classList.remove('is-nav-active')
-  }
-
-  EL.HMB.addEventListener('click', () => {
-    isActive ? hide() : show()
-  })
-
-  EL.HMBBG.addEventListener('click', () => {
-    isActive ? hide() : show()
-  })
-
-  window.addEventListener(
-    'resize',
-    debounce(300, () => {
-      if (isActive) {
-        hide()
-      }
-    }),
-    false
-  )
-}
-
-/**
- * ナビのカレント処理を行います
- */
-const navCurrent = (target) => {
-  for (let i = 0; i < target.length; i++) {
-    if (DEFINE.BODYCLASS === target[i].dataset.linkname) {
-      target[i].classList.add('is-active')
-      break
-    }
-  }
-}
-
-/**
- * UA情報を<html>タグにdatasetとして追加します
- * 文字列にスペースが付く場合はハイフンで繋がれます
- */
-const addUaDataset = () => {
-  const ua = UAParser()
-  const uaString = {
-    browserName: (ua.browser.name).toLowerCase().replace(' ', '-'),
-    osName: (ua.os.name).toLowerCase().replace(' ', '-')
-  }
-  EL.HTML.dataset.browser = uaString.browserName
-  EL.HTML.dataset.os = uaString.osName
-}
-
-window.addEventListener('load', () => {
+window.addEventListener('DOMContentLoaded', () => {
   // set ua dataset
-  addUaDataset()
+  uaDataset()
+
+  // set touch support dataset
+  isTouchSupport()
+
+  // closet polyfill.
+  closetPolyfill()
 
   // Polyfill object-fit
   objectFitImages()
 
+  // ie smoothScroll disable
+  ieSmoothScrollDisable()
+
   // stickyfilljs
   Stickyfill.add(EL.STICKY)
+})
 
-  // ハンバーガーメニュー
-  hmbInit()
+/**
+ * LOAD
+ */
+window.addEventListener('load', () => {
+  EL.HTML.classList.add('is-loaded')
 
-  // ナビカレント
+  // hmb menu
+  hmb()
+
+  // navCurrent
   navCurrent(EL.NAV)
 
-  // page-top
-  if (DEFINE.BODYCLASS.match(/page-top/g)) {
+  // sweetScroll
+  sweetScrollInit()
+
+  // top
+  if (DEFINE.BODYCLASS.match(/top/g)) {
     pageNameTop()
   }
-
-  // page2
-  if (DEFINE.BODYCLASS.match(/page-2/g)) {
-    pageName2()
-  }
-
-  // page3
-  if (DEFINE.BODYCLASS.match(/page-3/g)) {
-    pageName3()
-  }
 })
+
+/**
+ * SCROLL
+ */
+window.addEventListener(
+  'scroll',
+  throttle(300, () => {
+    const y = window.pageYOffset
+    const documentH = getDocumentH()
+
+    // add class is-scroll
+    if (y > 1) {
+      if (!EL.HTML.classList.contains('is-scroll')) {
+        EL.HTML.classList.add('is-scroll')
+      }
+    } else {
+      EL.HTML.classList.remove('is-scroll')
+    }
+
+    // add class is-footer
+    if (documentH <= y) {
+      if (!EL.HTML.classList.contains('is-footer')) {
+        EL.HTML.classList.add('is-footer')
+      }
+    } else {
+      EL.HTML.classList.remove('is-footer')
+    }
+  })
+)

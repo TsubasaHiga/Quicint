@@ -7,8 +7,8 @@
         "standard"
     ],
     "globals": {
-        "Atomics": "readonly",
-        "SharedArrayBuffer": "readonly",
+        "Atomics": false,
+        "SharedArrayBuffer": false,
         "Back": false,
         "Bounce": false,
         "Circ": false,
