@@ -424,8 +424,7 @@
 // ----------------------------------------------------------
 @mixin tablet($orientation: false) {
   @if ($orientation) {
-
-    html[data-type = "tablet"][data-orientation = "#{$orientation}"] & {
+    html[data-type="tablet"][data-orientation="#{$orientation}"] & {
       @content;
     }
   }
@@ -442,8 +441,8 @@
 // ----------------------------------------------------------
 @mixin ipados($orientation: false) {
   @if ($orientation) {
-
-    html[data-type = "laptop"][data-os = "mac-os"][data-browser = "safari"][data-touchsupport = "true"][data-orientation = "#{$orientation}"] & {
+    html[data-type="laptop"][data-os="mac-os"][data-browser="safari"][data-touchsupport="true"][data-orientation="#{$orientation}"]
+    & {
       @content;
     }
   }
