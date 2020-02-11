@@ -2,7 +2,6 @@
 
 // margin padding.
 @for $i from 0 through 1 {
-
   .mt#{$i} {
     margin-top: #{$i}px !important;
   }
