@@ -347,7 +347,7 @@
 
 // 14__edge (lg / sm)
 // ----------------------------------------------------------
-@mixin edge {
+@mixin edge($size: false) {
 
   html[data-browser = "edge"] & {
     @if ($size) {
@@ -372,7 +372,7 @@
 
 // 15__firefox (lg / sm)
 // ----------------------------------------------------------
-@mixin firefox {
+@mixin firefox($size: false) {
 
   html[data-browser = "firefox"] & {
     @if ($size) {
@@ -397,7 +397,7 @@
 
 // 16__safari (lg / sm)
 // ----------------------------------------------------------
-@mixin safari {
+@mixin safari($size: false) {
 
   html[data-browser = "safari"] & {
     @if ($size) {
@@ -422,7 +422,7 @@
 
 // 17__tablet (portrait / landscape)
 // ----------------------------------------------------------
-@mixin tablet($orientation) {
+@mixin tablet($orientation: false) {
   @if ($orientation) {
 
     html[data-type = "tablet"][data-orientation = "#{$orientation}"] & {
@@ -440,7 +440,7 @@
 
 // 18__ipados (portrait / landscape) ラップトップだけどタッチサポートしているデバイス全般
 // ----------------------------------------------------------
-@mixin ipados($orientation) {
+@mixin ipados($orientation: false) {
   @if ($orientation) {
 
     html[data-type = "laptop"][data-os = "mac-os"][data-browser = "safari"][data-touchsupport = "true"][data-orientation = "#{$orientation}"] & {
