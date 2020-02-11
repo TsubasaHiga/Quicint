@@ -1,5 +1,9 @@
 'use strict'
 
+// babel polyfill
+import '@babel/polyfill'
+
+// define
 import DEFINE from './constant/define'
 import EL from './constant/elements'
 
