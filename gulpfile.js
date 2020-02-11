@@ -172,16 +172,15 @@ const ejsCompile = (mode = false) => {
   let url = ''
   // urlセット
   // console.log(browserSync)
-  if (browserSync.active === true) {
-    if (process.env.NODE_ENV === 'production') {
-      if (mode !== 'fullpath') {
-        url = '/'
-      } else {
-        url = siteSetting.siteDomain + '/'
-      }
+
+  if (process.env.NODE_ENV === 'production') {
+    if (mode !== 'fullpath') {
+      url = '/'
     } else {
-      url = browserSync.getOption('urls').get('external') + '/'
+      url = siteSetting.siteDomain + '/'
     }
+  } else if (browserSync.active === true) {
+    url = browserSync.getOption('urls').get('external') + '/'
   } else {
     url = '/'
   }
