@@ -17,6 +17,7 @@ import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
 import isTouchSupport from './helper/isTouchSupport'
 import navCurrent from './helper/navCurrent'
 import getOrientation from './helper/getOrientation'
+import pageAnimation from './helper/pageAnimation'
 
 // plugins
 import objectFitImages from 'object-fit-images'
@@ -56,10 +57,23 @@ window.addEventListener('DOMContentLoaded', () => {
 })
 
 /**
+ * bfcache対策
+ */
+window.addEventListener('pageshow', e => {
+  if (e.persisted) {
+    // ページ遷移後の`.is-page-leave-animation`クラスを削除
+    EL.MAINWRAPINNER.classList.remove('is-page-leave-animation')
+  }
+})
+
+/**
  * LOAD
  */
 window.addEventListener('load', () => {
   EL.HTML.classList.add('is-loaded')
+
+  // pageAnimation
+  pageAnimation()
 
   // hmb menu
   hmb()
@@ -81,7 +95,7 @@ window.addEventListener('load', () => {
  */
 window.addEventListener(
   'scroll',
-  throttle(300, () => {
+  throttle(150, () => {
     const y = window.pageYOffset
     const documentH = getDocumentH()
 

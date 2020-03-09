@@ -14,8 +14,8 @@ export default () => {
     // init
     const sweetScrollConfig = {
       offset: deviceType === 'lg' ? DEFINE.SCROLLOFFSETLG : DEFINE.SCROLLOFFSETSM,
-      easing: 'easeOutCubic',
-      duration: 600
+      easing: 'easeInOutQuart',
+      duration: 900
     }
     const sweetScroll = new SweetScroll(sweetScrollConfig)
 
@@ -30,7 +30,7 @@ export default () => {
     // resize
     window.addEventListener(
       'resize',
-      debounce(300, () => {
+      debounce(150, () => {
         // スムーススクロール destroy.
         if (
           typeof sweetScroll !== 'undefined' &&

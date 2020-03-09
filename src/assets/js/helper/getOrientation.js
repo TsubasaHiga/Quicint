@@ -52,7 +52,7 @@ export default () => {
 
   window.addEventListener(
     'orientationchange',
-    debounce(300, () => {
+    debounce(150, () => {
       chkorientation(isReverse)
     }),
     false
