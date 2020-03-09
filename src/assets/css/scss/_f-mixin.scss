@@ -118,6 +118,13 @@
     }
   }
 
+  @else if ($size == "mid") {
+    @media screen and (min-width: $breakPoint) and (max-width: $mainW - 1),
+      print {
+      @content;
+    }
+  }
+
   @else if ($size == "lg") {
     @media screen and (min-width: $breakPoint), print {
       @content;
