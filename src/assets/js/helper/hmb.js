@@ -29,7 +29,7 @@ export default () => {
 
   window.addEventListener(
     'resize',
-    debounce(300, () => {
+    debounce(150, () => {
       if (isActive) {
         hide()
       }
