@@ -24,6 +24,7 @@ import Stickyfill from 'stickyfilljs'
 import lazysizes from 'lazysizes'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
+import 'instant.page'
 
 // page scripts
 import pageNameTop from './page/top'
