@@ -50,8 +50,8 @@ const isExistFile = file => {
 }
 
 // 環境設定ファイルの読み込み.
-const env = isExistFile('./env.json')
-  ? JSON.parse(fs.readFileSync('./env.json', 'utf8'))
+const setting = isExistFile('./setting.json')
+  ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
   : ''
 
 // webpackの設定ファイルの読み込み.
@@ -61,25 +61,25 @@ const webpackConfigBuild = require('./webpack.production.config')
 // json file check task.
 const jsoncFileCeck = cb => {
   // サイト設定ファイルの読み込み.
-  const siteSetting = isExistFile('./setting.json')
-    ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+  const siteSetting = isExistFile('./setting-site.json')
+    ? JSON.parse(fs.readFileSync('./setting-site.json', 'utf8'))
     : ''
 
   // ejs defineファイルの読み込み.
-  const ejsDefine = isExistFile('./ejs-define.json')
-    ? JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8'))
+  const define = isExistFile('./define.json')
+    ? JSON.parse(fs.readFileSync('./define.json', 'utf8'))
     : ''
 
-  if (env && siteSetting && ejsDefine) {
+  if (setting && siteSetting && define) {
     gulp
-      .src([env.io.env, env.io.siteSetting, env.io.ejsDefine])
+      .src([setting.io.setting, setting.io.siteSetting, setting.io.define])
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
     console.log('---------------------------'.green)
     console.log('json file check OK! Ready..'.bold.green)
-    console.log('- OK: env.json'.cyan)
     console.log('- OK: setting.json'.cyan)
+    console.log('- OK: setting-site.json'.cyan)
     console.log('---------------------------'.green)
   } else {
     console.log('------------------------------'.red)
@@ -102,10 +102,10 @@ const browserSyncCallbacksSettings = {
     })
   }
 }
-env.browsersync.callbacks = browserSyncCallbacksSettings
+setting.browsersync.callbacks = browserSyncCallbacksSettings
 
 // BrowserSync - sync.
-const sync = () => browserSync.init(env.browsersync)
+const sync = () => browserSync.init(setting.browsersync)
 
 // BrowserSync - reload.
 const reload = cb => {
@@ -115,18 +115,18 @@ const reload = cb => {
 
 // CleanImg.
 const cleanImg = () => {
-  return del(env.io.output.img + '**/*.{png,jpg,gif,svg}')
+  return del(setting.io.output.img + '**/*.{png,jpg,gif,svg}')
 }
 
 // CleanEjs.
 const cleanEjs = () => {
-  return del(env.io.output.html + '**/*.html')
+  return del(setting.io.output.html + '**/*.html')
 }
 
 // Scss compile.
 const scss = () => {
   return gulp
-    .src(env.io.input.css + '**/*.scss')
+    .src(setting.io.input.css + '**/*.scss')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -155,24 +155,22 @@ const scss = () => {
       ])
     )
     .pipe(sourcemaps.write('/maps'))
-    .pipe(gulp.dest(env.io.output.css))
+    .pipe(gulp.dest(setting.io.output.css))
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
 // EJS
 const ejsCompile = (mode = false) => {
   // サイト設定ファイルの読み込み.
-  const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+  const siteSetting = JSON.parse(fs.readFileSync('./setting-site.json', 'utf8'))
 
   // ejs defineファイルの読み込み.
-  const ejsDefine = JSON.parse(fs.readFileSync('./ejs-define.json', 'utf8'))
+  const define = JSON.parse(fs.readFileSync('./define.json', 'utf8'))
 
   // 乱数生成
   const revision = crypto.randomBytes(8).toString('hex')
 
   let url = ''
-  // urlセット
-  // console.log(browserSync)
 
   if (process.env.NODE_ENV === 'production') {
     if (mode !== 'fullpath') {
@@ -187,38 +185,38 @@ const ejsCompile = (mode = false) => {
   }
 
   return gulp
-    .src([env.io.input.ejs + '**/*.ejs', '!' + env.io.input.ejs + '**/_*.ejs'])
+    .src([setting.io.input.ejs + '**/*.ejs', '!' + setting.io.input.ejs + '**/_*.ejs'])
     .pipe(
       ejs(
         {
           node_env: process.env.NODE_ENV,
           siteurl: url,
           siteSetting: siteSetting,
-          ejsDefine: ejsDefine
+          define: define
         },
         {},
         { ext: '.html' }
       )
     )
     .pipe(rename({ extname: '.html' }))
-    .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(env.htmlmin)))
+    .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(setting.htmlmin)))
     .pipe(
       gulpif(
         process.env.NODE_ENV === 'production',
-        htmlmin(env.htmlminProduction)
+        htmlmin(setting.htmlminProduction)
       )
     )
     .pipe(
       replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
     )
-    .pipe(htmlbeautify(env.htmlbeautify))
-    .pipe(gulp.dest(env.io.output.html))
+    .pipe(htmlbeautify(setting.htmlbeautify))
+    .pipe(gulp.dest(setting.io.output.html))
 }
 
 // Img compressed.
 const img = () => {
   return gulp
-    .src(env.io.input.img + '**/*.{png,jpg,gif,svg}')
+    .src(setting.io.input.img + '**/*.{png,jpg,gif,svg}')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -227,7 +225,7 @@ const img = () => {
         }
       })
     )
-    .pipe(newer(env.io.output.img)) // srcとdistを比較して異なるものだけ処理
+    .pipe(newer(setting.io.output.img)) // srcとdistを比較して異なるものだけ処理
     .pipe(
       imagemin([
         pngquant({
@@ -244,13 +242,13 @@ const img = () => {
         imagemin.gifsicle()
       ])
     )
-    .pipe(gulp.dest(env.io.output.img))
+    .pipe(gulp.dest(setting.io.output.img))
 }
 
 // WebpackStream.
 const js = () => {
   return gulp
-    .src(env.io.input.js + '**/*.js')
+    .src(setting.io.input.js + '**/*.js')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -260,14 +258,14 @@ const js = () => {
       })
     )
     .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(env.io.output.js))
+    .pipe(gulp.dest(setting.io.output.js))
   // .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
 // WebpackStream build
 const jsBuild = () => {
   return gulp
-    .src(env.io.input.js + '**/*.js')
+    .src(setting.io.input.js + '**/*.js')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -277,19 +275,15 @@ const jsBuild = () => {
       })
     )
     .pipe(webpackStream(webpackConfigBuild, webpack))
-    .pipe(gulp.dest(env.io.output.js))
+    .pipe(gulp.dest(setting.io.output.js))
 }
 
 // Watch files.
 const watch = () => {
-  gulp.watch(env.io.input.css + '**/*.scss', scss)
-  gulp.watch(env.io.input.img + '**/*', img)
-  gulp.watch(env.io.input.js + '**/*.js', gulp.series(js, ejsCompile, reload))
-  gulp.watch(
-    env.io.input.ejs + '**/*.ejs',
-    { interval: 250 },
-    gulp.series(ejsCompile, reload)
-  )
+  gulp.watch(setting.io.input.css + '**/*.scss', scss)
+  gulp.watch(setting.io.input.img + '**/*', img)
+  gulp.watch(setting.io.input.js + '**/*.js', gulp.series(js, ejsCompile, reload))
+  gulp.watch(setting.io.input.ejs + '**/*.ejs', { interval: 250 }, gulp.series(ejsCompile, reload))
 }
 
 // 納品ディレクトリ作成
@@ -307,11 +301,11 @@ const genDir = (dirname, type) => {
         '!' + distname + '/**/*Thumbs.db'
       ])
       .pipe(zip(dirname + '.zip'))
-      .pipe(gulp.dest(env.publishDir))
+      .pipe(gulp.dest(setting.publishDir))
       .pipe(
         notify({
           title: '納品データをZIP化しました 🗜',
-          message: '出力先：' + env.publishDir + '/' + dirname + '.zip'
+          message: '出力先：' + setting.publishDir + '/' + dirname + '.zip'
         })
       )
   } else {
@@ -351,7 +345,7 @@ const ejsCompileFullPath = cb => {
 // 納品タスク
 const genZipArchive = cb => {
   // サイト設定ファイルの読み込み.
-  const siteSetting = JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
+  const siteSetting = JSON.parse(fs.readFileSync('./setting-site.json', 'utf8'))
 
   // 納品ファイル作成
   const dt = new Date()
@@ -362,20 +356,14 @@ const genZipArchive = cb => {
 }
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
-exports.json_check = jsoncFileCeck
-exports.img_reset = gulp.series(cleanImg, img)
+
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
+exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
+
 exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genPublishDir, js)
-exports.productionFullpath = gulp.series(
-  jsoncFileCeck,
-  scss,
-  cleanImg,
-  img,
-  ejsCompileFullPath,
-  jsBuild,
-  genPublishFullPathDir,
-  js,
-  ejsCompile
-)
+exports.productionFullpath = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
+
+exports.checkJson = jsoncFileCeck
 exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genZipArchive, js)
-exports.ejs_reset = gulp.series(cleanEjs, ejsCompile)
+exports.resetImg = gulp.series(cleanImg, img)
+exports.resetEjs = gulp.series(cleanEjs, ejsCompile)

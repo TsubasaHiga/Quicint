@@ -10,7 +10,7 @@ import pd from './preventDefault'
 export default () => {
   // ページ遷移後のクラスを付与
   setTimeout(() => {
-    EL.MAINWRAPINNER.classList.add('is-page-enter-animation')
+    EL.HTML.classList.add('is-page-enter-animation')
   }, 50)
 
   for (let i = 0; i < EL.ALLLINKS.length; i = (i + 1) | 0) {
@@ -22,7 +22,7 @@ export default () => {
         pd(e)
 
         if (!e.target.classList.contains('js-data-link')) {
-          EL.MAINWRAPINNER.classList.add('is-page-leave-animation')
+          EL.HTML.classList.add('is-page-leave-animation')
           setTimeout(() => {
             window.location = link.href
           }, 350)
@@ -40,7 +40,7 @@ export default () => {
       link.addEventListener('click', e => {
         pd(e)
         if (e.target.classList.contains('js-data-link')) {
-          EL.MAINWRAPINNER.classList.add('is-page-leave-animation')
+          EL.HTML.classList.add('is-page-leave-animation')
           setTimeout(() => {
             window.location = link.dataset.link
           }, 350)

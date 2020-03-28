@@ -62,7 +62,7 @@ window.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('pageshow', e => {
   if (e.persisted) {
     // ページ遷移後の`.is-page-leave-animation`クラスを削除
-    EL.MAINWRAPINNER.classList.remove('is-page-leave-animation')
+    EL.HTML.classList.remove('is-page-leave-animation')
   }
 })
 

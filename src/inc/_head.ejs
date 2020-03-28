@@ -1,5 +1,5 @@
 <%
-var ejsDefine = (typeof ejsDefine === 'undefined') ? '' : ejsDefine;
+var define = (typeof define === 'undefined') ? '' : define;
 var meta = (typeof meta === 'undefined') ? '' : meta;
 var siteSetting = (typeof siteSetting === 'undefined') ? '' : siteSetting;
 
@@ -14,7 +14,7 @@ for(i in meta.hierarchy) {
 var ogtype = (meta.pageName === 'top') ? 'website' : 'article';
 
 // カノニカルセット
-var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '/';
+var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '';
 %>
 
 <!DOCTYPE html>

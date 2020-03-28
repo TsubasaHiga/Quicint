@@ -21,10 +21,12 @@ export default () => {
 
     // get hash.
     const hash = window.location.hash
-    const needsInitialScroll = document.getElementById(hash.substr(1)) != null
-    if (needsInitialScroll) {
-      // window.location.hash = ''
-      sweetScroll.to(hash, { updateURL: 'replace' })
+    if (hash) {
+      const needsInitialScroll = document.getElementById(hash.substr(1)) != null
+      if (needsInitialScroll) {
+        // window.location.hash = ''
+        sweetScroll.to(hash, { updateURL: 'replace' })
+      }
     }
 
     // resize
