@@ -25,7 +25,7 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 
 テンプレートエンジンにはEJSを使用している為、ページの量産が比較的簡単に出来る特徴を持っています。約50ページ未満の静的ページ制作には最適でしょう。
 
-同梱している`env.json`と`setting.json`を有効化することで直ぐに制作を始められます。
+同梱している`setting.json`と`setting-site.json`を有効化することで直ぐに制作を始められます。
 
 ![js][img-js]
 ![js][img-css3]
@@ -64,7 +64,7 @@ npm run development
 npm run production
 
 # production fullpath mode：productionビルドを行います。
-# PATH名が`setting.json`ファイルの`siteDomain`を用いるのが特徴です。`publish-fullpath/`配下に書き出されます
+# PATH名が`setting-site.json`ファイルの`siteDomain`を用いるのが特徴です。`publish-fullpath/`配下に書き出されます
 npm run production:fullpath
 
 # zip mode：納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します
@@ -129,15 +129,15 @@ npm run fix:js
 |-- .eslintrc.json
 |-- .gitignore
 |-- .stylelintrc.json
-|-- ejs-define.json
-|-- env.json
-|-- env.json.sample
+|-- define.json
+|-- setting.json
+|-- setting.json.sample
 |-- gulpfile.js
 |-- LICENSE
 |-- package-lock.json
 |-- package.json
 |-- README.md
-|-- setting.json
+|-- setting-site.json
 |-- webpack.config.js
 |-- webpack.production.config.js
 `-- yarn.lock
@@ -145,7 +145,7 @@ npm run fix:js
 
 ## 環境依存設定
 
-環境に依存する設定は以下を`env.json`としてルートディレクトリに設置することで有効になります。
+環境に依存する設定は以下を`setting.json`としてルートディレクトリに設置することで有効になります。
 
 ``` json
 {
@@ -191,16 +191,16 @@ npm run fix:js
             "js": "dist/assets/js/",
             "html": "dist/"
         },
-        "env": "./env.json",
-        "siteSetting": "./setting.json",
-        "ejsDefine": "./ejs-define.json"
+        "env": "./setting.json",
+        "siteSetting": "./setting-site.json",
+        "define": "./define.json"
     }
 }
 ```
 
 ## サイト設定
 
-サイト固有の値を記述するファイルを`setting.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
+サイト固有の値を記述するファイルを`setting-site.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
 
 ``` json
 {

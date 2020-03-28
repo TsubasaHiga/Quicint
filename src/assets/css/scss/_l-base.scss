@@ -37,16 +37,16 @@ body {
     top: $move;
     will-change: top;
 
-    &.is-page {
+    .is-page {
       // ページ離脱時のアニメーション
 
-      &-enter-animation {
+      &-enter-animation & {
         opacity: 1;
         top: 0;
         transition: opacity $time $ease, top $time $ease;
       }
 
-      &-leave-animation {
+      &-leave-animation & {
         opacity: 0;
         top: $move;
         transition: opacity $time $ease, top $time $ease;
