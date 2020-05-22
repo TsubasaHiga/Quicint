@@ -37,20 +37,18 @@ body {
     top: $move;
     will-change: top;
 
-    .is-page {
-      // ページ離脱時のアニメーション
+    // ページ離脱時のアニメーション
 
-      &-enter-animation & {
-        opacity: 1;
-        top: 0;
-        transition: opacity $time $ease, top $time $ease;
-      }
+    .is-page-enter-animation & {
+      opacity: 1;
+      top: 0;
+      transition: opacity $time $ease, top $time $ease;
+    }
 
-      &-leave-animation & {
-        opacity: 0;
-        top: $move;
-        transition: opacity $time $ease, top $time $ease;
-      }
+    .is-page-leave-animation & {
+      opacity: 0;
+      top: $move;
+      transition: opacity $time $ease, top $time $ease;
     }
   }
 }

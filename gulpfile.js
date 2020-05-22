@@ -360,10 +360,10 @@ exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
 exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
 
-exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genPublishDir, js)
+exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genPublishDir)
 exports.productionFullpath = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genZipArchive, js)
+exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genZipArchive)
 exports.resetImg = gulp.series(cleanImg, img)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)
