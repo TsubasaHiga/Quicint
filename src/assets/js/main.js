@@ -22,7 +22,6 @@ import pageAnimation from './helper/pageAnimation'
 // plugins
 import objectFitImages from 'object-fit-images'
 import Stickyfill from 'stickyfilljs'
-import lazysizes from 'lazysizes'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
 import 'instant.page'
