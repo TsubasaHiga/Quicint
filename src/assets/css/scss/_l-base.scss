@@ -25,32 +25,6 @@ body {
 }
 
 .mainwrap {
-
-  &__inner {
-    $time: 350ms;
-    $move: -10px;
-    $ease: ease;
-
-    height: 100%;
-    opacity: 0;
-    position: relative;
-    top: $move;
-    will-change: top;
-
-    // ページ離脱時のアニメーション
-
-    .is-page-enter-animation & {
-      opacity: 1;
-      top: 0;
-      transition: opacity $time $ease, top $time $ease;
-    }
-
-    .is-page-leave-animation & {
-      opacity: 0;
-      top: $move;
-      transition: opacity $time $ease, top $time $ease;
-    }
-  }
 }
 
 .l-page {

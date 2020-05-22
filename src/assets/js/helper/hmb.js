@@ -6,7 +6,7 @@ import { throttle, debounce } from 'throttle-debounce'
 /**
  * ハンバーガーメニューの処理を行います
  */
-export default () => {
+export default swup => {
   let isActive = false
 
   const show = () => {
@@ -36,4 +36,11 @@ export default () => {
     }),
     false
   )
+
+  /**
+ * contentReplaced
+ */
+  swup.on('contentReplaced', () => {
+    hide()
+  })
 }

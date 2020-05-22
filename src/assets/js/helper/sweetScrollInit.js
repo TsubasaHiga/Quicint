@@ -34,10 +34,7 @@ export default () => {
       'resize',
       debounce(150, () => {
         // スムーススクロール destroy.
-        if (
-          typeof sweetScroll !== 'undefined' &&
-          deviceType !== getDeviceType()
-        ) {
+        if (typeof sweetScroll !== 'undefined' && deviceType !== getDeviceType()) {
           deviceType = getDeviceType()
           sweetScroll.destroy()
           sweetScrollInit()
