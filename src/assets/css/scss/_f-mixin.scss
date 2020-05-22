@@ -404,23 +404,16 @@
 // 16__safari (lg / sm)
 // ----------------------------------------------------------
 @mixin safari($size: false) {
+  @if ($size == "sm") {
 
-  html[data-browser = "safari"] & {
-    @if ($size) {
-      @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
-          @content;
-        }
-      }
-
-      @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
-          @content;
-        }
-      }
+    html[data-browser = "mobile-safari"] & {
+      @content;
     }
+  }
 
-    @else {
+  @else {
+
+    html[data-browser = "safari"] & {
       @content;
     }
   }
@@ -509,6 +502,10 @@
 // 23__placeholder
 // ----------------------------------------------------------
 @mixin placeholder {
+
+  &:placeholder {
+    @content;
+  }
 
   &:placeholder-shown {
     @content;

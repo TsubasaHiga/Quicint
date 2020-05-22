@@ -85,7 +85,7 @@ window.addEventListener('load', () => {
   sweetScrollInit()
 
   // top
-  if (DEFINE.BODYCLASS.match(/top/g)) {
+  if (DEFINE.BODYCLASS.endsWith('top')) {
     pageNameTop()
   }
 })
