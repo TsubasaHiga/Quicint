@@ -354,9 +354,8 @@
 
 // 14__edge (lg / sm)
 // ----------------------------------------------------------
-@mixin edge($size: false) {
-
-  html[data-browser = "edge"] & {
+@mixin edge($size: false, $engine: "edgehtml") {
+  html[data-browser="edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: $breakPoint) {
