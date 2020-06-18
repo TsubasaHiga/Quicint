@@ -23,18 +23,23 @@ const gulpif = require('gulp-if')
 const htmlmin = require('gulp-htmlmin')
 const htmlbeautify = require('gulp-html-beautify')
 const imagemin = require('gulp-imagemin')
+const jsdom = require('jsdom')
+const { JSDOM } = jsdom
 const jsonlint = require('gulp-jsonlint')
 const mozjpeg = require('imagemin-mozjpeg')
 const mqpacker = require('css-mqpacker')
 const newer = require('gulp-newer')
 const notify = require('gulp-notify')
 const packageImporter = require('node-sass-package-importer')
+const path = require('path')
 const plumber = require('gulp-plumber')
 const pngquant = require('imagemin-pngquant')
 const postcss = require('gulp-postcss')
 const replace = require('gulp-replace')
 const rename = require('gulp-rename')
+const sizeOf = require('image-size')
 const sourcemaps = require('gulp-sourcemaps')
+const through = require('through2')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const zip = require('gulp-zip')
@@ -115,7 +120,7 @@ const reload = cb => {
 
 // CleanImg.
 const cleanImg = () => {
-  return del(setting.io.output.img + '**/*.{png,jpg,gif,svg}')
+  return del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg}')
 }
 
 // CleanEjs.
@@ -155,6 +160,40 @@ const scss = () => {
       ])
     )
     .pipe(sourcemaps.write('/maps'))
+    .pipe(gulp.dest(setting.io.output.css))
+    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
+}
+
+// scssProduction compile.
+const scssProduction = () => {
+  return gulp
+    .src(setting.io.input.css + '**/*.scss')
+    .pipe(
+      plumber({
+        errorHandler: err => {
+          console.log(err.messageFormatted)
+          this.emit('end')
+        }
+      })
+    )
+    .pipe(
+      css({
+        precision: 5,
+        importer: packageImporter({
+          extensions: ['.scss', '.css']
+        })
+      })
+    )
+    .pipe(autoprefixer({}))
+    .pipe(
+      postcss([
+        mqpacker(),
+        cssnano({ autoprefixer: false }),
+        cssDeclarationSorter({
+          order: 'smacss'
+        })
+      ])
+    )
     .pipe(gulp.dest(setting.io.output.css))
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
@@ -207,16 +246,44 @@ const ejsCompile = (mode = false) => {
       )
     )
     .pipe(
-      replace(/\.(js|css|gif|jpg|jpeg|png|svg)\?rev/g, '.$1?rev=' + revision)
+      replace(/\.(js|css|gif|jpg|jpeg|png|apng|svg)\?rev/g, '.$1?rev=' + revision)
     )
     .pipe(htmlbeautify(setting.htmlbeautify))
+    .pipe(through(
+      {
+        objectMode: true
+      },
+      (chunk, enc, cb) => {
+        if (chunk.isNull()) {
+          cb(null, chunk)
+        } else {
+          const contents = String(chunk.contents)
+          let dom = new JSDOM(contents)
+
+          const imgs = [...dom.window.document.querySelectorAll('img')]
+          for (let i = 0; i < imgs.length; i = (i + 1) | 0) {
+            const img = imgs[i]
+            const imgSrc = img.src.replace(url, '')
+            const imgSize = sizeOf('dist/' + imgSrc)
+            if (imgSize.type !== 'svg') {
+              img.height = imgSize.height
+              img.width = imgSize.width
+              img.setAttribute('loading', 'lazy')
+            }
+          }
+
+          dom = dom.serialize()
+          chunk.contents = Buffer.from(dom)
+        }
+        cb(null, chunk)
+      }))
     .pipe(gulp.dest(setting.io.output.html))
 }
 
 // Img compressed.
 const img = () => {
   return gulp
-    .src(setting.io.input.img + '**/*.{png,jpg,gif,svg}')
+    .src(setting.io.input.img + '**/*.{png,apng,jpg,gif,svg}')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -228,15 +295,8 @@ const img = () => {
     .pipe(newer(setting.io.output.img)) // srcとdistを比較して異なるものだけ処理
     .pipe(
       imagemin([
-        pngquant({
-          quality: [0.5, 0.9],
-          speed: 1,
-          floyd: 0
-        }),
-        mozjpeg({
-          quality: 85,
-          progressive: true
-        }),
+        pngquant(setting.pngquant),
+        mozjpeg(setting.mozjpeg),
         imagemin.svgo(),
         imagemin.optipng(),
         imagemin.gifsicle()
@@ -289,7 +349,11 @@ const watch = () => {
 // 納品ディレクトリ作成
 const genDir = (dirname, type) => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data'
+
   const distname = 'dist'
+  const userHome = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
+  const publishDir = path.join(userHome, setting.publishDir)
+
   if (type === 'zip') {
     return gulp
       .src([
@@ -301,11 +365,11 @@ const genDir = (dirname, type) => {
         '!' + distname + '/**/*Thumbs.db'
       ])
       .pipe(zip(dirname + '.zip'))
-      .pipe(gulp.dest(setting.publishDir))
+      .pipe(gulp.dest(publishDir))
       .pipe(
         notify({
           title: '納品データをZIP化しました 🗜',
-          message: '出力先：' + setting.publishDir + '/' + dirname + '.zip'
+          message: '出力先：' + publishDir + '/' + dirname + '.zip'
         })
       )
   } else {
@@ -360,10 +424,10 @@ exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
 exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
 
-exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genPublishDir)
-exports.productionFullpath = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
+exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genPublishDir)
+exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, jsBuild, genZipArchive)
+exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genZipArchive)
 exports.resetImg = gulp.series(cleanImg, img)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)

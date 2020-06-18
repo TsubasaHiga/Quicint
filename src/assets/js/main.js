@@ -22,17 +22,10 @@ import getDeviceType from './helper/getDeviceType'
 
 // plugins
 import objectFitImages from 'object-fit-images'
+import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
-import lazysizes from 'lazysizes'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
-
-// Swup
-import Swup from 'swup'
-// import SwupHeadPlugin from '@swup/head-plugin'
-import SwupBodyClassPlugin from '@swup/body-class-plugin'
-import SwupPreloadPlugin from '@swup/preload-plugin'
-import SwupFadeTheme from '@swup/fade-theme'
 
 // page scripts
 import pageNameTop from './page/top'
@@ -43,18 +36,6 @@ let deviceType = getDeviceType()
 
 // getDocumentH
 let documentH = getDocumentH()
-
-/**
- * swup init
- */
-const swup = new Swup({
-  plugins: [
-    // new SwupHeadPlugin(),
-    new SwupBodyClassPlugin(),
-    new SwupPreloadPlugin()
-    // new SwupFadeTheme()
-  ]
-})
 
 /**
  * getScrollPos
@@ -97,6 +78,9 @@ const first = () => {
   // Polyfill object-fit
   objectFitImages()
 
+  // Polyfill picturefill
+  picturefill()
+
   // ie smoothScroll disable
   ieSmoothScrollDisable()
 
@@ -107,7 +91,7 @@ const first = () => {
   getOrientation()
 
   // hmb menu
-  hmb(swup)
+  hmb()
 
   // sweetScroll
   sweetScrollInit()
@@ -170,8 +154,3 @@ window.addEventListener('resize',
   }),
   false
 )
-
-/**
- * swup contentReplaced
- */
-swup.on('contentReplaced', init)

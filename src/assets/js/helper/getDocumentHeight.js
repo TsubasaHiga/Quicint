@@ -8,10 +8,11 @@ import getDeviceType from './getDeviceType'
  * @return document height
  */
 export default () => {
-  let documentH = null
-  documentH = document.body.clientHeight - window.innerHeight
+  let documentH = document.body.clientHeight - window.innerHeight
+
   if (getDeviceType() === 'sm') {
     documentH = documentH - EL.FOOTER.clientHeight + 0
   }
+
   return documentH
 }

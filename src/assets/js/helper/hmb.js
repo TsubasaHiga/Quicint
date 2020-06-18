@@ -6,41 +6,50 @@ import { throttle, debounce } from 'throttle-debounce'
 /**
  * ハンバーガーメニューの処理を行います
  */
-export default swup => {
-  let isActive = false
+export default () => {
+  const func = {
+    isActive: false,
 
-  const show = () => {
-    isActive = true
-    EL.HTML.classList.add('is-nav-active')
-  }
+    /**
+     * init
+     */
+    init: () => {
+      EL.HMB.addEventListener('click', func.switchShowHide, false)
+      EL.HMBBG.addEventListener('click', func.switchShowHide, false)
+      window.addEventListener('resize', func.resize, false)
+    },
 
-  const hide = () => {
-    isActive = false
-    EL.HTML.classList.remove('is-nav-active')
-  }
+    /**
+     * show
+     */
+    show: () => {
+      func.isActive = true
+      EL.HTML.classList.add('is-nav-active')
+    },
 
-  EL.HMB.addEventListener('click', () => {
-    isActive ? hide() : show()
-  })
+    /**
+     * hide
+     */
+    hide: () => {
+      func.isActive = false
+      EL.HTML.classList.remove('is-nav-active')
+    },
 
-  EL.HMBBG.addEventListener('click', () => {
-    isActive ? hide() : show()
-  })
+    /**
+     * switchShowHide
+     */
+    switchShowHide: () => {
+      func.isActive ? func.hide() : func.show()
+    },
 
-  window.addEventListener(
-    'resize',
-    debounce(150, () => {
-      if (isActive) {
-        hide()
+    /**
+     * resize
+     */
+    resize: debounce(150, () => {
+      if (func.isActive) {
+        func.hide()
       }
-    }),
-    false
-  )
+    })
 
-  /**
- * contentReplaced
- */
-  swup.on('contentReplaced', () => {
-    hide()
-  })
+  }
 }

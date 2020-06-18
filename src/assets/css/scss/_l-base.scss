@@ -2,6 +2,12 @@
 
 html {
   height: 100%;
+  opacity: 0;
+
+  &.is-loaded {
+    opacity: 1;
+    transition: opacity $comMS $comES;
+  }
 }
 
 body {

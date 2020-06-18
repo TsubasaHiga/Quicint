@@ -19,15 +19,12 @@ body {
   background-color: $color--body;
   color: $color--text;
   font-family: $fontFamily;
+  font-feature-settings: "palt";
   letter-spacing: .8px;
   line-height: $lineHeight;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   word-wrap: break-word;
-
-  @include media(sm) {
-    font-family: $fontSpFamily;
-  }
 }
 
 a {
@@ -37,7 +34,7 @@ a {
   outline: none;
   text-decoration: none;
 
-  a[href ^= "tel:"] {
+  &[href ^= "tel:"] {
     @include media(lg) {
       pointer-events: none;
     }
@@ -65,8 +62,9 @@ picture {
 table {
   border: 1px solid $color--border;
   border-collapse: collapse;
-  max-width: 100%;
   width: 100%;
+  max-width: 100%;
+  
 
   th,
   td {
