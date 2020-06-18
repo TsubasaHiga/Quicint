@@ -20,7 +20,6 @@ const config = {
     path: path.join(__dirname, '/dist/assets/js/'),
     filename: '[name].js'
   },
-  devtool: 'cheap-module-source-map',
   module: {
     rules: [
       {

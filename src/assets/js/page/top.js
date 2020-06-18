@@ -6,7 +6,7 @@ import 'swiper/css/swiper.min.css'
 import Swiper from 'swiper'
 
 export default () => {
-  console.warn('top')
+  console.log('top')
 
   const mySwiper = new Swiper('.swiper-container', {
     loop: true,

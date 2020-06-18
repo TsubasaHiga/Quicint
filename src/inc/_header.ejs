@@ -1,17 +1,17 @@
 <%- include('_analytics-body') %>
 <%
-var ejsDefine = (typeof ejsDefine === 'undefined') ? '' : ejsDefine;
+var define = (typeof define === 'undefined') ? '' : define;
 var meta = (typeof meta === 'undefined') ? '' : meta;
+var logoTagOpen = (meta.pageName === 'top') ? '<h1 class="logo__image">' : '<p class="logo__image">';
+var logoTagClose = (meta.pageName === 'top') ? '</h1>' : '</p>';
 %>
 
 <header class="l-header">
   <div class="l-header__inner">
-    <a class="logo" href="<%= siteurl %>">
-      <% if(meta.pageName === 'top') { %>
-      <h1 class="logo__txt">Quicint</h1>
-      <% } else { %>
-      <p class="logo__txt">Quicint</p>
-      <% } %>
+    <a class="logo" href="<%= siteurl %>" data-transition="top">
+      <%- logoTagOpen %>
+        Quicint
+      <%- logoTagClose %>
     </a>
     <nav class='l-nav'>
       <ul class="l-nav__list">
@@ -19,7 +19,7 @@ var meta = (typeof meta === 'undefined') ? '' : meta;
           <a class="l-nav__link" data-linkname="top" href="<%= siteurl %>">HOME</a>
         </li>
         <li class="l-nav__item">
-          <a class="l-nav__link" data-linkname="page-2" href="<%= siteurl %>page2/">Page2</a>
+          <a class="l-nav__link" data-linkname="page2" href="<%= siteurl %>page2/">Page2</a>
         </li>
       </ul>
     </nav>

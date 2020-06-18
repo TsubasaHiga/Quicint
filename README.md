@@ -25,7 +25,7 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 
 テンプレートエンジンにはEJSを使用している為、ページの量産が比較的簡単に出来る特徴を持っています。約50ページ未満の静的ページ制作には最適でしょう。
 
-同梱している`env.json`と`setting.json`を有効化することで直ぐに制作を始められます。
+同梱している`setting.json`と`setting-site.json`を有効化することで直ぐに制作を始められます。
 
 ![js][img-js]
 ![js][img-css3]
@@ -36,17 +36,17 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 
 ## Quick Start
 
-### npm
+### yarn
 
 ``` bash
-npm i quicint
+yarn add quicint
 ```
 
 ### git clone
 
 ``` bash
 git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
-npm install # or yarn install
+yarn install
 ```
 
 ## Command
@@ -55,29 +55,29 @@ npm install # or yarn install
 
 ``` bash
 # serve mode：各種コンパイルタスクを利用出来ます。通常はこちらで制作を行います
-npm run serve
+yarn run serve
 
 # development mode：developmentビルドを行います。`dist/`配下に書き出されます
-npm run development
+yarn run development
 
 # production mode：productionビルドを行います。`publish/`配下に書き出されます
-npm run production
+yarn run production
 
 # production fullpath mode：productionビルドを行います。
-# PATH名が`setting.json`ファイルの`siteDomain`を用いるのが特徴です。`publish-fullpath/`配下に書き出されます
-npm run production:fullpath
+# PATH名が`setting-site.json`ファイルの`siteDomain`を用いるのが特徴です。`publish-fullpath/`配下に書き出されます
+yarn run production:fullpath
 
 # zip mode：納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します
-npm run zip
+yarn run zip
 
 # img recompile task：画像再圧縮タスクです。`src`と`dist`で画像数が合わなくなった場合にリセット目的で使用します
-npm run img
+yarn run img
 
 # ejs recompile task：ejsファイルの再コンパイルタスクです。`dist`に書き出されたHTMLファイルを全削除し、再度出力します
-npm run ejs
+yarn run ejs
 
 # json file check task：各種jsonファイルのチェックタスクです
-npm run json-check
+yarn run json-check
 
 ```
 
@@ -86,16 +86,16 @@ npm run json-check
 ``` bash
 
 # lint css：CSS / SCSSファイルのlintタスクです
-npm run lint:css
+yarn run lint:css
 
 # lint fix css：CSS / SCSSファイルの自動修正タスクです
-npm run fix:css
+yarn run fix:css
 
 # lint js：JSファイルのlintタスクです
-npm run lint:js
+yarn run lint:js
 
 # lint fix js：JSファイルの自動修正タスクです
-npm run fix:js
+yarn run fix:js
 ```
 
 ### ディレクトリ構造
@@ -129,15 +129,15 @@ npm run fix:js
 |-- .eslintrc.json
 |-- .gitignore
 |-- .stylelintrc.json
-|-- ejs-define.json
-|-- env.json
-|-- env.json.sample
+|-- define.json
+|-- setting.json
+|-- setting.json.sample
 |-- gulpfile.js
 |-- LICENSE
 |-- package-lock.json
 |-- package.json
 |-- README.md
-|-- setting.json
+|-- setting-site.json
 |-- webpack.config.js
 |-- webpack.production.config.js
 `-- yarn.lock
@@ -145,7 +145,7 @@ npm run fix:js
 
 ## 環境依存設定
 
-環境に依存する設定は以下を`env.json`としてルートディレクトリに設置することで有効になります。
+環境に依存する設定は以下を`setting.json`としてルートディレクトリに設置することで有効になります。
 
 ``` json
 {
@@ -177,7 +177,16 @@ npm run fix:js
         "indent_size": 2,
         "preserve_newlines": false
     },
-    "publishDir": "/Users/higa/Desktop",
+    "pngquant": {
+        "quality": [0.7, 0.9],
+        "speed": 1,
+        "floyd": 0
+    },
+    "mozjpeg": {
+        "quality": 85,
+        "progressive": true
+    },
+    "publishDir": "Desktop",
     "io": {
         "input": {
             "css": "src/assets/css/",
@@ -191,16 +200,16 @@ npm run fix:js
             "js": "dist/assets/js/",
             "html": "dist/"
         },
-        "env": "./env.json",
-        "siteSetting": "./setting.json",
-        "ejsDefine": "./ejs-define.json"
+        "setting": "./setting.json",
+        "siteSetting": "./setting-site.json",
+        "define": "./define.json"
     }
 }
 ```
 
 ## サイト設定
 
-サイト固有の値を記述するファイルを`setting.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
+サイト固有の値を記述するファイルを`setting-site.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
 
 ``` json
 {
@@ -222,7 +231,7 @@ Quicintの仕様、及び対応環境は以下の通りです。
 
 | 項目 | 詳細 |
 | --- | --- |
-| パッケージマネージャー | npm |
+| パッケージマネージャー | yarn |
 | コンパイル環境、タスクランナー | Gulp v4 |
 | テンプレートエンジン | EJS |
 | CSS トランスパイラ | SCSS + Gulp |
@@ -240,8 +249,7 @@ Quicintの仕様、及び対応環境は以下の通りです。
 
 | プラグイン名 | 用途 |
 | --- | --- |
-| ress | reset.css |
-| lazysizes | 遅延読み込みプラグイン |
+| ress | ress.css |
 | object-fit-images | `object-fit`のPolyfill |
 | picturefill | `<picture>`タグのPolyfill |
 | sweet-scroll | ページスクロール用プラグイン |

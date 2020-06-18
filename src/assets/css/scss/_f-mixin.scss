@@ -354,9 +354,8 @@
 
 // 14__edge (lg / sm)
 // ----------------------------------------------------------
-@mixin edge($size: false) {
-
-  html[data-browser = "edge"] & {
+@mixin edge($size: false, $engine: "edgehtml") {
+  html[data-browser="edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: $breakPoint) {
@@ -405,23 +404,16 @@
 // 16__safari (lg / sm)
 // ----------------------------------------------------------
 @mixin safari($size: false) {
+  @if ($size == "sm") {
 
-  html[data-browser = "safari"] & {
-    @if ($size) {
-      @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
-          @content;
-        }
-      }
-
-      @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
-          @content;
-        }
-      }
+    html[data-browser = "mobile-safari"] & {
+      @content;
     }
+  }
 
-    @else {
+  @else {
+
+    html[data-browser = "safari"] & {
       @content;
     }
   }
@@ -510,6 +502,10 @@
 // 23__placeholder
 // ----------------------------------------------------------
 @mixin placeholder {
+
+  &:placeholder {
+    @content;
+  }
 
   &:placeholder-shown {
     @content;

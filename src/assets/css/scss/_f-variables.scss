@@ -2,7 +2,7 @@
 
 // layout
 // ----------------------------------------------------------
-$breakPoint: 768px;
+$breakPoint: 900px;
 $breakPointHR: 1500px;
 $mainW: 1280px;
 $headerH: 100px;
@@ -12,10 +12,7 @@ $spSpace: 20px;
 
 // font
 // ----------------------------------------------------------
-$fontFamily: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ",
-  meiryo, "游ゴシック", yugothic, sans-serif;
-$fontSpFamily: "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ",
-  meiryo, "游ゴシック", yugothic, sans-serif;
+$fontFamily: yakuhanjp_noto, "Noto Sans JP", sans-serif;
 
 $fontSize: 14px;
 $lineHeight: (24/14);

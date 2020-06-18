@@ -2,6 +2,12 @@
 
 html {
   height: 100%;
+  opacity: 0;
+
+  &.is-loaded {
+    opacity: 1;
+    transition: opacity $comMS $comES;
+  }
 }
 
 body {
@@ -25,34 +31,6 @@ body {
 }
 
 .mainwrap {
-
-  &__inner {
-    $time: 350ms;
-    $move: -10px;
-    $ease: ease;
-
-    height: 100%;
-    opacity: 0;
-    position: relative;
-    top: $move;
-    will-change: top;
-
-    &.is-page {
-      // ページ離脱時のアニメーション
-
-      &-enter-animation {
-        opacity: 1;
-        top: 0;
-        transition: opacity $time $ease, top $time $ease;
-      }
-
-      &-leave-animation {
-        opacity: 0;
-        top: $move;
-        transition: opacity $time $ease, top $time $ease;
-      }
-    }
-  }
 }
 
 .l-page {
