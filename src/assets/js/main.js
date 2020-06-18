@@ -17,22 +17,55 @@ import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
 import isTouchSupport from './helper/isTouchSupport'
 import navCurrent from './helper/navCurrent'
 import getOrientation from './helper/getOrientation'
-import pageAnimation from './helper/pageAnimation'
+import getClassName from './helper/getClassName'
+import getDeviceType from './helper/getDeviceType'
 
 // plugins
 import objectFitImages from 'object-fit-images'
+import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
 import { throttle, debounce } from 'throttle-debounce'
 import 'nodelist-foreach-polyfill'
-import 'instant.page'
 
 // page scripts
 import pageNameTop from './page/top'
+import pageName2 from './page/page2'
+
+// getDeviceType
+let deviceType = getDeviceType()
+
+// getDocumentH
+let documentH = getDocumentH()
 
 /**
- * DOMCONTENTLOADED
+ * getScrollPos
  */
-window.addEventListener('DOMContentLoaded', () => {
+const getScrollPos = () => {
+  const y = window.pageYOffset
+
+  // add class is-scroll
+  if (y > 1) {
+    if (!EL.HTML.classList.contains('is-scroll')) {
+      EL.HTML.classList.add('is-scroll')
+    }
+  } else {
+    EL.HTML.classList.remove('is-scroll')
+  }
+
+  // add class is-footer
+  if (documentH <= y) {
+    if (!EL.HTML.classList.contains('is-footer')) {
+      EL.HTML.classList.add('is-footer')
+    }
+  } else {
+    EL.HTML.classList.remove('is-footer')
+  }
+}
+
+/**
+ * first
+ */
+const first = () => {
   // set ua dataset
   uaDataset()
 
@@ -45,6 +78,9 @@ window.addEventListener('DOMContentLoaded', () => {
   // Polyfill object-fit
   objectFitImages()
 
+  // Polyfill picturefill
+  picturefill()
+
   // ie smoothScroll disable
   ieSmoothScrollDisable()
 
@@ -53,67 +89,68 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // getOrientation
   getOrientation()
-})
-
-/**
- * bfcache対策
- */
-window.addEventListener('pageshow', e => {
-  if (e.persisted) {
-    // ページ遷移後の`.is-page-leave-animation`クラスを削除
-    EL.HTML.classList.remove('is-page-leave-animation')
-  }
-})
-
-/**
- * LOAD
- */
-window.addEventListener('load', () => {
-  EL.HTML.classList.add('is-loaded')
-
-  // pageAnimation
-  pageAnimation()
 
   // hmb menu
   hmb()
 
+  // sweetScroll
+  sweetScrollInit()
+}
+
+/**
+ * init
+ */
+const init = () => {
+  // get body className
+  const className = getClassName(EL.BODY)
+
+  // add .is-loaded
+  EL.HTML.classList.add('is-loaded')
+
+  // getScrollPos
+  getScrollPos()
+
   // navCurrent
   navCurrent(EL.NAV)
 
-  // sweetScroll
-  sweetScrollInit()
-
   // top
-  if (DEFINE.BODYCLASS.endsWith('top')) {
+  if (className.endsWith('top')) {
     pageNameTop()
   }
-})
+
+  // page2
+  if (className.endsWith('page2')) {
+    pageName2()
+  }
+}
+
+/**
+ * DOMCONTENTLOADED
+ */
+window.addEventListener('DOMContentLoaded', first)
+
+/**
+ * LOAD
+ */
+window.addEventListener('load', init)
 
 /**
  * SCROLL
  */
-window.addEventListener(
-  'scroll',
-  throttle(150, () => {
-    const y = window.pageYOffset
-    const documentH = getDocumentH()
+window.addEventListener('scroll', throttle(150, getScrollPos), false)
 
-    // add class is-scroll
-    if (y > 1) {
-      if (!EL.HTML.classList.contains('is-scroll')) {
-        EL.HTML.classList.add('is-scroll')
-      }
-    } else {
-      EL.HTML.classList.remove('is-scroll')
-    }
+/**
+ * RESIZE
+ */
+window.addEventListener('resize',
+  debounce(150, () => {
+    // LGとSMで切り替わる時
+    if (deviceType !== getDeviceType()) {
+      deviceType = getDeviceType()
 
-    // add class is-footer
-    if (documentH <= y) {
-      if (!EL.HTML.classList.contains('is-footer')) {
-        EL.HTML.classList.add('is-footer')
-      }
-    } else {
-      EL.HTML.classList.remove('is-footer')
+      // documentH更新
+      documentH = getDocumentH()
     }
-  })
+  }),
+  false
 )

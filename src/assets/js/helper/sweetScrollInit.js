@@ -6,46 +6,71 @@ import { throttle, debounce } from 'throttle-debounce'
 import SweetScroll from 'sweet-scroll'
 
 /**
- * sweetScrollInit
+ * sweetScroll
  */
 export default () => {
-  const sweetScrollInit = () => {
-    let deviceType = getDeviceType()
-    // init
-    const sweetScrollConfig = {
-      offset: deviceType === 'lg' ? DEFINE.SCROLLOFFSETLG : DEFINE.SCROLLOFFSETSM,
-      easing: 'easeInOutQuart',
-      duration: 900
-    }
-    const sweetScroll = new SweetScroll(sweetScrollConfig)
+  const func = {
+    isActive: false,
+    deviceType: getDeviceType(),
+    sweetScroll: null,
 
-    // get hash.
-    const hash = window.location.hash
-    if (hash) {
-      const needsInitialScroll = document.getElementById(hash.substr(1)) != null
-      if (needsInitialScroll) {
-        // window.location.hash = ''
-        sweetScroll.to(hash, { updateURL: 'replace' })
+    OPTION: {},
+
+    /**
+     * init
+     */
+    init: () => {
+      func.isActive = true
+      func.getOption()
+      func.sweetScroll = new SweetScroll(func.OPTION)
+
+      // get hash.
+      const hash = window.location.hash
+      if (hash) {
+        const needsInitialScroll = document.getElementById(hash.substr(1)) != null
+        if (needsInitialScroll) {
+          func.to(hash, { updateURL: 'replace' })
+        }
+      }
+
+      window.addEventListener('resize', func.resize, false)
+    },
+
+    /**
+     * getOption
+     */
+    getOption: () => {
+      func.OPTION = {
+        offset: func.deviceType === 'lg' ? DEFINE.SCROLLOFFSETLG : DEFINE.SCROLLOFFSETSM,
+        easing: 'easeInOutQuart',
+        duration: 900
+      }
+    },
+
+    /**
+     * resize
+     */
+    resize: () => {
+      if (func.deviceType !== getDeviceType()) {
+        func.deviceType = getDeviceType()
+
+        func.getOption()
+        func.destroy()
+        func.init()
+      }
+    },
+
+    /**
+     * destroy
+     */
+    destroy: () => {
+      if (func.isActive) {
+        func.isActive = false
+        func.sweetScroll.destroy()
+        window.removeEventListener('resize', func.resize, false)
       }
     }
-
-    // resize
-    window.addEventListener(
-      'resize',
-      debounce(150, () => {
-        // スムーススクロール destroy.
-        if (
-          typeof sweetScroll !== 'undefined' &&
-          deviceType !== getDeviceType()
-        ) {
-          deviceType = getDeviceType()
-          sweetScroll.destroy()
-          sweetScrollInit()
-        }
-      }),
-      false
-    )
   }
 
-  sweetScrollInit()
+  func.init()
 }
