@@ -37,7 +37,7 @@
 // ----------------------------------------------------------
 @mixin hideText() {
   color: transparent;
-  font: 0/0 a;
+  font: 0/0;
   overflow: hidden;
   text-shadow: none;
 }
@@ -94,12 +94,7 @@
 // 05__gradation
 // ----------------------------------------------------------
 @mixin gradation($topColor, $bottomColor, $angle: to bottom) {
-  background: mix(
-    $topColor,
-    $bottomColor,
-    50%
-  ); //開始色と終了色の中間の色を背景色に指定
-
+  background: mix($topColor, $bottomColor, 50%); //開始色と終了色の中間の色を背景色に指定
   background: linear-gradient($angle, $topColor, $bottomColor);
 }
 
@@ -295,6 +290,7 @@
   @if $position {
     -o-object-position: $position;
     object-position: $position;
+    /* stylelint-disable-next-line */
     font-family: "object-fit: #{$fit}; object-position: #{$position}";
   }
 
