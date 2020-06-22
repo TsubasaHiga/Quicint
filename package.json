@@ -1,6 +1,6 @@
 {
     "name": "quicint",
-    "version": "0.6.3",
+    "version": "0.6.4",
     "description": "Quick initialize HTML5 EJS Boilerplate",
     "main": "src/assets/js/main.js",
     "scripts": {
