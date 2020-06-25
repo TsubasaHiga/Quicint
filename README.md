@@ -21,11 +21,11 @@
 
 *Quick initialize HTML5 EJS Boilerplate（すぐ出来るHTML5 EJSボイラープレート）*
 
-Quicint（クイント）はHTML5案件用のボイラープレートです。[Percolator](https://github.com/TsubasaHiga/Percolator)（PHP案件用ボイラープレート）をForkし、静的サイト構築用として個人開発を行っています。
+Quicint（クイント）は、テンプレートエンジンにEJSを用いたHTML5サイト構築用のボイラープレートです。
+ページの量産が比較的簡単にできるため静的構築プロジェクトでの使用に適しています。
 
-テンプレートエンジンにはEJSを使用している為、ページの量産が比較的簡単に出来る特徴を持っています。約50ページ未満の静的ページ制作には最適でしょう。
-
-同梱している`setting.json`と`setting-site.json`を有効化することで直ぐに制作を始められます。
+<p style="font-size:13px">Quicint is a boiler for building HTML5 sites using EJS as the template engine. Plate.
+It is relatively easy to mass produce static pages.</p>
 
 ![js][img-js]
 ![js][img-css3]
@@ -34,118 +34,48 @@ Quicint（クイント）はHTML5案件用のボイラープレートです。[P
 ![js][img-webpack]
 ![js][img-eslint]
 
-## Quick Start
-
-### yarn
+## Install
 
 ``` bash
-yarn add quicint
-```
-
-### git clone
-
-``` bash
+# clone
 git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
+
+# Quicint install
 yarn install
 ```
 
-## Command
-
-### 一般系
+※ `yarn add`でインストールする場合
+<p style="font-size:13px">In the case of `yarn add` installation</p>
 
 ``` bash
-# serve mode：各種コンパイルタスクを利用出来ます。通常はこちらで制作を行います
-yarn run serve
+# add
+yarn add quicint
 
-# development mode：developmentビルドを行います。`dist/`配下に書き出されます
+# cd & find
+cd node_module/quicint
+```
+
+## Development
+
+初期ファイル生成の生成とローカルサーバーを起動します。この時点で開発可能になり、各種ファイルのWatchタスクが始まります。
+
+<p style="font-size:13px">Generate the initial file generation and start the local server. At this point, it is ready for development and begins the Watch task for the various files.</p>
+
+``` bash
+# init
 yarn run development
 
-# production mode：productionビルドを行います。`publish/`配下に書き出されます
-yarn run production
-
-# production fullpath mode：productionビルドを行います。
-# PATH名が`setting-site.json`ファイルの`siteDomain`を用いるのが特徴です。`publish-fullpath/`配下に書き出されます
-yarn run production:fullpath
-
-# zip mode：納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します
-yarn run zip
-
-# img recompile task：画像再圧縮タスクです。`src`と`dist`で画像数が合わなくなった場合にリセット目的で使用します
-yarn run img
-
-# ejs recompile task：ejsファイルの再コンパイルタスクです。`dist`に書き出されたHTMLファイルを全削除し、再度出力します
-yarn run ejs
-
-# json file check task：各種jsonファイルのチェックタスクです
-yarn run json-check
-
+# serve
+yarn run serve
 ```
 
-### Lint系
+## Option
 
-``` bash
+### 環境設定（setting.json）
 
-# lint css：CSS / SCSSファイルのlintタスクです
-yarn run lint:css
+環境に依存する設定は`setting.json`としてルートディレクトリに設置されています。複数名で開発を行う場合など、開発環境に左右される設定を記述します。設定は主にGulp上の各タスク上で利用されます。
 
-# lint fix css：CSS / SCSSファイルの自動修正タスクです
-yarn run fix:css
-
-# lint js：JSファイルのlintタスクです
-yarn run lint:js
-
-# lint fix js：JSファイルの自動修正タスクです
-yarn run fix:js
-```
-
-### ディレクトリ構造
-
-第2階層までのディレクトリ構造です。`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。納品タスクでコピーされるディレクトリも`dist`になります。
-
-```
-.
-|-- dist #納品ディレクトリ
-|   |-- assets
-|   |   |-- css/
-|   |   |-- fonts/
-|   |   |-- images/
-|   |   `-- js/
-|   |-- page2
-|   |-- page3
-|   |-- sitemap
-|   `-- index.html
-|-- src
-|   |-- assets
-|   |   |-- css/
-|   |   |-- images/
-|   |   `-- js/
-|   |-- inc
-|   |-- page2
-|   |-- page3
-|   |-- sitemap
-|   `-- index.ejs
-|-- .babelrc
-|-- .editorconfig
-|-- .eslintrc.json
-|-- .gitignore
-|-- .stylelintrc.json
-|-- define.json
-|-- setting.json
-|-- setting.json.sample
-|-- gulpfile.js
-|-- LICENSE
-|-- package-lock.json
-|-- package.json
-|-- README.md
-|-- setting-site.json
-|-- webpack.config.js
-|-- webpack.production.config.js
-`-- yarn.lock
-```
-
-## 環境依存設定
-
-環境に依存する設定は以下を`setting.json`としてルートディレクトリに設置することで有効になります。
+<p style="font-size:13px">The `setting.json` is a configuration file, located in the root directory as You should write settings which are influenced by the development environment. The settings are mainly used on each task in Gulp.</p>
 
 ``` json
 {
@@ -207,9 +137,11 @@ yarn run fix:js
 }
 ```
 
-## サイト設定
+### サイト設定（setting-site.json）
 
-サイト固有の値を記述するファイルを`setting-site.json`として用意しております。主に`<head>`内で用いる内容が記載されており、各案件に合わせて変更してお使いいただければと思います。
+サイト固有の値を記述するファイルは`setting-site.json`としてルートディレクトリに設置されています。サイト名、metaなどサイト全体で利用する定数などの設置場所として利用可能です。主にEJSで用いられます。
+
+<p style="font-size:13px">`setting-site.json` describes site-specific values. It can be used as a location for site name, meta and other constants that are used throughout the site. It is mainly used in EJS.</p>
 
 ``` json
 {
@@ -222,53 +154,168 @@ yarn run fix:js
     "publishFileName": "Quicint",
     "themeColor": "#000"
 }
-
 ```
 
-## 仕様
+## Spec
 
 Quicintの仕様、及び対応環境は以下の通りです。
 
 | 項目 | 詳細 |
 | --- | --- |
-| パッケージマネージャー | yarn |
-| コンパイル環境、タスクランナー | Gulp v4 |
-| テンプレートエンジン | EJS |
-| CSS トランスパイラ | SCSS + Gulp |
-| CSS設計 | FLOCSS |
-| JavaScript モジュールバンドラ | Webpack |
-| JavaScript ライブラリ | Vanilla JS（Pure JS） |
-| JavaScript モジュールバンドラ | Webpack |
-| インストールパッケージリスト | 参照：`package.json` |
-| Lint環境 | ESlint / Stylelint |
-| .gitignore | [gitignore.io](https://www.gitignore.io/api/node,macos,windows) |
+| node.js | 12.x required |
+| Package manager | yarn |
+| Build system | Gulp v4 |
+| Module bundler | Webpack |
+| ECMAScript | ES6 |
+| CSS design | FLOCSS |
+| Template engine | EJS |
+| Lint | ESlint & Stylelint |
+| gitignore | [gitignore.io](https://www.gitignore.io/api/node,macos,windows) |
 
-### フロント側で使用プラグイン
+## Command
 
-以下プラグインはデフォルトでインストールされています。
+### Default task
+
+``` bash
+#
+# serve
+#
+# ローカルサーバーの起動と各種ファイルのWatchが可能です。通常はこちらで制作を行います。
+yarn run serve
+
+#
+# development
+#
+# developmentビルドを行います。`dist/`配下に書き出されます。
+yarn run development
+
+#
+# production
+#
+# productionビルドを行います。`publish/`配下に書き出されます。
+yarn run production
+
+#
+# production fullpath
+#
+# productionビルドを行います。PATH名は`setting-site.json`ファイルの`siteDomain`を用います。
+# `publish-fullpath/`配下に書き出されます。
+yarn run production:fullpath
+
+#
+# zip
+#
+# 納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します。
+# 書き出しディレクトリはsetting.jsonのpublishDirで指定可能です。
+yarn run zip
+
+#
+# resetImg
+#
+# 画像再圧縮（同期）タスクです。
+# `dist`配下の画像を一度削除し、`src`を正として再度書き出しを行います。
+yarn run resetImg
+
+#
+# resetEjs
+#
+# `dist`配下のHTMLを一度削除し、`src`を正として再度書き出しを行います。
+yarn run resetEjs
+
+#
+# checkJson
+#
+# 各種jsonファイルのチェックタスクです。
+yarn run checkJson
+
+```
+
+### Lint task
+
+``` bash
+# stylelint
+yarn run lint:css
+
+# stylelint fix
+yarn run fix:css
+
+# ESLint
+yarn run lint:js
+
+# ESLint fix
+yarn run fix:js
+```
+
+## Directory
+
+第2階層までのディレクトリ構造です。`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。納品タスクでコピーされるディレクトリも`dist`になります。
+
+<p style="font-size:13px">The directory structure up to the 2 level. The `src` directory becomes the working directory and the `dist` directory becomes the output destination. Use. The directory copied by the delivery task is also `dist`.</p>
+
+```
+.
+|-- dist #納品ディレクトリ
+|   |-- assets
+|   |   |-- css/
+|   |   |-- fonts/
+|   |   |-- images/
+|   |   `-- js/
+|   |-- page2
+|   |-- page3
+|   |-- sitemap
+|   `-- index.html
+|-- src
+|   |-- assets
+|   |   |-- css/
+|   |   |-- images/
+|   |   `-- js/
+|   |-- inc
+|   |-- page2
+|   |-- page3
+|   |-- sitemap
+|   `-- index.ejs
+|-- .babelrc
+|-- .editorconfig
+|-- .eslintrc.json
+|-- .gitignore
+|-- .stylelintrc.json
+|-- define.json
+|-- setting.json
+|-- setting.json.sample
+|-- gulpfile.js
+|-- LICENSE
+|-- package-lock.json
+|-- package.json
+|-- README.md
+|-- setting-site.json
+|-- webpack.config.js
+|-- webpack.production.config.js
+`-- yarn.lock
+```
+
+## Pre-installation Plugin
 
 | プラグイン名 | 用途 |
 | --- | --- |
-| ress | ress.css |
-| object-fit-images | `object-fit`のPolyfill |
-| picturefill | `<picture>`タグのPolyfill |
-| sweet-scroll | ページスクロール用プラグイン |
-| swiper | スライダー用プラグイン |
-| yakuhanjp | 約物半角化用日本語フォント |
+| ress | [ress.css](https://github.com/filipelinhares/ress) |
+| object-fit-images | `object-fit`Polyfill |
+| picturefill | `<picture>`Polyfill |
+| sweet-scroll | [https://github.com/tsuyoshiwada/sweet-scroll](https://github.com/tsuyoshiwada/sweet-scroll) |
+| swiper | [https://github.com/nolimits4web/swiper](https://github.com/nolimits4web/swiper) |
+| yakuhanjp | [https://github.com/qrac/yakuhanjp](https://github.com/qrac/yakuhanjp) |
 
-## 対応ブラウザ
-
-全て最新バージョンに対応。
+## Supported browser
 
 | ブラウザ名 | 対応バージョン |
 | --- | --- |
-| Google Chrome | 最新 |
-| Firefox | 最新 |
-| Safari(macOS) | 最新 |
-| IE11 | Windows10 |
-| Edge | 最新 |
-| Safari(iOS) | 最新iOS |
-| Google Chrome(Android) | 最新 |
+| Google Chrome | latest |
+| Firefox | latest |
+| Safari(macOS) | latest |
+| IE11 | Windows10 later |
+| Edge(EdgeHTML) | latest |
+| Edge(Chromium) | latest |
+| Safari(iOS) | latest iOS version  |
+| Google Chrome(Android) | latest |
 
 ## Licence
 
