@@ -156,19 +156,44 @@ const scss = () => {
       ])
     )
     .pipe(
-      gulpif(
-        process.env.NODE_ENV === 'development',
-        gulp.dest(setting.io.output.css, {
-          sourcemaps: '/maps'
-        })
-      )
+      gulp.dest(setting.io.output.css, {
+        sourcemaps: '/maps'
+      })
+    )
+    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
+}
+
+// scssProduction compile.
+const scssProduction = () => {
+  return gulp
+    .src(setting.io.input.css + '**/*.scss')
+    .pipe(
+      plumber({
+        errorHandler: err => {
+          console.log(err.messageFormatted)
+          this.emit('end')
+        }
+      })
     )
     .pipe(
-      gulpif(
-        process.env.NODE_ENV === 'production',
-        gulp.dest(setting.io.output.css)
-      )
+      css({
+        precision: 5,
+        importer: packageImporter({
+          extensions: ['.scss', '.css']
+        })
+      })
     )
+    .pipe(autoprefixer({}))
+    .pipe(
+      postcss([
+        mqpacker(),
+        cssnano({ autoprefixer: false }),
+        cssDeclarationSorter({
+          order: 'smacss'
+        })
+      ])
+    )
+    .pipe(gulp.dest(setting.io.output.css))
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
@@ -291,18 +316,23 @@ const js = () => {
         }
       })
     )
+    .pipe(webpackStream(webpackConfig, webpack))
+    .pipe(gulp.dest(setting.io.output.js))
+}
+
+// WebpackStream build
+const jsBuild = () => {
+  return gulp
+    .src(setting.io.input.js + '**/*.js')
     .pipe(
-      gulpif(
-        process.env.NODE_ENV === 'development',
-        webpackStream(webpackConfig, webpack)
-      )
+      plumber({
+        errorHandler: err => {
+          console.log(err.messageFormatted)
+          this.emit('end')
+        }
+      })
     )
-    .pipe(
-      gulpif(
-        process.env.NODE_ENV === 'production',
-        webpackStream(webpackConfigBuild, webpack)
-      )
-    )
+    .pipe(webpackStream(webpackConfigBuild, webpack))
     .pipe(gulp.dest(setting.io.output.js))
 }
 
@@ -392,10 +422,10 @@ exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
 exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
 
-exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js, genPublishDir)
-exports.productionFullpath = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompileFullPath, js, genPublishFullPathDir)
+exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genPublishDir)
+exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js, genZipArchive)
+exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genZipArchive)
 exports.resetImg = gulp.series(cleanImg, img)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)
