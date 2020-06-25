@@ -6,7 +6,7 @@
  *
  */
 
-// プラグイン読み込み.
+// プラグイン読み込み
 const autoprefixer = require('gulp-autoprefixer')
 const browserSync = require('browser-sync').create()
 const css = require('gulp-sass')
@@ -38,13 +38,12 @@ const postcss = require('gulp-postcss')
 const replace = require('gulp-replace')
 const rename = require('gulp-rename')
 const sizeOf = require('image-size')
-const sourcemaps = require('gulp-sourcemaps')
 const through = require('through2')
 const webpack = require('webpack')
 const webpackStream = require('webpack-stream')
 const zip = require('gulp-zip')
 
-// ファイル存在判定.
+// ファイル存在判定
 const isExistFile = file => {
   try {
     fs.statSync(file)
@@ -54,16 +53,16 @@ const isExistFile = file => {
   }
 }
 
-// 環境設定ファイルの読み込み.
+// 環境設定ファイルの読み込み
 const setting = isExistFile('./setting.json')
   ? JSON.parse(fs.readFileSync('./setting.json', 'utf8'))
   : ''
 
-// webpackの設定ファイルの読み込み.
+// webpackの設定ファイルの読み込み
 const webpackConfig = require('./webpack.config')
 const webpackConfigBuild = require('./webpack.production.config')
 
-// json file check task.
+// json file check task
 const jsoncFileCeck = cb => {
   // サイト設定ファイルの読み込み.
   const siteSetting = isExistFile('./setting-site.json')
@@ -95,79 +94,33 @@ const jsoncFileCeck = cb => {
   cb()
 }
 
-// BrowserSync - add callbacks.
-// const browserSyncCallbacksSettings = {
-//   ready: (err, bs) => {
-//     console.log(err)
-//     bs.addMiddleware('*', (req, res) => {
-//       res.writeHead(302, {
-//         location: '404.html'
-//       })
-//       res.end('Redirecting!')
-//     })
-//   }
-// }
-// setting.browsersync.callbacks = browserSyncCallbacksSettings
-
-// BrowserSync - sync.
+// BrowserSync - sync
 const sync = () => browserSync.init(setting.browsersync)
 
-// BrowserSync - reload.
+// BrowserSync - reload
 const reload = cb => {
   browserSync.reload()
   cb()
 }
 
-// CleanImg.
+// CleanImg
 const cleanImg = () => {
   return del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg}')
 }
 
-// CleanEjs.
+// CleanEjs
 const cleanEjs = () => {
   return del(setting.io.output.html + '**/*.html')
 }
 
-// Scss compile.
+// Scss compile
 const scss = () => {
   return gulp
-    .src(setting.io.input.css + '**/*.scss')
-    .pipe(
-      plumber({
-        errorHandler: err => {
-          console.log(err.messageFormatted)
-          this.emit('end')
-        }
-      })
+    .src(
+      setting.io.input.css + '**/*.scss', {
+        sourcemaps: true
+      }
     )
-    .pipe(sourcemaps.init())
-    .pipe(
-      css({
-        precision: 5,
-        importer: packageImporter({
-          extensions: ['.scss', '.css']
-        })
-      })
-    )
-    .pipe(autoprefixer({}))
-    .pipe(
-      postcss([
-        mqpacker(),
-        cssnano({ autoprefixer: false }),
-        cssDeclarationSorter({
-          order: 'smacss'
-        })
-      ])
-    )
-    .pipe(sourcemaps.write('/maps'))
-    .pipe(gulp.dest(setting.io.output.css))
-    .pipe(gulpif(browserSync.active === true, browserSync.stream()))
-}
-
-// scssProduction compile.
-const scssProduction = () => {
-  return gulp
-    .src(setting.io.input.css + '**/*.scss')
     .pipe(
       plumber({
         errorHandler: err => {
@@ -194,7 +147,20 @@ const scssProduction = () => {
         })
       ])
     )
-    .pipe(gulp.dest(setting.io.output.css))
+    .pipe(
+      gulpif(
+        process.env.NODE_ENV === 'development',
+        gulp.dest(setting.io.output.css, {
+          sourcemaps: '/maps'
+        })
+      )
+    )
+    .pipe(
+      gulpif(
+        process.env.NODE_ENV === 'production',
+        gulp.dest(setting.io.output.css)
+      )
+    )
     .pipe(gulpif(browserSync.active === true, browserSync.stream()))
 }
 
@@ -280,7 +246,7 @@ const ejsCompile = (mode = false) => {
     .pipe(gulp.dest(setting.io.output.html))
 }
 
-// Img compressed.
+// Img compressed
 const img = () => {
   return gulp
     .src(setting.io.input.img + '**/*.{png,apng,jpg,gif,svg}')
@@ -305,25 +271,8 @@ const img = () => {
     .pipe(gulp.dest(setting.io.output.img))
 }
 
-// WebpackStream.
+// WebpackStream
 const js = () => {
-  return gulp
-    .src(setting.io.input.js + '**/*.js')
-    .pipe(
-      plumber({
-        errorHandler: err => {
-          console.log(err)
-          this.emit('end')
-        }
-      })
-    )
-    .pipe(webpackStream(webpackConfig, webpack))
-    .pipe(gulp.dest(setting.io.output.js))
-  // .pipe(gulpif(browserSync.active === true, browserSync.stream()))
-}
-
-// WebpackStream build
-const jsBuild = () => {
   return gulp
     .src(setting.io.input.js + '**/*.js')
     .pipe(
@@ -334,11 +283,22 @@ const jsBuild = () => {
         }
       })
     )
-    .pipe(webpackStream(webpackConfigBuild, webpack))
+    .pipe(
+      gulpif(
+        process.env.NODE_ENV === 'development',
+        webpackStream(webpackConfig, webpack)
+      )
+    )
+    .pipe(
+      gulpif(
+        process.env.NODE_ENV === 'production',
+        webpackStream(webpackConfigBuild, webpack)
+      )
+    )
     .pipe(gulp.dest(setting.io.output.js))
 }
 
-// Watch files.
+// Watch files
 const watch = () => {
   gulp.watch(setting.io.input.css + '**/*.scss', scss)
   gulp.watch(setting.io.input.img + '**/*', img)
@@ -424,10 +384,10 @@ exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
 exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
 
-exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genPublishDir)
-exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
+exports.production = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js, genPublishDir)
+exports.productionFullpath = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompileFullPath, js, genPublishFullPathDir)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genZipArchive)
+exports.zip = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js, genZipArchive)
 exports.resetImg = gulp.series(cleanImg, img)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)
