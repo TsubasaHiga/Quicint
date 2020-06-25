@@ -52,4 +52,6 @@ export default () => {
     })
 
   }
+
+  func.init()
 }
