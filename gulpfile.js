@@ -17,6 +17,7 @@ const crypto = require('crypto')
 const dateutils = require('date-utils')
 const del = require('del')
 const ejs = require('gulp-ejs')
+const figlet = require('figlet')
 const fs = require('fs')
 const gulp = require('gulp')
 const gulpif = require('gulp-if')
@@ -80,6 +81,13 @@ const jsoncFileCeck = cb => {
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
+    figlet('QUICINT', (err, data) => {
+      if (err) {
+        console.dir(err)
+        return
+      }
+      console.log(data)
+    })
     console.log('---------------------------'.green)
     console.log('json file check OK! Ready..'.bold.green)
     console.log('- OK: setting.json'.cyan)
