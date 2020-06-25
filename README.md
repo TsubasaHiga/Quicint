@@ -12,9 +12,14 @@
 [img-gulp]: https://img.shields.io/badge/Gulp-000.svg?logo=gulp&style=flat-square
 [img-webpack]: https://img.shields.io/badge/-Webpack-000.svg?logo=webpack&style=flat-square
 [img-eslint]: https://img.shields.io/badge/-ESLint-000.svg?logo=eslint&style=flat-square
+[img-yarn]: https://img.shields.io/badge/-Yarn-000.svg?logo=yarn&style=flat-square
+[img-babel]: https://img.shields.io/badge/-babel-000.svg?logo=babel&style=flat-square
 
+<a target="_blank" rel="noopener noreferrer" href="docs/assets/images/logo.png" style="display: block; text-align: center;">
+    <img src="docs/assets/images/logo.png" alt="logo" style="width: 100%; max-width: 600px;">
+</a>
 
-![logo](docs/assets/images/logo.png)
+<br>
 
 [![NPM version][img-npm]][url-npm]
 [![NPM downloads][img-npm-downloads]][url-npm]
@@ -28,11 +33,13 @@ Quicint（クイント）は、テンプレートエンジンにEJSを用いたH
 It is relatively easy to mass produce static pages.</p>
 
 ![js][img-js]
-![js][img-css3]
-![js][img-html5]
-![js][img-gulp]
-![js][img-webpack]
-![js][img-eslint]
+![css3][img-css3]
+![html5][img-html5]
+![gulp][img-gulp]
+![webpack][img-webpack]
+![eslint][img-eslint]
+![yarn][img-yarn]
+![babel][img-babel]
 
 ## Install
 
