@@ -96,18 +96,18 @@ const jsoncFileCeck = cb => {
 }
 
 // BrowserSync - add callbacks.
-const browserSyncCallbacksSettings = {
-  ready: (err, bs) => {
-    console.log(err)
-    bs.addMiddleware('*', (req, res) => {
-      res.writeHead(302, {
-        location: '404.html'
-      })
-      res.end('Redirecting!')
-    })
-  }
-}
-setting.browsersync.callbacks = browserSyncCallbacksSettings
+// const browserSyncCallbacksSettings = {
+//   ready: (err, bs) => {
+//     console.log(err)
+//     bs.addMiddleware('*', (req, res) => {
+//       res.writeHead(302, {
+//         location: '404.html'
+//       })
+//       res.end('Redirecting!')
+//     })
+//   }
+// }
+// setting.browsersync.callbacks = browserSyncCallbacksSettings
 
 // BrowserSync - sync.
 const sync = () => browserSync.init(setting.browsersync)

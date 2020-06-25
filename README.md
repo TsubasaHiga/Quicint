@@ -302,7 +302,6 @@ yarn run fix:js
 | picturefill | `<picture>`Polyfill |
 | sweet-scroll | [https://github.com/tsuyoshiwada/sweet-scroll](https://github.com/tsuyoshiwada/sweet-scroll) |
 | swiper | [https://github.com/nolimits4web/swiper](https://github.com/nolimits4web/swiper) |
-| yakuhanjp | [https://github.com/qrac/yakuhanjp](https://github.com/qrac/yakuhanjp) |
 
 ## Supported browser
 
