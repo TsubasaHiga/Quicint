@@ -12,6 +12,7 @@ const path = require('path')
 
 const config = {
   watch: false,
+  cache: true,
   mode: 'production',
   entry: {
     bundle: './src/assets/js/main.js'
@@ -20,13 +21,16 @@ const config = {
     path: path.join(__dirname, '/dist/assets/js/'),
     filename: '[name].js'
   },
+  performance: {
+    hints: false
+  },
   module: {
     rules: [
       {
         test: /\.js$/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'babel-loader?cacheDirectory',
             options: {
               presets: [
                 [
@@ -38,7 +42,8 @@ const config = {
               ]
             }
           }
-        ]
+        ],
+        exclude: /node_modules/
       },
       {
         test: /\.css/,

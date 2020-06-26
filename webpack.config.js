@@ -11,6 +11,7 @@ const HardSourceWebpackPlugin = require('hard-source-webpack-plugin')
 
 const config = {
   watch: false,
+  cache: true,
   mode: 'development',
   entry: {
     bundle: './src/assets/js/main.js'
@@ -19,6 +20,9 @@ const config = {
     path: __dirname,
     filename: '[name].js'
   },
+  performance: {
+    hints: false
+  },
   devtool: 'cheap-module-source-map',
   module: {
     rules: [
@@ -26,7 +30,7 @@ const config = {
         test: /\.js$/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: 'babel-loader?cacheDirectory',
             options: {
               presets: [
                 [
@@ -38,7 +42,8 @@ const config = {
               ]
             }
           }
-        ]
+        ],
+        exclude: /node_modules/
       },
       {
         test: /\.css/,

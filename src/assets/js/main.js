@@ -25,11 +25,11 @@ import objectFitImages from 'object-fit-images'
 import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
 import { throttle, debounce } from 'throttle-debounce'
-import 'nodelist-foreach-polyfill'
 
 // page scripts
 import pageNameTop from './page/top'
 import pageName2 from './page/page2'
+require('intersection-observer')
 
 // getDeviceType
 let deviceType = getDeviceType()
