@@ -29,7 +29,7 @@ export default () => {
       if (hash) {
         const needsInitialScroll = document.getElementById(hash.substr(1)) != null
         if (needsInitialScroll) {
-          func.to(hash, { updateURL: 'replace' })
+          func.sweetScroll.to(hash, { updateURL: 'replace' })
         }
       }
 
