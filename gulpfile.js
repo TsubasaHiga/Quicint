@@ -212,9 +212,9 @@ const ejsCompile = (mode = false) => {
 
   if (process.env.NODE_ENV === 'production') {
     if (mode !== 'fullpath') {
-      url = '/'
+      url = siteSetting.siteDomainProduction + '/'
     } else {
-      url = siteSetting.siteDomain + '/'
+      url = siteSetting.siteDomainDevelopment + '/'
     }
   } else if (browserSync.active === true) {
     url = browserSync.getOption('urls').get('external') + '/'
@@ -229,8 +229,9 @@ const ejsCompile = (mode = false) => {
         {
           node_env: process.env.NODE_ENV,
           siteurl: url,
+          mode: mode,
           siteSetting: siteSetting,
-          define: define
+          DEFINE: define
         },
         {},
         { ext: '.html' }
@@ -245,7 +246,7 @@ const ejsCompile = (mode = false) => {
       )
     )
     .pipe(
-      replace(/\.(js|css|gif|jpg|jpeg|png|apng|svg)\?rev/g, '.$1?rev=' + revision)
+      replace(/\.(js|css|gif|jpg|jpeg|png|apng|svg|mp4)\?rev/g, '.$1?rev=' + revision)
     )
     .pipe(htmlbeautify(setting.htmlbeautify))
     .pipe(through(

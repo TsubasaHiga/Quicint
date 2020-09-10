@@ -126,12 +126,6 @@
     }
   }
 
-  @else if ($size == "HR") {
-    @media screen and (min-width: $breakPointHR) {
-      @content;
-    }
-  }
-
   @else if ($size == "retina") {
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
       @content;
@@ -268,16 +262,18 @@
 // 10__ホバーで透過
 // ----------------------------------------------------------
 @mixin hoverOpacity($opacity, $ms: false, $ease: false) {
-  @if $ease {
-    transition: opacity $ms $ease;
-  }
+  @include media(lg) {
+    @if $ease {
+      transition: opacity $ms $ease;
+    }
 
-  @else {
-    transition: opacity $comMS $comES;
-  }
+    @else {
+      transition: opacity $comMS $comES;
+    }
 
-  &:hover {
-    opacity: $opacity;
+    &:hover {
+      opacity: $opacity;
+    }
   }
 }
 

@@ -30,6 +30,10 @@ export default () => {
     }
   }
 
+  /**
+   * chkorientation
+   * @param {boolean} isReverse
+   */
   const chkorientation = isReverse => {
     if (isReverse) {
       // 正面が逆の場合

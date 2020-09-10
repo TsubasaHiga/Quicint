@@ -8,11 +8,9 @@ import DEFINE from './constant/define'
 import EL from './constant/elements'
 
 // helper
-import closetPolyfill from './helper/polyfillCloset'
 import hmb from './helper/hmb'
 import uaDataset from './helper/uaDataset'
 import sweetScrollInit from './helper/sweetScrollInit'
-import getDocumentH from './helper/getDocumentHeight'
 import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
 import isTouchSupport from './helper/isTouchSupport'
 import navCurrent from './helper/navCurrent'
@@ -32,10 +30,7 @@ import pageName2 from './page/page2'
 require('intersection-observer')
 
 // getDeviceType
-let deviceType = getDeviceType()
-
-// getDocumentH
-let documentH = getDocumentH()
+const deviceType = getDeviceType()
 
 /**
  * getScrollPos
@@ -51,29 +46,17 @@ const getScrollPos = () => {
   } else {
     EL.HTML.classList.remove('is-scroll')
   }
-
-  // add class is-footer
-  if (documentH <= y) {
-    if (!EL.HTML.classList.contains('is-footer')) {
-      EL.HTML.classList.add('is-footer')
-    }
-  } else {
-    EL.HTML.classList.remove('is-footer')
-  }
 }
 
 /**
- * first
+ * firstRun
  */
-const first = () => {
+const firstRun = () => {
   // set ua dataset
   uaDataset()
 
   // set touch support dataset
   isTouchSupport()
-
-  // closet polyfill.
-  closetPolyfill()
 
   // Polyfill object-fit
   objectFitImages()
@@ -89,18 +72,12 @@ const first = () => {
 
   // getOrientation
   getOrientation()
-
-  // hmb menu
-  hmb()
-
-  // sweetScroll
-  sweetScrollInit()
 }
 
 /**
- * init
+ * initRun
  */
-const init = () => {
+const initRun = () => {
   // get body className
   const className = getClassName(EL.BODY)
 
@@ -112,6 +89,12 @@ const init = () => {
 
   // navCurrent
   navCurrent(EL.NAV)
+
+  // hmb menu
+  hmb()
+
+  // sweetScroll
+  sweetScrollInit()
 
   // top
   if (className.endsWith('top')) {
@@ -127,30 +110,14 @@ const init = () => {
 /**
  * DOMCONTENTLOADED
  */
-window.addEventListener('DOMContentLoaded', first)
+window.addEventListener('DOMContentLoaded', firstRun)
 
 /**
  * LOAD
  */
-window.addEventListener('load', init)
+window.addEventListener('load', initRun)
 
 /**
  * SCROLL
  */
 window.addEventListener('scroll', throttle(150, getScrollPos), false)
-
-/**
- * RESIZE
- */
-window.addEventListener('resize',
-  debounce(150, () => {
-    // LGとSMで切り替わる時
-    if (deviceType !== getDeviceType()) {
-      deviceType = getDeviceType()
-
-      // documentH更新
-      documentH = getDocumentH()
-    }
-  }),
-  false
-)
