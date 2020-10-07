@@ -9,7 +9,10 @@ import UAParser from 'ua-parser-js'
  */
 export default () => {
   const ua = UAParser()
-  if (ua.browser.name === 'Edge' || ua.browser.name === 'IE') {
+  if (
+    (ua.browser.name === 'Edge' && ua.engine.name.toLowerCase().replace(' ', '-') === 'edgehtml') ||
+    ua.browser.name === 'IE'
+  ) {
     EL.BODY.addEventListener('mousewheel', () => {
       event.preventDefault()
       const wd = event.wheelDelta
