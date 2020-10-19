@@ -2,7 +2,6 @@
 
 import DEFINE from '../constant/define'
 import getDeviceType from '../helper/getDeviceType'
-import { throttle, debounce } from 'throttle-debounce'
 import SweetScroll from 'sweet-scroll'
 
 /**

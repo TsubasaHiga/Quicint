@@ -3,15 +3,10 @@
 // plugins
 @import "~ress/ress.css";
 
-// // yakuhanjp
-// $yakuhanjp-noto-eot-use: false;
-// $yakuhanjp-noto-cdn-use: true;
-
-// @import "~yakuhanjp/src/scss/yakuhanjp-noto.scss";
-
 // default
-@import "scss/f-variables";
+@import "scss/f-functions";
 @import "scss/f-mixin";
+@import "scss/f-variables";
 @import "scss/f-base";
 @import "scss/c-button";
 @import "scss/c-form";

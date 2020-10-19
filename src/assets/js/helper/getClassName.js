@@ -5,7 +5,4 @@
  * @param {HTMLObjectElement} target
  * @return string
  */
-export default target => {
-  const className = target.classList[0]
-  return className
-}
+export default target => target.classList[0]

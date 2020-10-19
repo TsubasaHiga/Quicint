@@ -16,21 +16,12 @@ body {
   position: relative;
   width: 100%;
 
-  @include media(lg) {
-    min-width: $mainW;
-  }
-
   // アンチエイリアス
-  // -webkit-font-smoothing: subpixel-antialiased;
-  // -moz-osx-font-smoothing: unset;
   @media only screen and (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 2dppx) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-}
-
-.mainwrap {
 }
 
 .l-page {
@@ -53,7 +44,7 @@ body {
 
   @include media(sm) {
     min-width: 100%;
-    padding: 0 $spSpace;
+    padding: 0 $smSpace;
     width: 100%;
   }
 }

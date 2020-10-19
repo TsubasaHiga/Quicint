@@ -81,7 +81,7 @@ const jsoncFileCeck = cb => {
       .pipe(jsonlint())
       .pipe(jsonlint.reporter())
 
-    figlet('QUICINT', (err, data) => {
+    figlet(siteSetting.publishFileName, (err, data) => {
       if (err) {
         console.dir(err)
         return
@@ -113,7 +113,7 @@ const reload = cb => {
 
 // CleanImg
 const cleanImg = () => {
-  return del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg}')
+  return del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp}')
 }
 
 // CleanEjs
@@ -246,7 +246,7 @@ const ejsCompile = (mode = false) => {
       )
     )
     .pipe(
-      replace(/\.(js|css|gif|jpg|jpeg|png|apng|svg|mp4)\?rev/g, '.$1?rev=' + revision)
+      replace(/\.(js|css|gif|jpg|jpeg|png|apng|svg|mp4|webp)\?rev/g, '.$1?rev=' + revision)
     )
     .pipe(htmlbeautify(setting.htmlbeautify))
     .pipe(through(
@@ -265,9 +265,12 @@ const ejsCompile = (mode = false) => {
             const img = imgs[i]
             const imgSrc = img.src.replace(url, '')
             const imgSize = sizeOf('dist/' + imgSrc)
-            if (imgSize.type !== 'svg') {
-              img.height = imgSize.height
-              img.width = imgSize.width
+            const imgScale = typeof img.dataset.scale !== 'undefined' ? img.dataset.scale : 1
+
+            img.height = imgSize.height / imgScale
+            img.width = imgSize.width / imgScale
+
+            if (img.classList.contains('lazy')) {
               img.setAttribute('loading', 'lazy')
             }
           }
@@ -280,10 +283,39 @@ const ejsCompile = (mode = false) => {
     .pipe(gulp.dest(setting.io.output.html))
 }
 
+/**
+ * getImageLists
+ * @param {boolean} onlyManual
+ */
+const getImageLists = onlyManual => {
+  // defaultLists
+  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg}'
+
+  // lists
+  const lists = []
+
+  if (onlyManual) {
+    // push imageManualLists
+    for (let i = 0; i < setting.imageManualLists.length; i = (i + 1) | 0) {
+      lists.push(setting.io.input.img + setting.imageManualLists[i])
+    }
+  } else {
+    // push defaultLists
+    lists.push(defaultLists)
+
+    // push ignore imageManualLists
+    for (let i = 0; i < setting.imageManualLists.length; i = (i + 1) | 0) {
+      lists.push('!' + setting.io.input.img + setting.imageManualLists[i])
+    }
+  }
+
+  return lists
+}
+
 // Img compressed
 const img = () => {
   return gulp
-    .src(setting.io.input.img + '**/*.{png,apng,jpg,gif,svg}')
+    .src(getImageLists(false))
     .pipe(
       plumber({
         errorHandler: err => {
@@ -292,17 +324,49 @@ const img = () => {
         }
       })
     )
-    .pipe(newer(setting.io.output.img)) // srcとdistを比較して異なるものだけ処理
+    .pipe(newer(setting.io.output.img))
     .pipe(
       imagemin([
         pngquant(setting.pngquant),
         mozjpeg(setting.mozjpeg),
-        imagemin.svgo(),
-        imagemin.optipng(),
-        imagemin.gifsicle()
+        imagemin.svgo(setting.svgo),
+        imagemin.gifsicle(setting.gifsicle)
       ])
     )
     .pipe(gulp.dest(setting.io.output.img))
+}
+
+/**
+ * imgManual
+ * 手動で圧縮率を設定する場合のタスクです。
+ * 特定の画像の圧縮率を下げたい場合等で使用する事を想定しています。
+ * 設定記述：setting.jsonのpngquantManualとmozjpegManual
+ * @param {*} cb
+ */
+const imgManual = cb => {
+  const imageLists = getImageLists(true)
+  if (imageLists.length !== 0) {
+    return gulp
+      .src(imageLists)
+      .pipe(
+        plumber({
+          errorHandler: err => {
+            console.log(err.messageFormatted)
+            this.emit('end')
+          }
+        })
+      )
+      .pipe(newer(setting.io.output.img))
+      .pipe(
+        imagemin([
+          pngquant(setting.pngquantManual),
+          mozjpeg(setting.mozjpegManual)
+        ])
+      )
+      .pipe(gulp.dest(setting.io.output.img))
+  } else {
+    cb()
+  }
 }
 
 // WebpackStream
@@ -420,13 +484,13 @@ const genZipArchive = cb => {
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 
-exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, ejsCompile, js)
+exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, imgManual, ejsCompile, js)
 exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
 
-exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genPublishDir)
-exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
+exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, ejsCompile, jsBuild, genPublishDir)
+exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, ejsCompile, jsBuild, genZipArchive)
-exports.resetImg = gulp.series(cleanImg, img)
+exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, ejsCompile, jsBuild, genZipArchive)
+exports.resetImg = gulp.series(cleanImg, img, imgManual)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)

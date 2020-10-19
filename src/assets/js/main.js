@@ -4,7 +4,6 @@
 import '@babel/polyfill'
 
 // define
-import DEFINE from './constant/define'
 import EL from './constant/elements'
 
 // helper
@@ -16,7 +15,6 @@ import isTouchSupport from './helper/isTouchSupport'
 import navCurrent from './helper/navCurrent'
 import getOrientation from './helper/getOrientation'
 import getClassName from './helper/getClassName'
-import getDeviceType from './helper/getDeviceType'
 
 // plugins
 import objectFitImages from 'object-fit-images'
@@ -27,10 +25,6 @@ import { throttle, debounce } from 'throttle-debounce'
 // page scripts
 import pageNameTop from './page/top'
 import pageName2 from './page/page2'
-require('intersection-observer')
-
-// getDeviceType
-const deviceType = getDeviceType()
 
 /**
  * getScrollPos
@@ -67,9 +61,6 @@ const firstRun = () => {
   // ie smoothScroll disable
   ieSmoothScrollDisable()
 
-  // stickyfilljs
-  Stickyfill.add(EL.STICKY)
-
   // getOrientation
   getOrientation()
 }
@@ -78,11 +69,14 @@ const firstRun = () => {
  * initRun
  */
 const initRun = () => {
+  // add .is-loaded
+  EL.HTML.classList.add('is-loaded')
+
   // get body className
   const className = getClassName(EL.BODY)
 
-  // add .is-loaded
-  EL.HTML.classList.add('is-loaded')
+  // stickyfilljs
+  Stickyfill.add(EL.STICKY)
 
   // getScrollPos
   getScrollPos()

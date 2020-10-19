@@ -1,9 +1,13 @@
 <%- include('_analytics-body') %>
 <%
-var DEFINE = (typeof DEFINE === 'undefined') ? '' : DEFINE;
-var meta = (typeof meta === 'undefined') ? '' : meta;
-var logoTagOpen = (meta.pageName === 'top') ? '<h1 class="logo__image">' : '<p class="logo__image">';
-var logoTagClose = (meta.pageName === 'top') ? '</h1>' : '</p>';
+// define
+const DEFINE = (typeof define === 'undefined') ? '' : define
+
+// metaData
+const metaData = (typeof meta === 'undefined') ? '' : meta;
+
+const logoTagOpen = (metaData.pageName === 'top') ? '<h1 class="logo__image">' : '<p class="logo__image">';
+const logoTagClose = (metaData.pageName === 'top') ? '</h1>' : '</p>';
 %>
 
 <header class="l-header">

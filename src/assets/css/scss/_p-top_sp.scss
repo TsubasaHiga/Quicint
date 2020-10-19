@@ -3,5 +3,8 @@
 @include media(sm) {
 
   .top {
+    /* stylelint-disable */
+    // 使用する最に stylelint-disableコメント削除
+    /* stylelint-enable */
   }
 }

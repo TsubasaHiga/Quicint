@@ -3,25 +3,30 @@
 // layout
 // ----------------------------------------------------------
 // break point
-$breakPoint: 900px;
+$breakPoint: 769px;
 
 // mainW
 $mainW: 1280px;
 
+// Basis vw
+$basis: 1280;
+$smBasis: 375;
+
+// Basis vh
+$basisVh: 800;
+$smBasisVh: 667; // iPhoneX hide toolbar min-height
+
 // Basis space
-$space: 30px;
-$spSpace: 20px;
+$space: rem(50);
+$smSpace: rem(20);
 
 // headerH
-$headerH: 100px;
-$spHeaderH: 60px;
+$headerH: rem(100);
+$smHeaderH: rem(100);
 
 // font
 // ----------------------------------------------------------
-$fontFamily: yakuhanjp_noto, "Noto Sans JP", sans-serif;
-
-$fontSize: 14px;
-$lineHeight: (24/14);
+$fontFamily: "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
 
 // color
 // ----------------------------------------------------------

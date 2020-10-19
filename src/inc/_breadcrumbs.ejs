@@ -1,23 +1,26 @@
 <%
-var DEFINE = (typeof DEFINE === 'undefined') ? '' : DEFINE;
-var meta = (typeof meta === 'undefined') ? '' : meta;
-if(meta) {
+// define
+const DEFINE = (typeof define === 'undefined') ? '' : define
+
+// metaData
+var metaData = (typeof meta === 'undefined') ? '' : meta;
+if(metaData.hierarchy) {
 %>
 <div class="l-breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
   <div class="l-breadcrumbs__inner">
     <span property="itemListElement" typeof="ListItem">
-      <a property="item" typeof="WebPage" title="トップ" href="<%= siteurl %>" class="home">
-        <span property="name">トップ</span>
+      <a property="item" typeof="WebPage" title="ホーム" href="<%= siteurl %>" class="home">
+        <span property="name">ホーム</span>
       </a>
       <meta property="position" content="1">
     </span>
-    <% for(i in meta.hierarchy) { %>
-    <span property="itemListElement" typeof="ListItem">
-      <a property="item" typeof="WebPage" title="<%= meta.hierarchy[i].title %>" href="<%= siteurl + meta.hierarchy[i].link %>">
-        <span property="name"><%= meta.hierarchy[i].title %></span>
-      </a>
-      <meta property="position" content="<%= ++i + 1 %>">
-    </span>
+    <% for (let i = 0; i < metaData.hierarchy.length; i++) { %>
+      <span property="itemListElement" typeof="ListItem">
+        <a property="item" typeof="WebPage" title="<%= metaData.hierarchy[i].title %>" href="<%= siteurl + metaData.hierarchy[i].link %>">
+          <span property="name"><%= metaData.hierarchy[i].title %></span>
+        </a>
+        <meta property="position" content="<%= i + 2 %>">
+      </span>
     <% } %>
   </div>
 </div>
