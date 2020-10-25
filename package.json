@@ -14,11 +14,11 @@
         "checkJson": "cross-env NODE_ENV=development gulp checkJson",
         "resetImg": "cross-env NODE_ENV=development gulp resetImg",
         "resetEjs": "cross-env NODE_ENV=production gulp resetEjs",
-        "lint:css": "stylelint 'src/assets/css/scss/**/*.scss'",
-        "lint:js": "eslint 'src/assets/js/**/*.js'",
-        "lint:ejs": "ejslint 'src/**/*.ejs'",
-        "fix:css": "stylelint --fix 'src/assets/css/scss/**/*.scss'",
-        "fix:js": "eslint --fix 'src/assets/js/**/*.js'"
+        "lint:css": "stylelint \"src/assets/css/scss/**/*.scss\"",
+        "lint:js": "eslint \"src/assets/js/**/*.js\"",
+        "lint:ejs": "ejslint \"src/**/*.ejs\"",
+        "fix:css": "stylelint --fix \"src/assets/css/scss/**/*.scss\"",
+        "fix:js": "eslint --fix \"src/assets/js/**/*.js\""
     },
     "husky": {
         "hooks": {
