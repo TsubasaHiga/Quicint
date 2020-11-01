@@ -5,6 +5,5 @@
  * @return document height
  */
 export default () => {
-  const documentH = document.body.clientHeight - window.innerHeight
-  return documentH
+  return document.body.clientHeight - window.innerHeight
 }

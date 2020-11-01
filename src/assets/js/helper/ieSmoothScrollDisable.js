@@ -4,7 +4,7 @@ import EL from '../constant/elements'
 import UAParser from 'ua-parser-js'
 
 /**
- * ieとedgeにてスムーズスクロールを無効化します。
+ * ieとedgeHTMLにてスムーズスクロールを無効化します。
  * position fixedの時にガタつくため。
  */
 export default () => {

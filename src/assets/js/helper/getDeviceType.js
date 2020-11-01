@@ -7,6 +7,5 @@ import DEFINE from '../constant/define'
  * @return string 'lg' or 'sm'
  */
 export default () => {
-  const deviceType = window.innerWidth > DEFINE.BREAKPOINT ? 'lg' : 'sm'
-  return deviceType
+  return window.innerWidth > DEFINE.BREAKPOINT ? 'lg' : 'sm'
 }
