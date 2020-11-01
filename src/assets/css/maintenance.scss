@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@import "scss/f-variables";
-@import "scss/f-mixin";
+@use "scss/f-variables" as *;
+@use "scss/f-mixin" as *;
 
 * {
   margin: 0;

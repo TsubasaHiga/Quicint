@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+
 // mixin集
 // ----------------------------------------------------------
 // 01. 画像置換
@@ -322,7 +324,6 @@
     border: none;
     border-radius: 0;
     margin: 0;
-    outline: none;
     padding: 0;
   }
 
@@ -474,10 +475,19 @@
   }
 }
 
-@mixin notfirst {
+@mixin notfirst($child: false) {
+  @if ($child) {
 
-  &:not(:first-of-type) {
-    @content;
+    &:not(:first-child) {
+      @content;
+    }
+  }
+
+  @else {
+
+    &:not(:first-of-type) {
+      @content;
+    }
   }
 }
 

@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+@use "f-mixin" as *;
+
 .top {
   /* stylelint-disable */
   // 使用する最に stylelint-disableコメント削除

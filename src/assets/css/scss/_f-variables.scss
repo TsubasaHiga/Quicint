@@ -1,15 +1,17 @@
 @charset "utf-8";
 
+@use "scss/f-functions" as *;
+
 // layout
 // ----------------------------------------------------------
 // break point
-$breakPoint: 769px;
+$breakPoint: 900px;
 
 // mainW
 $mainW: 1280px;
 
 // Basis vw
-$basis: 1280;
+$basis: 1440;
 $smBasis: 375;
 
 // Basis vh

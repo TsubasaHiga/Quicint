@@ -1,23 +1,23 @@
 @charset "utf-8";
 
 // plugins
-@import "~ress/ress.css";
+@use "../../../node_modules/ress/ress.css";
 
 // default
-@import "scss/f-functions";
-@import "scss/f-mixin";
-@import "scss/f-variables";
-@import "scss/f-base";
-@import "scss/c-button";
-@import "scss/c-form";
-@import "scss/c-parts";
-@import "scss/l-base";
-@import "scss/l-breadcrumbs";
-@import "scss/l-footer";
-@import "scss/l-header";
-@import "scss/l-nav";
-@import "scss/l-page-header";
-@import "scss/p-top";
-@import "scss/p-top_sp";
-@import "scss/u-layout";
-@import "scss/u-plugin";
+@use "scss/f-functions";
+// @use "scss/f-mixin";
+// @use "scss/f-variables";
+@use "scss/f-base";
+@use "scss/c-button";
+@use "scss/c-form";
+@use "scss/c-parts";
+@use "scss/l-base";
+@use "scss/l-breadcrumbs";
+@use "scss/l-footer";
+@use "scss/l-header";
+@use "scss/l-nav";
+@use "scss/l-page-header";
+@use "scss/p-top";
+@use "scss/p-top_sp";
+@use "scss/u-layout";
+@use "scss/u-plugin";

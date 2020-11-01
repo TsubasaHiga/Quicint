@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+@use "f-mixin" as *;
+
 * {
   box-sizing: border-box;
 
@@ -10,16 +13,13 @@
 }
 
 html {
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   line-height: (33 / 14);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
-  @include media(lg) {
-    font-size: 14px;
-  }
-
   @include media(sm) {
-    font-size: 3.733333333vw;
+    padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
 }
 
@@ -46,7 +46,6 @@ a {
   @include hoverOpacity(.6);
 
   color: $color--link;
-  outline: none;
   text-decoration: none;
 
   &[href ^= "tel:"] {
@@ -97,4 +96,19 @@ input::-ms-clear {
 ul,
 ol {
   list-style-position: inside;
+}
+
+[data-js-focus-visible] :focus:not([data-focus-visible-added]) {
+  outline: none;
+}
+
+// 状態
+
+[aria-hidden = "false"] {
+  visibility: visible;
+}
+
+[aria-hidden = "true"] {
+  display: none;
+  visibility: hidden;
 }
