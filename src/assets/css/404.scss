@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 // plugins
-@import "~ress/ress.css";
+@use "../../../node_modules/ress/ress.css";
 
 body {
   align-items: center;

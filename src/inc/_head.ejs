@@ -1,20 +1,24 @@
 <%
-var define = (typeof define === 'undefined') ? '' : define;
-var meta = (typeof meta === 'undefined') ? '' : meta;
-var siteSetting = (typeof siteSetting === 'undefined') ? '' : siteSetting;
+// define
+const DEFINE = (typeof define === 'undefined') ? '' : define
 
-// 階層取得
-var hierarchy_length = 0;
-var hierarchy_link_push = '';
-for(i in meta.hierarchy) {
-  hierarchy_link_push += meta.hierarchy[i].link;
-  hierarchy_length++;
+// metaData
+const metaData = (typeof meta === 'undefined') ? '' : meta;
+
+// SITESETTING
+const SITESETTING = (typeof siteSetting === 'undefined') ? '' : siteSetting;
+
+// canonicalUrl
+let canonicalUrl = ''
+if(metaData.hierarchy) {
+  for (let i = 0; i < metaData.hierarchy.length; i++) {
+    canonicalUrl += metaData.hierarchy[i].link;
+  }
+  canonicalUrl = metaData.hierarchy[metaData.hierarchy.length - 1].link
 }
-// ogtype
-var ogtype = (meta.pageName === 'top') ? 'website' : 'article';
 
-// カノニカルセット
-var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '';
+// ogtype
+const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
 %>
 
 <!DOCTYPE html>
@@ -23,35 +27,36 @@ var canonicalUrl = (hierarchy_length > 0) ? hierarchy_link_push : '';
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width">
+    <meta name="viewport" content="width=device-width, viewport-fit=cover">
     <meta name="format-detection" content="telephone=no">
-    <title><%= meta.title %>｜<%= siteSetting.siteName %></title>
-    <meta name="description" content="<%= meta.desc %>">
-    <meta name="author" content="<%= siteSetting.metaAuthor %>">
+    <title><%= metaData.title %>｜<%= SITESETTING.siteName %></title>
+    <meta name="description" content="<%= metaData.desc %>">
+    <meta name="author" content="<%= SITESETTING.metaAuthor %>">
     <meta property="og:locale" content="ja_JP">
     <meta property="og:type" content="<%= ogtype %>">
-    <meta property="og:title" content="<%= meta.title %>｜<%= siteSetting.siteName %>">
-    <meta property="og:description" content="<%= meta.desc %>">
+    <meta property="og:title" content="<%= metaData.title %>｜<%= SITESETTING.siteName %>">
+    <meta property="og:description" content="<%= metaData.desc %>">
     <meta property="og:url" content="<%= siteurl + canonicalUrl %>">
-    <meta property="og:site_name" content="<%= siteSetting.siteName %>">
+    <meta property="og:site_name" content="<%= SITESETTING.siteName %>">
     <meta property="og:image" content="<%= siteurl %>assets/images/ogpimg.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta property="fb:app_id" content="<%= siteSetting.metaAppid %>">
+    <meta property="fb:app_id" content="<%= SITESETTING.metaAppid %>">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:site" content="<%= siteSetting.metaTwitterSite %>">
-    <meta name="twitter:creator" content="<%= siteSetting.metaTwitterCreator %>">
-    <meta name="theme-color" content="<%= siteSetting.themeColor %>">
+    <meta name="twitter:site" content="<%= SITESETTING.metaTwitterSite %>">
+    <meta name="twitter:creator" content="<%= SITESETTING.metaTwitterCreator %>">
+    <meta name="theme-color" content="<%= SITESETTING.themeColor %>">
     <link rel="canonical" href="<%= siteurl + canonicalUrl %>">
     <link rel="shortcut icon" href="<%= siteurl %>assets/images/favicon.ico">
 
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="anonymous">
-
     <link rel="preload" as="style" href="<%= siteurl %>assets/css/style.css?rev">
     <link rel="preload" as="script" href="<%= siteurl %>assets/js/bundle.js?rev">
-
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
     <link rel="stylesheet" href="<%= siteurl %>assets/css/style.css?rev">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="<%= SITESETTING.googleFonts %>" />
+    <link rel="stylesheet" href="<%= SITESETTING.googleFonts %>" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="<%= SITESETTING.googleFonts %>" /></noscript>
 
     <%- include('_analytics-head') %>
   </head>

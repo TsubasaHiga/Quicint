@@ -1,6 +1,12 @@
 <%
-var define = (typeof define === 'undefined') ? '' : define;
-var pageData = {
+// dir
+const dir = './'
+
+// define
+const DEFINE = (typeof define === 'undefined') ? '' : define
+
+// pageData
+const pageData = {
   pageName: 'page-notfound',
   title:'Page Not Found',
   desc:'サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです'
@@ -17,4 +23,4 @@ var pageData = {
 
   </div>
 </main>
-<%- include('./inc/_footer') %>
+<%- include(dir + 'inc/_footer', {meta: pageData}) %>

@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+@use "f-mixin" as *;
+
 .l-nav {
   align-items: center;
   display: flex;
@@ -79,7 +82,7 @@
     left: 0;
     opacity: 0;
     position: absolute;
-    top: $spHeaderH;
+    top: $smHeaderH;
     transition: $comMS $comES;
     visibility: hidden;
     width: 100%;
@@ -93,7 +96,7 @@
     &__list {
       align-items: flex-start;
       flex-direction: column;
-      padding: $spSpace;
+      padding: $smSpace;
       width: 100%;
     }
 

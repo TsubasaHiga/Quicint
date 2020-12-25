@@ -2,7 +2,6 @@
 
 import DEFINE from '../constant/define'
 import getDeviceType from '../helper/getDeviceType'
-import { throttle, debounce } from 'throttle-debounce'
 import SweetScroll from 'sweet-scroll'
 
 /**
@@ -41,9 +40,9 @@ export default () => {
      */
     getOption: () => {
       func.OPTION = {
-        offset: func.deviceType === 'lg' ? DEFINE.SCROLLOFFSETLG : DEFINE.SCROLLOFFSETSM,
-        easing: 'easeInOutQuart',
-        duration: 900
+        offset: func.deviceType === 'lg' ? DEFINE.SCROLL_OFFSET_LG : DEFINE.SCROLL_OFFSET_SM,
+        easing: func.deviceType === 'lg' ? DEFINE.SCROLL_EASING_LG : DEFINE.SCROLL_EASING_SM,
+        duration: func.deviceType === 'lg' ? DEFINE.SCROLL_DURATION_LG : DEFINE.SCROLL_DURATION_SM
       }
     },
 

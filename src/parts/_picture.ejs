@@ -1,0 +1,18 @@
+<%
+var attr = (typeof attr === 'undefined') ? '' : attr;
+console.log(attr)
+%>
+<picture>
+
+  <source
+  media="(max-width: <%= DEFINE.BREAKPOINTSM %>)"
+  srcset="__sm.jpg">
+
+  <source
+  media="(min-width: <%= DEFINE.BREAKPOINTLG %>)"
+  srcset=".jpg 1x,
+  @2x.jpg 2x">
+
+  <img src=".jpg" alt="<%= attr.title %>">
+
+</picture>

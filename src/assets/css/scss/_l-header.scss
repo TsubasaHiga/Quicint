@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+@use "f-mixin" as *;
+
 .l-header {
   border-bottom: 1px solid $color--border;
   position: relative;
@@ -29,9 +32,9 @@
   @include media(sm) {
 
     &__inner {
-      height: $spHeaderH;
+      height: $smHeaderH;
       min-width: 100%;
-      padding: 0 $spSpace;
+      padding: 0 $smSpace;
       width: 100%;
     }
   }
@@ -41,12 +44,12 @@
   align-items: center;
   background-color: #000;
   display: flex;
-  height: $spHeaderH;
+  height: $smHeaderH;
   justify-content: center;
   position: absolute;
   right: 0;
   top: 0;
-  width: $spHeaderH;
+  width: $smHeaderH;
 
   span {
     $color: #fff;

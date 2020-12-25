@@ -1,21 +1,34 @@
 @charset "utf-8";
 
+@use "scss/f-functions" as *;
+
 // layout
 // ----------------------------------------------------------
+// break point
 $breakPoint: 900px;
-$breakPointHR: 1500px;
+
+// mainW
 $mainW: 1280px;
-$headerH: 100px;
-$spHeaderH: 60px;
-$space: 30px;
-$spSpace: 20px;
+
+// Basis vw
+$basis: 1440;
+$smBasis: 375;
+
+// Basis vh
+$basisVh: 800;
+$smBasisVh: 667; // iPhoneX hide toolbar min-height
+
+// Basis space
+$space: rem(50);
+$smSpace: rem(20);
+
+// headerH
+$headerH: rem(100);
+$smHeaderH: rem(100);
 
 // font
 // ----------------------------------------------------------
-$fontFamily: yakuhanjp_noto, "Noto Sans JP", sans-serif;
-
-$fontSize: 14px;
-$lineHeight: (24/14);
+$fontFamily: "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
 
 // color
 // ----------------------------------------------------------

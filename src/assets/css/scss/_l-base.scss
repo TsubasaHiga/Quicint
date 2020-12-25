@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+@use "f-mixin" as *;
+
 html {
   height: 100%;
   opacity: 0;
@@ -16,13 +19,7 @@ body {
   position: relative;
   width: 100%;
 
-  @include media(lg) {
-    min-width: $mainW;
-  }
-
   // アンチエイリアス
-  // -webkit-font-smoothing: subpixel-antialiased;
-  // -moz-osx-font-smoothing: unset;
   @media only screen and (-webkit-min-device-pixel-ratio: 2),
     (min-resolution: 2dppx) {
     -webkit-font-smoothing: antialiased;
@@ -30,16 +27,13 @@ body {
   }
 }
 
-.mainwrap {
-}
-
 .l-page {
   background-color: $color--white;
-  margin-top: 50px;
+  margin-top: $headerH;
   position: relative;
 
   @include media(sm) {
-    margin-top: 20px;
+    margin-top: $smHeaderH;
   }
 }
 
@@ -53,7 +47,7 @@ body {
 
   @include media(sm) {
     min-width: 100%;
-    padding: 0 $spSpace;
+    padding: 0 $smSpace;
     width: 100%;
   }
 }
