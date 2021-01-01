@@ -1,9 +1,14 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+
 // input
 // ----------------------------------------------------------
 
 .c-input {
+  /* stylelint-disable */
+  // 使用する最に stylelint-disableコメント削除
+  /* stylelint-enable */
 }
 // Chromeでオートフィルした時にinputが黄色くなるのを回避
 
@@ -15,6 +20,9 @@ input:-webkit-autofill {
 // ----------------------------------------------------------
 
 .c-textarea {
+  /* stylelint-disable */
+  // 使用する最に stylelint-disableコメント削除
+  /* stylelint-enable */
 }
 
 // placeholder

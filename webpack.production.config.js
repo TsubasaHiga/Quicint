@@ -7,7 +7,6 @@
  */
 const webpack = require('webpack')
 const TerserPlugin = require('terser-webpack-plugin')
-const LicensePack = require('license-info-webpack-plugin').default
 const path = require('path')
 
 const config = {
@@ -46,6 +45,11 @@ const config = {
         exclude: /node_modules/
       },
       {
+        test: /\.json$/,
+        loader: 'json-loader',
+        type: 'javascript/auto'
+      },
+      {
         test: /\.css/,
         use: [
           'style-loader',
@@ -72,9 +76,6 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
-    }),
-    new LicensePack({
-      glob: '{LICENSE,license,License}*'
     })
   ]
 }

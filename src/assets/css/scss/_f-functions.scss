@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+// rem
+@function rem($num, $size: sm) {
+  @return #{$num / 14}rem;
+}
+
+// vw
+@function vw($num, $size: lg) {
+  @if ($size == lg) {
+    @return ($num / $basis) * 100vw;
+  }
+
+  @else if($size == sm) {
+    @return ($num / $smBasis) * 100vw;
+  }
+}
+
+// vh
+@function vh($num, $size: lg) {
+  @if ($size == lg) {
+    @return ($num / $basisVh) * 100vh;
+  }
+
+  @else if($size == sm) {
+    @return ($num / $smBasisVh) * 100vh;
+  }
+}

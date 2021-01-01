@@ -1,5 +1,8 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+@use "f-mixin" as *;
+
 * {
   box-sizing: border-box;
 
@@ -10,28 +13,39 @@
 }
 
 html {
-  font-size: $fontSize;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
+  line-height: (33 / 14);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  @include media(sm) {
+    padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
+  }
 }
 
 body {
   background-color: $color--body;
   color: $color--text;
   font-family: $fontFamily;
-  font-feature-settings: "palt";
-  letter-spacing: .8px;
-  line-height: $lineHeight;
+  letter-spacing: .22px;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   word-wrap: break-word;
+
+  * {
+
+    &::selection {
+      /* stylelint-disable */
+      // 使用する最に stylelint-disableコメント削除
+      /* stylelint-enable */
+    }
+  }
 }
 
 a {
   @include hoverOpacity(.6);
 
   color: $color--link;
-  outline: none;
   text-decoration: none;
 
   &[href ^= "tel:"] {
@@ -53,6 +67,7 @@ video {
 picture {
 
   img {
+    height: auto;
     width: 100%;
   }
 }
@@ -81,4 +96,19 @@ input::-ms-clear {
 ul,
 ol {
   list-style-position: inside;
+}
+
+[data-js-focus-visible] :focus:not([data-focus-visible-added]) {
+  outline: none;
+}
+
+// 状態
+
+[aria-hidden = "false"] {
+  visibility: visible;
+}
+
+[aria-hidden = "true"] {
+  display: none;
+  visibility: hidden;
 }

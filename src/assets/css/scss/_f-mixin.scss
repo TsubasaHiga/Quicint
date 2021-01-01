@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use "f-variables" as *;
+
 // mixin集
 // ----------------------------------------------------------
 // 01. 画像置換
@@ -35,6 +37,7 @@
 
 // 01__画像置換
 // ----------------------------------------------------------
+
 @mixin hideText() {
   color: transparent;
   font: 0/0;
@@ -44,6 +47,7 @@
 
 // 02__テキスト省略
 // ----------------------------------------------------------
+
 @mixin ellipsis() {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -58,6 +62,7 @@
 
 // 03__フォントサイズとラインハイトまとめて指定
 // ----------------------------------------------------------
+
 @mixin fz($size, $height: false, $weight: false) {
   font-size: #{$size}px;
 
@@ -87,12 +92,14 @@
 
 // 04__letter-spacingをトラッキングの数値から計算
 // ----------------------------------------------------------
+
 @mixin letterSpacing($tracking) {
   letter-spacing: #{$tracking / 1000}em;
 }
 
 // 05__gradation
 // ----------------------------------------------------------
+
 @mixin gradation($topColor, $bottomColor, $angle: to bottom) {
   background: mix($topColor, $bottomColor, 50%); //開始色と終了色の中間の色を背景色に指定
   background: linear-gradient($angle, $topColor, $bottomColor);
@@ -100,6 +107,7 @@
 
 // 06__media query
 // ----------------------------------------------------------
+
 @mixin media($size, $px: false) {
   @if ($size == "sm") {
     @media screen and (max-width: $breakPoint - 1) {
@@ -122,12 +130,6 @@
 
   @else if ($size == "lg") {
     @media screen and (min-width: $breakPoint), print {
-      @content;
-    }
-  }
-
-  @else if ($size == "HR") {
-    @media screen and (min-width: $breakPointHR) {
       @content;
     }
   }
@@ -167,6 +169,7 @@
 
 // 07__くの字矢印
 // ----------------------------------------------------------
+
 @mixin arrow($width, $bold, $color, $deg) {
   @include icon-ini;
 
@@ -200,6 +203,7 @@
 
 // 08__三角
 // ----------------------------------------------------------
+
 @mixin balloonArrow(
   $width: 10px,
   $height: 5px,
@@ -260,6 +264,7 @@
 
 // 09__疑似要素初期化
 // ----------------------------------------------------------
+
 @mixin icon-ini {
   content: "";
   display: inline-block;
@@ -267,22 +272,26 @@
 
 // 10__ホバーで透過
 // ----------------------------------------------------------
+
 @mixin hoverOpacity($opacity, $ms: false, $ease: false) {
-  @if $ease {
-    transition: opacity $ms $ease;
-  }
+  @include media(lg) {
+    @if $ease {
+      transition: opacity $ms $ease;
+    }
 
-  @else {
-    transition: opacity $comMS $comES;
-  }
+    @else {
+      transition: opacity $comMS $comES;
+    }
 
-  &:hover {
-    opacity: $opacity;
+    &:hover {
+      opacity: $opacity;
+    }
   }
 }
 
 // 11__object-fit ie用Polyfill
 // ----------------------------------------------------------
+
 @mixin object-fit($fit: fill, $position: null) {
   -o-object-fit: $fit;
   object-fit: $fit;
@@ -301,6 +310,7 @@
 
 // 12__formスタイルリセット
 // ----------------------------------------------------------
+
 @mixin formReset() {
 
   input,
@@ -314,7 +324,6 @@
     border: none;
     border-radius: 0;
     margin: 0;
-    outline: none;
     padding: 0;
   }
 
@@ -325,6 +334,7 @@
 
 // 13__ie11 (lg / sm)
 // ----------------------------------------------------------
+
 @mixin ie11($size: false) {
 
   html[data-browser = "ie"][data-browserversion = "11"] & {
@@ -350,6 +360,7 @@
 
 // 14__edge (lg / sm)
 // ----------------------------------------------------------
+
 @mixin edge($size: false, $engine: "edgehtml") {
   html[data-browser="edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
@@ -374,6 +385,7 @@
 
 // 15__firefox (lg / sm)
 // ----------------------------------------------------------
+
 @mixin firefox($size: false) {
 
   html[data-browser = "firefox"] & {
@@ -399,6 +411,7 @@
 
 // 16__safari (lg / sm)
 // ----------------------------------------------------------
+
 @mixin safari($size: false) {
   @if ($size == "sm") {
 
@@ -417,6 +430,7 @@
 
 // 17__tablet (portrait / landscape)
 // ----------------------------------------------------------
+
 @mixin tablet($orientation: false) {
   @if ($orientation) {
     html[data-type="tablet"][data-orientation="#{$orientation}"] & {
@@ -434,6 +448,7 @@
 
 // 18__ipados (portrait / landscape) ラップトップだけどタッチサポートしているデバイス全般
 // ----------------------------------------------------------
+
 @mixin ipados($orientation: false) {
   @if ($orientation) {
     html[data-type="laptop"][data-os="mac-os"][data-browser="safari"][data-touchsupport="true"][data-orientation="#{$orientation}"]
@@ -452,6 +467,7 @@
 
 // 19__first, notfirst
 // ----------------------------------------------------------
+
 @mixin first {
 
   &:first-of-type {
@@ -459,15 +475,25 @@
   }
 }
 
-@mixin notfirst {
+@mixin notfirst($child: false) {
+  @if ($child) {
 
-  &:not(:first-of-type) {
-    @content;
+    &:not(:first-child) {
+      @content;
+    }
+  }
+
+  @else {
+
+    &:not(:first-of-type) {
+      @content;
+    }
   }
 }
 
 // 20__last, notlast
 // ----------------------------------------------------------
+
 @mixin last {
 
   &:last-of-type {
@@ -484,12 +510,14 @@
 
 // 21__expand
 // ----------------------------------------------------------
+
 @mixin expand($top, $right, $bottom, $left) {
   margin: #{$top}px #{$right}px #{$bottom}px #{$left}px;
 }
 
 // 22__expansion
 // ----------------------------------------------------------
+
 @mixin expansion($verticale, $horizontal, $scale) {
   transform: scale($scale);
   transform-origin: $verticale $horizontal;
@@ -497,6 +525,7 @@
 
 // 23__placeholder
 // ----------------------------------------------------------
+
 @mixin placeholder {
 
   &:placeholder {
@@ -526,6 +555,7 @@
 
 // 24__picture100
 // ----------------------------------------------------------
+
 @mixin picture100 {
 
   picture,
@@ -540,6 +570,7 @@
 
 // 25__triangle
 // ----------------------------------------------------------
+
 @mixin triangle($width, $height, $color, $rotate) {
   border-style: solid;
   content: "";
@@ -570,6 +601,7 @@
 
 // 26__circle
 // ----------------------------------------------------------
+
 @mixin circle($width, $height, $color) {
   background-color: #{$color};
   border-radius: 50%;
@@ -581,6 +613,7 @@
 
 // 27__square
 // ----------------------------------------------------------
+
 @mixin square($width, $height, $color) {
   background-color: #{$color};
   content: "";
@@ -591,6 +624,7 @@
 
 // 28__rightTriangle
 // ----------------------------------------------------------
+
 @mixin rightTriangle($width, $color, $rotate) {
   border-style: solid;
   content: "";
@@ -621,6 +655,7 @@
 
 // 29__isoscelesTriangle
 // ----------------------------------------------------------
+
 @mixin isoscelesTriangle($width, $height, $color, $rotate) {
   border-style: solid;
   content: "";

@@ -165,14 +165,14 @@ yarn run serve
 
 ## Spec
 
-Quicintの仕様、及び対応環境は以下の通りです。
+Quicintの仕様、および対応環境は以下の通りです。
 
 | 項目 | 詳細 |
 | --- | --- |
 | node.js | 12.x required |
 | Package manager | yarn |
 | Build system | Gulp v4 |
-| Module bundler | Webpack |
+| Module bundler | webpack |
 | ECMAScript | ES6 |
 | CSS design | FLOCSS |
 | Template engine | EJS |
@@ -317,7 +317,7 @@ yarn run fix:js
 | Google Chrome | latest |
 | Firefox | latest |
 | Safari(macOS) | latest |
-| IE11 | Windows10 later |
+| IE11 | Windows 10 later |
 | Edge(EdgeHTML) | latest |
 | Edge(Chromium) | latest |
 | Safari(iOS) | latest iOS version  |
