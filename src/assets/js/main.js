@@ -1,7 +1,7 @@
 'use strict'
 
 // babel polyfill
-import '@babel/polyfill'
+import 'core-js/stable'
 
 // define
 import EL from './constant/elements'

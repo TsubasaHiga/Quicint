@@ -69,6 +69,7 @@
         "babel-loader": "^8.1.0",
         "browser-sync": "^2.26.13",
         "colors": "^1.4.0",
+        "core-js": "^3.8.2",
         "cross-env": "^7.0.2",
         "crypto": "^1.0.1",
         "css-declaration-sorter": "^5.1.2",
