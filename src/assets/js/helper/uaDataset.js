@@ -6,6 +6,7 @@ import UAParser from 'ua-parser-js'
 /**
  * UA情報を<html>タグにdatasetとして追加します
  * 文字列にスペースが付く場合はハイフンで繋がれます
+ * @return uaString
  */
 export default () => {
   const ua = UAParser()
@@ -21,4 +22,6 @@ export default () => {
   EL.HTML.dataset.browserengine = uaString.browserEngine
   EL.HTML.dataset.os = uaString.osName
   EL.HTML.dataset.type = uaString.type
+
+  return uaString
 }
