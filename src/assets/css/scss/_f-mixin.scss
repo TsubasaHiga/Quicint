@@ -123,37 +123,43 @@
 // ----------------------------------------------------------
 
 @mixin media($size, $px: false) {
+
+  // sm only
   @if ($size == "sm") {
-    @media screen and (max-width: $breakPoint - 1) {
+    @media screen and (max-width: map-get($breakPoint, sm)) {
       @content;
     }
   }
 
+  // se only
   @if ($size == "se") {
-    @media screen and (max-width: 360px) {
+    @media screen and (max-width: map-get($breakPoint, se)) {
       @content;
     }
   }
 
+  // between lg and $mainW
   @else if ($size == "mid") {
-    @media screen and (min-width: $breakPoint) and (max-width: $mainW - 1),
-      print {
+    @media screen and (min-width: map-get($breakPoint, lg)) and (max-width: $mainW - 1), print {
       @content;
     }
   }
 
+  // lg only
   @else if ($size == "lg") {
-    @media screen and (min-width: $breakPoint), print {
+    @media screen and (min-width: map-get($breakPoint, lg)), print {
       @content;
     }
   }
 
-  @else if ($size == "hr") {
-    @media screen and (min-width: $breakPointHr), print {
+  // hlg only
+  @else if ($size == "hlg") {
+    @media screen and (min-width: map-get($breakPoint, hlg)), print {
       @content;
     }
   }
 
+  // retina only
   @else if ($size == "retina") {
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
       @content;
@@ -360,13 +366,13 @@
   html[data-browser = "ie"][data-browserversion = "11"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
           @content;
         }
       }
@@ -385,13 +391,13 @@
   html[data-browser="edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
           @content;
         }
       }
@@ -411,13 +417,13 @@
   html[data-browser = "firefox"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
           @content;
         }
       }

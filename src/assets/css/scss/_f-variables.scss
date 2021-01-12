@@ -5,7 +5,12 @@
 // layout
 // ----------------------------------------------------------
 // break point
-$breakPoint: 900px;
+$breakPoint: (
+  hlg: 1500px,
+  lg: 900px,
+  sm: 899px,
+  se: 360px
+);
 
 // mainW
 $mainW: 1280px;
