@@ -17,6 +17,7 @@ import getDocumentH from './helper/getDocumentHeight'
 import getOrientation from './helper/getOrientation'
 import getClassName from './helper/getClassName'
 import addAnimationClass from './helper/addAnimationClass'
+import set100vh from './helper/set100vh'
 
 // plugins
 import objectFitImages from 'object-fit-images'
@@ -94,6 +95,10 @@ const initRun = () => {
 
   // stickyfilljs
   Stickyfill.add(EL.STICKY)
+
+  // set100vh
+  set100vh()
+  set100vh(true)
 
   // getScrollPos
   getScrollPos()
