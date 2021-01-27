@@ -1,11 +1,11 @@
 @charset "utf-8";
 
-// 下層ページヘッダー
-// ----------------------------------------------------------
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
 
-.l-page-header {
+@include media(sm) {
 
-  &__inner {
+  .top {
     /* stylelint-disable */
     // 使用する最に stylelint-disableコメント削除
     /* stylelint-enable */

@@ -1,11 +1,10 @@
 @charset "utf-8";
 
-@use "f-variables" as *;
-@use "f-mixin" as *;
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
 
 .l-footer {
   align-items: center;
-  border-top: 1px solid $color--border;
   display: flex;
   height: 50px;
   justify-content: center;
