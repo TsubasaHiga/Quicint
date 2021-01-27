@@ -27,7 +27,7 @@
     },
     "lint-staged": {
         "*.scss": [
-            "stylelint",
+            "stylelint \"src/assets/css/scss/**/*.scss\"",
             "git add"
         ],
         "*.js": [
