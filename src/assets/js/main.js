@@ -74,7 +74,7 @@ const firstRun = () => {
   getOrientation()
 
   // ie smoothScroll disable
-  ieSmoothScrollDisable()
+  ieSmoothScrollDisable(true)
 
   // Polyfill object-fit
   objectFitImages()
