@@ -115,7 +115,7 @@ const reload = cb => {
 /**
  * cleanImg
  */
-const cleanImg = () => del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp}')
+const cleanImg = () => del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp,ico}')
 
 /**
  * cleanEjs
@@ -264,7 +264,7 @@ const ejsCompile = (mode = false) => {
  */
 const getImageLists = onlyManual => {
   // defaultLists
-  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg}'
+  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg,ico}'
 
   // lists
   const lists = []
