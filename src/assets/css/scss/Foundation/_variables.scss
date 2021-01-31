@@ -1,11 +1,16 @@
 @charset "utf-8";
 
-@use "scss/f-functions" as *;
+@use "./functions" as *;
 
 // layout
 // ----------------------------------------------------------
 // break point
-$breakPoint: 900px;
+$breakPoint: (
+  hlg: 1500px,
+  lg: 900px,
+  sm: 899px,
+  se: 360px
+);
 
 // mainW
 $mainW: 1280px;
@@ -19,12 +24,16 @@ $basisVh: 800;
 $smBasisVh: 667; // iPhoneX hide toolbar min-height
 
 // Basis space
-$space: rem(50);
-$smSpace: rem(20);
+$space: (
+  lg: rem(50),
+  sm: rem(20)
+);
 
 // headerH
-$headerH: rem(100);
-$smHeaderH: rem(100);
+$headerH: (
+  lg: rem(100),
+  sm: rem(100)
+);
 
 // font
 // ----------------------------------------------------------
@@ -32,27 +41,12 @@ $fontFamily: "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
 
 // color
 // ----------------------------------------------------------
-$color--body: #fff;
+$color: (
+  white: #fff,
+  black: #000
+);
 
-$color--text: #121212;
-$color--link: #012f61;
-
-// border
-$color--border: #eee;
-
-// color
-$color--white: rgba(#fff, 1);
-$color--gray: #ccc;
-
-// brand color
-$color--brand--twitter: #55acee;
-$color--brand--facebook: #3b5998;
-$color--brand--note: #2dcdb5;
-$color--brand--chatwork: #f03748;
-$color--brand--github: #333;
-$color--brand--hatebu: #06afe0;
-
-// easing
+// 基本easing
 // ----------------------------------------------------------
 $easeInSine: cubic-bezier(.47, 0, .745, .715);
 $easeOutSine: cubic-bezier(.39, .575, .565, 1);
@@ -79,7 +73,7 @@ $easeInBack: cubic-bezier(.6, -.28, .735, .045);
 $easeOutBack: cubic-bezier(.175, .885, .32, 1.275);
 $easeInOutBack: cubic-bezier(.68, -.55, .265, 1.55);
 
-// 共通easing
+// 汎用easing変数
 // ----------------------------------------------------------
 $comMS: 400ms;
 $comES: ease;

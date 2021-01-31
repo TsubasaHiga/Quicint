@@ -1,10 +1,9 @@
 @charset "utf-8";
 
-@use "f-variables" as *;
-@use "f-mixin" as *;
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
 
 .l-header {
-  border-bottom: 1px solid $color--border;
   position: relative;
   z-index: 9;
 
@@ -12,7 +11,7 @@
     align-items: center;
     background-color: #fff;
     display: flex;
-    height: $headerH;
+    height: map-get($map: $headerH, $key: lg);
     justify-content: space-between;
     margin: 0 auto;
     min-width: $mainW;
@@ -23,8 +22,6 @@
 
       &__txt {
         @include fz(26, 26, 700);
-
-        color: $color--text;
       }
     }
   }
@@ -32,9 +29,9 @@
   @include media(sm) {
 
     &__inner {
-      height: $smHeaderH;
+      height: map-get($map: $headerH, $key: sm);
       min-width: 100%;
-      padding: 0 $smSpace;
+      padding: 0 map-get($map: $space, $key: sm);
       width: 100%;
     }
   }
@@ -44,12 +41,12 @@
   align-items: center;
   background-color: #000;
   display: flex;
-  height: $smHeaderH;
+  height: map-get($map: $headerH, $key: sm);
   justify-content: center;
   position: absolute;
   right: 0;
   top: 0;
-  width: $smHeaderH;
+  width: map-get($map: $headerH, $key: sm);
 
   span {
     $color: #fff;

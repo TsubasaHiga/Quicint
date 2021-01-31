@@ -1,0 +1,21 @@
+@charset "utf-8";
+
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
+
+.l-breadcrumbs {
+
+  &__inner {
+    width: 100%;
+  }
+
+  &__list {
+    display: flex;
+  }
+
+  &__item {
+    @include notfirst {
+      margin-left: 20px;
+    }
+  }
+}

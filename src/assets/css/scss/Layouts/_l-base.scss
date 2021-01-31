@@ -1,0 +1,40 @@
+@charset "utf-8";
+
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
+
+.l-page {
+  margin-top: map-get($map: $headerH, $key: lg);
+  position: relative;
+
+  @include media(sm) {
+    margin-top: map-get($map: $headerH, $key: sm);
+  }
+}
+
+.l-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  min-width: $mainW;
+  position: relative;
+  width: $mainW;
+
+  @include media(sm) {
+    min-width: 100%;
+    padding: 0 map-get($map: $space, $key: sm);
+    width: 100%;
+  }
+}
+
+.l-lg {
+  @include media(sm) {
+    display: none !important;
+  }
+}
+
+.l-sm {
+  @include media(lg) {
+    display: none !important;
+  }
+}

@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@use "f-variables" as *;
-@use "f-mixin" as *;
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
 
 // stickyfill.js
 
@@ -44,16 +44,6 @@
       .swiper-wrapper {
         display: flex;
       }
-    }
-  }
-
-  &-slide {
-
-    img {
-      // @include object-fit(cover);
-
-      // height: 100%;
-      // width: 100%;
     }
   }
 }

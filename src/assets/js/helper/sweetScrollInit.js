@@ -23,7 +23,16 @@ export default () => {
       func.getOption()
       func.sweetScroll = new SweetScroll(func.OPTION)
 
-      // get hash.
+      // scrollToHash
+      func.scrollToHash()
+
+      window.addEventListener('resize', func.resize, false)
+    },
+
+    /**
+     * scrollToHash
+     */
+    scrollToHash: () => {
       const hash = window.location.hash
       if (hash) {
         const needsInitialScroll = document.getElementById(hash.substr(1)) != null
@@ -31,8 +40,6 @@ export default () => {
           func.sweetScroll.to(hash, { updateURL: 'replace' })
         }
       }
-
-      window.addEventListener('resize', func.resize, false)
     },
 
     /**

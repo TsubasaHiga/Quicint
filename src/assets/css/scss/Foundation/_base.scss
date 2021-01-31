@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@use "f-variables" as *;
-@use "f-mixin" as *;
+@use "./variables" as *;
+@use "./mixin" as *;
 
 * {
   box-sizing: border-box;
@@ -10,13 +10,26 @@
   &:after {
     box-sizing: border-box;
   }
+
+  &::selection {
+    /* stylelint-disable */
+    // 使用する最に stylelint-disableコメント削除
+    /* stylelint-enable */
+  }
 }
 
 html {
   font-size: 14px;
   -webkit-font-smoothing: antialiased;
+  height: 100%;
   line-height: (33 / 14);
+  opacity: 0;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+
+  &.is-loaded {
+    opacity: 1;
+    transition: opacity $comMS $comES;
+  }
 
   @include media(sm) {
     padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
@@ -24,28 +37,27 @@ html {
 }
 
 body {
-  background-color: $color--body;
-  color: $color--text;
   font-family: $fontFamily;
   letter-spacing: .22px;
+  margin: 0 auto;
+  min-height: 100%;
+  position: relative;
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
+  text-size-adjust: none;
+  width: 100%;
   word-wrap: break-word;
 
-  * {
-
-    &::selection {
-      /* stylelint-disable */
-      // 使用する最に stylelint-disableコメント削除
-      /* stylelint-enable */
-    }
+  // アンチエイリアス
+  @include media(retina) {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 }
 
 a {
   @include hoverOpacity(.6);
 
-  color: $color--link;
   text-decoration: none;
 
   &[href ^= "tel:"] {
@@ -75,14 +87,12 @@ picture {
 // table
 
 table {
-  border: 1px solid $color--border;
   border-collapse: collapse;
   max-width: 100%;
   width: 100%;
 
   th,
   td {
-    border: 1px solid $color--border;
     word-break: break-all;
   }
 }

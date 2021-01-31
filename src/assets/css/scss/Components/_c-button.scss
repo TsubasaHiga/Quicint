@@ -1,9 +1,9 @@
 @charset "utf-8";
 
-@use "f-variables" as *;
-@use "f-mixin" as *;
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
 
-.top {
+.c-btn {
   /* stylelint-disable */
   // 使用する最に stylelint-disableコメント削除
   /* stylelint-enable */

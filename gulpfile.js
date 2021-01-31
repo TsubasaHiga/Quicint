@@ -115,12 +115,17 @@ const reload = cb => {
 /**
  * cleanImg
  */
-const cleanImg = () => del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp}')
+const cleanImg = () => del(setting.io.output.img + '**/*.{png,apng,jpg,gif,svg,webp,ico}')
 
 /**
  * cleanEjs
  */
 const cleanEjs = () => del(setting.io.output.html + '**/*.html')
+
+/**
+ * cleanGarbage
+ */
+const cleanGarbage = () => del(setting.io.output.html + '/**/*{maps,.map,.DS_Store,.LICENSE,Thumbs.db}')
 
 /**
  * scss
@@ -134,7 +139,7 @@ const scss = () => {
     )
     .pipe(
       postcss([
-        autoprefixer(),
+        autoprefixer({ grid: true }),
         mqpacker(),
         cssnano({ autoprefixer: false }),
         cssDeclarationSorter({ order: 'smacss' })
@@ -156,7 +161,7 @@ const scssProduction = () => {
     )
     .pipe(
       postcss([
-        autoprefixer(),
+        autoprefixer({ grid: true }),
         mqpacker(),
         cssnano({ autoprefixer: false }),
         cssDeclarationSorter({ order: 'smacss' })
@@ -259,7 +264,7 @@ const ejsCompile = (mode = false) => {
  */
 const getImageLists = onlyManual => {
   // defaultLists
-  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg}'
+  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg,ico}'
 
   // lists
   const lists = []
@@ -354,7 +359,7 @@ const jsBuild = () => {
  */
 const watch = () => {
   gulp.watch(setting.io.input.css + '**/*.scss', scss)
-  gulp.watch(setting.io.input.img + '**/*', img)
+  gulp.watch(setting.io.input.img + '**/*', gulp.series(img, imgManual))
   gulp.watch(setting.io.input.js + '**/*.js', gulp.series(js, reload))
   gulp.watch(setting.io.input.ejs + '**/*.ejs', { interval: 250 }, gulp.series(ejsCompile, reload))
 }
@@ -444,10 +449,11 @@ const genZipArchive = cb => {
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.development = gulp.series(jsoncFileCeck, scss, cleanImg, img, imgManual, ejsCompile, js)
 exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
-exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, ejsCompile, jsBuild, genPublishDir)
-exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, ejsCompileFullPath, jsBuild, genPublishFullPathDir)
+exports.production = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, cleanEjs, ejsCompile, jsBuild, cleanGarbage, genPublishDir)
+exports.productionFullpath = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, cleanEjs, ejsCompileFullPath, jsBuild, cleanGarbage, genPublishFullPathDir)
 
 exports.checkJson = jsoncFileCeck
-exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, ejsCompile, jsBuild, genZipArchive)
+exports.zip = gulp.series(jsoncFileCeck, scssProduction, cleanImg, img, imgManual, cleanEjs, ejsCompile, jsBuild, cleanGarbage, genZipArchive)
 exports.resetImg = gulp.series(cleanImg, img, imgManual)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)
+exports.garbage = cleanGarbage
