@@ -1,23 +1,31 @@
 @charset "utf-8";
 
+// コーディング規約
+// 1. ファイル名に接頭辞が付いている場合、classNameにも接頭辞を付与します。
+// 2. ファイル名に接頭辞が付いていない場合、原則個別要素に影響しない内容を記述します。
+
 // plugins
 @use "../../../node_modules/ress/ress.css";
 
-// default
-@use "scss/f-functions";
-// @use "scss/f-mixin";
-// @use "scss/f-variables";
-@use "scss/f-base";
-@use "scss/c-button";
-@use "scss/c-form";
-@use "scss/c-parts";
-@use "scss/l-base";
-@use "scss/l-breadcrumbs";
-@use "scss/l-footer";
-@use "scss/l-header";
-@use "scss/l-nav";
-@use "scss/l-page-header";
-@use "scss/p-top";
-@use "scss/p-top_sp";
-@use "scss/u-layout";
-@use "scss/u-plugin";
+// Foundation
+@use "scss/Foundation/functions";
+@use "scss/Foundation/base";
+
+// Layouts
+@use "scss/Layouts/l-base";
+@use "scss/Layouts/l-breadcrumbs";
+@use "scss/Layouts/l-footer";
+@use "scss/Layouts/l-header";
+@use "scss/Layouts/l-nav";
+@use "scss/Layouts/l-page-header";
+
+// Components
+@use "scss/Components/c-button";
+@use "scss/Components/c-form";
+
+// Projects
+@use "scss/Projects/top-lg";
+@use "scss/Projects/top-sm";
+
+// Utilities
+@use "scss/Utilities/plugin";

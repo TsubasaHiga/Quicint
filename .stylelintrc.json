@@ -41,6 +41,14 @@
         "no-descending-specificity": null,
         "no-duplicate-selectors": true,
         "number-leading-zero": "never",
+        "order/order": [
+            {
+                "hasBlock": false,
+                "name": "include",
+                "type": "at-rule"
+            },
+            "declarations"
+        ],
         "order/properties-alphabetical-order": true,
         "rule-empty-line-before": "always-multi-line",
         "selector-attribute-brackets-space-inside": "never",

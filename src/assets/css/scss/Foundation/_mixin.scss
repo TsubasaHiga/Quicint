@@ -1,6 +1,7 @@
 @charset "utf-8";
 
-@use "f-variables" as *;
+@use "./variables" as *;
+@use "./functions" as *;
 
 // mixin集
 // ----------------------------------------------------------
@@ -33,6 +34,10 @@
 // 27. square
 // 28. rightTriangle
 // 29. isoscelesTriangle
+// 30. 100vh
+// 31. orientation
+// 32. ホバーで暗く
+// 33. 均等割り付け
 // ----------------------------------------------------------
 
 // 01__画像置換
@@ -48,10 +53,20 @@
 // 02__テキスト省略
 // ----------------------------------------------------------
 
-@mixin ellipsis() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+@mixin ellipsis($is-clamp: false) {
+  @if ( $is-clamp ) {
+    -webkit-box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    word-break: break-all;
+  }
+
+  @else {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 @mixin notEllipsis() {
@@ -64,7 +79,7 @@
 // ----------------------------------------------------------
 
 @mixin fz($size, $height: false, $weight: false) {
-  font-size: #{$size}px;
+  font-size: rem($size);
 
   @if $weight {
     font-weight: $weight;
@@ -77,16 +92,15 @@
 
 @mixin fzs($size, $height: false, $weight: false) {
   $size: $size/2;
-  $height: $height/2;
 
-  font-size: #{$size}px;
+  font-size: rem($size);
 
   @if $weight {
     font-weight: $weight;
   }
 
   @if $height {
-    line-height: $height / $size;
+    line-height: ($height/2) / $size;
   }
 }
 
@@ -109,31 +123,43 @@
 // ----------------------------------------------------------
 
 @mixin media($size, $px: false) {
+
+  // sm only
   @if ($size == "sm") {
-    @media screen and (max-width: $breakPoint - 1) {
+    @media screen and (max-width: map-get($breakPoint, sm)) {
       @content;
     }
   }
 
+  // se only
   @if ($size == "se") {
-    @media screen and (max-width: 360px) {
+    @media screen and (max-width: map-get($breakPoint, se)) {
       @content;
     }
   }
 
+  // between lg and $mainW
   @else if ($size == "mid") {
-    @media screen and (min-width: $breakPoint) and (max-width: $mainW - 1),
-      print {
+    @media screen and (min-width: map-get($breakPoint, lg)) and (max-width: $mainW - 1), print {
       @content;
     }
   }
 
+  // lg only
   @else if ($size == "lg") {
-    @media screen and (min-width: $breakPoint), print {
+    @media screen and (min-width: map-get($breakPoint, lg)), print {
       @content;
     }
   }
 
+  // hlg only
+  @else if ($size == "hlg") {
+    @media screen and (min-width: map-get($breakPoint, hlg)), print {
+      @content;
+    }
+  }
+
+  // retina only
   @else if ($size == "retina") {
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
       @content;
@@ -340,13 +366,13 @@
   html[data-browser = "ie"][data-browserversion = "11"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
           @content;
         }
       }
@@ -365,13 +391,13 @@
   html[data-browser="edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
           @content;
         }
       }
@@ -391,13 +417,13 @@
   html[data-browser = "firefox"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: $breakPoint) {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: $breakPoint - 1) {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
           @content;
         }
       }
@@ -681,5 +707,99 @@
   @else if ($rotate == 4) {
     border-color: transparent transparent transparent $color;
     border-width: #{$height}px 0 0 #{$width}px;
+  }
+}
+
+// 30__100vh
+// ----------------------------------------------------------
+
+@mixin vh100($always: true) {
+  height: 100vh;
+
+  @if ($always == false) {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  @else if ($always == true) {
+    height: calc(var(--vh-always, 1vh) * 100);
+  }
+}
+
+// 31__orientation
+// ----------------------------------------------------------
+
+@mixin orientation($orientation: landscape, $type: mobile) {
+  html[data-type="#{$type}"][data-orientation="#{$orientation}"] & {
+    @content;
+  }
+}
+
+// 32__ホバーで暗く
+// ----------------------------------------------------------
+@mixin hoverDark($target: false, $pos: after) {
+  @include media(lg) {
+    @if ($target) {
+
+      &:hover {
+        opacity: 1;
+
+        #{$target} {
+
+          &:#{$pos} {
+            background-color: rgba(#000, .6);
+          }
+        }
+      }
+
+      #{$target} {
+        position: relative;
+
+        &:#{$pos} {
+          @include icon-ini;
+
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          transition: $comMS $comES;
+          width: 100%;
+        }
+      }
+    }
+
+    @else {
+      position: relative;
+
+      &:hover {
+        opacity: 1;
+
+        &:#{$pos} {
+          background-color: rgba(#000, .6);
+        }
+      }
+
+      &:#{$pos} {
+        @include icon-ini;
+
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: $comMS $comES;
+        width: 100%;
+      }
+    }
+  }
+}
+
+// 33__均等割り付け
+// ----------------------------------------------------------
+@mixin textJustify() {
+  text-align: justify;
+  text-justify: inter-ideograph;
+
+  @include ie11 {
+    text-align: inherit;
+    text-justify: auto;
   }
 }

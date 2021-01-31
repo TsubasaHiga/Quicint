@@ -1,6 +1,5 @@
 'use strict'
 
-// よく使用するElements
 export default {
   HTML: document.getElementsByTagName('html')[0],
   BODY: document.getElementsByTagName('body')[0],
