@@ -29,7 +29,7 @@ export default ua => {
         if (func.className.endsWith('faq')) return
 
         luxy.init({
-          wrapper: '#l-mainwrap-inner',
+          wrapper: '#l-mainwrap',
           wrapperSpeed: 0.095
         })
 

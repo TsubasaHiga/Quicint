@@ -54,3 +54,9 @@
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
 }
+
+// swup fade theme
+
+.swup-transition-main {
+  transition: opacity 500ms ease;
+}

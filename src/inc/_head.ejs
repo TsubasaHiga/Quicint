@@ -63,5 +63,5 @@ const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
 
   <body id="gotop" class="<%= meta.pageName %>">
     <div id="l-mainwrap" class="l-mainwrap">
+      <%- include('_header', {meta: meta}) %>
       <div id="l-mainwrap-inner" class="l-mainwrap__inner">
-        <%- include('_header', {meta: meta}) %>

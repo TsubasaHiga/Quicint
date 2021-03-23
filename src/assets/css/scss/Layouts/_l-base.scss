@@ -13,9 +13,12 @@
     visibility: visible;
   }
 
-  .is-nav-active & {
-    position: relative;
-    z-index: -1;
+  &__inner {
+
+    .is-nav-active & {
+      position: relative;
+      z-index: -1;
+    }
   }
 }
 
