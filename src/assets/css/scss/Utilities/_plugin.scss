@@ -27,6 +27,7 @@
   }
 
   &-container {
+    height: 100%;
     opacity: 0;
     transition: opacity $comMS $comES, visibility $comMS $comES;
     visibility: hidden;

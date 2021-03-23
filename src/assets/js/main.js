@@ -18,6 +18,8 @@ import getOrientation from './helper/getOrientation'
 import getClassName from './helper/getClassName'
 import addAnimationClass from './helper/addAnimationClass'
 import set100vh from './helper/set100vh'
+import smoothScroll from './helper/smoothScroll'
+import getDeviceType from './helper/getDeviceType'
 
 // plugins
 import objectFitImages from 'object-fit-images'
@@ -27,18 +29,29 @@ import { throttle, debounce } from 'throttle-debounce'
 
 // page scripts
 import pageNameTop from './page/top'
-import pageName2 from './page/page2'
 
 // require
 require('intersection-observer')
 require('focus-visible')
 
+// ua
+let ua = null
+
+// className
+let className = null
+
+// lastInnerWidth
+let lastInnerWidth = window.innerWidth
+
+// innerHeight
+let innerHeight = window.innerHeight
+
 /**
  * getScrollPos
  */
 const getScrollPos = () => {
-  const y = window.pageYOffset
-  const offset = 200
+  const y = Math.round(window.pageYOffset)
+  const offset = className === 'top' ? innerHeight : 200
   const documentH = getDocumentH()
 
   // add class is-scroll
@@ -61,14 +74,37 @@ const getScrollPos = () => {
 }
 
 /**
+ * resize
+ */
+const resize = () => {
+  // set100vh（常に更新）
+  set100vh('--vh-always')
+
+  // window高さが高くなった時
+  if (window.innerHeight > innerHeight) {
+    set100vh('--vh-max')
+  }
+
+  // window幅が変わった時
+  if (lastInnerWidth !== window.innerWidth) {
+    lastInnerWidth = window.innerWidth
+
+    // set100vh
+    set100vh()
+  }
+
+  innerHeight = window.innerHeight
+}
+
+/**
  * firstRun
  */
 const firstRun = () => {
   // set ua dataset
-  uaDataset()
+  ua = uaDataset()
 
   // set touch support dataset
-  getTouchSupport()
+  ua.touchsupport = getTouchSupport()
 
   // getOrientation
   getOrientation()
@@ -81,51 +117,62 @@ const firstRun = () => {
 
   // Polyfill picturefill
   picturefill()
+
+  if (getDeviceType() === 'lg') {
+    EL.NAV.style.visibility = ''
+  }
+
+  // set100vh
+  set100vh()
+
+  // set100vh（常に更新）
+  set100vh('--vh-always')
+}
+
+/**
+ * initOnce
+ */
+const initOnce = () => {
+  // sweetScroll
+  sweetScrollInit()
+
+  // navCurrent
+  navCurrent()
+
+  // smoothScroll
+  smoothScroll(ua)
+
+  // hmb menu
+  hmb()
 }
 
 /**
  * initRun
  */
 const initRun = () => {
-  // get body className
-  const className = getClassName(EL.BODY)
+  // set100vh
+  set100vh()
 
-  // add .is-loaded
-  EL.HTML.classList.add('is-loaded')
+  // set100vh（常に更新）
+  set100vh('--vh-always')
+
+  // get body className
+  className = getClassName(EL.BODY)
 
   // stickyfilljs
   Stickyfill.add(EL.STICKY)
 
-  // set100vh
-  set100vh()
-  set100vh(true)
-
   // getScrollPos
   getScrollPos()
 
-  // navCurrent
-  navCurrent(EL.NAV)
-
-  // hmb menu
-  hmb()
-
-  // sweetScroll
-  sweetScrollInit()
-
   // addAnimationClass
-  if (EL.ANIMATIONS) {
-    addAnimationClass(EL.ANIMATIONS, '-20% 0px')
-  }
+  const animations = document.querySelectorAll('.c-animation')
+  if (animations) addAnimationClass(animations)
 
   // top
-  if (className.endsWith('top')) {
-    pageNameTop()
-  }
+  if (className.endsWith('top')) pageNameTop()
 
-  // page2
-  if (className.endsWith('page2')) {
-    pageName2()
-  }
+  EL.HTML.classList.add('is-loaded')
 }
 
 /**
@@ -136,9 +183,15 @@ window.addEventListener('DOMContentLoaded', firstRun)
 /**
  * LOAD
  */
+window.addEventListener('load', initOnce)
 window.addEventListener('load', initRun)
 
 /**
  * SCROLL
  */
-window.addEventListener('scroll', throttle(150, getScrollPos), false)
+window.addEventListener('scroll', throttle(100, getScrollPos), false)
+
+/**
+ * RESIZE
+ */
+window.addEventListener('resize', debounce(50, resize), false)

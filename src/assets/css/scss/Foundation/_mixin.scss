@@ -384,6 +384,29 @@
   }
 }
 
+@mixin notie11($size: false) {
+
+  html:not([data-browser = "ie"]):not([data-browserversion = "11"]) & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
+  }
+}
+
 // 14__edge (lg / sm)
 // ----------------------------------------------------------
 
@@ -713,16 +736,9 @@
 // 30__100vh
 // ----------------------------------------------------------
 
-@mixin vh100($always: true) {
-  height: 100vh;
-
-  @if ($always == false) {
-    height: calc(var(--vh, 1vh) * 100);
-  }
-
-  @else if ($always == true) {
-    height: calc(var(--vh-always, 1vh) * 100);
-  }
+@mixin vh100($name, $target: height) {
+  #{$target}: 100vh;
+  #{$target}: calc(var(#{$name}, 1vh) * 100);
 }
 
 // 31__orientation
@@ -801,5 +817,48 @@
   @include ie11 {
     text-align: inherit;
     text-justify: auto;
+  }
+}
+
+// 34__macos iPadOS safariも含まれます
+// ----------------------------------------------------------
+
+@mixin macos {
+
+  html[data-os = "mac-os"] & {
+
+    @content;
+  }
+}
+
+// 35__ios
+// ----------------------------------------------------------
+
+@mixin ios {
+
+  html[data-os = "ios"] & {
+
+    @content;
+  }
+}
+
+// 36__not macos and ios
+// ----------------------------------------------------------
+
+@mixin notMacosIos {
+
+  html:not([data-os = "mac-os"]):not([data-os = "ios"]) & {
+    @content;
+  }
+}
+
+// 37__android
+// ----------------------------------------------------------
+
+@mixin android {
+
+  html[data-os = "android"] & {
+
+    @content;
   }
 }
