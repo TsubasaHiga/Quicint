@@ -6,8 +6,8 @@ export default {
   HEADER: document.getElementsByTagName('header')[0],
   MAIN: document.getElementsByTagName('main')[0],
   FOOTER: document.getElementsByTagName('footer')[0],
-  NAV: document.querySelectorAll('.l-nav__link'),
-  HMB: document.querySelector('#hmb'),
-  HMBBG: document.querySelector('#hmb__bg'),
+  NAV: document.getElementsByTagName('nav')[0],
+  MAINWRAP: document.querySelector('#l-mainwrap'),
+  MAINWRAPINNER: document.querySelector('#l-mainwrap-inner'),
   STICKY: document.querySelectorAll('.sticky')
 }

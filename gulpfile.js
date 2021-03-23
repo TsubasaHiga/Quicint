@@ -29,6 +29,7 @@ const path = require('path')
 const plumber = require('gulp-plumber')
 const pngquant = require('imagemin-pngquant')
 const postcss = require('gulp-postcss')
+const postcssEasingGradients = require('postcss-easing-gradients')
 const replace = require('gulp-replace')
 const rename = require('gulp-rename')
 const sass = require('gulp-sass')
@@ -125,7 +126,7 @@ const cleanEjs = () => del(setting.io.output.html + '**/*.html')
 /**
  * cleanGarbage
  */
-const cleanGarbage = () => del(setting.io.output.html + '/**/*{maps,.map,.DS_Store,.LICENSE,Thumbs.db}')
+const cleanGarbage = () => del(setting.io.output.html + '**/*{maps,.map,.DS_Store,.LICENSE,Thumbs.db}')
 
 /**
  * scss
@@ -140,6 +141,7 @@ const scss = () => {
     .pipe(
       postcss([
         autoprefixer({ grid: true }),
+        postcssEasingGradients(),
         mqpacker(),
         cssnano({ autoprefixer: false }),
         cssDeclarationSorter({ order: 'smacss' })
@@ -162,6 +164,7 @@ const scssProduction = () => {
     .pipe(
       postcss([
         autoprefixer({ grid: true }),
+        postcssEasingGradients(),
         mqpacker(),
         cssnano({ autoprefixer: false }),
         cssDeclarationSorter({ order: 'smacss' })
@@ -264,7 +267,7 @@ const ejsCompile = (mode = false) => {
  */
 const getImageLists = onlyManual => {
   // defaultLists
-  const defaultLists = setting.io.input.img + '**/*.{png,jpg,gif,svg,ico}'
+  const defaultLists = setting.io.input.img + '**/*.{png,apng,jpg,gif,svg,ico}'
 
   // lists
   const lists = []
@@ -323,7 +326,8 @@ const imgManual = cb => {
       .pipe(
         imagemin([
           pngquant(setting.pngquantManual),
-          mozjpeg(setting.mozjpegManual)
+          mozjpeg(setting.mozjpegManual),
+          imagemin.gifsicle(setting.gifsicleManual)
         ])
       )
       .pipe(gulp.dest(setting.io.output.img))

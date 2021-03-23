@@ -27,6 +27,7 @@
   }
 
   &-container {
+    height: 100%;
     opacity: 0;
     transition: opacity $comMS $comES, visibility $comMS $comES;
     visibility: hidden;
@@ -52,4 +53,10 @@
 
 .js-focus-visible :focus:not(.focus-visible) {
   outline: none;
+}
+
+// swup fade theme
+
+.swup-transition-main {
+  transition: opacity 500ms ease;
 }

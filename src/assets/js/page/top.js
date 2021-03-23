@@ -1,5 +1,9 @@
 'use strict'
 
-export default () => {
+/**
+ * topページの処理を提供します
+ * @param {object} swup
+ */
+export default swup => {
   console.log('top')
 }
