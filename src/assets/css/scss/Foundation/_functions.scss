@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 // rem
-@function rem($num, $size: sm) {
+@function rem($num) {
   @return #{$num / 14}rem;
 }
 

@@ -2,6 +2,22 @@
 
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
+@use "../Foundation/functions" as *;
+
+.l-mainwrap {
+  opacity: 0;
+  visibility: hidden;
+
+  .is-loaded & {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .is-nav-active & {
+    position: relative;
+    z-index: -1;
+  }
+}
 
 .l-page {
   margin-top: map-get($map: $headerH, $key: lg);
@@ -16,12 +32,14 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  min-width: $mainW;
   position: relative;
-  width: $mainW;
+
+  @include media(lg) {
+    min-width: $mainW;
+    width: $mainW;
+  }
 
   @include media(sm) {
-    min-width: 100%;
     padding: 0 map-get($map: $space, $key: sm);
     width: 100%;
   }

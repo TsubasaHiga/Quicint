@@ -2,6 +2,7 @@
 
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
+@use "../Foundation/functions" as *;
 
 .l-header {
   position: relative;
@@ -33,86 +34,6 @@
       min-width: 100%;
       padding: 0 map-get($map: $space, $key: sm);
       width: 100%;
-    }
-  }
-}
-
-.l-hmb {
-  align-items: center;
-  background-color: #000;
-  display: flex;
-  height: map-get($map: $headerH, $key: sm);
-  justify-content: center;
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: map-get($map: $headerH, $key: sm);
-
-  span {
-    $color: #fff;
-    $height: 1px;
-    $width: calc(100% - 38px);
-    $line-space: 10px;
-
-    background-color: $color;
-    height: $height;
-    position: relative;
-    transition: $comMS $comES;
-    width: $width;
-
-    &:before,
-    &:after {
-      @include icon-ini;
-
-      background-color: $color;
-      height: $height;
-      position: absolute;
-      transition: $comMS $comES;
-      width: 100%;
-      will-change: transform;
-    }
-
-    &:before {
-      left: 0;
-      top: #{-$line-space};
-    }
-
-    &:after {
-      bottom: #{-$line-space};
-      left: 0;
-    }
-
-    .is-nav-active & {
-      background: none;
-
-      &:before {
-        top: calc(50%);
-        transform: rotate(135deg);
-      }
-
-      &:after {
-        top: calc(50%);
-        transform: rotate(-135deg);
-      }
-    }
-  }
-
-  &-bg {
-    background-color: rgba(#000, .8);
-    height: 100%;
-    left: 0;
-    opacity: 0;
-    position: fixed;
-    top: 0;
-    transition: $comMS $comES;
-    visibility: hidden;
-    width: 100%;
-    will-change: opacity;
-    z-index: -1;
-
-    .is-nav-active & {
-      opacity: 1;
-      visibility: visible;
     }
   }
 }
