@@ -57,7 +57,7 @@
         ]
     },
     "gifsicle": {
-        "optimizationLevel": 5
+        "optimizationLevel": 3
     },
     "pngquantManual": {
         "quality": [
@@ -70,6 +70,9 @@
     "mozjpegManual": {
         "quality": 95,
         "progressive": true
+    },
+    "gifsicleManual": {
+        "optimizationLevel": 3
     },
     "imageManualLists": [
         "**/*@2x.{png,jpg,gif,svg}"
