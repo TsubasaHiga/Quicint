@@ -22,17 +22,26 @@ import smoothScroll from './helper/smoothScroll'
 import getDeviceType from './helper/getDeviceType'
 
 // plugins
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'obje... Remove this comment to see the full error message
 import objectFitImages from 'object-fit-images'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'pict... Remove this comment to see the full error message
 import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'thro... Remove this comment to see the full error message
 import { throttle, debounce } from 'throttle-debounce'
 
 // swup plugins
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'swup... Remove this comment to see the full error message
 import Swup from 'swup'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '@swu... Remove this comment to see the full error message
 import SwupBodyClassPlugin from '@swup/body-class-plugin'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '@swu... Remove this comment to see the full error message
 import SwupHeadPlugin from '@swup/head-plugin'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '@swu... Remove this comment to see the full error message
 import SwupPreloadPlugin from '@swup/preload-plugin'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '@swu... Remove this comment to see the full error message
 import SwupFadeTheme from '@swup/fade-theme'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module '@swu... Remove this comment to see the full error message
 import SwupGaPlugin from '@swup/ga-plugin'
 
 // page scripts
@@ -237,6 +246,7 @@ const initRun = () => {
   // stickyfilljs
   Stickyfill.add(EL.STICKY)
 
+  // @ts-expect-error ts-migrate(2345) FIXME: Argument of type 'NodeListOf<Element>' is not assi... Remove this comment to see the full error message
   // getScrollPos
   getScrollPos()
 

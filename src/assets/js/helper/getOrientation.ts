@@ -1,6 +1,7 @@
 'use strict'
 
 import EL from '../constant/elements'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'thro... Remove this comment to see the full error message
 import { debounce } from 'throttle-debounce'
 
 /**
@@ -19,6 +20,7 @@ export default () => {
   // Androidなら正面設定を確認
   if (EL.HTML.dataset.os === 'android') {
     const orientation = screen.orientation || screen.mozOrientation || screen.msOrientation
+    // @ts-expect-error ts-migrate(2551) FIXME: Property 'msOrientation' does not exist on type 'S... Remove this comment to see the full error message
     if (orientation.type === 'portrait-secondary' || orientation.type === 'landscape-primary') {
       isReverse = true
     }
@@ -31,6 +33,7 @@ export default () => {
   const chkorientation = isReverse => {
     if (isReverse) {
       // 正面が逆の場合
+      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'isReverse' implicitly has an 'any' type... Remove this comment to see the full error message
       EL.HTML.dataset.orientation = isLandscapeCheckReverse() === true ? 'landscape' : 'portrait'
     } else {
       // 正面が通常の場合

@@ -5,4 +5,4 @@
  * @param {HTMLElement} target
  * @return string className
  */
-export default target => target.classList[0]
+export default (target: any) => target.classList[0];

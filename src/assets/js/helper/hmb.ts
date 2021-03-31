@@ -3,6 +3,7 @@
 import EL from '../constant/elements'
 import pD from './preventDefault'
 import getDeviceType from './getDeviceType'
+// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'thro... Remove this comment to see the full error message
 import { throttle, debounce } from 'throttle-debounce'
 
 /**
@@ -21,7 +22,9 @@ export default swup => {
      * init
      */
     init: () => {
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       func.HMB.addEventListener('click', func.switchShowHide, false)
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       func.HMBBG.addEventListener('click', func.switchShowHide, false)
       window.addEventListener('resize', func.resize, false)
     },
@@ -34,7 +37,9 @@ export default swup => {
       EL.NAV.style.visibility = ''
       EL.HTML.classList.add('is-nav-active')
 
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       EL.MAINWRAP.addEventListener('touchmove', pD, { passive: false })
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       EL.MAINWRAP.addEventListener('wheel', pD, { passive: false })
     },
 
@@ -45,7 +50,9 @@ export default swup => {
       func.isActive = false
       EL.HTML.classList.remove('is-nav-active')
 
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       EL.MAINWRAP.removeEventListener('touchmove', pD, { passive: false })
+      // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
       EL.MAINWRAP.removeEventListener('wheel', pD, { passive: false })
     },
 

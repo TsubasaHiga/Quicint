@@ -22,6 +22,7 @@ export default swup => {
     init: () => {
       func.isActive = true
       func.getOption()
+      // @ts-expect-error ts-migrate(2322) FIXME: Type 'SweetScroll' is not assignable to type 'null... Remove this comment to see the full error message
       func.sweetScroll = new SweetScroll(func.OPTION)
 
       // scrollToHash
@@ -38,6 +39,7 @@ export default swup => {
       if (hash) {
         const needsInitialScroll = document.getElementById(hash.substr(1)) != null
         if (needsInitialScroll) {
+          // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
           func.sweetScroll.to(hash, { updateURL: 'replace' })
         }
       }
@@ -73,6 +75,7 @@ export default swup => {
     destroy: () => {
       if (func.isActive) {
         func.isActive = false
+        // @ts-expect-error ts-migrate(2531) FIXME: Object is possibly 'null'.
         func.sweetScroll.destroy()
         window.removeEventListener('resize', func.resize, false)
       }

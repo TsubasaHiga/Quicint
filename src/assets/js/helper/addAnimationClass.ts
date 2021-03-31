@@ -5,12 +5,12 @@
  * @param {HTMLElement} targets
  * @param {string} rootMargin
  */
-export default (targets, rootMargin = '0% 0px') => {
+export default (targets: any, rootMargin = '0% 0px') => {
   /**
    * 交差したときに呼び出す関数
    * @param {object} entries
    */
-  const addClass = entries => {
+  const addClass = (entries: any) => {
     for (let i = 0; i < entries.length; i = (i + 1) | 0) {
       if (entries[i].isIntersecting) {
         entries[i].target.classList.add('is-animation')
