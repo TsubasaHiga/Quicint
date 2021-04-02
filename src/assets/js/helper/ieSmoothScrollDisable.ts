@@ -2,34 +2,40 @@
 
 import EL from '../constant/elements'
 
+declare global {
+  interface window {
+    ieSmoothScrollDisable: any
+  }
+}
+
 /**
  * ieにてスムーズスクロールを無効化します
  *
  * @param {boolean} state
  */
-// @ts-expect-error ts-migrate(7006) FIXME: Parameter 'state' implicitly has an 'any' type.
-export default state => {
-  if (navigator.userAgent.match(/Trident\/7\./)) {
+export default (state: boolean): void => {
+  // TODO matchからexecに変更。正しく動いているか確認すること。
+  if ((/Trident\/7\./).exec(navigator.userAgent)) {
     /**
      * スクロール処理
      * @param {object} e
      */
-    const scrollfunc = e => {
-      // @ts-expect-error ts-migrate(7006) FIXME: Parameter 'e' implicitly has an 'any' type.
+    const scrollfunc = (e: any) => {
       e.preventDefault()
-      const wd = event.wheelDelta
-      // @ts-expect-error ts-migrate(2532) FIXME: Object is possibly 'undefined'.
+      const wd = e.wheelDelta
       const csp = window.pageYOffset
       window.scrollTo(0, csp - wd)
     }
 
+    const ieSmoothScrollDisable = (<any>window).ieSmoothScrollDisable
+
     if (state) {
-      EL.BODY.addEventListener('mousewheel', scrollfunc, false)
-      window.ieSmoothScrollDisable = scrollfunc
+      EL.BODY.addEventListener('mousewheel', scrollfunc, false);
+      (<any>window).ieSmoothScrollDisable = scrollfunc
     }
 
-    if (!state && typeof window.ieSmoothScrollDisable !== 'undefined') {
-      EL.BODY.removeEventListener('mousewheel', window.ieSmoothScrollDisable, false)
+    if (!state && typeof (<any>window).ieSmoothScrollDisable !== 'undefined') {
+      EL.BODY.removeEventListener('mousewheel', (<any>window).ieSmoothScrollDisable, false)
     }
   }
 }

@@ -6,4 +6,4 @@
  */
 export default (swup: any) => {
   console.log('top')
-};
+}

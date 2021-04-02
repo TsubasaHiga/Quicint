@@ -8,6 +8,5 @@ export default {
   FOOTER: document.getElementsByTagName('footer')[0],
   NAV: document.getElementsByTagName('nav')[0],
   MAINWRAP: document.querySelector('#l-mainwrap'),
-  MAINWRAPINNER: document.querySelector('#l-mainwrap-inner'),
-  STICKY: document.querySelectorAll('.sticky')
+  MAINWRAPINNER: document.querySelector('#l-mainwrap-inner')
 }

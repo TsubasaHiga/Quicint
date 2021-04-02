@@ -1,7 +1,6 @@
 'use strict'
 
 import EL from '../constant/elements'
-// @ts-expect-error ts-migrate(7016) FIXME: Could not find a declaration file for module 'ua-p... Remove this comment to see the full error message
 import UAParser from 'ua-parser-js'
 
 /**
@@ -10,6 +9,7 @@ import UAParser from 'ua-parser-js'
  * @return uaString
  */
 export default () => {
+  // @ts-ignore
   const ua = UAParser()
   const uaString = {
     browserName: ua.browser.name.toLowerCase().replace(' ', '-'),

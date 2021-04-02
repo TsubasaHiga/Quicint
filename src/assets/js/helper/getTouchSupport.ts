@@ -3,13 +3,12 @@
 import EL from '../constant/elements'
 
 /**
- * タッチサポート判定を行います
- * @param {boolean} isTouchSupport
+ * タッチサポート判定を行い<html>のデータ属性にセットします
+ * @return boolean isTouchSupport
  */
-export default () => {
+export default (): boolean => {
   const isTouchSupport = (window.ontouchstart === null)
-  // @ts-expect-error ts-migrate(2322) FIXME: Type 'boolean' is not assignable to type 'string |... Remove this comment to see the full error message
-  EL.HTML.dataset.touchsupport = isTouchSupport
+  EL.HTML.dataset.touchsupport = isTouchSupport.toString()
 
   return isTouchSupport
 }

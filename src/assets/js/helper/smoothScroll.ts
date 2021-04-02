@@ -2,15 +2,14 @@
 
 import EL from '../constant/elements'
 import getClassName from './getClassName'
-// luxy.jsはnpm版よりgithub版の方が最新なのでvendor配下で直接ソース読み込みしています
-// @ts-expect-error ts-migrate(2306) FIXME: File '/Applications/MAMP/htdocs/Quicint/src/assets... Remove this comment to see the full error message
-import luxy from '../vendor/luxy'
+// @ts-expect-error
+import luxy from 'luxy.js'
 
 /**
  * luxyでスムーズスクロール処理を行います
  * @param {object} ua
  */
-export default ua => {
+export default (ua:any) => {
   const func = {
     isActive: false,
     className: getClassName(EL.BODY),
