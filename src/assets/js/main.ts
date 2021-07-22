@@ -23,15 +23,15 @@ import set100vh from './helper/set100vh'
 import smoothScroll from './helper/smoothScroll'
 import sweetScrollInit from './helper/sweetScrollInit'
 import uaDataset from './helper/uaDataset'
-// page scripts
 import pageNameTop from './page/top'
+import UaType from './types/UaType'
 
 // require
 require('intersection-observer')
 require('focus-visible')
 
 // ua
-let ua: any = {}
+let ua: UaType
 
 // className
 let className = ''

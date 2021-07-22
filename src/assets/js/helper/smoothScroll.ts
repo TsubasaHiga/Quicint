@@ -2,13 +2,13 @@
 import luxy from 'luxy.js'
 
 import EL from '../constant/elements'
+import UaType from '../types/UaType'
 import getClassName from './getClassName'
 
 /**
  * luxyでスムーズスクロール処理を行います
- * @param {object} ua
  */
-export default (ua: any): void => {
+export default (ua: UaType): void => {
   const func = {
     isActive: false,
     className: getClassName(EL.BODY),
