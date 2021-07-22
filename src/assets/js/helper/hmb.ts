@@ -5,11 +5,7 @@ import pD from './preventDefault'
 import getDeviceType from './getDeviceType'
 import { debounce } from 'throttle-debounce'
 
-/**
- * ハンバーガーメニューの処理を提供します
- * @param {object} swup
- */
-export default (swup: any): void => {
+export default (): void => {
   const func = {
     isActive: false,
     deviceType: getDeviceType(),
@@ -73,11 +69,4 @@ export default (swup: any): void => {
   }
 
   func.init()
-
-  /**
-   * swup clickLink
-   */
-  if (swup) {
-    swup.on('clickLink', func.hide)
-  }
 }

@@ -6,9 +6,8 @@ import getClassName from './getClassName'
 
 /**
  * ナビのカレント処理を提供します
- * @param {object} swup
  */
-export default (swup: any): void => {
+export default (): void => {
   const targets: NodeListOf<HTMLElement> = document.querySelectorAll('[data-indicator]')
   let className = getClassName(EL.BODY)
 
@@ -32,17 +31,4 @@ export default (swup: any): void => {
   }
 
   currentUpdater()
-
-  if (swup) {
-    swup.on('willReplaceContent', () => {
-      for (let i = 0; i < targets.length; i = (i + 1) | 0) {
-        targets[i].classList.remove('is-nav-current')
-      }
-    })
-
-    swup.on('contentReplaced', () => {
-      className = getClassName(EL.BODY)
-      currentUpdater()
-    })
-  }
 }
