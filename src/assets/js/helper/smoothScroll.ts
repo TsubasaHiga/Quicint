@@ -2,14 +2,14 @@
 
 import EL from '../constant/elements'
 import getClassName from './getClassName'
-// luxy.jsはnpm版よりgithub版の方が最新なのでvendor配下で直接ソース読み込みしています
-import luxy from '../vendor/luxy'
+// @ts-expect-error
+import luxy from 'luxy.js'
 
 /**
  * luxyでスムーズスクロール処理を行います
  * @param {object} ua
  */
-export default ua => {
+export default (ua: any): void => {
   const func = {
     isActive: false,
     className: getClassName(EL.BODY),

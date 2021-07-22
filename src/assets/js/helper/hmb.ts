@@ -3,13 +3,13 @@
 import EL from '../constant/elements'
 import pD from './preventDefault'
 import getDeviceType from './getDeviceType'
-import { throttle, debounce } from 'throttle-debounce'
+import { debounce } from 'throttle-debounce'
 
 /**
  * ハンバーガーメニューの処理を提供します
  * @param {object} swup
  */
-export default swup => {
+export default (swup: any): void => {
   const func = {
     isActive: false,
     deviceType: getDeviceType(),
@@ -21,8 +21,8 @@ export default swup => {
      * init
      */
     init: () => {
-      func.HMB.addEventListener('click', func.switchShowHide, false)
-      func.HMBBG.addEventListener('click', func.switchShowHide, false)
+      func.HMB?.addEventListener('click', func.switchShowHide, false)
+      func.HMBBG?.addEventListener('click', func.switchShowHide, false)
       window.addEventListener('resize', func.resize, false)
     },
 
@@ -34,8 +34,8 @@ export default swup => {
       EL.NAV.style.visibility = ''
       EL.HTML.classList.add('is-nav-active')
 
-      EL.MAINWRAP.addEventListener('touchmove', pD, { passive: false })
-      EL.MAINWRAP.addEventListener('wheel', pD, { passive: false })
+      EL.MAINWRAP?.addEventListener('touchmove', pD, { passive: false })
+      EL.MAINWRAP?.addEventListener('wheel', pD, { passive: false })
     },
 
     /**
@@ -45,8 +45,8 @@ export default swup => {
       func.isActive = false
       EL.HTML.classList.remove('is-nav-active')
 
-      EL.MAINWRAP.removeEventListener('touchmove', pD, { passive: false })
-      EL.MAINWRAP.removeEventListener('wheel', pD, { passive: false })
+      EL.MAINWRAP?.removeEventListener('touchmove', pD)
+      EL.MAINWRAP?.removeEventListener('wheel', pD)
     },
 
     /**

@@ -28,12 +28,16 @@ import Stickyfill from 'stickyfilljs'
 import { throttle, debounce } from 'throttle-debounce'
 
 // swup plugins
+// @ts-ignore
 import Swup from 'swup'
+// @ts-ignore
 import SwupBodyClassPlugin from '@swup/body-class-plugin'
+// @ts-ignore
 import SwupHeadPlugin from '@swup/head-plugin'
+// @ts-ignore
 import SwupPreloadPlugin from '@swup/preload-plugin'
+// @ts-ignore
 import SwupFadeTheme from '@swup/fade-theme'
-import SwupGaPlugin from '@swup/ga-plugin'
 
 // page scripts
 import pageNameTop from './page/top'
@@ -43,13 +47,13 @@ require('intersection-observer')
 require('focus-visible')
 
 // swup
-let swup = null
+let swup: any = false
 
 // ua
-let ua = null
+let ua: any = {}
 
 // className
-let className = null
+let className = ''
 
 // lastInnerWidth
 let lastInnerWidth = window.innerWidth
@@ -114,7 +118,7 @@ const resize = () => {
  * swupInit
  * @param {boolean} state
  */
-const swupInit = state => {
+const swupInit = (state: boolean) => {
   if (!state) {
     return
   }
@@ -129,7 +133,6 @@ const swupInit = state => {
       new SwupFadeTheme({
         mainElement: ['main', '.pjax-replace']
       })
-      // new SwupGaPlugin()
     ],
     // cache: false,
     animateHistoryBrowsing: true
@@ -146,16 +149,10 @@ const swupSetup = () => {
   if (swup) {
     swup.on('contentReplaced', () => {
       console.log('swup -> contentReplaced')
-      // if (typeof window.ga !== 'undefined') {
-      //   window.ga('set', 'title', document.title)
-      //   window.ga('set', 'page', window.location.pathname + window.location.search)
-      //   window.ga('send', 'pageview')
-      // }
       initRun()
     })
     swup.on('popState', () => {
       console.log('swup -> popState')
-      // console.log(isPopStateEvent)
       isPopStateEvent = true
     })
     swup.on('transitionStart', () => {
@@ -188,7 +185,7 @@ const firstRun = () => {
   ieSmoothScrollDisable(true)
 
   // Polyfill object-fit
-  objectFitImages()
+  objectFitImages('img')
 
   // Polyfill picturefill
   picturefill()
@@ -235,13 +232,14 @@ const initRun = () => {
   className = getClassName(EL.BODY)
 
   // stickyfilljs
-  Stickyfill.add(EL.STICKY)
+  const elements: NodeListOf<HTMLElement> = document.querySelectorAll('.sticky')
+  Stickyfill.add(elements)
 
   // getScrollPos
   getScrollPos()
 
   // addAnimationClass
-  const animations = document.querySelectorAll('.c-animation')
+  const animations: NodeListOf<HTMLElement> = document.querySelectorAll('.c-animation')
   if (animations) addAnimationClass(animations)
 
   // top

@@ -2,13 +2,15 @@
 
 import DEFINE from '../constant/define'
 import getDeviceType from '../helper/getDeviceType'
+
+// @ts-ignore
 import SweetScroll from 'sweet-scroll'
 
 /**
  * sweetScroll
  * @param {object} swup
  */
-export default swup => {
+export default (swup: any): void => {
   const func = {
     isActive: false,
     deviceType: getDeviceType(),
@@ -22,6 +24,7 @@ export default swup => {
     init: () => {
       func.isActive = true
       func.getOption()
+      // @ts-ignore
       func.sweetScroll = new SweetScroll(func.OPTION)
 
       // scrollToHash
@@ -38,6 +41,7 @@ export default swup => {
       if (hash) {
         const needsInitialScroll = document.getElementById(hash.substr(1)) != null
         if (needsInitialScroll) {
+          // @ts-ignore
           func.sweetScroll.to(hash, { updateURL: 'replace' })
         }
       }
@@ -73,6 +77,7 @@ export default swup => {
     destroy: () => {
       if (func.isActive) {
         func.isActive = false
+        // @ts-ignore
         func.sweetScroll.destroy()
         window.removeEventListener('resize', func.resize, false)
       }

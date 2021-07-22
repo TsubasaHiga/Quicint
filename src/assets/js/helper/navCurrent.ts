@@ -1,3 +1,4 @@
+/* eslint-disable */
 'use strict'
 
 import EL from '../constant/elements'
@@ -7,8 +8,8 @@ import getClassName from './getClassName'
  * ナビのカレント処理を提供します
  * @param {object} swup
  */
-export default swup => {
-  const targets = document.querySelectorAll('[data-indicator]')
+export default (swup: any): void => {
+  const targets: NodeListOf<HTMLElement> = document.querySelectorAll('[data-indicator]')
   let className = getClassName(EL.BODY)
 
   /**
@@ -18,7 +19,9 @@ export default swup => {
     const matches = []
 
     for (let i = 0; i < targets.length; i = (i + 1) | 0) {
-      if (className.match(targets[i].dataset.indicator)) matches.push(targets[i])
+      if (targets[i].dataset.indicator?.match(className)) {
+        matches.push(targets[i])
+      }
     }
 
     if (matches.length) {

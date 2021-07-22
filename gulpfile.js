@@ -59,7 +59,7 @@ const setting = isExistFile('./setting.json') ? JSON.parse(fs.readFileSync('./se
 
 // webpackの設定ファイルの読み込み
 const webpackConfig = require('./webpack.config')
-const webpackConfigBuild = require('./webpack.production.config')
+const webpackConfigProduction = require('./webpack.production.config')
 
 /**
  * jsoncFileCeck
@@ -341,7 +341,7 @@ const imgManual = cb => {
  */
 const js = () => {
   return gulp
-    .src(setting.io.input.js + '**/*.js')
+    .src(setting.io.input.js + '**/*.ts')
     .pipe(plumber({ errorHandler: err => { console.log(err.messageFormatted); this.emit('end') } }))
     .pipe(webpackStream(webpackConfig, webpack))
     .pipe(gulp.dest(setting.io.output.js))
@@ -352,9 +352,9 @@ const js = () => {
  */
 const jsBuild = () => {
   return gulp
-    .src(setting.io.input.js + '**/*.js')
+    .src(setting.io.input.js + '**/*.ts')
     .pipe(plumber({ errorHandler: err => { console.log(err.messageFormatted); this.emit('end') } }))
-    .pipe(webpackStream(webpackConfigBuild, webpack))
+    .pipe(webpackStream(webpackConfigProduction, webpack))
     .pipe(gulp.dest(setting.io.output.js))
 }
 
@@ -364,7 +364,7 @@ const jsBuild = () => {
 const watch = () => {
   gulp.watch(setting.io.input.css + '**/*.scss', scss)
   gulp.watch(setting.io.input.img + '**/*', gulp.series(img, imgManual))
-  gulp.watch(setting.io.input.js + '**/*.js', gulp.series(js, reload))
+  gulp.watch(setting.io.input.js + '**/*.ts', gulp.series(js, reload))
   gulp.watch(setting.io.input.ejs + '**/*.ejs', { interval: 250 }, gulp.series(ejsCompile, reload))
 }
 

@@ -10,10 +10,15 @@ const TerserPlugin = require('terser-webpack-plugin')
 
 const config = {
   watch: false,
-  cache: true,
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename]
+    }
+  },
   mode: 'development',
   entry: {
-    bundle: './src/assets/js/main.js'
+    bundle: './src/assets/js/main.ts'
   },
   output: {
     path: __dirname,
@@ -26,23 +31,9 @@ const config = {
   module: {
     rules: [
       {
-        test: /\.js$/,
-        use: [
-          {
-            loader: 'babel-loader?cacheDirectory',
-            options: {
-              presets: [
-                [
-                  '@babel/preset-env',
-                  {
-                    modules: false
-                  }
-                ]
-              ]
-            }
-          }
-        ],
-        exclude: /node_modules/
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: 'ts-loader'
       },
       {
         test: /\.json$/,
@@ -59,6 +50,12 @@ const config = {
           }
         ]
       }
+    ]
+  },
+  resolve: {
+    // 拡張子を配列で指定
+    extensions: [
+      '.ts', '.js'
     ]
   },
   optimization: {

@@ -9,7 +9,7 @@ $breakPoint: (
   hlg: 1500px,
   lg: 900px,
   sm: 899px,
-  se: 360px
+  se: 360px,
 );
 
 // mainW
@@ -26,13 +26,13 @@ $smBasisVh: 667; // iPhoneX hide toolbar min-height
 // Basis space
 $space: (
   lg: rem(50),
-  sm: rem(20)
+  sm: rem(20),
 );
 
 // headerH
 $headerH: (
   lg: rem(100),
-  sm: rem(100)
+  sm: rem(100),
 );
 
 // font
@@ -43,7 +43,7 @@ $fontFamily: "Noto Sans CJK JP", "Noto Sans JP", sans-serif;
 // ----------------------------------------------------------
 $color: (
   white: #fff,
-  black: #000
+  black: #000,
 );
 
 // 基本easing
