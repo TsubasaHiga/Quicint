@@ -1,62 +1,56 @@
 {
-    "extends": [
-        "stylelint-config-standard"
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-order"],
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "function",
+          "if",
+          "else",
+          "each",
+          "include",
+          "mixin",
+          "for",
+          "extend",
+          "return",
+          "use"
+        ]
+      }
     ],
-    "plugins": [
-        "stylelint-order"
-    ],
-    "rules": {
-        "at-rule-no-unknown": [
-            true,
-            {
-                "ignoreAtRules": [
-                    "function",
-                    "if",
-                    "else",
-                    "each",
-                    "include",
-                    "mixin",
-                    "for",
-                    "extend",
-                    "return",
-                    "use"
-                ]
-            }
-        ],
-        "at-rule-no-vendor-prefix": true,
-        "color-hex-case": "lower",
-        "color-hex-length": "short",
-        "color-named": "never",
-        "comment-empty-line-before": "never",
-        "comment-whitespace-inside": "always",
-        "declaration-colon-space-after": "always",
-        "declaration-colon-space-before": "never",
-        "font-weight-notation": "numeric",
-        "indentation": 2,
-        "media-feature-colon-space-after": "always",
-        "media-feature-colon-space-before": "never",
-        "media-feature-parentheses-space-inside": "never",
-        "media-feature-range-operator-space-after": "always",
-        "media-feature-range-operator-space-before": "always",
-        "no-descending-specificity": null,
-        "no-duplicate-selectors": true,
-        "number-leading-zero": "never",
-        "order/order": [
-            {
-                "hasBlock": false,
-                "name": "include",
-                "type": "at-rule"
-            },
-            "declarations"
-        ],
-        "order/properties-alphabetical-order": true,
-        "rule-empty-line-before": "always-multi-line",
-        "selector-attribute-brackets-space-inside": "never",
-        "selector-attribute-operator-space-after": "always",
-        "selector-attribute-operator-space-before": "always",
-        "selector-attribute-quotes": "always",
-        "selector-combinator-space-after": "always",
-        "selector-pseudo-class-parentheses-space-inside": "never",
-        "selector-pseudo-element-colon-notation": "single"
-    }
+    "at-rule-no-vendor-prefix": true,
+    "color-hex-case": "lower",
+    "color-hex-length": "short",
+    "color-named": "never",
+    "comment-empty-line-before": "never",
+    "comment-whitespace-inside": "always",
+    "declaration-colon-space-after": "always",
+    "declaration-colon-space-before": "never",
+    "font-weight-notation": "numeric",
+    "indentation": 2,
+    "media-feature-colon-space-after": "always",
+    "media-feature-colon-space-before": "never",
+    "media-feature-parentheses-space-inside": "never",
+    "media-feature-range-operator-space-after": "always",
+    "media-feature-range-operator-space-before": "always",
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": true,
+    "number-leading-zero": "never",
+    "order/properties-alphabetical-order": true,
+    "rule-empty-line-before": "always-multi-line",
+    "selector-attribute-brackets-space-inside": "never",
+    "selector-attribute-operator-space-after": "always",
+    "selector-attribute-operator-space-before": "always",
+    "selector-attribute-quotes": "always",
+    "selector-combinator-space-after": "always",
+    "selector-pseudo-class-parentheses-space-inside": "never",
+    "selector-pseudo-element-colon-notation": "single",
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": ["global"]
+      }
+    ]
+  }
 }
