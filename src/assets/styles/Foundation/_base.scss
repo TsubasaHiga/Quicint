@@ -3,6 +3,7 @@
 @use "./variables" as *;
 @use "./mixin" as *;
 @use "./functions" as *;
+@use 'sass:math';
 
 * {
   box-sizing: border-box;
@@ -18,17 +19,17 @@
 }
 
 html {
-  $vw: (14 / $basis) * 100vw;
+  $vw: (math.div(14, $basis)) * 100vw;
 
   color: map-get($map: $color, $key: color-black);
   font-size: $vw;
   -webkit-font-smoothing: antialiased;
   height: 100%;
-  line-height: (33 / 14);
+  line-height: math.div(33, 14);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 
   @include media(sm) {
-    $vw: (14 / $smBasis) * 100vw;
+    $vw: (math.div(14, $smBasis)) * 100vw;
 
     font-size: $vw;
     padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);

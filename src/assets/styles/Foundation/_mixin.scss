@@ -2,6 +2,7 @@
 
 @use "./variables" as *;
 @use "./functions" as *;
+@use 'sass:math';
 
 // mixin集
 // ----------------------------------------------------------
@@ -86,7 +87,7 @@
   }
 
   @if $height {
-    line-height: $height / $size;
+    line-height: math.div($height, $size);
   }
 }
 
