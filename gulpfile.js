@@ -58,8 +58,8 @@ const isExistFile = file => {
 const setting = isExistFile('./setting.json') ? JSON.parse(fs.readFileSync('./setting.json', 'utf8')) : ''
 
 // webpackの設定ファイルの読み込み
-const webpackConfig = require('./webpack.config')
-const webpackConfigProduction = require('./webpack.production.config')
+const webpackDev = require('./webpack.dev')
+const webpackProd = require('./webpack.prod')
 
 /**
  * jsoncFileCeck
@@ -343,7 +343,7 @@ const js = () => {
   return gulp
     .src(setting.io.input.js + '**/*.ts')
     .pipe(plumber({ errorHandler: err => { console.log(err.messageFormatted); this.emit('end') } }))
-    .pipe(webpackStream(webpackConfig, webpack))
+    .pipe(webpackStream(webpackDev, webpack))
     .pipe(gulp.dest(setting.io.output.js))
 }
 
@@ -354,7 +354,7 @@ const jsBuild = () => {
   return gulp
     .src(setting.io.input.js + '**/*.ts')
     .pipe(plumber({ errorHandler: err => { console.log(err.messageFormatted); this.emit('end') } }))
-    .pipe(webpackStream(webpackConfigProduction, webpack))
+    .pipe(webpackStream(webpackProd, webpack))
     .pipe(gulp.dest(setting.io.output.js))
 }
 

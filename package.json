@@ -146,6 +146,7 @@
     "url-search-params-polyfill": "^8.1.0",
     "webpack": "^5.27.2",
     "webpack-cli": "^4.5.0",
+    "webpack-merge": "^5.8.0",
     "webpack-stream": "^6.1.2"
   },
   "dependencies": {
