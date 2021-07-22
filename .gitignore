@@ -156,8 +156,8 @@ $RECYCLE.BIN/
 #*map/
 # env.json
 
-dist/assets/css/
-dist/assets/js/
+dist/assets/styles/
+dist/assets/scripts/
 dist/assets/images/
 dist/**/*.html
 

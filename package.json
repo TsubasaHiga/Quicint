@@ -2,7 +2,7 @@
   "name": "quicint",
   "version": "0.6.9",
   "description": "Quick initialize HTML5 EJS Boilerplate",
-  "main": "src/assets/ts/main.ts",
+  "main": "src/assets/scripts/main.ts",
   "scripts": {
     "serve": "cross-env NODE_ENV=development gulp",
     "development": "cross-env NODE_ENV=development gulp development",
@@ -58,9 +58,6 @@
   "engines": {
     "npm": "please_use_yarn_instead"
   },
-  "eslintIgnore": [
-    "src/assets/ts/vendor/**/*.ts"
-  ],
   "devDependencies": {
     "@babel/core": "^7.13.10",
     "@babel/polyfill": "^7.12.1",

@@ -10,10 +10,10 @@ module.exports = {
     },
   },
   entry: {
-    bundle: './src/assets/js/main.ts',
+    bundle: './src/assets/scripts/main.ts',
   },
   output: {
-    path: path.join(__dirname, '/dist/assets/js/'),
+    path: path.join(__dirname, '/dist/assets/scripts/'),
     filename: '[name].js',
   },
   performance: {
