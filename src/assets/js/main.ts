@@ -27,27 +27,12 @@ import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
 import { throttle, debounce } from 'throttle-debounce'
 
-// swup plugins
-// @ts-ignore
-import Swup from 'swup'
-// @ts-ignore
-import SwupBodyClassPlugin from '@swup/body-class-plugin'
-// @ts-ignore
-import SwupHeadPlugin from '@swup/head-plugin'
-// @ts-ignore
-import SwupPreloadPlugin from '@swup/preload-plugin'
-// @ts-ignore
-import SwupFadeTheme from '@swup/fade-theme'
-
 // page scripts
 import pageNameTop from './page/top'
 
 // require
 require('intersection-observer')
 require('focus-visible')
-
-// swup
-let swup: any = false
 
 // ua
 let ua: any = {}
@@ -60,9 +45,6 @@ let lastInnerWidth = window.innerWidth
 
 // innerHeight
 let innerHeight = window.innerHeight
-
-// isPopStateEvent
-let isPopStateEvent = false
 
 /**
  * getScrollPos
@@ -115,53 +97,6 @@ const resize = () => {
 }
 
 /**
- * swupInit
- * @param {boolean} state
- */
-const swupInit = (state: boolean) => {
-  if (!state) {
-    return
-  }
-
-  const swupConfig = {
-    containers: ['main', '.pjax-replace'],
-    linkSelector: `a[href^="${window.location.origin}"]:not([data-no-swup]):not([target="_blank"]), a[href^="/"]:not([data-no-swup]):not([target="_blank"]), a[href^="#"]:not([data-no-swup]):not([target="_blank"])`,
-    plugins: [
-      new SwupBodyClassPlugin(),
-      new SwupHeadPlugin(),
-      new SwupPreloadPlugin(),
-      new SwupFadeTheme({
-        mainElement: ['main', '.pjax-replace']
-      })
-    ],
-    // cache: false,
-    animateHistoryBrowsing: true
-  }
-
-  // ie以外でswup実行
-  if (ua.browserName !== 'ie') swup = new Swup(swupConfig)
-}
-
-/**
- * swupSetup
- */
-const swupSetup = () => {
-  if (swup) {
-    swup.on('contentReplaced', () => {
-      console.log('swup -> contentReplaced')
-      initRun()
-    })
-    swup.on('popState', () => {
-      console.log('swup -> popState')
-      isPopStateEvent = true
-    })
-    swup.on('transitionStart', () => {
-      console.log('swup -> transitionStart')
-    })
-  }
-}
-
-/**
  * firstRun
  */
 const firstRun = () => {
@@ -170,13 +105,6 @@ const firstRun = () => {
 
   // set touch support dataset
   ua.touchsupport = getTouchSupport()
-
-  // swup init
-  // If not used, set to `false`
-  swupInit(true)
-
-  // swup Setup
-  swupSetup()
 
   // getOrientation
   getOrientation()
@@ -206,16 +134,16 @@ const firstRun = () => {
  */
 const initOnce = () => {
   // sweetScroll
-  sweetScrollInit(swup)
+  sweetScrollInit()
 
   // navCurrent
-  navCurrent(swup)
+  navCurrent()
 
   // smoothScroll
   smoothScroll(ua)
 
   // hmb menu
-  hmb(swup)
+  hmb()
 }
 
 /**
@@ -243,7 +171,7 @@ const initRun = () => {
   if (animations) addAnimationClass(animations)
 
   // top
-  if (className.endsWith('top')) pageNameTop(swup)
+  if (className.endsWith('top')) pageNameTop()
 
   EL.HTML.classList.add('is-loaded')
 }

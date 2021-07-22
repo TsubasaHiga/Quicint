@@ -8,9 +8,8 @@ import SweetScroll from 'sweet-scroll'
 
 /**
  * sweetScroll
- * @param {object} swup
  */
-export default (swup: any): void => {
+export default (): void => {
   const func = {
     isActive: false,
     deviceType: getDeviceType(),
@@ -85,14 +84,4 @@ export default (swup: any): void => {
   }
 
   func.init()
-
-  /**
-   * swup contentReplaced
-   */
-  if (func.isActive && swup) {
-    swup.on('contentReplaced', () => {
-      // scrollToHash
-      func.scrollToHash()
-    })
-  }
 }
