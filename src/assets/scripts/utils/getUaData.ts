@@ -8,16 +8,25 @@ import UaType from '../types/UaType'
  * @return uaString
  */
 const GetUadata = (): UaType => {
-  // @ts-ignore
-  const ua = UAParser()
+  const parser = new UAParser()
+  const result = parser.getResult()
+
+  const browserName = result.browser.name
+  const browserVersion = result.browser.major
+  const browserEngine = result.engine.name
+  const osName = result.os.name
+  const type = result.device.type
+
   const uaString = {
-    browserName: ua.browser.name.toLowerCase().replace(' ', '-'),
-    browserVersion: ua.browser.major,
-    browserEngine: ua.engine.name.toLowerCase().replace(' ', '-'),
-    osName: ua.os.name.toLowerCase().replace(' ', '-'),
+    browserName: browserName ? browserName.toLowerCase().replace(' ', '-') : '',
+    browserVersion: browserVersion ? browserVersion : '',
+    browserEngine: browserEngine
+      ? browserEngine.toLowerCase().replace(' ', '-')
+      : '',
+    osName: osName ? osName.toLowerCase().replace(' ', '-') : '',
     type:
-      typeof ua.device.type !== 'undefined'
-        ? ua.device.type.toLowerCase().replace(' ', '-')
+      typeof type !== 'undefined'
+        ? type.toLowerCase().replace(' ', '-')
         : 'laptop',
   }
 

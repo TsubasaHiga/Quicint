@@ -3,23 +3,23 @@ import luxy from 'luxy.js'
 
 import UaType from '../types/UaType'
 
-const SmoothScroll = (state: boolean, ua: UaType): void => {
+const SmoothScroll = (state: boolean, clientData: UaType): void => {
   const func = {
     init: () => {
-      if (ua.browserName === 'ie') {
+      if (clientData.browserName === 'ie') {
         return false
       }
 
-      if (ua.browserName === 'firefox') {
+      if (clientData.browserName === 'firefox') {
         return false
       }
 
-      if (ua.touchsupport) {
+      if (clientData.touchsupport) {
         return false
       }
 
       // laptopの時
-      if (ua.type === 'laptop') {
+      if (clientData.type === 'laptop') {
         luxy.init({
           wrapper: '#l-mainwrap',
           wrapperSpeed: 0.095,

@@ -26,8 +26,8 @@ import SetOrientation from './utils/setOrientation'
 require('intersection-observer')
 require('focus-visible')
 
-// ua
-let ua: UaType
+// clientData
+let clientData: UaType
 
 // className
 let className = ''
@@ -90,8 +90,8 @@ const resize = () => {
  */
 const firstRun = () => {
   // get uadata
-  ua = GetUadata()
-  ua.touchsupport = GetTouchSupport()
+  clientData = GetUadata()
+  clientData.touchsupport = GetTouchSupport()
 
   // setOrientation
   SetOrientation()
@@ -108,7 +108,7 @@ const firstRun = () => {
   }
 
   // uaのオブジェクトのHTML出力
-  Object.entries(ua).forEach(([key, value]) => {
+  Object.entries(clientData).forEach(([key, value]) => {
     EL.HTML.dataset[key.toLowerCase()] =
       typeof value === 'boolean' ? value.toString() : value
   })
@@ -123,7 +123,7 @@ const firstRun = () => {
 const initOnce = () => {
   SweetScrollInit()
   NavCurrent()
-  SmoothScroll(false, ua)
+  SmoothScroll(false, clientData)
   HmbMenu()
 }
 
