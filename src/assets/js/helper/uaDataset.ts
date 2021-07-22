@@ -8,7 +8,7 @@ import UAParser from 'ua-parser-js'
  * 文字列にスペースが付く場合はハイフンで繋がれます
  * @return uaString
  */
-export default () => {
+export default (): Record<string, unknown> => {
   // @ts-ignore
   const ua = UAParser()
   const uaString = {

@@ -19,7 +19,7 @@ export default (swup: any): void => {
     const matches = []
 
     for (let i = 0; i < targets.length; i = (i + 1) | 0) {
-      if (targets[i].dataset.indicator!.match(className)) {
+      if (targets[i].dataset.indicator?.match(className)) {
         matches.push(targets[i])
       }
     }

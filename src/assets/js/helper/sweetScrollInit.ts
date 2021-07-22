@@ -10,7 +10,7 @@ import SweetScroll from 'sweet-scroll'
  * sweetScroll
  * @param {object} swup
  */
-export default (swup: any) => {
+export default (swup: any): void => {
   const func = {
     isActive: false,
     deviceType: getDeviceType(),

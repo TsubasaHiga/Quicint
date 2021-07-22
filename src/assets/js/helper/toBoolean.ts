@@ -5,7 +5,7 @@
  * @param {string} booleanStr
  * @return boolean
  */
-export default (booleanStr: any) => {
+export default (booleanStr: string): boolean | undefined => {
   if (typeof booleanStr === 'undefined') {
     return
   }

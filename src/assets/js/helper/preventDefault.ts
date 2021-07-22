@@ -2,8 +2,8 @@
 
 /**
  * preventDefault
- * @param {object} event
+ * @param {object} e
  */
-export default (event: any) => {
-  event.preventDefault ? event.preventDefault() : event.returnValue = false
+export default (e: Event): void => {
+  e.preventDefault ? e.preventDefault() : e.returnValue = false
 }

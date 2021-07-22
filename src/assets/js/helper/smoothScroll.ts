@@ -9,7 +9,7 @@ import luxy from 'luxy.js'
  * luxyでスムーズスクロール処理を行います
  * @param {object} ua
  */
-export default (ua:any) => {
+export default (ua: any): void => {
   const func = {
     isActive: false,
     className: getClassName(EL.BODY),

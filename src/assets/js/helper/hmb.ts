@@ -21,8 +21,8 @@ export default (swup: any): void => {
      * init
      */
     init: () => {
-      func.HMB!.addEventListener('click', func.switchShowHide, false)
-      func.HMBBG!.addEventListener('click', func.switchShowHide, false)
+      func.HMB?.addEventListener('click', func.switchShowHide, false)
+      func.HMBBG?.addEventListener('click', func.switchShowHide, false)
       window.addEventListener('resize', func.resize, false)
     },
 
@@ -34,8 +34,8 @@ export default (swup: any): void => {
       EL.NAV.style.visibility = ''
       EL.HTML.classList.add('is-nav-active')
 
-      EL.MAINWRAP!.addEventListener('touchmove', pD, { passive: false })
-      EL.MAINWRAP!.addEventListener('wheel', pD, { passive: false })
+      EL.MAINWRAP?.addEventListener('touchmove', pD, { passive: false })
+      EL.MAINWRAP?.addEventListener('wheel', pD, { passive: false })
     },
 
     /**
@@ -45,8 +45,8 @@ export default (swup: any): void => {
       func.isActive = false
       EL.HTML.classList.remove('is-nav-active')
 
-      EL.MAINWRAP!.removeEventListener('touchmove', pD)
-      EL.MAINWRAP!.removeEventListener('wheel', pD)
+      EL.MAINWRAP?.removeEventListener('touchmove', pD)
+      EL.MAINWRAP?.removeEventListener('wheel', pD)
     },
 
     /**
