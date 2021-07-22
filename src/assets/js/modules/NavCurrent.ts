@@ -1,17 +1,11 @@
 import EL from '../constant/elements'
-import getClassName from './getClassName'
+import GetClassName from '../utils/getClassName'
 
-/**
- * ナビのカレント処理を提供します
- */
-export default (): void => {
+const NavCurrent = (): void => {
   const targets: NodeListOf<HTMLElement> =
     document.querySelectorAll('[data-indicator]')
-  const className = getClassName(EL.BODY)
+  const className = GetClassName(EL.BODY)
 
-  /**
-   * currentUpdater
-   */
   const currentUpdater = () => {
     const matches = []
 
@@ -30,3 +24,5 @@ export default (): void => {
 
   currentUpdater()
 }
+
+export default NavCurrent

@@ -363,7 +363,7 @@
 
 @mixin ie11($size: false) {
 
-  html[data-browser = "ie"][data-browserversion = "11"] & {
+  html[data-browsername = "ie"][data-browserversion = "11"] & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: map-get($breakPoint, lg)) {
@@ -386,7 +386,7 @@
 
 @mixin notie11($size: false) {
 
-  html:not([data-browser = "ie"]):not([data-browserversion = "11"]) & {
+  html:not([data-browsername = "ie"]):not([data-browserversion = "11"]) & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: map-get($breakPoint, lg)) {
@@ -411,7 +411,7 @@
 // ----------------------------------------------------------
 
 @mixin edge($size: false, $engine: "edgehtml") {
-  html[data-browser="edge"][data-browserengine="#{$engine}"] & {
+  html[data-browsername = "edge"][data-browserengine="#{$engine}"] & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: map-get($breakPoint, lg)) {
@@ -437,7 +437,7 @@
 
 @mixin firefox($size: false) {
 
-  html[data-browser = "firefox"] & {
+  html[data-browsername = "firefox"] & {
     @if ($size) {
       @if ($size == "lg") {
         @media screen and (min-width: map-get($breakPoint, lg)) {
@@ -464,14 +464,14 @@
 @mixin safari($size: false) {
   @if ($size == "sm") {
 
-    html[data-browser = "mobile-safari"] & {
+    html[data-browsername = "mobile-safari"] & {
       @content;
     }
   }
 
   @else {
 
-    html[data-browser = "safari"] & {
+    html[data-browsername = "safari"] & {
       @content;
     }
   }
@@ -500,7 +500,7 @@
 
 @mixin ipados($orientation: false) {
   @if ($orientation) {
-    html[data-type="laptop"][data-os="mac-os"][data-browser="safari"][data-touchsupport="true"][data-orientation="#{$orientation}"]
+    html[data-type="laptop"][data-osname="mac-os"][data-browsername = "safari"][data-touchsupport="true"][data-orientation="#{$orientation}"]
     & {
       @content;
     }
@@ -508,7 +508,7 @@
 
   @else {
 
-    html[data-type = "laptop"][data-os = "mac-os"][data-browser = "safari"][data-touchsupport = "true"] & {
+    html[data-type = "laptop"][data-osname = "mac-os"][data-browsername = "safari"][data-touchsupport = "true"] & {
       @content;
     }
   }
@@ -825,7 +825,7 @@
 
 @mixin macos {
 
-  html[data-os = "mac-os"] & {
+  html[data-osname = "mac-os"] & {
 
     @content;
   }
@@ -836,7 +836,7 @@
 
 @mixin ios {
 
-  html[data-os = "ios"] & {
+  html[data-osname = "ios"] & {
 
     @content;
   }
@@ -847,7 +847,7 @@
 
 @mixin notMacosIos {
 
-  html:not([data-os = "mac-os"]):not([data-os = "ios"]) & {
+  html:not([data-osname = "mac-os"]):not([data-osname = "ios"]) & {
     @content;
   }
 }
@@ -857,7 +857,7 @@
 
 @mixin android {
 
-  html[data-os = "android"] & {
+  html[data-osname = "android"] & {
 
     @content;
   }

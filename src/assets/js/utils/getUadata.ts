@@ -1,13 +1,13 @@
 import UAParser from 'ua-parser-js'
 
-import EL from '../constant/elements'
+import UaType from '../types/UaType'
 
 /**
  * UA情報を<html>タグにdatasetとして追加します
  * 文字列にスペースが付く場合はハイフンで繋がれます
  * @return uaString
  */
-export default (): Record<string, unknown> => {
+const GetUadata = (): UaType => {
   // @ts-ignore
   const ua = UAParser()
   const uaString = {
@@ -20,11 +20,8 @@ export default (): Record<string, unknown> => {
         ? ua.device.type.toLowerCase().replace(' ', '-')
         : 'laptop',
   }
-  EL.HTML.dataset.browser = uaString.browserName
-  EL.HTML.dataset.browserversion = uaString.browserVersion
-  EL.HTML.dataset.browserengine = uaString.browserEngine
-  EL.HTML.dataset.os = uaString.osName
-  EL.HTML.dataset.type = uaString.type
 
   return uaString
 }
+
+export default GetUadata

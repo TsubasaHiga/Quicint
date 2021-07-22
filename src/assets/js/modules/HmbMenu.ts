@@ -1,62 +1,47 @@
 import { debounce } from 'throttle-debounce'
 
 import EL from '../constant/elements'
-import getDeviceType from './getDeviceType'
-import pD from './preventDefault'
+import GetDeviceType from '../utils/getDeviceType'
+import Pd from '../utils/preventDefault'
 
-export default (): void => {
+const HmbMenu = (): void => {
   const func = {
     isActive: false,
-    deviceType: getDeviceType(),
+    deviceType: GetDeviceType(),
 
     HMB: document.querySelector('#hmb'),
     HMBBG: document.querySelector('#hmb__bg'),
 
-    /**
-     * init
-     */
     init: () => {
       func.HMB?.addEventListener('click', func.switchShowHide, false)
       func.HMBBG?.addEventListener('click', func.switchShowHide, false)
       window.addEventListener('resize', func.resize, false)
     },
 
-    /**
-     * show
-     */
     show: () => {
       func.isActive = true
       EL.NAV.style.visibility = ''
       EL.HTML.classList.add('is-nav-active')
 
-      EL.MAINWRAP?.addEventListener('touchmove', pD, { passive: false })
-      EL.MAINWRAP?.addEventListener('wheel', pD, { passive: false })
+      EL.MAINWRAP?.addEventListener('touchmove', Pd, { passive: false })
+      EL.MAINWRAP?.addEventListener('wheel', Pd, { passive: false })
     },
 
-    /**
-     * hide
-     */
     hide: () => {
       func.isActive = false
       EL.HTML.classList.remove('is-nav-active')
 
-      EL.MAINWRAP?.removeEventListener('touchmove', pD)
-      EL.MAINWRAP?.removeEventListener('wheel', pD)
+      EL.MAINWRAP?.removeEventListener('touchmove', Pd)
+      EL.MAINWRAP?.removeEventListener('wheel', Pd)
     },
 
-    /**
-     * switchShowHide
-     */
     switchShowHide: () => {
       func.isActive ? func.hide() : func.show()
     },
 
-    /**
-     * resize
-     */
     resize: debounce(150, () => {
-      if (func.deviceType !== getDeviceType()) {
-        func.deviceType = getDeviceType()
+      if (func.deviceType !== GetDeviceType()) {
+        func.deviceType = GetDeviceType()
         func.hide()
 
         if (func.deviceType === 'lg') {
@@ -68,3 +53,5 @@ export default (): void => {
 
   func.init()
 }
+
+export default HmbMenu

@@ -1,22 +1,16 @@
 import SweetScroll from 'sweet-scroll'
 
 import DEFINE from '../constant/define'
-import getDeviceType from '../helper/getDeviceType'
+import GetDeviceType from '../utils/getDeviceType'
 
-/**
- * sweetScroll
- */
-export default (): void => {
+const SweetScrollInit = (): void => {
   const func = {
     isActive: false,
-    deviceType: getDeviceType(),
+    deviceType: GetDeviceType(),
     sweetScroll: null,
 
     OPTION: {},
 
-    /**
-     * init
-     */
     init: () => {
       func.isActive = true
       func.getOption()
@@ -29,9 +23,6 @@ export default (): void => {
       window.addEventListener('resize', func.resize, false)
     },
 
-    /**
-     * scrollToHash
-     */
     scrollToHash: () => {
       const hash = window.location.hash
       if (hash) {
@@ -44,9 +35,6 @@ export default (): void => {
       }
     },
 
-    /**
-     * getOption
-     */
     getOption: () => {
       func.OPTION = {
         offset:
@@ -64,12 +52,9 @@ export default (): void => {
       }
     },
 
-    /**
-     * resize
-     */
     resize: () => {
-      if (func.deviceType !== getDeviceType()) {
-        func.deviceType = getDeviceType()
+      if (func.deviceType !== GetDeviceType()) {
+        func.deviceType = GetDeviceType()
 
         func.getOption()
         func.destroy()
@@ -77,9 +62,6 @@ export default (): void => {
       }
     },
 
-    /**
-     * destroy
-     */
     destroy: () => {
       if (func.isActive) {
         func.isActive = false
@@ -92,3 +74,5 @@ export default (): void => {
 
   func.init()
 }
+
+export default SweetScrollInit

@@ -1,9 +1,7 @@
 /**
  * 可視領域に入った要素に対してクラスを付与します
- * @param {HTMLElement} targets 対象のHTML要素
- * @param {string} rootMargin rootMargin指定の文字列。省略時は'0% 0px'が指定されます。
  */
-export default (
+const AddAnimationClass = (
   targets: NodeListOf<HTMLElement>,
   rootMargin = '0% 0px'
 ): void => {
@@ -40,3 +38,5 @@ export default (
     }
   }
 }
+
+export default AddAnimationClass

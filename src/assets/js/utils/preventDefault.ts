@@ -1,7 +1,8 @@
 /**
  * preventDefault
- * @param {object} e
  */
-export default (e: Event): void => {
+const Pd = (e: Event): void => {
   e.preventDefault ? e.preventDefault() : (e.returnValue = false)
 }
+
+export default Pd

@@ -8,10 +8,8 @@ declare global {
 
 /**
  * ieにてスムーズスクロールを無効化します
- *
- * @param {boolean} state
  */
-export default (state: boolean): void => {
+const DisableIeSmoothScroll = (state: boolean): void => {
   // TODO matchからexecに変更。正しく動いているか確認すること。
   if (/Trident\/7\./.exec(navigator.userAgent)) {
     /**
@@ -39,3 +37,5 @@ export default (state: boolean): void => {
     }
   }
 }
+
+export default DisableIeSmoothScroll

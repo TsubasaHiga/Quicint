@@ -1,30 +1,26 @@
-// babel polyfill
 import 'core-js/stable'
 
-// plugins
 import objectFitImages from 'object-fit-images'
 import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
 import { debounce, throttle } from 'throttle-debounce'
 
-// define
 import EL from './constant/elements'
-import addAnimationClass from './helper/addAnimationClass'
-import getClassName from './helper/getClassName'
-import getDeviceType from './helper/getDeviceType'
-import getDocumentH from './helper/getDocumentHeight'
-import getOrientation from './helper/getOrientation'
-import getTouchSupport from './helper/getTouchSupport'
-// helper
-import hmb from './helper/hmb'
-import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
-import navCurrent from './helper/navCurrent'
-import set100vh from './helper/set100vh'
-import smoothScroll from './helper/smoothScroll'
-import sweetScrollInit from './helper/sweetScrollInit'
-import uaDataset from './helper/uaDataset'
-import pageNameTop from './page/top'
+import AddAnimationClass from './modules/AddAnimationClass'
+import DisableIeSmoothScroll from './modules/DisableIeSmoothScroll'
+import HmbMenu from './modules/HmbMenu'
+import NavCurrent from './modules/NavCurrent'
+import SmoothScroll from './modules/SmoothScroll'
+import SweetScrollInit from './modules/SweetScrollInit'
+import PageTop from './pages/PageTop'
 import UaType from './types/UaType'
+import GetClassName from './utils/getClassName'
+import GetDeviceType from './utils/getDeviceType'
+import GetDocumentH from './utils/getDocumentHeight'
+import GetTouchSupport from './utils/getTouchSupport'
+import GetUadata from './utils/getUaData'
+import Set100vh from './utils/set100vh'
+import SetOrientation from './utils/setOrientation'
 
 // require
 require('intersection-observer')
@@ -48,7 +44,7 @@ let innerHeight = window.innerHeight
 const getScrollPos = () => {
   const y = Math.round(window.pageYOffset)
   const offset = className === 'top' ? innerHeight : 200
-  const documentH = getDocumentH()
+  const documentH = GetDocumentH()
 
   // add class is-scroll
   if (y > offset) {
@@ -73,20 +69,17 @@ const getScrollPos = () => {
  * resize
  */
 const resize = () => {
-  // set100vh（常に更新）
-  set100vh('--vh-always')
+  Set100vh('--vh-always')
 
   // window高さが高くなった時
   if (window.innerHeight > innerHeight) {
-    set100vh('--vh-max')
+    Set100vh('--vh-max')
   }
 
   // window幅が変わった時
   if (lastInnerWidth !== window.innerWidth) {
     lastInnerWidth = window.innerWidth
-
-    // set100vh
-    set100vh()
+    Set100vh()
   }
 
   innerHeight = window.innerHeight
@@ -96,64 +89,53 @@ const resize = () => {
  * firstRun
  */
 const firstRun = () => {
-  // set ua dataset
-  ua = uaDataset()
+  // get uadata
+  ua = GetUadata()
+  ua.touchsupport = GetTouchSupport()
 
-  // set touch support dataset
-  ua.touchsupport = getTouchSupport()
-
-  // getOrientation
-  getOrientation()
+  // setOrientation
+  SetOrientation()
 
   // ie smoothScroll disable
-  ieSmoothScrollDisable(true)
+  DisableIeSmoothScroll(true)
 
-  // Polyfill object-fit
+  // Polyfill
   objectFitImages('img')
-
-  // Polyfill picturefill
   picturefill()
 
-  if (getDeviceType() === 'lg') {
+  if (GetDeviceType() === 'lg') {
     EL.NAV.style.visibility = ''
   }
 
-  // set100vh
-  set100vh()
+  // uaのオブジェクトのHTML出力
+  Object.entries(ua).forEach(([key, value]) => {
+    EL.HTML.dataset[key.toLowerCase()] =
+      typeof value === 'boolean' ? value.toString() : value
+  })
 
-  // set100vh（常に更新）
-  set100vh('--vh-always')
+  Set100vh()
+  Set100vh('--vh-always')
 }
 
 /**
  * initOnce
  */
 const initOnce = () => {
-  // sweetScroll
-  sweetScrollInit()
-
-  // navCurrent
-  navCurrent()
-
-  // smoothScroll
-  smoothScroll(ua)
-
-  // hmb menu
-  hmb()
+  SweetScrollInit()
+  NavCurrent()
+  SmoothScroll(false, ua)
+  HmbMenu()
 }
 
 /**
  * initRun
  */
 const initRun = () => {
-  // set100vh
-  set100vh()
-
-  // set100vh（常に更新）
-  set100vh('--vh-always')
+  Set100vh()
+  Set100vh('--vh-always')
 
   // get body className
-  className = getClassName(EL.BODY)
+  className = GetClassName(EL.BODY)
 
   // stickyfilljs
   const elements: NodeListOf<HTMLElement> = document.querySelectorAll('.sticky')
@@ -163,12 +145,16 @@ const initRun = () => {
   getScrollPos()
 
   // addAnimationClass
-  const animations: NodeListOf<HTMLElement> =
+  const animationTargets: NodeListOf<HTMLElement> =
     document.querySelectorAll('.c-animation')
-  if (animations) addAnimationClass(animations)
+  if (animationTargets) {
+    AddAnimationClass(animationTargets)
+  }
 
   // top
-  if (className.endsWith('top')) pageNameTop()
+  if (className.endsWith('top')) {
+    PageTop()
+  }
 
   EL.HTML.classList.add('is-loaded')
 }
@@ -193,3 +179,12 @@ window.addEventListener('scroll', throttle(100, getScrollPos), false)
  * RESIZE
  */
 window.addEventListener('resize', debounce(50, resize), false)
+
+/**
+ * ORIENTATIONCHANGE
+ */
+window.addEventListener(
+  'orientationchange',
+  debounce(150, SetOrientation),
+  false
+)
