@@ -1,11 +1,12 @@
-'use strict'
-
 /**
  * 可視領域に入った要素に対してクラスを付与します
  * @param {HTMLElement} targets 対象のHTML要素
  * @param {string} rootMargin rootMargin指定の文字列。省略時は'0% 0px'が指定されます。
  */
-export default (targets: NodeListOf<HTMLElement>, rootMargin = '0% 0px'): void => {
+export default (
+  targets: NodeListOf<HTMLElement>,
+  rootMargin = '0% 0px'
+): void => {
   /**
    * 交差したときに呼び出す関数
    * @param {object} entries
@@ -21,7 +22,7 @@ export default (targets: NodeListOf<HTMLElement>, rootMargin = '0% 0px'): void =
   const options = {
     root: null,
     rootMargin: rootMargin,
-    threshold: 0
+    threshold: 0,
   }
 
   const observer = new IntersectionObserver(addClass, options)

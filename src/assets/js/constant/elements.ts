@@ -1,5 +1,3 @@
-'use strict'
-
 export default {
   HTML: document.getElementsByTagName('html')[0],
   BODY: document.getElementsByTagName('body')[0],
@@ -8,5 +6,5 @@ export default {
   FOOTER: document.getElementsByTagName('footer')[0],
   NAV: document.getElementsByTagName('nav')[0],
   MAINWRAP: document.querySelector('#l-mainwrap'),
-  MAINWRAPINNER: document.querySelector('#l-mainwrap-inner')
+  MAINWRAPINNER: document.querySelector('#l-mainwrap-inner'),
 }

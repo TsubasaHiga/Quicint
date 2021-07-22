@@ -1,32 +1,28 @@
-'use strict'
-
 // babel polyfill
 import 'core-js/stable'
-
-// define
-import EL from './constant/elements'
-
-// helper
-import hmb from './helper/hmb'
-import uaDataset from './helper/uaDataset'
-import sweetScrollInit from './helper/sweetScrollInit'
-import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
-import getTouchSupport from './helper/getTouchSupport'
-import navCurrent from './helper/navCurrent'
-import getDocumentH from './helper/getDocumentHeight'
-import getOrientation from './helper/getOrientation'
-import getClassName from './helper/getClassName'
-import addAnimationClass from './helper/addAnimationClass'
-import set100vh from './helper/set100vh'
-import smoothScroll from './helper/smoothScroll'
-import getDeviceType from './helper/getDeviceType'
 
 // plugins
 import objectFitImages from 'object-fit-images'
 import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
-import { throttle, debounce } from 'throttle-debounce'
+import { debounce, throttle } from 'throttle-debounce'
 
+// define
+import EL from './constant/elements'
+import addAnimationClass from './helper/addAnimationClass'
+import getClassName from './helper/getClassName'
+import getDeviceType from './helper/getDeviceType'
+import getDocumentH from './helper/getDocumentHeight'
+import getOrientation from './helper/getOrientation'
+import getTouchSupport from './helper/getTouchSupport'
+// helper
+import hmb from './helper/hmb'
+import ieSmoothScrollDisable from './helper/ieSmoothScrollDisable'
+import navCurrent from './helper/navCurrent'
+import set100vh from './helper/set100vh'
+import smoothScroll from './helper/smoothScroll'
+import sweetScrollInit from './helper/sweetScrollInit'
+import uaDataset from './helper/uaDataset'
 // page scripts
 import pageNameTop from './page/top'
 
@@ -167,7 +163,8 @@ const initRun = () => {
   getScrollPos()
 
   // addAnimationClass
-  const animations: NodeListOf<HTMLElement> = document.querySelectorAll('.c-animation')
+  const animations: NodeListOf<HTMLElement> =
+    document.querySelectorAll('.c-animation')
   if (animations) addAnimationClass(animations)
 
   // top

@@ -1,6 +1,3 @@
-/* eslint-disable */
-'use strict'
-
 import EL from '../constant/elements'
 import getClassName from './getClassName'
 
@@ -8,8 +5,9 @@ import getClassName from './getClassName'
  * ナビのカレント処理を提供します
  */
 export default (): void => {
-  const targets: NodeListOf<HTMLElement> = document.querySelectorAll('[data-indicator]')
-  let className = getClassName(EL.BODY)
+  const targets: NodeListOf<HTMLElement> =
+    document.querySelectorAll('[data-indicator]')
+  const className = getClassName(EL.BODY)
 
   /**
    * currentUpdater

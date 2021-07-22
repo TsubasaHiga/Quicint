@@ -1,10 +1,7 @@
-'use strict'
+import SweetScroll from 'sweet-scroll'
 
 import DEFINE from '../constant/define'
 import getDeviceType from '../helper/getDeviceType'
-
-// @ts-ignore
-import SweetScroll from 'sweet-scroll'
 
 /**
  * sweetScroll
@@ -38,7 +35,8 @@ export default (): void => {
     scrollToHash: () => {
       const hash = window.location.hash
       if (hash) {
-        const needsInitialScroll = document.getElementById(hash.substr(1)) != null
+        const needsInitialScroll =
+          document.getElementById(hash.substr(1)) != null
         if (needsInitialScroll) {
           // @ts-ignore
           func.sweetScroll.to(hash, { updateURL: 'replace' })
@@ -51,9 +49,18 @@ export default (): void => {
      */
     getOption: () => {
       func.OPTION = {
-        offset: func.deviceType === 'lg' ? DEFINE.SCROLL_OFFSET_LG : DEFINE.SCROLL_OFFSET_SM,
-        easing: func.deviceType === 'lg' ? DEFINE.SCROLL_EASING_LG : DEFINE.SCROLL_EASING_SM,
-        duration: func.deviceType === 'lg' ? DEFINE.SCROLL_DURATION_LG : DEFINE.SCROLL_DURATION_SM
+        offset:
+          func.deviceType === 'lg'
+            ? DEFINE.SCROLL_OFFSET_LG
+            : DEFINE.SCROLL_OFFSET_SM,
+        easing:
+          func.deviceType === 'lg'
+            ? DEFINE.SCROLL_EASING_LG
+            : DEFINE.SCROLL_EASING_SM,
+        duration:
+          func.deviceType === 'lg'
+            ? DEFINE.SCROLL_DURATION_LG
+            : DEFINE.SCROLL_DURATION_SM,
       }
     },
 
@@ -80,7 +87,7 @@ export default (): void => {
         func.sweetScroll.destroy()
         window.removeEventListener('resize', func.resize, false)
       }
-    }
+    },
   }
 
   func.init()

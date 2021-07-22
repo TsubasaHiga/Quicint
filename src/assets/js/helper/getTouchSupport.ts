@@ -1,5 +1,3 @@
-'use strict'
-
 import EL from '../constant/elements'
 
 /**
@@ -7,7 +5,7 @@ import EL from '../constant/elements'
  * @return boolean isTouchSupport
  */
 export default (): boolean => {
-  const isTouchSupport = (window.ontouchstart === null)
+  const isTouchSupport = window.ontouchstart === null
   EL.HTML.dataset.touchsupport = isTouchSupport.toString()
 
   return isTouchSupport

@@ -1,7 +1,6 @@
-'use strict'
+import UAParser from 'ua-parser-js'
 
 import EL from '../constant/elements'
-import UAParser from 'ua-parser-js'
 
 /**
  * UA情報を<html>タグにdatasetとして追加します
@@ -16,7 +15,10 @@ export default (): Record<string, unknown> => {
     browserVersion: ua.browser.major,
     browserEngine: ua.engine.name.toLowerCase().replace(' ', '-'),
     osName: ua.os.name.toLowerCase().replace(' ', '-'),
-    type: (typeof ua.device.type !== 'undefined') ? ua.device.type.toLowerCase().replace(' ', '-') : 'laptop'
+    type:
+      typeof ua.device.type !== 'undefined'
+        ? ua.device.type.toLowerCase().replace(' ', '-')
+        : 'laptop',
   }
   EL.HTML.dataset.browser = uaString.browserName
   EL.HTML.dataset.browserversion = uaString.browserVersion

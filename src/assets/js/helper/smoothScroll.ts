@@ -1,9 +1,8 @@
-'use strict'
+// @ts-expect-error
+import luxy from 'luxy.js'
 
 import EL from '../constant/elements'
 import getClassName from './getClassName'
-// @ts-expect-error
-import luxy from 'luxy.js'
 
 /**
  * luxyでスムーズスクロール処理を行います
@@ -30,13 +29,12 @@ export default (ua: any): void => {
 
         luxy.init({
           wrapper: '#l-mainwrap',
-          wrapperSpeed: 0.095
+          wrapperSpeed: 0.095,
         })
 
         func.isActive = true
       }
-    }
-
+    },
   }
 
   func.init()

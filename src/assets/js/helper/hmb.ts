@@ -1,9 +1,8 @@
-'use strict'
+import { debounce } from 'throttle-debounce'
 
 import EL from '../constant/elements'
-import pD from './preventDefault'
 import getDeviceType from './getDeviceType'
-import { debounce } from 'throttle-debounce'
+import pD from './preventDefault'
 
 export default (): void => {
   const func = {
@@ -64,8 +63,7 @@ export default (): void => {
           EL.NAV.style.visibility = ''
         }
       }
-    })
-
+    }),
   }
 
   func.init()

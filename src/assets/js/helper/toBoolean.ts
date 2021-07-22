@@ -1,5 +1,3 @@
-'use strict'
-
 /**
  * 文字列'true'をbooleanで返します。
  * @param {string} booleanStr
