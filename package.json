@@ -2,24 +2,20 @@
   "name": "quicint",
   "version": "0.6.9",
   "description": "Quick initialize HTML5 EJS Boilerplate",
-  "main": "src/assets/js/main.ts",
+  "main": "src/assets/ts/main.ts",
   "scripts": {
     "serve": "cross-env NODE_ENV=development gulp",
     "development": "cross-env NODE_ENV=development gulp development",
     "production": "cross-env NODE_ENV=production gulp production && cross-env NODE_ENV=development gulp developmentRestore",
     "production:fullpath": "cross-env NODE_ENV=production gulp productionFullpath && cross-env NODE_ENV=development gulp developmentRestore",
-    "cicd:production": "cross-env NODE_ENV=production gulp production",
-    "cicd:production:fullpath": "cross-env NODE_ENV=production gulp productionFullpath",
     "zip": "cross-env NODE_ENV=production gulp zip",
     "checkJson": "cross-env NODE_ENV=development gulp checkJson",
     "resetImg": "cross-env NODE_ENV=development gulp resetImg",
     "resetEjs": "cross-env NODE_ENV=production gulp resetEjs",
     "garbage": "cross-env NODE_ENV=production gulp garbage",
-    "lint:css": "stylelint \"src/assets/css/scss/**/*.scss\"",
-    "lint:js": "eslint \"src/assets/js/**/*.ts\"",
-    "lint:ejs": "ejslint \"src/**/*.ejs\"",
-    "fix:css": "stylelint --fix \"src/assets/css/scss/**/*.scss\"",
-    "fix:js": "eslint --fix \"src/assets/js/**/*.ts\""
+    "lint:scss": "stylelint \"src/**/*.scss\"",
+    "lint:ts": "eslint \"src/**/*.ts\"",
+    "lint:ejs": "ejslint \"src/**/*.ejs\""
   },
   "husky": {
     "hooks": {
@@ -28,15 +24,15 @@
   },
   "lint-staged": {
     "*.scss": [
-      "stylelint \"src/assets/css/scss/**/*.scss\"",
+      "yarn lint:scss",
       "git add"
     ],
     "*.ts": [
-      "eslint",
+      "yarn lint:ts",
       "git add"
     ],
     "*.ejs": [
-      "ejslint",
+      "yarn lint:ejs",
       "git add"
     ]
   },
@@ -45,9 +41,10 @@
     "url": "git+https://github.com/TsubasaHiga/Quicint.git"
   },
   "keywords": [
-    "HTML5 EJS Boilerplate",
-    "HTML TEMPLATE",
-    "EJS"
+    "EJS Boilerplate",
+    "Boilerplate",
+    "EJS",
+    "TypeScript"
   ],
   "author": "HigaTsubasa",
   "license": "MIT",
@@ -62,7 +59,7 @@
     "npm": "please_use_yarn_instead"
   },
   "eslintIgnore": [
-    "src/assets/js/vendor/**/*.ts"
+    "src/assets/ts/vendor/**/*.ts"
   ],
   "devDependencies": {
     "@babel/core": "^7.13.10",
