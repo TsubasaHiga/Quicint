@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+@mixin vh100($name, $target: height) {
+  #{$target}: 100vh;
+  #{$target}: calc(var(#{$name}, 1vh) * 100);
+}

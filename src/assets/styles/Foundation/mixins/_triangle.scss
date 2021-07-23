@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+@mixin triangle($width, $height, $color, $rotate) {
+  border-style: solid;
+  content: "";
+  height: 0;
+  position: absolute;
+  width: 0;
+
+  @if ($rotate == "top") {
+    border-color: transparent transparent $color transparent;
+    border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
+  }
+
+  @else if ($rotate == "right") {
+    border-color: transparent transparent transparent $color;
+    border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
+  }
+
+  @else if ($rotate == "bottom") {
+    border-color: $color transparent transparent transparent;
+    border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
+  }
+
+  @else if ($rotate == "left") {
+    border-color: transparent $color transparent transparent;
+    border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
+  }
+}

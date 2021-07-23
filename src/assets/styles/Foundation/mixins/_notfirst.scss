@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@mixin notfirst($child: false) {
+  @if ($child) {
+
+    &:not(:first-child) {
+      @content;
+    }
+  }
+
+  @else {
+
+    &:not(:first-of-type) {
+      @content;
+    }
+  }
+}

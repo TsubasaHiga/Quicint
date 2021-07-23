@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@mixin safari($size: false) {
+  @if ($size == "sm") {
+
+    html[data-browsername = "mobile-safari"] & {
+      @content;
+    }
+  }
+
+  @else {
+
+    html[data-browsername = "safari"] & {
+      @content;
+    }
+  }
+}

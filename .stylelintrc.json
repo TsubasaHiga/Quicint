@@ -15,7 +15,8 @@
           "for",
           "extend",
           "return",
-          "use"
+          "use",
+          "forward"
         ]
       }
     ],
