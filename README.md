@@ -4,14 +4,16 @@
 [url-github]: https://github.com/TsubasaHiga/Quicint
 [url-github-releases]: https://github.com/TsubasaHiga/Quicint/releases
 [url-npm]: https://www.npmjs.com/package/quicint
-[img-js]: https://img.shields.io/badge/Javascript-000.svg?logo=javascript&style=flat-square
-[img-css3]: https://img.shields.io/badge/-CSS3-000.svg?logo=css3&style=flat-square
+[img-ts]: https://img.shields.io/badge/TypeScript-000.svg?logo=typescript&style=flat-square
+[img-sass]: https://img.shields.io/badge/-DartSass-000.svg?logo=sass&style=flat-square
 [img-html5]: https://img.shields.io/badge/-HTML5-000.svg?logo=html5&style=flat-square
 [img-gulp]: https://img.shields.io/badge/Gulp-000.svg?logo=gulp&style=flat-square
 [img-webpack]: https://img.shields.io/badge/-Webpack-000.svg?logo=webpack&style=flat-square
 [img-eslint]: https://img.shields.io/badge/-ESLint-000.svg?logo=eslint&style=flat-square
 [img-yarn]: https://img.shields.io/badge/-Yarn-000.svg?logo=yarn&style=flat-square
 [img-babel]: https://img.shields.io/badge/-babel-000.svg?logo=babel&style=flat-square
+
+# Quicint
 
 <a target="_blank" rel="noopener noreferrer" href="docs/assets/images/logo.png" style="display: block; text-align: center;">
     <img src="docs/assets/images/logo.png" alt="logo" style="width: 100%; max-width: 600px;">
@@ -22,16 +24,15 @@
 [![NPM version][img-npm]][url-npm]
 [![NPM downloads][img-npm-downloads]][url-npm]
 
-_Quick initialize HTML5 EJS Boilerplate（すぐ出来る HTML5 EJS ボイラープレート）_
+<b>Quick initialize HTML5 EJS Boilerplate（すぐできるHTML5 EJSボイラープレート）</b>
 
-Quicint（クイント）は、テンプレートエンジンに EJS を用いた HTML5 サイト構築用のボイラープレートです。
+Quicint（クイント）は、テンプレートエンジンにEJSを用いたHTML5サイト構築用のボイラープレートです。
 ページの量産が比較的簡単にできるため静的構築プロジェクトでの使用に適しています。
 
-<p style="font-size:13px">Quicint is a boiler for building HTML5 sites using EJS as the template engine. Plate.
-It is relatively easy to mass produce static pages.</p>
+<p style="font-size:13px">Quicint is a boilerplate for building HTML5 sites using EJS as the template engine. It is suitable for use in static building projects as it is relatively easy to mass produce pages.</p>
 
-![js][img-js]
-![css3][img-css3]
+![ts][img-ts]
+![sass][img-sass]
 ![html5][img-html5]
 ![gulp][img-gulp]
 ![webpack][img-webpack]
@@ -41,34 +42,23 @@ It is relatively easy to mass produce static pages.</p>
 
 ## Install
 
-```bash
-# clone
+``` bash
+# git clone
 git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
-
-# Quicint install
 yarn install
-```
 
-※ `yarn add`でインストールする場合
-
-<p style="font-size:13px">In the case of `yarn add` installation</p>
-
-```bash
-# add
+# install with yarn
 yarn add quicint
-
-# cd & find
 cd node_module/quicint
 ```
 
-## Development
+## Setup
 
-初期ファイル生成の生成とローカルサーバーを起動します。この時点で開発可能になり、各種ファイルの Watch タスクが始まります。
+初期ファイルの生成を行い、その後ローカルサーバーを起動します。
+この時点で開発可能になり各種ファイルのWatchタスクが始まります。
 
-<p style="font-size:13px">Generate the initial file generation and start the local server. At this point, it is ready for development and begins the Watch task for the various files.</p>
-
-```bash
-# init
+``` bash
+# Initial file generation
 yarn run development
 
 # serve
@@ -77,13 +67,11 @@ yarn run serve
 
 ## Option
 
-### 環境設定（setting.json）
+### 環境設定
 
-環境に依存する設定は`setting.json`としてルートディレクトリに設置されています。複数名で開発を行う場合など、開発環境に左右される設定を記述します。設定は主に Gulp 上の各タスク上で利用されます。
+環境設定は`./setting.json`にて行なえ、主にGulp上の各タスク上で利用されます。
 
-<p style="font-size:13px">The `setting.json` is a configuration file, located in the root directory as You should write settings which are influenced by the development environment. The settings are mainly used on each task in Gulp.</p>
-
-```json
+``` json
 {
   "browsersync": {
     "browser": "google chrome",
@@ -114,26 +102,59 @@ yarn run serve
     "preserve_newlines": false
   },
   "pngquant": {
-    "quality": [0.7, 0.9],
+    "quality": [0.6, 0.7],
     "speed": 1,
     "floyd": 0
   },
   "mozjpeg": {
-    "quality": 85,
+    "quality": 75,
     "progressive": true
   },
+  "svgo": {
+    "removeXMLNS": true,
+    "removeDimensions": true,
+    "plugins": [
+      {
+        "removeAttrs": {
+          "attrs": "data.*"
+        }
+      },
+      {
+        "removeUnknownsAndDefaults": false
+      },
+      {
+        "removeViewBox": false
+      }
+    ]
+  },
+  "gifsicle": {
+    "optimizationLevel": 3
+  },
+  "pngquantManual": {
+    "quality": [0.8, 0.9],
+    "speed": 1,
+    "floyd": 0
+  },
+  "mozjpegManual": {
+    "quality": 95,
+    "progressive": true
+  },
+  "gifsicleManual": {
+    "optimizationLevel": 3
+  },
+  "imageManualLists": ["**/*@2x.{png,jpg,gif,svg}"],
   "publishDir": "Desktop",
   "io": {
     "input": {
-      "css": "src/assets/styles/",
-      "img": "src/assets/images/",
-      "js": "src/assets/scripts/",
+      "styles": "src/assets/styles/",
+      "images": "src/assets/images/",
+      "scripts": "src/assets/scripts/",
       "ejs": "src/"
     },
     "output": {
-      "css": "dist/assets/styles/",
-      "img": "dist/assets/images/",
-      "js": "dist/assets/scripts/",
+      "styles": "dist/assets/styles/",
+      "images": "dist/assets/images/",
+      "scripts": "dist/assets/scripts/",
       "html": "dist/"
     },
     "setting": "./setting.json",
@@ -143,175 +164,142 @@ yarn run serve
 }
 ```
 
-### サイト設定（setting-site.json）
+### サイト設定
 
-サイト固有の値を記述するファイルは`setting-site.json`としてルートディレクトリに設置されています。サイト名、meta などサイト全体で利用する定数などの設置場所として利用可能です。主に EJS で用いられます。
+サイト固有の値を記述するファイルは`./setting-site.json`にて行なえます。
+サイト名、metaなどサイト全体で利用する定数などの設置場所として利用可能です。主にEJSで用いられます。
 
-<p style="font-size:13px">`setting-site.json` describes site-specific values. It can be used as a location for site name, meta and other constants that are used throughout the site. It is mainly used in EJS.</p>
-
-```json
+``` json
 {
   "siteName": "HTML5案件用のボイラープレートQuicit",
-  "siteDomain": "https://example.com",
+  "siteDomainProduction": "https://example.com",
+  "siteDomainDevelopment": "https://example.com",
   "metaAuthor": "サンプルテキスト",
   "metaAppid": "0123456789",
   "metaTwitterSite": "サンプルテキスト",
   "metaTwitterCreator": "サンプルテキスト",
   "publishFileName": "Quicint",
-  "themeColor": "#000"
+  "themeColor": "#000",
+  "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
 }
+
 ```
 
-## Spec
+## Specification
 
-Quicint の仕様、および対応環境は以下の通りです。
-
-| 項目            | 詳細                                                            |
+| item            | detail                                                          |
 | --------------- | --------------------------------------------------------------- |
-| node.js         | 12.x required                                                   |
+| Node.js         | 12.x required                                                   |
 | Package manager | yarn                                                            |
 | Build system    | Gulp v4                                                         |
 | Module bundler  | webpack                                                         |
-| ECMAScript      | ES6                                                             |
+| Scripts         | TypeScript                                                      |
 | CSS design      | FLOCSS                                                          |
-| Template engine | EJS                                                             |
-| Lint            | ESlint & Stylelint                                              |
-| gitignore       | [gitignore.io](https://www.gitignore.io/api/node,macos,windows) |
+| Template Engine | EJS                                                             |
+| Linter          | eslint & stylelint & ejs-lint                                   |
 
-## Command
+## Scripts
 
-### Default task
+### Basic
 
-```bash
-#
-# serve
-#
+``` bash
 # ローカルサーバーの起動と各種ファイルのWatchが可能です。通常はこちらで制作を行います。
 yarn run serve
 
-#
-# development
-#
 # developmentビルドを行います。`dist/`配下に書き出されます。
 yarn run development
 
-#
-# production
-#
 # productionビルドを行います。`publish/`配下に書き出されます。
 yarn run production
 
-#
-# production fullpath
-#
-# productionビルドを行います。PATH名は`setting-site.json`ファイルの`siteDomain`を用います。
-# `publish-fullpath/`配下に書き出されます。
+# productionビルドを行います。PATH名は`setting-site.json`ファイルの`siteDomain`を用います。`publish-fullpath/`配下に書き出されます。
 yarn run production:fullpath
 
-#
-# zip
-#
-# 納品時のタスクです。各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します。
-# 書き出しディレクトリはsetting.jsonのpublishDirで指定可能です。
+# 各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します。書き出しディレクトリはsetting.jsonのpublishDirで指定可能です。
 yarn run zip
 
-#
-# resetImg
-#
-# 画像再圧縮（同期）タスクです。
-# `dist`配下の画像を一度削除し、`src`を正として再度書き出しを行います。
+# `src/assets/images/`を正として、再画像圧縮を行います。
 yarn run resetImg
 
-#
-# resetEjs
-#
-# `dist`配下のHTMLを一度削除し、`src`を正として再度書き出しを行います。
+# `src/**/*.ejs`を正として、再書き出しを行います。
 yarn run resetEjs
-
-#
-# checkJson
-#
-# 各種jsonファイルのチェックタスクです。
-yarn run checkJson
-
 ```
 
-### Lint task
+### Lint
 
-```bash
+``` bash
 # stylelint
-yarn run lint:css
+yarn run lint:scss
 
-# stylelint fix
-yarn run fix:css
+# eslint
+yarn run lint:ts
 
-# ESLint
-yarn run lint:js
-
-# ESLint fix
-yarn run fix:js
+# ejs-lint
+yarn run lint:ejs
 ```
 
 ## Directory
 
-第 2 階層までのディレクトリ構造です。`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。納品タスクでコピーされるディレクトリも`dist`になります。
+第2階層までの主要ディレクトリ構造（一部省略）です。
+`src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。
 
-<p style="font-size:13px">The directory structure up to the 2 level. The `src` directory becomes the working directory and the `dist` directory becomes the output destination. Use. The directory copied by the delivery task is also `dist`.</p>
-
-```
+``` bash
 .
-|-- dist #納品ディレクトリ
-|   |-- assets
-|   |   |-- css/
-|   |   |-- fonts/
-|   |   |-- images/
-|   |   `-- js/
-|   |-- page2
-|   |-- page3
-|   |-- sitemap
-|   `-- index.html
-|-- src
-|   |-- assets
-|   |   |-- css/
-|   |   |-- images/
-|   |   `-- js/
-|   |-- inc
-|   |-- page2
-|   |-- page3
-|   |-- sitemap
-|   `-- index.ejs
-|-- .babelrc
-|-- .editorconfig
-|-- .eslintrc.json
-|-- .gitignore
-|-- .stylelintrc.json
-|-- define.json
-|-- setting.json
-|-- setting.json.sample
-|-- gulpfile.js
-|-- LICENSE
-|-- package-lock.json
-|-- package.json
-|-- README.md
-|-- setting-site.json
-|-- webpack.config.js
-|-- webpack.production.config.js
-`-- yarn.lock
+├── dist
+│   ├── assets
+│   │   ├── images
+│   │   ├── scripts
+│   │   └── styles
+│   ├── page2
+│   │   └── index.html
+│   ├── .htaccess
+│   ├── index.html
+│   └── robots.txt
+├── gulpfilejs/
+├── src
+│   ├── assets
+│   │   ├── images
+│   │   ├── scripts
+│   │   └── styles
+│   ├── inc/
+│   ├── page2/
+│   ├── parts/
+│   └── index.ejs
+├── .babelrc
+├── .editorconfig
+├── .eslintignore
+├── .eslintrc.json
+├── .gitignore
+├── .npmrc
+├── .prettierignore
+├── .prettierrc
+├── .stylelintrc.json
+├── LICENSE
+├── README.md
+├── define.json
+├── gulpfile.js
+├── package.json
+├── setting-site.json
+├── setting.json
+├── tsconfig.json
+├── webpack.common.js
+├── webpack.dev.js
+├── webpack.prod.js
+└── yarn.lock
 ```
 
 ## Pre-installation Plugin
 
-| プラグイン名      | 用途                                                                                         |
+| Plugin            | Purpose of use                                                                               |
 | ----------------- | -------------------------------------------------------------------------------------------- |
 | ress              | [ress.css](https://github.com/filipelinhares/ress)                                           |
 | object-fit-images | `object-fit`Polyfill                                                                         |
 | picturefill       | `<picture>`Polyfill                                                                          |
 | sweet-scroll      | [https://github.com/tsuyoshiwada/sweet-scroll](https://github.com/tsuyoshiwada/sweet-scroll) |
-| swiper            | [https://github.com/nolimits4web/swiper](https://github.com/nolimits4web/swiper)             |
 
 ## Supported browser
 
-| ブラウザ名             | 対応バージョン     |
+| Browser                | Version            |
 | ---------------------- | ------------------ |
 | Google Chrome          | latest             |
 | Firefox                | latest             |
