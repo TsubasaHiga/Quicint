@@ -1,0 +1,28 @@
+@charset "utf-8";
+
+@mixin placeholder {
+
+  &:placeholder {
+    @content;
+  }
+
+  &:placeholder-shown {
+    @content;
+  }
+
+  &::-webkit-input-placeholder {
+    @content;
+  }
+
+  &:-moz-placeholder {
+    @content;
+  }
+
+  &::-moz-placeholder {
+    @content;
+  }
+
+  &:-ms-input-placeholder {
+    @content;
+  }
+}

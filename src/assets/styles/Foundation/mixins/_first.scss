@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+@mixin first {
+
+  &:first-of-type {
+    @content;
+  }
+}

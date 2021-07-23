@@ -1,0 +1,61 @@
+@charset "utf-8";
+
+@use "../variables" as *;
+@use "./icon-ini" as *;
+@use "./media" as *;
+
+@mixin hoverDark($target: false, $pos: after) {
+  @include media(lg) {
+    @if ($target) {
+
+      &:hover {
+        opacity: 1;
+
+        #{$target} {
+
+          &:#{$pos} {
+            background-color: rgba(#000, .6);
+          }
+        }
+      }
+
+      #{$target} {
+        position: relative;
+
+        &:#{$pos} {
+          @include icon-ini;
+
+          height: 100%;
+          left: 0;
+          position: absolute;
+          top: 0;
+          transition: $comMS $comES;
+          width: 100%;
+        }
+      }
+    }
+
+    @else {
+      position: relative;
+
+      &:hover {
+        opacity: 1;
+
+        &:#{$pos} {
+          background-color: rgba(#000, .6);
+        }
+      }
+
+      &:#{$pos} {
+        @include icon-ini;
+
+        height: 100%;
+        left: 0;
+        position: absolute;
+        top: 0;
+        transition: $comMS $comES;
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+@mixin orientation($orientation: landscape, $type: mobile) {
+  html[data-type="#{$type}"][data-orientation="#{$orientation}"] & {
+    @content;
+  }
+}

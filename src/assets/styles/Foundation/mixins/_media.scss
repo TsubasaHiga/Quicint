@@ -1,0 +1,74 @@
+@charset "utf-8";
+
+@use "../variables" as *;
+
+@mixin media($size, $px: false) {
+
+  // sm only
+  @if ($size == "sm") {
+    @media screen and (max-width: map-get($breakPoint, sm)) {
+      @content;
+    }
+  }
+
+  // se only
+  @if ($size == "se") {
+    @media screen and (max-width: map-get($breakPoint, se)) {
+      @content;
+    }
+  }
+
+  // between lg and $mainW
+  @else if ($size == "mid") {
+    @media screen and (min-width: map-get($breakPoint, lg)) and (max-width: $mainW - 1), print {
+      @content;
+    }
+  }
+
+  // lg only
+  @else if ($size == "lg") {
+    @media screen and (min-width: map-get($breakPoint, lg)), print {
+      @content;
+    }
+  }
+
+  // hlg only
+  @else if ($size == "hlg") {
+    @media screen and (min-width: map-get($breakPoint, hlg)), print {
+      @content;
+    }
+  }
+
+  // retina only
+  @else if ($size == "retina") {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+      @content;
+    }
+  }
+
+  @if ($px) {
+    @if ($size == "max-width") {
+      @media screen and (max-width: $px) {
+        @content;
+      }
+    }
+
+    @else if ($size == "min-width") {
+      @media screen and (min-width: $px) {
+        @content;
+      }
+    }
+
+    @else if ($size == "max-height") {
+      @media screen and (max-height: $px) {
+        @content;
+      }
+    }
+
+    @else if ($size == "min-height") {
+      @media screen and (min-height: $px) {
+        @content;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+@mixin tablet($orientation: false) {
+  @if ($orientation) {
+    html[data-type="tablet"][data-orientation="#{$orientation}"] & {
+      @content;
+    }
+  }
+
+  @else {
+
+    html[data-type = "tablet"] & {
+      @content;
+    }
+  }
+}

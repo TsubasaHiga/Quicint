@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+@mixin square($width, $height, $color) {
+  background-color: #{$color};
+  content: "";
+  height: #{$height}px;
+  position: absolute;
+  width: #{$width}px;
+}

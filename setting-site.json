@@ -1,12 +1,12 @@
 {
-    "siteName": "HTML5案件用のボイラープレートQuicit",
-    "siteDomainProduction": "https://example.com",
-    "siteDomainDevelopment": "https://example.com",
-    "metaAuthor": "サンプルテキスト",
-    "metaAppid": "0123456789",
-    "metaTwitterSite": "サンプルテキスト",
-    "metaTwitterCreator": "サンプルテキスト",
-    "publishFileName": "Quicint",
-    "themeColor": "#000",
-    "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
+  "siteName": "HTML5案件用のボイラープレートQuicit",
+  "siteDomainProduction": "https://example.com",
+  "siteDomainDevelopment": "https://example.com",
+  "metaAuthor": "サンプルテキスト",
+  "metaAppid": "0123456789",
+  "metaTwitterSite": "サンプルテキスト",
+  "metaTwitterCreator": "サンプルテキスト",
+  "publishFileName": "Quicint",
+  "themeColor": "#000",
+  "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
 }

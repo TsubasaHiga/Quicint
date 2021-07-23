@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+@mixin macos {
+
+  html[data-osname = "mac-os"] & {
+
+    @content;
+  }
+}

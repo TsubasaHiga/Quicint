@@ -1,0 +1,56 @@
+@charset "utf-8";
+
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
+
+// stickyfill.js
+
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+}
+
+// swiper.js
+
+.swiper {
+
+  &-button-next,
+  &-button-prev {
+    letter-spacing: 0;
+  }
+
+  &-container {
+    height: 100%;
+    opacity: 0;
+    transition: opacity $comMS $comES, visibility $comMS $comES;
+    visibility: hidden;
+
+    &.swiper-container-initialized {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    &.is-single {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+
+      .swiper-wrapper {
+        display: flex;
+      }
+    }
+  }
+}
+
+// focus-visible
+
+.js-focus-visible :focus:not(.focus-visible) {
+  outline: none;
+}
