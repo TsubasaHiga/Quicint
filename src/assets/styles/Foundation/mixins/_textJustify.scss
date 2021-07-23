@@ -1,0 +1,13 @@
+@charset "utf-8";
+
+@use "./ie11" as *;
+
+@mixin textJustify() {
+  text-align: justify;
+  text-justify: inter-ideograph;
+
+  @include ie11 {
+    text-align: inherit;
+    text-justify: auto;
+  }
+}

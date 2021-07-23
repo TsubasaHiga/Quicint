@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+@mixin hideText() {
+  color: transparent;
+  font: 0/0;
+  overflow: hidden;
+  text-shadow: none;
+}

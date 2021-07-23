@@ -1,0 +1,30 @@
+@charset "utf-8";
+
+@use 'sass:math';
+
+// rem
+@function rem($num) {
+  @return #{math.div($num,14)}rem;
+}
+
+// vw
+@function vw($num, $size: lg) {
+  @if ($size == lg) {
+    @return (math.div($num,$basis)) * 100vw;
+  }
+
+  @else if($size == sm) {
+    @return (math.div($num, $smBasis)) * 100vw;
+  }
+}
+
+// vh
+@function vh($num, $size: lg) {
+  @if ($size == lg) {
+    @return (math.div($num, $basisVh)) * 100vh;
+  }
+
+  @else if($size == sm) {
+    @return (math.div($num, $smBasisVh)) * 100vh;
+  }
+}

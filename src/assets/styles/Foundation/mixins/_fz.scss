@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+@use "sass:math";
+
+@mixin fz($size, $height: false, $weight: false) {
+  font-size: rem($size);
+
+  @if $weight {
+    font-weight: $weight;
+  }
+
+  @if $height {
+    line-height: math.div($height, $size);
+  }
+}

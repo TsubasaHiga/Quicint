@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+@mixin android {
+
+  html[data-osname = "android"] & {
+
+    @content;
+  }
+}

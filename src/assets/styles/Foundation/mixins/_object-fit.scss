@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@mixin object-fit($fit: fill, $position: null) {
+  -o-object-fit: $fit;
+  object-fit: $fit;
+
+  @if $position {
+    -o-object-position: $position;
+    object-position: $position;
+    /* stylelint-disable-next-line */
+    font-family: "object-fit: #{$fit}; object-position: #{$position}";
+  }
+
+  @else {
+    font-family: "object-fit: #{$fit}";
+  }
+}

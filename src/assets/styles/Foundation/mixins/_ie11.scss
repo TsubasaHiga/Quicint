@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+@use "../variables" as *;
+
+@mixin ie11($size: false) {
+
+  html[data-browsername = "ie"][data-browserversion = "11"] & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
+  }
+}
+
+@mixin notie11($size: false) {
+
+  html:not([data-browsername = "ie"]):not([data-browserversion = "11"]) & {
+    @if ($size) {
+      @if ($size == "lg") {
+        @media screen and (min-width: map-get($breakPoint, lg)) {
+          @content;
+        }
+      }
+
+      @else if ($size == "sm") {
+        @media screen and (max-width: map-get($breakPoint, sm)) {
+          @content;
+        }
+      }
+    }
+
+    @else {
+      @content;
+    }
+  }
+}
