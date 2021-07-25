@@ -12,8 +12,8 @@ const genZipArchive = (cb) => {
 
   // 納品ファイル作成
   const dt = new Date()
-  const date = dt.toFormat('YYMMDD-HHMI')
-  const dirname = 'publish__' + date + '__' + siteSetting.publishFileName
+  const date = dt.toFormat('YYYYMMDD-HH24MI')
+  const dirname = siteSetting.publishFileName + '_ProdBuild_' + date
   genDir(dirname, 'zip')
   cb()
 }
