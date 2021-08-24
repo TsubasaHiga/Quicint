@@ -1,19 +1,20 @@
 @charset "utf-8";
 
 @use "../variables" as *;
+@use "sass:map";
 
 @mixin ie11($size: false) {
 
   html[data-browsername = "ie"][data-browserversion = "11"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: map-get($breakPoint, lg)) {
+        @media screen and (min-width: map.get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: map-get($breakPoint, sm)) {
+        @media screen and (max-width: map.get($breakPoint, sm)) {
           @content;
         }
       }
@@ -30,13 +31,13 @@
   html:not([data-browsername = "ie"]):not([data-browserversion = "11"]) & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: map-get($breakPoint, lg)) {
+        @media screen and (min-width: map.get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: map-get($breakPoint, sm)) {
+        @media screen and (max-width: map.get($breakPoint, sm)) {
           @content;
         }
       }

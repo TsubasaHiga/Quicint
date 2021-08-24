@@ -212,9 +212,6 @@ yarn run development
 # productionビルドを行います。`publish/`配下に書き出されます。
 yarn run production
 
-# productionビルドを行います。PATH名は`setting-site.json`ファイルの`siteDomain`を用います。`publish-fullpath/`配下に書き出されます。
-yarn run production:fullpath
-
 # 各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します。書き出しディレクトリはsetting.jsonのpublishDirで指定可能です。
 yarn run zip
 

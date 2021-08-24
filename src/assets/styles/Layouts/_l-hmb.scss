@@ -3,17 +3,18 @@
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
+@use "sass:map";
 
 .l-hmb {
   align-items: center;
   background-color: #000;
   display: flex;
-  height: map-get($map: $headerH, $key: sm);
+  height: map.get($map: $headerH, $key: sm);
   justify-content: center;
   position: absolute;
   right: 0;
   top: 0;
-  width: map-get($map: $headerH, $key: sm);
+  width: map.get($map: $headerH, $key: sm);
 
   span {
     $color: #fff;

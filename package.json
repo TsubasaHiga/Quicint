@@ -9,7 +9,6 @@
     "serve": "cross-env NODE_ENV=development gulp",
     "development": "cross-env NODE_ENV=development gulp development",
     "production": "cross-env NODE_ENV=production gulp production",
-    "production:fullpath": "cross-env NODE_ENV=production gulp productionFullpath",
     "zip": "cross-env NODE_ENV=production gulp zip",
     "resetImg": "cross-env NODE_ENV=development gulp resetImg",
     "resetEjs": "cross-env NODE_ENV=production gulp resetEjs",
@@ -121,6 +120,11 @@
     "stickyfilljs": "^2.1.0",
     "sweet-scroll": "^4.0.0",
     "ua-parser-js": "^0.7.28"
+  },
+  "resolutions": {
+    "browser-sync": "2.26.13",
+    "browser-sync-client": "2.26.13",
+    "browser-sync-ui": "2.26.13"
   },
   "browserslist": [
     "> 0.5% in JP"

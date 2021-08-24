@@ -1,54 +1,57 @@
 @charset "utf-8";
 
+@use 'sass:math';
+
 @mixin balloonArrow(
   $width: 10px,
   $height: 5px,
   $color: #000,
-  $position: bottom
+  $position: bottom,
+  $pseudo: 'after'
 ) {
   position: relative;
 
   @if ($position == "top") {
 
-    &:after {
+    &:#{$pseudo} {
       border-color: transparent transparent $color transparent;
-      border-width: 0 #{$width/2}px #{$height}px #{$width/2}px;
-      left: calc(50% - #{$width/2}px);
+      border-width: 0 #{math.div($width, 2)}px #{$height}px #{math.div($width, 2)}px;
+      left: calc(50% - #{math.div($width, 2)}px);
       top: -#{$height}px;
     }
   }
 
   @else if ($position == "right") {
 
-    &:after {
+    &:#{$pseudo} {
       border-color: transparent transparent transparent $color;
-      border-width: #{$width/2}px 0 #{$width/2}px #{$height}px;
+      border-width: #{math.div($width, 2)}px 0 #{math.div($width, 2)}px #{$height}px;
       right: -#{$height}px;
-      top: calc(50% - #{$width/2}px);
+      top: calc(50% - #{math.div($width, 2)}px);
     }
   }
 
   @else if ($position == "bottom") {
 
-    &:after {
+    &:#{$pseudo} {
       border-color: $color transparent transparent transparent;
-      border-width: #{$height}px #{$width/2}px 0 #{$width/2}px;
+      border-width: #{$height}px #{math.div($width, 2)}px 0 #{math.div($width, 2)}px;
       bottom: -#{$height}px;
-      left: calc(50% - #{$width/2}px);
+      left: calc(50% - #{math.div($width, 2)}px);
     }
   }
 
   @else if ($position == "left") {
 
-    &:after {
+    &:#{$pseudo} {
       border-color: transparent $color transparent transparent;
-      border-width: #{$width/2}px #{$height}px #{$width/2}px 0;
+      border-width: #{math.div($width, 2)}px #{$height}px #{math.div($width, 2)}px 0;
       left: -#{$height}px;
-      top: calc(50% - #{$width/2}px);
+      top: calc(50% - #{math.div($width, 2)}px);
     }
   }
 
-  &:after {
+  &:#{$pseudo} {
     border-style: solid;
     content: "";
     display: inline-block;
