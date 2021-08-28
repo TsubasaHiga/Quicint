@@ -1,7 +1,7 @@
 {
   "name": "quicint",
   "description": "Quick initialize HTML5 EJS Boilerplate",
-  "version": "0.6.9",
+  "version": "0.6.10",
   "author": "HigaTsubasa",
   "license": "MIT",
   "main": "src/assets/scripts/main.ts",
