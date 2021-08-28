@@ -52,6 +52,23 @@ yarn add quicint
 cd node_module/quicint
 ```
 
+## husky Install
+
+``` bash
+yarn husky install
+yarn husky add .husky/pre-commit "lint-staged"
+```
+
+yarn使用の場合のみ`.husky/pre-commit`を以下に変更します。
+
+``` diff
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+- lint-staged
++ yarn lint-staged
+```
+
 ## Setup
 
 初期ファイルの生成を行い、その後ローカルサーバーを起動します。
@@ -94,7 +111,7 @@ yarn run serve
     "removeComments": false
   },
   "htmlminProduction": {
-    "collapseWhitespace": true,
+    "collapseWhitespace": false,
     "removeComments": true
   },
   "htmlbeautify": {
@@ -172,8 +189,8 @@ yarn run serve
 ``` json
 {
   "siteName": "HTML5案件用のボイラープレートQuicit",
-  "siteDomainProduction": "https://example.com",
-  "siteDomainDevelopment": "https://example.com",
+  "siteDomain": "https://example.com",
+  "sitePath": "./",
   "metaAuthor": "サンプルテキスト",
   "metaAppid": "0123456789",
   "metaTwitterSite": "サンプルテキスト",
@@ -182,7 +199,6 @@ yarn run serve
   "themeColor": "#000",
   "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
 }
-
 ```
 
 ## Specification
