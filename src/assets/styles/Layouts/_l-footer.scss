@@ -3,6 +3,7 @@
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
+@use "sass:map";
 
 .l-footer {
   align-items: center;

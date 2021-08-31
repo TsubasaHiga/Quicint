@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@use "sass:map";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
@@ -12,7 +13,7 @@
     align-items: center;
     background-color: #fff;
     display: flex;
-    height: map-get($map: $headerH, $key: lg);
+    height: map.get($map: $headerH, $key: lg);
     justify-content: space-between;
     margin: 0 auto;
     min-width: $mainW;
@@ -30,9 +31,9 @@
   @include media(sm) {
 
     &__inner {
-      height: map-get($map: $headerH, $key: sm);
+      height: map.get($map: $headerH, $key: sm);
       min-width: 100%;
-      padding: 0 map-get($map: $space, $key: sm);
+      padding: 0 map.get($map: $space, $key: sm);
       width: 100%;
     }
   }

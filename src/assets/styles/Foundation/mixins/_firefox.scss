@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@use "sass:map";
 @use "../variables" as *;
 
 @mixin firefox($size: false) {
@@ -7,13 +8,13 @@
   html[data-browsername = "firefox"] & {
     @if ($size) {
       @if ($size == "lg") {
-        @media screen and (min-width: map-get($breakPoint, lg)) {
+        @media screen and (min-width: map.get($breakPoint, lg)) {
           @content;
         }
       }
 
       @else if ($size == "sm") {
-        @media screen and (max-width: map-get($breakPoint, sm)) {
+        @media screen and (max-width: map.get($breakPoint, sm)) {
           @content;
         }
       }

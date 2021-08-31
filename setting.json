@@ -20,7 +20,7 @@
     "removeComments": false
   },
   "htmlminProduction": {
-    "collapseWhitespace": true,
+    "collapseWhitespace": false,
     "removeComments": true
   },
   "htmlbeautify": {

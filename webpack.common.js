@@ -2,22 +2,12 @@ const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-  watch: false,
-  cache: {
-    type: 'filesystem',
-    buildDependencies: {
-      config: [__filename],
-    },
-  },
   entry: {
     bundle: './src/assets/scripts/main.ts',
   },
   output: {
     path: path.join(__dirname, '/dist/assets/scripts/'),
     filename: '[name].js',
-  },
-  performance: {
-    hints: false,
   },
   module: {
     rules: [

@@ -16,8 +16,6 @@ const img = require('./gulpfilejs/tasks/img')
 const imgManual = require('./gulpfilejs/tasks/imgManual')
 const sync = require('./gulpfilejs/tasks/sync')
 const genPublishDir = require('./gulpfilejs/tasks/genPublishDir')
-const genPublishFullPathDir = require('./gulpfilejs/tasks/genPublishFullPathDir')
-const ejsCompileFullPath = require('./gulpfilejs/tasks/ejsCompileFullPath')
 const ejsCompile = require('./gulpfilejs/tasks/ejsCompile')
 const genZipArchive = require('./gulpfilejs/tasks/genZipArchive')
 const watch = require('./gulpfilejs/tasks/watch')
@@ -33,7 +31,6 @@ exports.development = gulp.series(
   ejsCompile,
   js
 )
-// exports.developmentRestore = gulp.series(jsoncFileCeck, ejsCompile, js)
 exports.production = gulp.series(
   jsoncFileCeck,
   scssProduction,
@@ -46,19 +43,6 @@ exports.production = gulp.series(
   cleanGarbage,
   genPublishDir
 )
-exports.productionFullpath = gulp.series(
-  jsoncFileCeck,
-  scssProduction,
-  cleanImg,
-  img,
-  imgManual,
-  cleanEjs,
-  ejsCompileFullPath,
-  jsBuild,
-  cleanGarbage,
-  genPublishFullPathDir
-)
-
 exports.checkJson = jsoncFileCeck
 exports.zip = gulp.series(
   jsoncFileCeck,
