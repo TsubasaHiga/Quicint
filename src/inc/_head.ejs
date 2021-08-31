@@ -36,9 +36,9 @@ const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
     <meta property="og:type" content="<%= ogtype %>">
     <meta property="og:title" content="<%= metaData.title %>｜<%= SITESETTING.siteName %>">
     <meta property="og:description" content="<%= metaData.desc %>">
-    <meta property="og:url" content="<%= siteurl + canonicalUrl %>">
+    <meta property="og:url" content="<%= SITESETTING.siteDomain + canonicalUrl %>/">
     <meta property="og:site_name" content="<%= SITESETTING.siteName %>">
-    <meta property="og:image" content="<%= siteurl %>assets/images/ogpimg.png">
+    <meta property="og:image" content="<%= SITESETTING.siteDomain %>/assets/images/ogpimg.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="fb:app_id" content="<%= SITESETTING.metaAppid %>">
@@ -46,12 +46,12 @@ const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
     <meta name="twitter:site" content="<%= SITESETTING.metaTwitterSite %>">
     <meta name="twitter:creator" content="<%= SITESETTING.metaTwitterCreator %>">
     <meta name="theme-color" content="<%= SITESETTING.themeColor %>">
-    <link rel="canonical" href="<%= siteurl + canonicalUrl %>">
-    <link rel="shortcut icon" href="<%= siteurl %>assets/images/favicon.ico">
+    <link rel="canonical" href="<%= SITESETTING.siteDomain + canonicalUrl %>/">
+    <link rel="shortcut icon" href="<%= sitePath %>assets/images/favicon.ico">
 
-    <link rel="preload" as="style" href="<%= siteurl %>assets/styles/style.css?rev">
-    <link rel="preload" as="script" href="<%= siteurl %>assets/scripts/bundle.js?rev">
-    <link rel="stylesheet" href="<%= siteurl %>assets/styles/style.css?rev">
+    <link rel="preload" as="style" href="<%= sitePath %>assets/styles/style.css?rev">
+    <link rel="preload" as="script" href="<%= sitePath %>assets/scripts/bundle.js?rev">
+    <link rel="stylesheet" href="<%= sitePath %>assets/styles/style.css?rev">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="<%= SITESETTING.googleFonts %>" />

@@ -19,7 +19,7 @@ const browserSync = require('../modules/browserSync')
 const paths = require('../constant/paths')
 const setting = require(paths.setting)
 
-const ejsCompile = (mode = false) => {
+const ejsCompile = () => {
   // サイト設定ファイルの読み込み.
   const siteSetting = JSON.parse(fs.readFileSync(paths.settingSite, 'utf8'))
 
@@ -29,18 +29,10 @@ const ejsCompile = (mode = false) => {
   // 乱数生成
   const revision = crypto.randomBytes(8).toString('hex')
 
-  let url = ''
+  let sitePath = siteSetting.sitePath
 
-  if (process.env.NODE_ENV === 'production') {
-    if (mode !== 'fullpath') {
-      url = siteSetting.siteDomainProduction + '/'
-    } else {
-      url = siteSetting.siteDomainDevelopment + '/'
-    }
-  } else if (browserSync.active === true) {
-    url = browserSync.getOption('urls').get('external') + '/'
-  } else {
-    url = '/'
+  if (process.env.NODE_ENV === 'development' && browserSync.active === true) {
+    sitePath = browserSync.getOption('urls').get('external') + '/'
   }
 
   return gulp
@@ -52,8 +44,7 @@ const ejsCompile = (mode = false) => {
       ejs(
         {
           node_env: process.env.NODE_ENV,
-          siteurl: url,
-          mode: mode,
+          sitePath: sitePath,
           siteSetting: siteSetting,
           define: define,
         },
@@ -93,7 +84,7 @@ const ejsCompile = (mode = false) => {
             const imgs = [...dom.window.document.querySelectorAll('img')]
             for (let i = 0; i < imgs.length; i = (i + 1) | 0) {
               const img = imgs[i]
-              const imgSrc = img.src.replace(url, '')
+              const imgSrc = img.src.replace(sitePath, '')
               const imgSize = sizeOf('dist/' + imgSrc)
               const imgScale =
                 typeof img.dataset.scale !== 'undefined' ? img.dataset.scale : 1
@@ -101,7 +92,7 @@ const ejsCompile = (mode = false) => {
               img.height = imgSize.height / imgScale
               img.width = imgSize.width / imgScale
 
-              if (img.classList.contains('lazy')) {
+              if (typeof img.dataset.lazy !== 'undefined') {
                 img.setAttribute('loading', 'lazy')
               }
             }

@@ -1,40 +1,41 @@
 @charset "utf-8";
 
 @use "../variables" as *;
+@use "sass:map";
 
 @mixin media($size, $px: false) {
 
   // sm only
   @if ($size == "sm") {
-    @media screen and (max-width: map-get($breakPoint, sm)) {
+    @media screen and (max-width: map.get($breakPoint, sm)) {
       @content;
     }
   }
 
   // se only
   @if ($size == "se") {
-    @media screen and (max-width: map-get($breakPoint, se)) {
+    @media screen and (max-width: map.get($breakPoint, se)) {
       @content;
     }
   }
 
   // between lg and $mainW
   @else if ($size == "mid") {
-    @media screen and (min-width: map-get($breakPoint, lg)) and (max-width: $mainW - 1), print {
+    @media screen and (min-width: map.get($breakPoint, lg)) and (max-width: $mainW - 1), print {
       @content;
     }
   }
 
   // lg only
   @else if ($size == "lg") {
-    @media screen and (min-width: map-get($breakPoint, lg)), print {
+    @media screen and (min-width: map.get($breakPoint, lg)), print {
       @content;
     }
   }
 
   // hlg only
   @else if ($size == "hlg") {
-    @media screen and (min-width: map-get($breakPoint, hlg)), print {
+    @media screen and (min-width: map.get($breakPoint, hlg)), print {
       @content;
     }
   }

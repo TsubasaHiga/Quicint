@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@use "sass:map";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
@@ -23,11 +24,11 @@
 }
 
 .l-page {
-  margin-top: map-get($map: $headerH, $key: lg);
+  margin-top: map.get($map: $headerH, $key: lg);
   position: relative;
 
   @include media(sm) {
-    margin-top: map-get($map: $headerH, $key: sm);
+    margin-top: map.get($map: $headerH, $key: sm);
   }
 }
 
@@ -43,7 +44,7 @@
   }
 
   @include media(sm) {
-    padding: 0 map-get($map: $space, $key: sm);
+    padding: 0 map.get($map: $space, $key: sm);
     width: 100%;
   }
 }

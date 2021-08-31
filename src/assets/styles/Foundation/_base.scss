@@ -4,6 +4,7 @@
 @use "./mixin" as *;
 @use "./functions" as *;
 @use 'sass:math';
+@use "sass:map";
 
 * {
   box-sizing: border-box;
@@ -14,14 +15,14 @@
   }
 
   &::selection {
-    background-color: map-get($map: $color, $key: color-black);
+    background-color: map.get($map: $color, $key: color-black);
   }
 }
 
 html {
   $vw: (math.div(14, $basis)) * 100vw;
 
-  color: map-get($map: $color, $key: color-black);
+  color: map.get($map: $color, $key: color-black);
   font-size: $vw;
   -webkit-font-smoothing: antialiased;
   height: 100%;
@@ -81,6 +82,7 @@ video {
 }
 
 picture {
+  display: block;
 
   img {
     height: auto;
@@ -109,6 +111,7 @@ input::-ms-clear {
 
 ul,
 ol {
+  list-style: none;
   list-style-position: inside;
 }
 

@@ -10,7 +10,7 @@ if(metaData.hierarchy) {
   <div class="l-breadcrumbs__inner">
     <div class="l-breadcrumbs__list">
       <div class="l-breadcrumbs__item" property="itemListElement" typeof="ListItem">
-        <a property="item" typeof="WebPage" title="ホーム" href="<%= siteurl %>">
+        <a property="item" typeof="WebPage" title="ホーム" href="/">
           <span property="name">ホーム</span>
         </a>
         <meta property="position" content="1">
@@ -19,7 +19,7 @@ if(metaData.hierarchy) {
       <% for (let i = 0; i < metaData.hierarchy.length; i++) { %>
         <div class="l-breadcrumbs__item" property="itemListElement" typeof="ListItem">
           <% if(i < metaData.hierarchy.length - 1) { %>
-            <a property="item" typeof="WebPage" title="<%= metaData.hierarchy[i].title %>" href="<%= siteurl + metaData.hierarchy[i].link %>">
+            <a property="item" typeof="WebPage" title="<%= metaData.hierarchy[i].title %>" href="<%= sitePath + metaData.hierarchy[i].link %>">
           <% } %>
 
           <span property="name"><%= metaData.hierarchy[i].title %></span>

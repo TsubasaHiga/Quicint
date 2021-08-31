@@ -1,18 +1,16 @@
 <%
 var attr = (typeof attr === 'undefined') ? '' : attr;
-console.log(attr)
+
+// DEFINE
+const DEFINE = (typeof define === 'undefined') ? '' : define
+
+const className = attr.className ? ` class="${attr.className}"` : ''
+const lazy = attr.lazy ? ` data-lazy` : ''
 %>
-<picture>
 
-  <source
-  media="(max-width: <%= DEFINE.BREAKPOINTSM %>)"
-  srcset="__sm.jpg">
-
-  <source
-  media="(min-width: <%= DEFINE.BREAKPOINTLG %>)"
-  srcset=".jpg 1x,
-  @2x.jpg 2x">
-
-  <img src=".jpg" alt="<%= attr.title %>">
-
+<picture<%- className %>>
+  <source media="(max-width: <%= DEFINE.BREAKPOINTSM %>)" srcset="<%= sitePath + attr.src %>__sm.<%= attr.ext %>">
+  <source media="(min-width: <%= DEFINE.BREAKPOINTLG %>)" srcset="<%= sitePath + attr.src %>__lg.<%= attr.ext %> 1x,
+  <%= sitePath + attr.src %>__lg@2x.<%= attr.ext %> 2x">
+  <img src="<%= sitePath + attr.src %>__lg.<%= attr.ext %>" alt="<%= attr.alt %>"<%- lazy %>>
 </picture>

@@ -157,9 +157,9 @@ $RECYCLE.BIN/
 # env.json
 
 dist/assets/styles/
-dist/assets/scripts/
+dist/assets/scripts/*
+!dist/assets/scripts/vendors/
 dist/assets/images/
 dist/**/*.html
 
 dist-production
-dist-production-fullpath
