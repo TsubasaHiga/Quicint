@@ -1,0 +1,31 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "todo-tree.filtering.includedWorkspaces": ["src"],
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "cSpell.ignoreRegExpList": ["[０-９Ａ-Ｚａ-ｚぁ-んァ-ヶ亜-熙纊-黑]+"],
+  "cSpell.enabledLanguageIds": [
+    "javascript",
+    "javascriptreact",
+    "markdown",
+    "typescript",
+    "typescriptreact"
+  ],
+  "cSpell.words": [
+    "HMBBG",
+    "luxy",
+    "MAINWRAP",
+    "MAINWRAPINNER",
+    "picturefill",
+    "Stickyfill",
+    "stickyfilljs",
+    "Uadata"
+  ]
+}

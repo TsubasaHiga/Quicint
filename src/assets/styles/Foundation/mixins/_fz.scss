@@ -1,5 +1,6 @@
 @charset "utf-8";
 
+@use "../functions" as *;
 @use "sass:math";
 
 @mixin fz($size, $height: false, $weight: false) {
