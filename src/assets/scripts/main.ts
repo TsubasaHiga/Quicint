@@ -15,7 +15,6 @@ import SweetScrollInit from './modules/SweetScrollInit'
 import PageTop from './pages/PageTop'
 import UaType from './types/UaType'
 import GetClassName from './utils/getClassName'
-import GetDeviceType from './utils/getDeviceType'
 import GetDocumentH from './utils/getDocumentHeight'
 import GetTouchSupport from './utils/getTouchSupport'
 import GetUadata from './utils/getUaData'
@@ -65,10 +64,25 @@ const getScrollPos = () => {
   }
 }
 
+const setUadata = () => {
+  // get uadata
+  clientData = GetUadata()
+  clientData.touchSupport = GetTouchSupport()
+
+  // uaのオブジェクトのHTML出力
+  Object.entries(clientData).forEach(([key, value]) => {
+    EL.HTML.dataset[key.toLowerCase()] =
+      typeof value === 'boolean' ? value.toString() : value
+  })
+}
+
 /**
  * resize
  */
 const resize = () => {
+  // uaデータの更新
+  setUadata()
+
   Set100vh('--vh-always')
 
   // window高さが高くなった時
@@ -89,12 +103,11 @@ const resize = () => {
  * firstRun
  */
 const firstRun = () => {
-  // get uadata
-  clientData = GetUadata()
-  clientData.touchsupport = GetTouchSupport()
+  // uaデータの更新
+  setUadata()
 
-  // setOrientation
-  SetOrientation()
+  // orientationの更新
+  new SetOrientation()
 
   // ie smoothScroll disable
   DisableIeSmoothScroll(true)
@@ -102,16 +115,6 @@ const firstRun = () => {
   // Polyfill
   objectFitImages('img')
   picturefill()
-
-  if (GetDeviceType() === 'lg') {
-    EL.NAV.style.visibility = ''
-  }
-
-  // uaのオブジェクトのHTML出力
-  Object.entries(clientData).forEach(([key, value]) => {
-    EL.HTML.dataset[key.toLowerCase()] =
-      typeof value === 'boolean' ? value.toString() : value
-  })
 
   Set100vh()
   Set100vh('--vh-always')
@@ -137,7 +140,7 @@ const initRun = () => {
   // get body className
   className = GetClassName(EL.BODY)
 
-  // stickyfilljs
+  // Stickyfill
   const elements: NodeListOf<HTMLElement> = document.querySelectorAll('.sticky')
   Stickyfill.add(elements)
 
@@ -160,31 +163,22 @@ const initRun = () => {
 }
 
 /**
- * DOMCONTENTLOADED
+ * DOMContentLoaded
  */
 window.addEventListener('DOMContentLoaded', firstRun)
 
 /**
- * LOAD
+ * load
  */
 window.addEventListener('load', initOnce)
 window.addEventListener('load', initRun)
 
 /**
- * SCROLL
+ * scroll
  */
 window.addEventListener('scroll', throttle(100, getScrollPos), false)
 
 /**
- * RESIZE
+ * resize
  */
-window.addEventListener('resize', debounce(50, resize), false)
-
-/**
- * ORIENTATIONCHANGE
- */
-window.addEventListener(
-  'orientationchange',
-  debounce(150, SetOrientation),
-  false
-)
+window.addEventListener('resize', debounce(100, resize), false)

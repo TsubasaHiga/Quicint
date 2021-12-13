@@ -80,20 +80,26 @@ const ejsCompile = () => {
           } else {
             const contents = String(chunk.contents)
             let dom = new JSDOM(contents)
+            let regexp = /^https?:\/\//g
 
             const imgs = [...dom.window.document.querySelectorAll('img')]
             for (let i = 0; i < imgs.length; i = (i + 1) | 0) {
               const img = imgs[i]
-              const imgSrc = img.src.replace(sitePath, '')
-              const imgSize = sizeOf('dist/' + imgSrc)
-              const imgScale =
-                typeof img.dataset.scale !== 'undefined' ? img.dataset.scale : 1
 
-              img.height = imgSize.height / imgScale
-              img.width = imgSize.width / imgScale
+              if (!regexp.test(img.src)) {
+                const imgSrc = img.src.replace(sitePath, '')
+                const imgSize = sizeOf('dist/' + imgSrc)
+                const imgScale =
+                  typeof img.dataset.scale !== 'undefined'
+                    ? img.dataset.scale
+                    : 1
 
-              if (typeof img.dataset.lazy !== 'undefined') {
-                img.setAttribute('loading', 'lazy')
+                img.height = imgSize.height / imgScale
+                img.width = imgSize.width / imgScale
+
+                if (typeof img.dataset.lazy !== 'undefined') {
+                  img.setAttribute('loading', 'lazy')
+                }
               }
             }
 

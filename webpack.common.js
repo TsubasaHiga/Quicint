@@ -9,17 +9,35 @@ module.exports = {
     path: path.join(__dirname, '/dist/assets/scripts/'),
     filename: '[name].js',
   },
+  cache: {
+    // 1. Set cache type to filesystem
+    type: 'filesystem',
+
+    buildDependencies: {
+      // 2. Add your config as buildDependency to get cache invalidation on config change
+      config: [__filename],
+
+      // 3. If you have other things the build depends on you can add them here
+      // Note that webpack, loaders and all modules referenced from your config are automatically added
+    },
+  },
+  target: ['web', 'es5'],
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        use: 'ts-loader',
-      },
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-        type: 'javascript/auto',
+        test: /\.(tsx?|jsx?)$/,
+        // exclude: /node_modules/,
+        include: [
+          path.resolve(__dirname, 'src'),
+          path.resolve(__dirname, 'node_modules', 'auto-bind')
+        ],
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,
+            configFile: 'tsconfig.json',
+          },
+        },
       },
       {
         test: /\.css/,

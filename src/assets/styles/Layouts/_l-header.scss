@@ -4,6 +4,7 @@
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
+@use 'sass:math';
 
 .l-header {
   position: relative;
