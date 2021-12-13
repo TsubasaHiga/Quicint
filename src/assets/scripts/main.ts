@@ -27,42 +27,12 @@ require('focus-visible')
 
 // clientData
 let clientData: UaType
-
 // className
 let className = ''
-
 // lastInnerWidth
 let lastInnerWidth = window.innerWidth
-
 // innerHeight
 let innerHeight = window.innerHeight
-
-/**
- * getScrollPos
- */
-const getScrollPos = () => {
-  const y = Math.round(window.pageYOffset)
-  const offset = className === 'top' ? innerHeight : 200
-  const documentH = GetDocumentH()
-
-  // add class is-scroll
-  if (y > offset) {
-    if (!EL.HTML.classList.contains('is-scroll')) {
-      EL.HTML.classList.add('is-scroll')
-    }
-  } else {
-    EL.HTML.classList.remove('is-scroll')
-  }
-
-  // add class is-footer
-  if (documentH <= y) {
-    if (!EL.HTML.classList.contains('is-footer')) {
-      EL.HTML.classList.add('is-footer')
-    }
-  } else {
-    EL.HTML.classList.remove('is-footer')
-  }
-}
 
 const setUadata = () => {
   // get uadata
@@ -76,10 +46,29 @@ const setUadata = () => {
   })
 }
 
-/**
- * resize
- */
-const resize = () => {
+const onScroll = () => {
+  const y = Math.round(window.pageYOffset)
+  const offset = className === 'top' ? innerHeight : 200
+  const documentH = GetDocumentH()
+
+  // add class is-scroll
+  if (y > offset) {
+    if (!EL.HTML.classList.contains('is-scroll'))
+      EL.HTML.classList.add('is-scroll')
+  } else {
+    EL.HTML.classList.remove('is-scroll')
+  }
+
+  // add class is-footer
+  if (documentH <= y) {
+    if (!EL.HTML.classList.contains('is-footer'))
+      EL.HTML.classList.add('is-footer')
+  } else {
+    EL.HTML.classList.remove('is-footer')
+  }
+}
+
+const onResize = () => {
   // uaデータの更新
   setUadata()
 
@@ -99,9 +88,6 @@ const resize = () => {
   innerHeight = window.innerHeight
 }
 
-/**
- * firstRun
- */
 const firstRun = () => {
   // uaデータの更新
   setUadata()
@@ -120,9 +106,6 @@ const firstRun = () => {
   Set100vh('--vh-always')
 }
 
-/**
- * initOnce
- */
 const initOnce = () => {
   SweetScrollInit()
   NavCurrent()
@@ -130,9 +113,6 @@ const initOnce = () => {
   HmbMenu()
 }
 
-/**
- * initRun
- */
 const initRun = () => {
   Set100vh()
   Set100vh('--vh-always')
@@ -144,41 +124,23 @@ const initRun = () => {
   const elements: NodeListOf<HTMLElement> = document.querySelectorAll('.sticky')
   Stickyfill.add(elements)
 
-  // getScrollPos
-  getScrollPos()
+  // onScroll
+  onScroll()
 
   // addAnimationClass
   const animationTargets: NodeListOf<HTMLElement> =
     document.querySelectorAll('.c-animation')
-  if (animationTargets) {
-    AddAnimationClass(animationTargets)
-  }
+  if (animationTargets) AddAnimationClass(animationTargets)
 
   // top
-  if (className.endsWith('top')) {
-    PageTop()
-  }
+  if (className.endsWith('top')) PageTop()
 
   EL.HTML.classList.add('is-loaded')
 }
 
-/**
- * DOMContentLoaded
- */
+// addEventListeners
 window.addEventListener('DOMContentLoaded', firstRun)
-
-/**
- * load
- */
 window.addEventListener('load', initOnce)
 window.addEventListener('load', initRun)
-
-/**
- * scroll
- */
-window.addEventListener('scroll', throttle(100, getScrollPos), false)
-
-/**
- * resize
- */
-window.addEventListener('resize', debounce(100, resize), false)
+window.addEventListener('scroll', throttle(100, onScroll), false)
+window.addEventListener('resize', debounce(100, onResize), false)
