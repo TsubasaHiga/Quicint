@@ -2,7 +2,7 @@
 
 @mixin ipados($orientation: false) {
   @if ($orientation) {
-    html[data-type="laptop"][data-osname="mac-os"][data-browsername = "safari"][data-touchsupport="true"][data-orientation="#{$orientation}"]
+    html[data-type="laptop"][data-osname="mac-os"][data-browsername = "safari"][data-touchSupport="true"][data-orientation="#{$orientation}"]
     & {
       @content;
     }
@@ -10,7 +10,7 @@
 
   @else {
 
-    html[data-type = "laptop"][data-osname = "mac-os"][data-browsername = "safari"][data-touchsupport = "true"] & {
+    html[data-type = "laptop"][data-osname = "mac-os"][data-browsername = "safari"][data-touchSupport = "true"] & {
       @content;
     }
   }

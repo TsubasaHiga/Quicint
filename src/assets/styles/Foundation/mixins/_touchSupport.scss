@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+@mixin touchSupport($state: true) {
+  @if ($state) {
+
+    html[data-touchSupport = "true"] & {
+      @content;
+    }
+  }
+
+  @else {
+
+    html[data-touchSupport = "false"] & {
+      @content;
+    }
+  }
+}

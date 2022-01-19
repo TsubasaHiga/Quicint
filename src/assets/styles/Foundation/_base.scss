@@ -47,7 +47,6 @@ body {
   margin: 0 auto;
   min-height: 100%;
   position: relative;
-  -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   text-size-adjust: none;
   width: 100%;
@@ -88,6 +87,11 @@ picture {
     height: auto;
     width: 100%;
   }
+}
+
+svg {
+  height: 100%;
+  width: 100%;
 }
 
 // table

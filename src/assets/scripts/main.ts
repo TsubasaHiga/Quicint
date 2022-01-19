@@ -15,7 +15,6 @@ import SweetScrollInit from './modules/SweetScrollInit'
 import PageTop from './pages/PageTop'
 import UaType from './types/UaType'
 import GetClassName from './utils/getClassName'
-import GetDeviceType from './utils/getDeviceType'
 import GetDocumentH from './utils/getDocumentHeight'
 import GetTouchSupport from './utils/getTouchSupport'
 import GetUadata from './utils/getUaData'
@@ -28,47 +27,51 @@ require('focus-visible')
 
 // clientData
 let clientData: UaType
-
 // className
 let className = ''
-
 // lastInnerWidth
 let lastInnerWidth = window.innerWidth
-
 // innerHeight
 let innerHeight = window.innerHeight
 
-/**
- * getScrollPos
- */
-const getScrollPos = () => {
+const setUadata = () => {
+  // get uadata
+  clientData = GetUadata()
+  clientData.touchSupport = GetTouchSupport()
+
+  // uaのオブジェクトのHTML出力
+  Object.entries(clientData).forEach(([key, value]) => {
+    EL.HTML.dataset[key.toLowerCase()] =
+      typeof value === 'boolean' ? value.toString() : value
+  })
+}
+
+const onScroll = () => {
   const y = Math.round(window.pageYOffset)
   const offset = className === 'top' ? innerHeight : 200
   const documentH = GetDocumentH()
 
   // add class is-scroll
   if (y > offset) {
-    if (!EL.HTML.classList.contains('is-scroll')) {
+    if (!EL.HTML.classList.contains('is-scroll'))
       EL.HTML.classList.add('is-scroll')
-    }
   } else {
     EL.HTML.classList.remove('is-scroll')
   }
 
   // add class is-footer
   if (documentH <= y) {
-    if (!EL.HTML.classList.contains('is-footer')) {
+    if (!EL.HTML.classList.contains('is-footer'))
       EL.HTML.classList.add('is-footer')
-    }
   } else {
     EL.HTML.classList.remove('is-footer')
   }
 }
 
-/**
- * resize
- */
-const resize = () => {
+const onResize = () => {
+  // uaデータの更新
+  setUadata()
+
   Set100vh('--vh-always')
 
   // window高さが高くなった時
@@ -85,16 +88,12 @@ const resize = () => {
   innerHeight = window.innerHeight
 }
 
-/**
- * firstRun
- */
 const firstRun = () => {
-  // get uadata
-  clientData = GetUadata()
-  clientData.touchsupport = GetTouchSupport()
+  // uaデータの更新
+  setUadata()
 
-  // setOrientation
-  SetOrientation()
+  // orientationの更新
+  new SetOrientation()
 
   // ie smoothScroll disable
   DisableIeSmoothScroll(true)
@@ -103,23 +102,10 @@ const firstRun = () => {
   objectFitImages('img')
   picturefill()
 
-  if (GetDeviceType() === 'lg') {
-    EL.NAV.style.visibility = ''
-  }
-
-  // uaのオブジェクトのHTML出力
-  Object.entries(clientData).forEach(([key, value]) => {
-    EL.HTML.dataset[key.toLowerCase()] =
-      typeof value === 'boolean' ? value.toString() : value
-  })
-
   Set100vh()
   Set100vh('--vh-always')
 }
 
-/**
- * initOnce
- */
 const initOnce = () => {
   SweetScrollInit()
   NavCurrent()
@@ -127,9 +113,6 @@ const initOnce = () => {
   HmbMenu()
 }
 
-/**
- * initRun
- */
 const initRun = () => {
   Set100vh()
   Set100vh('--vh-always')
@@ -137,54 +120,27 @@ const initRun = () => {
   // get body className
   className = GetClassName(EL.BODY)
 
-  // stickyfilljs
+  // Stickyfill
   const elements: NodeListOf<HTMLElement> = document.querySelectorAll('.sticky')
   Stickyfill.add(elements)
 
-  // getScrollPos
-  getScrollPos()
+  // onScroll
+  onScroll()
 
   // addAnimationClass
   const animationTargets: NodeListOf<HTMLElement> =
     document.querySelectorAll('.c-animation')
-  if (animationTargets) {
-    AddAnimationClass(animationTargets)
-  }
+  if (animationTargets) AddAnimationClass(animationTargets)
 
   // top
-  if (className.endsWith('top')) {
-    PageTop()
-  }
+  if (className.endsWith('top')) PageTop()
 
   EL.HTML.classList.add('is-loaded')
 }
 
-/**
- * DOMCONTENTLOADED
- */
+// addEventListeners
 window.addEventListener('DOMContentLoaded', firstRun)
-
-/**
- * LOAD
- */
 window.addEventListener('load', initOnce)
 window.addEventListener('load', initRun)
-
-/**
- * SCROLL
- */
-window.addEventListener('scroll', throttle(100, getScrollPos), false)
-
-/**
- * RESIZE
- */
-window.addEventListener('resize', debounce(50, resize), false)
-
-/**
- * ORIENTATIONCHANGE
- */
-window.addEventListener(
-  'orientationchange',
-  debounce(150, SetOrientation),
-  false
-)
+window.addEventListener('scroll', throttle(100, onScroll), false)
+window.addEventListener('resize', debounce(100, onResize), false)

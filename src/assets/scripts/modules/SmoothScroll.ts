@@ -14,7 +14,7 @@ const SmoothScroll = (state: boolean, clientData: UaType): void => {
         return false
       }
 
-      if (clientData.touchsupport) {
+      if (clientData.touchSupport) {
         return false
       }
 

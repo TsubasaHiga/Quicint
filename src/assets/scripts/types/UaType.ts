@@ -4,7 +4,7 @@ type UaType = {
   browserEngine?: string
   osName?: string
   type?: string
-  touchsupport?: boolean
+  touchSupport?: boolean
 }
 
 export default UaType
