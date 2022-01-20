@@ -1,7 +1,7 @@
 {
   "siteName": "HTML5案件用のボイラープレートQuicit",
   "siteDomain": "https://example.com",
-  "sitePath": "./",
+  "sitePath": "/",
   "metaAuthor": "サンプルテキスト",
   "metaAppid": "0123456789",
   "metaTwitterSite": "サンプルテキスト",

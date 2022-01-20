@@ -1,7 +1,9 @@
 @charset "utf-8";
 
+@use "sass:math";
+
 @mixin fzs($size, $height: false, $weight: false) {
-  $size: $size/2;
+  $size: math.div($size, 2);
 
   font-size: rem($size);
 
@@ -10,6 +12,6 @@
   }
 
   @if $height {
-    line-height: ($height/2) / $size;
+    line-height: math.div(math.div($height, 2), $size);
   }
 }

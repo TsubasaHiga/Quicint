@@ -3,7 +3,7 @@ import { debounce } from 'throttle-debounce'
 
 import EL from '../constant/elements'
 import GetDeviceType from '../utils/getDeviceType'
-import GetUadata from './getUaData'
+import GetUaData from './getUaData'
 class SetOrientation {
   isReverse: boolean
   lastInnerWidth: number
@@ -23,7 +23,7 @@ class SetOrientation {
 
   checkReverse(): void {
     // Androidなら正面設定を確認
-    if (GetUadata().osName === 'android') {
+    if (GetUaData().osName === 'android') {
       const orientation =
         // @ts-ignore
         screen.orientation || screen.mozOrientation || screen.msOrientation

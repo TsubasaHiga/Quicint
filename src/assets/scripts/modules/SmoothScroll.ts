@@ -1,35 +1,48 @@
-// @ts-expect-error
-import luxy from 'luxy.js'
+import autoBind from 'auto-bind'
 
 import UaType from '../types/UaType'
+import GetUaData from '../utils/getUaData'
 
-const SmoothScroll = (state: boolean, clientData: UaType): void => {
-  const func = {
-    init: () => {
-      if (clientData.browserName === 'ie') {
-        return false
-      }
+const luxy = require('luxy.js')
 
-      if (clientData.browserName === 'firefox') {
-        return false
-      }
+type optionsType = {
+  wrapper: string
+  wrapperSpeed: number
+}
+class SmoothScroll {
+  options: optionsType
 
-      if (clientData.touchSupport) {
-        return false
-      }
+  constructor(state: boolean) {
+    autoBind(this)
 
-      // laptopの時
-      if (clientData.type === 'laptop') {
-        luxy.init({
-          wrapper: '#l-mainwrap',
-          wrapperSpeed: 0.095,
-        })
-      }
-    },
+    const clientData = GetUaData()
+
+    this.options = {
+      wrapper: '#l-mainwrap',
+      wrapperSpeed: 0.095,
+    }
+
+    if (state) {
+      this.init(clientData)
+    }
   }
 
-  if (state) {
-    func.init()
+  init(clientData: UaType): void {
+    if (clientData.browserName === 'ie') {
+      return
+    }
+
+    if (clientData.browserName === 'firefox') {
+      return
+    }
+
+    if (clientData.touchSupport) {
+      return
+    }
+
+    if (clientData.type === 'laptop') {
+      luxy.init(this.options)
+    }
   }
 }
 

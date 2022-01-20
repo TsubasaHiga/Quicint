@@ -1,3 +1,3 @@
-const GetClassName = (target: HTMLElement): string => target.classList[0]
+const GetClassName = (target: HTMLElement): string => String(target.classList)
 
 export default GetClassName

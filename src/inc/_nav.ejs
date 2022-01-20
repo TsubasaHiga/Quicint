@@ -1,0 +1,18 @@
+<%
+// define
+const DEFINE = (typeof define === 'undefined') ? '' : define
+
+// SITESETTING
+const SITESETTING = (typeof siteSetting === 'undefined') ? '' : siteSetting;
+%>
+
+<nav class="l-nav">
+  <ul class="l-nav__list">
+    <li class="l-nav__item">
+      <a class="l-nav__link" data-indicator="top" href="/">HOME</a>
+    </li>
+    <li class="l-nav__item">
+      <a class="l-nav__link" data-indicator="example" href="<%= sitePath %>example/">モジュール利用例</a>
+    </li>
+  </ul>
+</nav>

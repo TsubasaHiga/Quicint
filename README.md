@@ -263,7 +263,7 @@ yarn run lint:ejs
 │   │   ├── images
 │   │   ├── scripts
 │   │   └── styles
-│   ├── page2
+│   ├── example
 │   │   └── index.html
 │   ├── .htaccess
 │   ├── index.html
@@ -275,7 +275,7 @@ yarn run lint:ejs
 │   │   ├── scripts
 │   │   └── styles
 │   ├── inc/
-│   ├── page2/
+│   ├── example/
 │   ├── parts/
 │   └── index.ejs
 ├── .babelrc

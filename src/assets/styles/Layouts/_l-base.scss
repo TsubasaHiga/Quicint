@@ -7,11 +7,9 @@
 
 .l-mainwrap {
   opacity: 0;
-  visibility: hidden;
 
   .is-loaded & {
     opacity: 1;
-    visibility: visible;
   }
 
   &__inner {

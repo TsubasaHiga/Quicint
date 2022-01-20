@@ -1,78 +1,95 @@
+import autoBind from 'auto-bind'
 import SweetScroll from 'sweet-scroll'
 
-import DEFINE from '../constant/define'
 import GetDeviceType from '../utils/getDeviceType'
 
-const SweetScrollInit = (): void => {
-  const func = {
-    isActive: false,
-    deviceType: GetDeviceType(),
-    sweetScroll: null,
+type optionsType = {
+  offset: number
+  easing: string
+  duration: number
+}
+class SweetScrollInit {
+  isActive: boolean
+  deviceType: string
+  sweetScroll: SweetScroll | null
 
-    OPTION: {},
+  optionsLg: optionsType
+  optionsSm: optionsType
 
-    init: () => {
-      func.isActive = true
-      func.getOption()
-      // @ts-ignore
-      func.sweetScroll = new SweetScroll(func.OPTION)
+  constructor() {
+    autoBind(this)
 
-      // scrollToHash
-      func.scrollToHash()
+    this.isActive = false
+    this.deviceType = GetDeviceType()
+    this.sweetScroll = null
 
-      window.addEventListener('resize', func.resize, false)
-    },
+    this.optionsLg = {
+      offset: 0,
+      easing: 'easeInOutQuart',
+      duration: 900,
+    }
 
-    scrollToHash: () => {
-      const hash = window.location.hash
-      if (hash) {
-        const needsInitialScroll =
-          document.getElementById(hash.substr(1)) != null
-        if (needsInitialScroll) {
-          // @ts-ignore
-          func.sweetScroll.to(hash, { updateURL: 'replace' })
-        }
-      }
-    },
+    this.optionsSm = {
+      offset: 0,
+      easing: 'easeInOutQuart',
+      duration: 1200,
+    }
 
-    getOption: () => {
-      func.OPTION = {
-        offset:
-          func.deviceType === 'lg'
-            ? DEFINE.SCROLL_OFFSET_LG
-            : DEFINE.SCROLL_OFFSET_SM,
-        easing:
-          func.deviceType === 'lg'
-            ? DEFINE.SCROLL_EASING_LG
-            : DEFINE.SCROLL_EASING_SM,
-        duration:
-          func.deviceType === 'lg'
-            ? DEFINE.SCROLL_DURATION_LG
-            : DEFINE.SCROLL_DURATION_SM,
-      }
-    },
+    this.init()
 
-    resize: () => {
-      if (func.deviceType !== GetDeviceType()) {
-        func.deviceType = GetDeviceType()
-
-        func.getOption()
-        func.destroy()
-        func.init()
-      }
-    },
-
-    destroy: () => {
-      if (func.isActive) {
-        func.isActive = false
-        // @ts-ignore
-        func.sweetScroll.destroy()
-        window.removeEventListener('resize', func.resize, false)
-      }
-    },
+    window.addEventListener('resize', this.resize, false)
   }
 
-  func.init()
+  init(): void {
+    this.isActive = true
+
+    const options = this.deviceType === 'lg' ? this.optionsLg : this.optionsSm
+    this.sweetScroll = new SweetScroll(options)
+
+    this.scrollToHash()
+  }
+
+  scrollToHash(): void {
+    if (!this.sweetScroll) {
+      return
+    }
+
+    const hash = window.location.hash
+
+    if (!hash) {
+      return
+    }
+
+    const needsInitialScroll = document.getElementById(hash.substr(1)) != null
+
+    if (!needsInitialScroll) {
+      return
+    }
+
+    this.sweetScroll.to(hash, { updateURL: 'replace' })
+  }
+
+  resize(): void {
+    if (this.deviceType === GetDeviceType()) {
+      return
+    }
+
+    this.deviceType = GetDeviceType()
+
+    this.sweetScrollDestroy()
+
+    this.init()
+  }
+
+  sweetScrollDestroy(): void {
+    if (!this.isActive || !this.sweetScroll) {
+      return
+    }
+
+    this.isActive = false
+
+    this.sweetScroll.destroy()
+  }
 }
 
 export default SweetScrollInit

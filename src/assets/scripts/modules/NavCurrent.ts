@@ -1,28 +1,34 @@
-import EL from '../constant/elements'
+import autoBind from 'auto-bind'
+
 import GetClassName from '../utils/getClassName'
+class NavCurrent {
+  elements: NodeListOf<HTMLElement>
+  bodyClassName: string
 
-const NavCurrent = (): void => {
-  const targets: NodeListOf<HTMLElement> =
-    document.querySelectorAll('[data-indicator]')
-  const className = GetClassName(EL.BODY)
+  constructor() {
+    autoBind(this)
 
-  const currentUpdater = () => {
-    const matches = []
+    this.elements = document.querySelectorAll('[data-indicator]')
+    this.bodyClassName = GetClassName(document.body)
 
-    for (let i = 0; i < targets.length; i = (i + 1) | 0) {
-      if (targets[i].dataset.indicator?.match(className)) {
-        matches.push(targets[i])
-      }
-    }
-
-    if (matches.length) {
-      for (let i = 0; i < matches.length; i = (i + 1) | 0) {
-        matches[i].classList.add('is-nav-current')
-      }
-    }
+    this.checkCurrent()
   }
 
-  currentUpdater()
+  checkCurrent(): void {
+    const matches: HTMLElement[] = []
+
+    this.elements.forEach((element) => {
+      if (element.dataset.indicator?.match(this.bodyClassName)) {
+        matches.push(element)
+      }
+    })
+
+    if (matches.length) {
+      matches.forEach((item) => {
+        item.classList.add('is-current')
+      })
+    }
+  }
 }
 
 export default NavCurrent
