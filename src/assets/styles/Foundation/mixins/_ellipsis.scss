@@ -1,7 +1,5 @@
 @charset "utf-8";
 
-@use './safari' as *;
-
 @mixin ellipsis($is-clamp: false, $line: 2) {
   @if ( $is-clamp ) {
     -webkit-box-orient: vertical;

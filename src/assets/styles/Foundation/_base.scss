@@ -3,7 +3,7 @@
 @use "./variables" as *;
 @use "./mixin" as *;
 @use "./functions" as *;
-@use 'sass:math';
+@use "sass:math";
 @use "sass:map";
 
 * {
@@ -27,7 +27,7 @@ html {
   -webkit-font-smoothing: antialiased;
   height: 100%;
   line-height: math.div(33, 14);
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 
   @include media(sm) {
     $vw: (math.div(14, $smBasis)) * 100vw;
