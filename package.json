@@ -122,7 +122,7 @@
     "ress": "^4.0.0",
     "stickyfilljs": "^2.1.0",
     "sweet-scroll": "^4.0.0",
-    "ua-parser-js": "^0.8.1"
+    "ua-parser-js": "^1.0.2"
   },
   "resolutions": {
     "browser-sync": "2.27.7",
