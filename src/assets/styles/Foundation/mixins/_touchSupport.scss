@@ -1,16 +1,35 @@
 @charset "utf-8";
 
-@mixin touchSupport($state: true) {
+@mixin touchSupport($state: true, $notIncludeWindowsOs: true) {
   @if ($state) {
+    // タッチサポート且つWindowsOSではない時
+    @if ($notIncludeWindowsOs) {
 
-    html[data-touchSupport = "true"] & {
-      @content;
+      html[data-touchSupport = "true"]:not([data-osname = "windows"]) & {
+        @content;
+      }
+    }
+
+    // タッチサポートの時
+    @else {
+
+      html[data-touchSupport = "true"] & {
+        @content;
+      }
     }
   }
 
   @else {
 
+    // 未タッチサポートの時
+
     html[data-touchSupport = "false"] & {
+      @content;
+    }
+
+    // タッチサポートの時且つWindowsOSの時
+
+    html[data-touchSupport = "true"][data-osname = "windows"] & {
       @content;
     }
   }

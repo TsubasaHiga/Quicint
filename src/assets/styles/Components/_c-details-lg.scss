@@ -1,0 +1,43 @@
+@charset "utf-8";
+
+@use "sass:map";
+@use "sass:math";
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
+
+.c-details {
+  $this:&;
+
+  &[data-details-toggle = "open"] {
+
+    [data-details-toggle-btn] span {
+      transform: scale(1, -1);
+    }
+  }
+
+  [data-details-toggle-btn] {
+    @include fz(12,12,500);
+    @include hoverOpacity(.5);
+
+    align-items: center;
+    display: flex;
+
+    span {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      transition: transform $comMS $comES;
+
+      &:before {
+        @include arrow(8,1,#000,bottom);
+
+        margin-right: 5px;
+      }
+    }
+  }
+
+  &__content {
+    height: 0;
+    overflow: hidden;
+  }
+}

@@ -4,7 +4,7 @@
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
-@use 'sass:math';
+@use "sass:math";
 
 .l-header {
   position: relative;
@@ -20,12 +20,13 @@
     min-width: $mainW;
     position: relative;
     width: $mainW;
+  }
 
-    .logo {
+  &__logo {
 
-      &__txt {
-        @include fz(26, 26, 700);
-      }
+    h1,
+    p {
+      @include fz(26, 26, 700);
     }
   }
 

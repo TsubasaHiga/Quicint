@@ -8,29 +8,24 @@ const metaData = (typeof meta === 'undefined') ? '' : meta;
 
 // SITESETTING
 const SITESETTING = (typeof siteSetting === 'undefined') ? '' : siteSetting;
-
-const logoTagOpen = (metaData.pageName === 'top') ? '<h1 class="logo__image">' : '<p class="logo__image">';
-const logoTagClose = (metaData.pageName === 'top') ? '</h1>' : '</p>';
 %>
 
 <header class="l-header">
   <div class="l-header__inner">
-    <a class="logo pjax-replace" href="/" data-transition="top">
-      <%- logoTagOpen %>
-        Quicint
-      <%- logoTagClose %>
+    <a class="l-header__logo" href="/">
+      <% if(metaData.pageName === 'top') { %>
+        <h1>Quicint</h1>
+      <% } %>
+
+      <% if(metaData.pageName !== 'top') { %>
+        <p>Quicint</p>
+      <% } %>
     </a>
-    <nav class="l-nav">
-      <ul class="l-nav__list">
-        <li class="l-nav__item">
-          <a class="l-nav__link" data-indicator="top" href="/">HOME</a>
-        </li>
-        <li class="l-nav__item">
-          <a class="l-nav__link" data-indicator="page2" href="<%= sitePath %>page2/">Page2</a>
-        </li>
-      </ul>
-    </nav>
+    <%- include('_nav') %>
   </div>
-  <button id="hmb" class="l-hmb l-sm" aria-label="メニューボタン"><span></span></button>
+
+  <button id="hmb" class="l-hmb l-sm" aria-label="メニューボタン">
+    <span></span>
+  </button>
   <div id="hmb__bg" class="l-hmb-bg"></div>
 </header>

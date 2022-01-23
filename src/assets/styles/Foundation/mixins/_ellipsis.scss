@@ -1,12 +1,11 @@
 @charset "utf-8";
 
-@mixin ellipsis($is-clamp: false) {
+@mixin ellipsis($is-clamp: false, $line: 2) {
   @if ( $is-clamp ) {
     -webkit-box-orient: vertical;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: $line;
     overflow: hidden;
-    word-break: break-all;
   }
 
   @else {

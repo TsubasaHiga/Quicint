@@ -1,0 +1,89 @@
+<%
+// dir
+const dir = '../'
+
+// DEFINE
+const DEFINE = (typeof define === 'undefined') ? '' : define
+
+const style = `<style>
+.example-box {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+.example-box.u-animation {
+  transition: background-color 1s ease;
+}
+.example-box.is-animation {
+  background-color: aqua;
+}
+</style>
+`
+
+// pageData
+const pageData = {
+  pageName: 'example',
+  title:'モジュール利用例',
+  desc:'サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです（150文字前後）。サンプルテキストです',
+  ogType: 'website',
+  hierarchy: [
+    {
+      title: "モジュール利用例",
+      link: "example/"
+    }
+  ],
+  addInlineStyle: style
+};
+%>
+
+<%- include(dir + 'inc/_head', {meta: pageData}) %>
+<!-- main -->
+<main class="l-page">
+
+  <!-- include modal html -->
+  <%- include(dir + 'modules/_modal', {data: {
+    modalName: 'dummy-modal',
+  }}) %>
+
+  <div class="l-container">
+    <%- include('../modules/_breadcrumbs', {meta: pageData}) %>
+
+    <!-- example: modal open button -->
+    <div class="example-box">
+      <button data-modal-btn="dummy-modal">modal open</button>
+    </div>
+
+    <!-- example: details tag toggle with fade animation -->
+    <div class="example-box">
+      <div class="c-details" data-details-toggle="close">
+        <button title="toggle" data-details-toggle-btn><span></span>toggle</button>
+        <div class="c-details__content" data-details-toggle-content>
+          <div class="c-details__content--inner">
+            <ul>
+              <li>・Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati dolorum, consequuntur quasi impedit veritatis nihil!</li>
+              <li>・Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati dolorum, consequuntur quasi impedit veritatis nihil!</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- example: linking while having a tag in the child element -->
+    <div class="example-box">
+      <div data-link="/">
+        <p>linking while having a tag in the child element</p>
+        <ul>
+          <li><a href="https://example.com" target="_blank">・link tag</a></li>
+          <li><a href="https://example.com" target="_blank">・link tag</a></li>
+          <li><a href="https://example.com" target="_blank">・link tag</a></li>
+          <li><a href="https://example.com" target="_blank">・link tag</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- example: added className when entering the display area -->
+    <div class="example-box u-animation">added className when entering the display area</div>
+
+  </div>
+</main>
+<%- include(dir + 'inc/_footer', {meta: pageData}) %>

@@ -1,5 +1,5 @@
-const ToBoolean = (booleanStr: string): boolean => {
-  return booleanStr.toLowerCase() === 'true'
+const ToBoolean = (booleanStr: string | null): boolean => {
+  return booleanStr ? booleanStr.toLowerCase() === 'true' : false
 }
 
 export default ToBoolean

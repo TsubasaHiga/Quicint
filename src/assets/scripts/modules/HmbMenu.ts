@@ -1,57 +1,66 @@
+import autoBind from 'auto-bind'
 import { debounce } from 'throttle-debounce'
 
 import EL from '../constant/elements'
 import GetDeviceType from '../utils/getDeviceType'
 import Pd from '../utils/preventDefault'
 
-const HmbMenu = (): void => {
-  const func = {
-    isActive: false,
-    deviceType: GetDeviceType(),
+class HmbMenu {
+  isActive: boolean
+  deviceType: string
 
-    HMB: document.querySelector('#hmb'),
-    HMBBG: document.querySelector('#hmb__bg'),
+  hmb: HTMLElement | null
+  hmbBg: HTMLElement | null
 
-    init: () => {
-      func.HMB?.addEventListener('click', func.switchShowHide, false)
-      func.HMBBG?.addEventListener('click', func.switchShowHide, false)
-      window.addEventListener('resize', func.resize, false)
-    },
+  constructor() {
+    autoBind(this)
 
-    show: () => {
-      func.isActive = true
-      EL.NAV.style.visibility = ''
-      EL.HTML.classList.add('is-nav-active')
+    this.isActive = false
+    this.deviceType = GetDeviceType()
 
-      EL.MAINWRAP?.addEventListener('touchmove', Pd, { passive: false })
-      EL.MAINWRAP?.addEventListener('wheel', Pd, { passive: false })
-    },
+    this.hmb = document.querySelector('#hmb')
+    this.hmbBg = document.querySelector('#hmb__bg')
 
-    hide: () => {
-      func.isActive = false
-      EL.HTML.classList.remove('is-nav-active')
-
-      EL.MAINWRAP?.removeEventListener('touchmove', Pd)
-      EL.MAINWRAP?.removeEventListener('wheel', Pd)
-    },
-
-    switchShowHide: () => {
-      func.isActive ? func.hide() : func.show()
-    },
-
-    resize: debounce(150, () => {
-      if (func.deviceType !== GetDeviceType()) {
-        func.deviceType = GetDeviceType()
-        func.hide()
-
-        if (func.deviceType === 'lg') {
-          EL.NAV.style.visibility = ''
-        }
-      }
-    }),
+    this.hmb?.addEventListener('click', this.switchShowHide, false)
+    this.hmbBg?.addEventListener('click', this.switchShowHide, false)
+    window.addEventListener('resize', debounce(150, this.resize), false)
   }
 
-  func.init()
+  show(): void {
+    this.isActive = true
+
+    EL.NAV.style.visibility = ''
+    EL.HTML.classList.add('is-nav-active')
+
+    EL.MAIN_WRAP?.addEventListener('touchmove', Pd, { passive: false })
+    EL.MAIN_WRAP?.addEventListener('wheel', Pd, { passive: false })
+  }
+
+  hide(): void {
+    this.isActive = false
+
+    EL.HTML.classList.remove('is-nav-active')
+
+    EL.MAIN_WRAP?.removeEventListener('touchmove', Pd)
+    EL.MAIN_WRAP?.removeEventListener('wheel', Pd)
+  }
+
+  switchShowHide(): void {
+    this.isActive ? this.hide() : this.show()
+  }
+
+  resize(): void {
+    if (this.deviceType === GetDeviceType()) {
+      return
+    }
+
+    this.deviceType = GetDeviceType()
+    this.hide()
+
+    if (this.deviceType === 'lg') {
+      EL.NAV.style.visibility = ''
+    }
+  }
 }
 
 export default HmbMenu

@@ -5,6 +5,6 @@ export default {
   MAIN: document.getElementsByTagName('main')[0],
   FOOTER: document.getElementsByTagName('footer')[0],
   NAV: document.getElementsByTagName('nav')[0],
-  MAINWRAP: document.querySelector('#l-mainwrap'),
-  MAINWRAPINNER: document.querySelector('#l-mainwrap-inner'),
+  MAIN_WRAP: document.querySelector('#l-mainwrap'),
+  MAIN_WRAP_INNER: document.querySelector('#l-mainwrap-inner'),
 }

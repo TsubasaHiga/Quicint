@@ -1,6 +1,8 @@
+const isTouchDevice = require('is-touch-device')
+
 /**
- * タッチサポート判定を行い<html>のデータ属性にセットします
+ * タッチサポート判定を行いbooleanで返します
  */
-const GetTouchSupport = (): boolean => window.ontouchstart === null
+const GetTouchSupport = (): boolean => isTouchDevice()
 
 export default GetTouchSupport

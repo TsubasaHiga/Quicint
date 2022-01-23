@@ -5,16 +5,16 @@
 
 @mixin media($size, $px: false) {
 
-  // sm only
-  @if ($size == "sm") {
-    @media screen and (max-width: map.get($breakPoint, sm)) {
+  // se only
+  @if ($size == "se") {
+    @media screen and (max-width: map.get($breakPoint, se)) {
       @content;
     }
   }
 
-  // se only
-  @if ($size == "se") {
-    @media screen and (max-width: map.get($breakPoint, se)) {
+  // sm only
+  @if ($size == "sm") {
+    @media screen and (max-width: map.get($breakPoint, sm)) {
       @content;
     }
   }
