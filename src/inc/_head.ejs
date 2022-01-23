@@ -11,14 +11,11 @@ const SITESETTING = (typeof siteSetting === 'undefined') ? '' : siteSetting;
 // canonicalUrl
 let canonicalUrl = ''
 if(metaData.hierarchy) {
-  for (let i = 0; i < metaData.hierarchy.length; i++) {
-    canonicalUrl += metaData.hierarchy[i].link;
-  }
+  metaData.hierarchy.forEach(item => {
+    canonicalUrl += item.link;
+  });
   canonicalUrl = metaData.hierarchy[metaData.hierarchy.length - 1].link
 }
-
-// ogtype
-const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
 %>
 
 <!DOCTYPE html>
@@ -33,7 +30,7 @@ const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
     <meta name="description" content="<%= metaData.desc %>">
     <meta name="author" content="<%= SITESETTING.metaAuthor %>">
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:type" content="<%= ogtype %>">
+    <meta property="og:type" content="<%= metaData.ogType %>">
     <meta property="og:title" content="<%= metaData.title %>｜<%= SITESETTING.siteName %>">
     <meta property="og:description" content="<%= metaData.desc %>">
     <meta property="og:url" content="<%= SITESETTING.siteDomain + canonicalUrl %>/">
@@ -57,6 +54,8 @@ const ogtype = (metaData.pageName === 'top') ? 'website' : 'article';
     <link rel="preload" as="style" href="<%= SITESETTING.googleFonts %>" />
     <link rel="stylesheet" href="<%= SITESETTING.googleFonts %>" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="<%= SITESETTING.googleFonts %>" /></noscript>
+
+    <% if(metaData.addInlineStyle) { %><%- metaData.addInlineStyle %><% } %>
 
     <%- include('_analytics-head') %>
   </head>

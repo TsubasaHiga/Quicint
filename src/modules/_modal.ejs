@@ -1,0 +1,27 @@
+<%
+// dir
+const dir = './'
+
+var data = (typeof data === 'undefined') ? '' : data;
+
+// DEFINE
+const DEFINE = (typeof define === 'undefined') ? '' : define
+%>
+
+<div class="c-modal" data-modal="<%= data.modalName %>">
+  <div class="c-modal__inner">
+    <div class="c-modal__main" data-modal-main>
+      <button class="c-modal__close" data-modal-close title="閉じる">
+        <span></span>
+      </button>
+
+      <div class="c-modal__content" data-modal-content>
+        <div class="c-modal__content-wrap">
+          <p>modal</p>
+        </div>
+      </div>
+
+    </div>
+    <div class="c-modal__bg" data-modal-bg></div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 @charset "utf-8";
+@use "sass:color";
 
 @mixin gradation($topColor, $bottomColor, $angle: to bottom) {
-  background: mix($topColor, $bottomColor, 50%); //開始色と終了色の中間の色を背景色に指定
+  background: color.mix($topColor, $bottomColor, 50%); //開始色と終了色の中間の色を背景色に指定
   background: linear-gradient($angle, $topColor, $bottomColor);
 }

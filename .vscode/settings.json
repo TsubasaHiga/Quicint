@@ -14,18 +14,14 @@
   "cSpell.enabledLanguageIds": [
     "javascript",
     "javascriptreact",
-    "markdown",
     "typescript",
     "typescriptreact"
   ],
   "cSpell.words": [
-    "HMBBG",
+    "gsap",
     "luxy",
-    "MAINWRAP",
-    "MAINWRAPINNER",
     "picturefill",
     "Stickyfill",
     "stickyfilljs",
-    "Uadata"
   ]
 }

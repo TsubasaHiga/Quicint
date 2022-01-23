@@ -16,20 +16,20 @@ if(metaData.hierarchy) {
         <meta property="position" content="1">
       </div>
 
-      <% for (let i = 0; i < metaData.hierarchy.length; i++) { %>
+      <% metaData.hierarchy.forEach((item, index) => { %>
         <div class="l-breadcrumbs__item" property="itemListElement" typeof="ListItem">
-          <% if(i < metaData.hierarchy.length - 1) { %>
-            <a property="item" typeof="WebPage" title="<%= metaData.hierarchy[i].title %>" href="<%= sitePath + metaData.hierarchy[i].link %>">
+          <% if(index < metaData.hierarchy.length - 1 && item.link.length > 0) { %>
+            <a property="item" typeof="WebPage" title="<%= item.title %>" href="<%= sitePath + item.link %>">
           <% } %>
 
-          <span property="name"><%= metaData.hierarchy[i].title %></span>
+          <span property="name"><%= item.title %></span>
 
-          <% if(i < metaData.hierarchy.length - 1) { %>
+          <% if(index < metaData.hierarchy.length - 1 && item.link.length > 0) { %>
             </a>
           <% } %>
-          <meta property="position" content="<%= i + 2 %>">
+          <meta property="position" content="<%= index + 2 %>">
         </div>
-      <% } %>
+      <% }) %>
     </div>
   </div>
 </div>

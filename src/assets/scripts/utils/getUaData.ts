@@ -1,13 +1,14 @@
 import UAParser from 'ua-parser-js'
 
 import UaType from '../types/UaType'
+import GetTouchSupport from './getTouchSupport'
 
 /**
  * UA情報を<html>タグにdatasetとして追加します
  * 文字列にスペースが付く場合はハイフンで繋がれます
  * @return uaString
  */
-const GetUadata = (): UaType => {
+const GetUaData = (): UaType => {
   const parser = new UAParser()
   const result = parser.getResult()
 
@@ -28,9 +29,10 @@ const GetUadata = (): UaType => {
       typeof type !== 'undefined'
         ? type.toLowerCase().replace(' ', '-')
         : 'laptop',
+    touchSupport: GetTouchSupport(),
   }
 
   return uaString
 }
 
-export default GetUadata
+export default GetUaData

@@ -1,6 +1,6 @@
 import GetScrollbarWidth from './getScrollbarWidth'
 
-const bgScrollStop = (isStop = true): void => {
+const BgScrollStop = (isStop = true): void => {
   document.body.style.paddingRight = isStop ? `${GetScrollbarWidth()}px` : ''
 
   if (isStop) {
@@ -12,4 +12,4 @@ const bgScrollStop = (isStop = true): void => {
   }
 }
 
-export default bgScrollStop
+export default BgScrollStop

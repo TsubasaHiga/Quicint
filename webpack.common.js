@@ -29,7 +29,10 @@ module.exports = {
         // exclude: /node_modules/,
         include: [
           path.resolve(__dirname, 'src'),
-          path.resolve(__dirname, 'node_modules', 'auto-bind')
+          path.resolve(__dirname, 'node_modules', 'auto-bind'),
+          path.resolve(__dirname, 'node_modules', 'query-string'),
+          path.resolve(__dirname, 'node_modules', 'split-on-first'),
+          path.resolve(__dirname, 'node_modules', 'strict-uri-encode'),
         ],
         use: {
           loader: 'ts-loader',

@@ -22,6 +22,10 @@
 
 // Components
 @use "./Components/c-button";
+@use "./Components/c-modal-lg";
+@use "./Components/c-modal-sm";
+@use "./Components/c-details-lg";
+@use "./Components/c-details-sm";
 
 // Projects
 @use "./Projects/top-lg";

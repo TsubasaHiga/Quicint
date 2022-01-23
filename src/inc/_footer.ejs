@@ -7,10 +7,12 @@ const DEFINE = (typeof define === 'undefined') ? '' : define
 %>
 <footer class="l-footer">
   <div class="l-footer__inner">
+    <a href="#gotop" data-scroll>GoTop</a>
     <p class="l-footer__copyright">©Quicint</p>
   </div>
 </footer>
 <script src="<%= sitePath %>assets/scripts/bundle.js?rev" defer="defer"></script>
+<script nomodule src="https://polyfill.io/v3/polyfill.min.js"></script>
 <%- include('_analytics-footer') %>
 </div>
 </div>
