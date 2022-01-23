@@ -11,6 +11,12 @@ const style = `<style>
   padding: 10px;
   margin-bottom: 10px;
 }
+.example-box.u-animation {
+  transition: background-color 1s ease;
+}
+.example-box.is-animation {
+  background-color: aqua;
+}
 </style>
 `
 
@@ -75,8 +81,8 @@ const pageData = {
       </div>
     </div>
 
-    <!-- example: give a class to the element that entered the visible area -->
-    <div class="example-box u-animation">give a class to the element that entered the visible area</div>
+    <!-- example: added className when entering the display area -->
+    <div class="example-box u-animation">added className when entering the display area</div>
 
   </div>
 </main>
