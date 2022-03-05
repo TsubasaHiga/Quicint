@@ -10,7 +10,7 @@ import removeQueryString from '../utils/removeQueryString'
 class Modal {
   isModalOpen: boolean
 
-  btnModalId: string
+  btnModalId: string | null
 
   modal: HTMLElement | null
   modalMain: HTMLElement | null
