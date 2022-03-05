@@ -1,5 +1,7 @@
 @charset "utf-8";
 
+@use "sass:math";
+
 @mixin letterSpacing($tracking) {
-  letter-spacing: #{$tracking / 1000}em;
+  letter-spacing: #{math.div($tracking, 1000)}em;
 }

@@ -3,7 +3,7 @@ import autoBind from 'auto-bind'
 import UaType from '../types/UaType'
 import GetUaData from '../utils/getUaData'
 
-class addUaData {
+class AddUaData {
   constructor() {
     autoBind(this)
 
@@ -20,4 +20,4 @@ class addUaData {
   }
 }
 
-export default addUaData
+export default AddUaData

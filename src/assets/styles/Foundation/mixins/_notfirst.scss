@@ -1,7 +1,7 @@
 @charset "utf-8";
 
-@mixin notfirst($child: false) {
-  @if ($child) {
+@mixin notfirst($hasChild: false) {
+  @if ($hasChild) {
 
     &:not(:first-child) {
       @content;

@@ -40,7 +40,49 @@ Quicint（クイント）は、テンプレートエンジンにEJSを用いたH
 ![yarn][img-yarn]
 ![babel][img-babel]
 
-## Install
+## 動作確認環境
+
+### macOS
+
+<details>
+
+``` bash
+$ sw_vers
+ProductName:    macOS
+ProductVersion: 12.0.1
+BuildVersion:   21A559
+
+$ node -v
+v12.22.9
+
+$ yarn -v
+1.22.0
+```
+
+</details>
+
+### Windows OS
+
+<details>
+
+``` bash
+$ ver
+Microsoft Windows [Version 10.0.22000.469]
+
+$ node -v
+v12.22.9
+
+$ yarn -v
+1.22.17
+```
+
+</details>
+
+## Setup
+
+以下の順にセットアップを実施します。
+
+### Install
 
 ``` bash
 # git clone
@@ -52,24 +94,7 @@ yarn add quicint
 cd node_module/quicint
 ```
 
-## husky Install
-
-``` bash
-yarn husky install
-yarn husky add .husky/pre-commit "lint-staged"
-```
-
-yarn使用の場合のみ`.husky/pre-commit`を以下に変更します。
-
-``` diff
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
-- lint-staged
-+ yarn lint-staged
-```
-
-## Setup
+### 初期ファイル生成とローカル開発
 
 初期ファイルの生成を行い、その後ローカルサーバーを起動します。
 この時点で開発可能になり各種ファイルのWatchタスクが始まります。
@@ -86,7 +111,10 @@ yarn run serve
 
 ### 環境設定
 
-環境設定は`./setting.json`にて行なえ、主にGulp上の各タスク上で利用されます。
+環境設定は`./setting.json`にて行なえ、主にGulp上の各タスクで利用されます。
+
+<details>
+  <summary>詳細を表示する</summary>
 
 ``` json
 {
@@ -181,10 +209,15 @@ yarn run serve
 }
 ```
 
+</details>
+
 ### サイト設定
 
 サイト固有の値を記述するファイルは`./setting-site.json`にて行なえます。
 サイト名、metaなどサイト全体で利用する定数などの設置場所として利用可能です。主にEJSで用いられます。
+
+<details>
+  <summary>詳細を表示する</summary>
 
 ``` json
 {
@@ -200,6 +233,8 @@ yarn run serve
   "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
 }
 ```
+
+</details>
 
 ## Specification
 
@@ -225,7 +260,7 @@ yarn run serve
 # developmentビルドを行います。`dist/`配下に書き出されます。
 yarn run development
 
-# productionビルドを行います。`publish/`配下に書き出されます。
+# productionビルドを行います。`dist-production/`配下に書き出されます。
 yarn run production
 
 # 各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します。書き出しディレクトリはsetting.jsonのpublishDirで指定可能です。
@@ -255,6 +290,9 @@ yarn run lint:ejs
 
 第2階層までの主要ディレクトリ構造（一部省略）です。
 `src`ディレクトリが作業ディレクトリになり、`dist`ディレクトリを出力先として利用します。
+
+<details>
+  <summary>詳細を表示する</summary>
 
 ``` bash
 .
@@ -300,6 +338,8 @@ yarn run lint:ejs
 ├── webpack.prod.js
 └── yarn.lock
 ```
+
+</details>
 
 ## Pre-installation Plugin
 

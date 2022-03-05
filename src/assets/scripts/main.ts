@@ -7,7 +7,7 @@ import { debounce, throttle } from 'throttle-debounce'
 
 import EL from './constant/elements'
 import AddAnimationClass from './modules/AddAnimationClass'
-import addUaData from './modules/addUaData'
+import AddUaData from './modules/AddUaData'
 import DetailsToggle from './modules/DetailsToggle'
 import HmbMenu from './modules/HmbMenu'
 import Linker from './modules/Linker'
@@ -26,8 +26,8 @@ require('intersection-observer')
 require('focus-visible')
 
 const onDOMContentLoaded = () => {
-  // addUaData
-  new addUaData()
+  // AddUaData
+  new AddUaData()
 
   // Polyfill
   objectFitImages('img')

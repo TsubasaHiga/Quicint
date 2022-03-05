@@ -10,7 +10,6 @@
   @if $weight {
     font-weight: $weight;
   }
-
   @if $height {
     line-height: math.div(math.div($height, 2), $size);
   }

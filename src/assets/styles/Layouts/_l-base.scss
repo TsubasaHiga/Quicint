@@ -40,7 +40,6 @@
     min-width: $mainW;
     width: $mainW;
   }
-
   @include media(sm) {
     padding: 0 map.get($map: $space, $key: sm);
     width: 100%;

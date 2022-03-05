@@ -1,8 +1,18 @@
 @charset "utf-8";
 
-@mixin notlast {
+@mixin notlast($hasChild: false) {
 
-  &:not(:last-of-type) {
-    @content;
+  @if ($hasChild) {
+
+    &:not(:last-child) {
+      @content;
+    }
+  }
+
+  @else {
+
+    &:not(:last-of-type) {
+      @content;
+    }
   }
 }
