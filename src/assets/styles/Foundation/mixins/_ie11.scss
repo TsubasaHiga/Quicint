@@ -25,7 +25,6 @@
     }
   }
 }
-
 @mixin notie11($size: false) {
 
   html:not([data-browsername = "ie"]):not([data-browserversion = "11"]) & {

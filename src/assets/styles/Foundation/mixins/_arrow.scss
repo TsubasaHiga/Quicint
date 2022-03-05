@@ -19,13 +19,9 @@
 
   @else if ($deg == "top") {
     transform: rotate(225deg);
-  }
-
-  @else if ($deg == "right") {
+  } @else if ($deg == "right") {
     transform: rotate(-45deg);
-  }
-
-  @else if ($deg == "bottom") {
+  } @else if ($deg == "bottom") {
     transform: rotate(45deg);
   }
 

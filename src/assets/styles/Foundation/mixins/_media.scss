@@ -58,15 +58,11 @@
       @media screen and (min-width: $px) {
         @content;
       }
-    }
-
-    @else if ($size == "max-height") {
+    } @else if ($size == "max-height") {
       @media screen and (max-height: $px) {
         @content;
       }
-    }
-
-    @else if ($size == "min-height") {
+    } @else if ($size == "min-height") {
       @media screen and (min-height: $px) {
         @content;
       }

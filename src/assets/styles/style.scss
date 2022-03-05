@@ -1,8 +1,9 @@
 @charset "utf-8";
 
 // コーディング規約
-// 1. ファイル名に接頭辞が付いている場合、classNameにも接頭辞を付与します。
-// 2. ファイル名に接頭辞が付いていない場合、原則個別要素に影響しない内容を記述します。
+// 1. ファイル名に接頭辞が付いている場合、必ずclassNameにも接頭辞を付与します。
+// 2. ファイル名に接頭辞が付いていない場合、classNameには接頭辞を付与しません。
+// 3. PCレイアウト・SPレイアウトでファイルを分ける場合、ファイル末尾に`-lg or -sm`等の文字列を含めます。
 
 // plugins
 @use "../../../node_modules/ress/ress.css";
@@ -13,11 +14,8 @@
 
 // Layouts
 @use "./Layouts/l-base";
-@use "./Layouts/l-breadcrumbs";
 @use "./Layouts/l-footer";
 @use "./Layouts/l-header";
-@use "./Layouts/l-hmb";
-@use "./Layouts/l-nav";
 @use "./Layouts/l-page-header";
 
 // Components
@@ -26,10 +24,13 @@
 @use "./Components/c-modal-sm";
 @use "./Components/c-details-lg";
 @use "./Components/c-details-sm";
-
-// Projects
-@use "./Projects/top-lg";
-@use "./Projects/top-sm";
+@use "./Components/c-breadcrumbs";
+@use "./Components/c-hmb";
+@use "./Components/c-nav";
 
 // Utilities
-@use "./Utilities/plugin";
+@use "./Utilities/u-plugin";
+
+// Pages
+@use "./Pages/top-lg";
+@use "./Pages/top-sm";
