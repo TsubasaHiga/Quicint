@@ -5,19 +5,17 @@ import { debounce } from 'throttle-debounce'
 
 import AddQueryString from '../utils/addQueryString'
 import BgScrollStop from '../utils/bgScrollStop'
-import GetEventPath from '../utils/getEventPath'
 import removeQueryString from '../utils/removeQueryString'
 
 class Modal {
   isModalOpen: boolean
-
-  buttons: NodeListOf<HTMLButtonElement>
 
   btnModalId: string
 
   modal: HTMLElement | null
   modalMain: HTMLElement | null
   modalContent: HTMLElement | null
+  modalContentWrap: HTMLElement | null
   modalClose: HTMLElement | null
   modalBg: HTMLElement | null
 
@@ -25,13 +23,12 @@ class Modal {
 
   debouncedHandleResize: any
 
-  constructor() {
+  onModalHiddenFunction: CallableFunction | null
+
+  constructor(onModalHiddenFunction: CallableFunction | null = null) {
     autoBind(this)
 
     this.isModalOpen = false
-
-    // モーダルを開くキッカケのボタンの要素
-    this.buttons = document.querySelectorAll('[data-modal-btn]')
 
     // モーダルのターゲット情報
     this.btnModalId = ''
@@ -40,6 +37,7 @@ class Modal {
     this.modal = null
     this.modalMain = null
     this.modalContent = null
+    this.modalContentWrap = null
     this.modalClose = null
     this.modalBg = null
 
@@ -49,31 +47,17 @@ class Modal {
     // リサイズ時の処理
     this.debouncedHandleResize = debounce(100, this.onResize)
 
-    if (this.buttons.length <= 0) {
-      return
-    }
-
-    this.buttons.forEach((button) => {
-      button.addEventListener(
-        'click',
-        (e) => {
-          this.btnModalId = String(button.dataset.modalBtn)
-
-          const includeNodeNameA = GetEventPath(e).some(
-            (path) => (path as HTMLElement).nodeName === 'A'
-          )
-
-          if (this.btnModalId.length <= 0 || includeNodeNameA) {
-            return
-          }
-
-          this.modalSearch()
-        },
-        false
-      )
-    })
+    // onModalHiddenFunction
+    this.onModalHiddenFunction = onModalHiddenFunction
+      ? onModalHiddenFunction
+      : null
 
     this.modalSelect()
+  }
+
+  modalManualOpen(modalId: string): void {
+    this.btnModalId = modalId
+    this.modalSearch()
   }
 
   modalSelect(): void {
@@ -116,12 +100,14 @@ class Modal {
     this.modal = modal
     this.modalMain = modal.querySelector('[data-modal-main]')
     this.modalContent = modal.querySelector('[data-modal-content]')
+    this.modalContentWrap = modal.querySelector('[data-modal-content-wrap]')
     this.modalClose = modal.querySelector('[data-modal-close]')
     this.modalBg = modal.querySelector('[data-modal-bg]')
 
     if (
       !this.modalMain ||
       !this.modalContent ||
+      !this.modalContentWrap ||
       !this.modalClose ||
       !this.modalBg
     ) {
@@ -186,9 +172,15 @@ class Modal {
     this.modalClose?.classList.remove('is-open')
     this.gsapInstance?.reverse()
 
+    this.modalClose?.removeEventListener('click', this.modalHidden)
+    this.modalBg?.removeEventListener('click', this.modalHidden)
     window.removeEventListener('resize', this.debouncedHandleResize)
 
     removeQueryString('modal')
+
+    if (this.onModalHiddenFunction) {
+      this.onModalHiddenFunction()
+    }
 
     this.isModalOpen = false
   }

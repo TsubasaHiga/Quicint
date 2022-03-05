@@ -35,7 +35,6 @@ html {
     font-size: $vw;
     padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
-
   @include media(sm) {
     padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }

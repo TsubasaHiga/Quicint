@@ -15,7 +15,8 @@
     "garbage": "cross-env NODE_ENV=production gulp garbage",
     "lint:scss": "stylelint \"src/**/*.scss\"",
     "lint:ts": "eslint \"src/**/*.ts\"",
-    "lint:ejs": "ejslint \"src/**/*.ejs\""
+    "lint:ejs": "ejslint \"src/**/*.ejs\"",
+    "prepare": "husky install"
   },
   "husky": {
     "hooks": {

@@ -1,8 +1,18 @@
 @charset "utf-8";
 
-@mixin last {
+@mixin last($hasChild: false) {
 
-  &:last-of-type {
-    @content;
+  @if ($hasChild) {
+
+    &:last-child {
+      @content;
+    }
+  }
+
+  @else {
+
+    &:last-of-type {
+      @content;
+    }
   }
 }
