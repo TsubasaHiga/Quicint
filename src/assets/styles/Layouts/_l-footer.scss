@@ -27,7 +27,7 @@
     text-align: center;
   }
 
-  @include media(sm) {
+  @include mq-down(md) {
 
     &__inner {
       min-width: 100%;

@@ -1,16 +1,12 @@
 import autoBind from 'auto-bind'
-import { gsap, Power3 } from 'gsap'
-import queryString from 'query-string'
+import { gsap, Power2 } from 'gsap'
 import { debounce } from 'throttle-debounce'
 
-import AddQueryString from '../utils/addQueryString'
 import BgScrollStop from '../utils/bgScrollStop'
-import removeQueryString from '../utils/removeQueryString'
-
 class Modal {
   isModalOpen: boolean
 
-  btnModalId: string | null
+  modalId: string
 
   modal: HTMLElement | null
   modalMain: HTMLElement | null
@@ -25,13 +21,19 @@ class Modal {
 
   onModalHiddenFunction: CallableFunction | null
 
-  constructor(onModalHiddenFunction: CallableFunction | null = null) {
+  type: string
+
+  constructor(
+    modalId: string,
+    onModalHiddenFunction: CallableFunction | null = null,
+    type = 'y'
+  ) {
     autoBind(this)
 
     this.isModalOpen = false
 
     // モーダルのターゲット情報
-    this.btnModalId = ''
+    this.modalId = modalId
 
     // モーダル自体の要素
     this.modal = null
@@ -52,45 +54,13 @@ class Modal {
       ? onModalHiddenFunction
       : null
 
-    this.modalSelect()
+    // モーダルのタイプ
+    this.type = type
   }
 
-  modalManualOpen(modalId: string): void {
-    this.btnModalId = modalId
-    this.modalSearch()
-  }
-
-  modalSelect(): void {
-    // 既にモーダルが開いている時は終了
-    if (this.isModalOpen) {
-      return
-    }
-
-    const queryParsed = queryString.parse(window.location.search, {
-      arrayFormat: 'comma',
-    })
-
-    if (queryParsed.modal) {
-      // クエリ文字列が含まれていない場合は終了
-      if (queryParsed.modal.length < 1) {
-        return
-      }
-
-      this.btnModalId = queryParsed.modal[1]
-
-      this.modalSearch()
-    }
-
-    if (!queryParsed.modal) {
-      this.modalHidden()
-    }
-  }
-
-  modalSearch(): void {
-    console.log(this.btnModalId)
-
+  modalSearch() {
     const modal = document.querySelector(
-      `[data-modal="${this.btnModalId}"]`
+      `[data-modal="${this.modalId}"]`
     ) as HTMLElement
 
     if (!modal) {
@@ -119,7 +89,7 @@ class Modal {
     this.modalBg?.addEventListener('click', this.modalHidden, false)
   }
 
-  compareContentSizeH(addStyleIfContentSizeHLarger: boolean): void {
+  compareContentSizeH(addStyleIfContentSizeHLarger: boolean) {
     if (!this.modalMain || !this.modalContent) {
       return
     }
@@ -138,14 +108,39 @@ class Modal {
     }
   }
 
-  modalOpen(): void {
-    AddQueryString('modal', `modal,${this.btnModalId}`)
+  modalOpen() {
+    type ModalAnimationType = {
+      [key: string]: {
+        from: GSAPTweenVars
+        to: GSAPTweenVars
+      }
+    }
+    const modalAnimation: ModalAnimationType = {
+      slide: {
+        from: {
+          x: 10,
+        },
+        to: {
+          x: 0,
+          opacity: 1,
+        },
+      },
+      y: {
+        from: {
+          y: 10,
+        },
+        to: {
+          y: 0,
+          opacity: 1,
+        },
+      },
+    }
 
     this.gsapInstance = gsap
       .timeline({
         paused: true,
         defaults: {
-          ease: Power3.easeInOut,
+          ease: Power2.easeInOut,
           duration: 0.4,
         },
         onComplete: () => {
@@ -156,8 +151,12 @@ class Modal {
           this.compareContentSizeH(false)
         },
       })
-      .to(this.modal, { opacity: 1, visibility: 'visible' })
-      .to(this.modalMain, { y: 0, opacity: 1 })
+      .to(this.modal, 0.2, { opacity: 1, visibility: 'visible' })
+      .fromTo(
+        this.modalMain,
+        modalAnimation[this.type].from,
+        modalAnimation[this.type].to
+      )
 
     BgScrollStop()
     this.gsapInstance.play()
@@ -168,15 +167,17 @@ class Modal {
     this.isModalOpen = true
   }
 
-  modalHidden(): void {
+  modalHidden() {
+    if (!this.isModalOpen) {
+      return
+    }
+
     this.modalClose?.classList.remove('is-open')
     this.gsapInstance?.reverse()
 
     this.modalClose?.removeEventListener('click', this.modalHidden)
     this.modalBg?.removeEventListener('click', this.modalHidden)
     window.removeEventListener('resize', this.debouncedHandleResize)
-
-    removeQueryString('modal')
 
     if (this.onModalHiddenFunction) {
       this.onModalHiddenFunction()
@@ -185,7 +186,7 @@ class Modal {
     this.isModalOpen = false
   }
 
-  onResize(): void {
+  onResize() {
     this.compareContentSizeH(false)
     this.compareContentSizeH(true)
   }

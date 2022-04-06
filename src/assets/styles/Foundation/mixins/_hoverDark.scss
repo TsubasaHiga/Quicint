@@ -2,10 +2,10 @@
 
 @use "../variables" as *;
 @use "./icon-ini" as *;
-@use "./media" as *;
+@use "./mq-up" as *;
 
 @mixin hoverDark($target: false, $pos: after) {
-  @include media(lg) {
+  @include mq-up(md) {
     @if ($target) {
 
       &:hover {

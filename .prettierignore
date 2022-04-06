@@ -6,4 +6,4 @@ dist
 *.css
 *.ejs
 *.md
-gulpfilejs
+*.js

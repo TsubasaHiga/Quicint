@@ -4,7 +4,7 @@
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
 
-@include media(sm) {
+@include mq-down(md) {
 
   .top {
     /* stylelint-disable */

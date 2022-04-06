@@ -20,7 +20,6 @@ if(metaData.hierarchy) {
 
 <!DOCTYPE html>
 <html lang="ja">
-
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -29,6 +28,7 @@ if(metaData.hierarchy) {
     <title><%= metaData.title %>｜<%= SITESETTING.siteName %></title>
     <meta name="description" content="<%= metaData.desc %>">
     <meta name="author" content="<%= SITESETTING.metaAuthor %>">
+
     <meta property="og:locale" content="ja_JP">
     <meta property="og:type" content="<%= metaData.ogType %>">
     <meta property="og:title" content="<%= metaData.title %>｜<%= SITESETTING.siteName %>">
@@ -39,9 +39,11 @@ if(metaData.hierarchy) {
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="fb:app_id" content="<%= SITESETTING.metaAppid %>">
+
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="<%= SITESETTING.metaTwitterSite %>">
     <meta name="twitter:creator" content="<%= SITESETTING.metaTwitterCreator %>">
+
     <meta name="theme-color" content="<%= SITESETTING.themeColor %>">
     <link rel="canonical" href="<%= SITESETTING.siteDomain + canonicalUrl %>/">
     <link rel="shortcut icon" href="<%= sitePath %>assets/images/favicon.ico">
