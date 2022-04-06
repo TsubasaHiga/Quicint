@@ -9,7 +9,7 @@
   align-items: center;
   display: flex;
 
-  @include media(lg) {
+  @include mq-up(md) {
     height: 100%;
   }
 
@@ -24,7 +24,7 @@
     height: 100%;
     position: relative;
 
-    @include media(lg) {
+    @include mq-up(md) {
       @include notfirst {
         margin-left: 15px;
         padding-left: 15px;
@@ -40,7 +40,7 @@
     justify-content: center;
     position: relative;
 
-    @include media(lg) {
+    @include mq-up(md) {
       height: 100%;
 
       &:after {
@@ -64,7 +64,7 @@
     }
   }
 
-  @include media(sm) {
+  @include mq-down(md) {
     background-color: #f5f6f7;
     left: 0;
     opacity: 0;

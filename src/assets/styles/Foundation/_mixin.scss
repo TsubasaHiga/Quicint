@@ -22,7 +22,9 @@
 @forward "mixins/isoscelesTriangle";
 @forward "mixins/last";
 @forward "mixins/letterSpacing";
-@forward "mixins/media";
+@forward "mixins/mq";
+@forward "mixins/mq-down";
+@forward "mixins/mq-up";
 @forward "mixins/notEllipsis";
 @forward "mixins/notfirst";
 @forward "mixins/notlast";

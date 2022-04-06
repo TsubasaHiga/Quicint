@@ -5,16 +5,15 @@ import picturefill from 'picturefill'
 import Stickyfill from 'stickyfilljs'
 import { debounce, throttle } from 'throttle-debounce'
 
-import EL from './constant/elements'
 import AddAnimationClass from './modules/AddAnimationClass'
 import AddUaData from './modules/AddUaData'
 import DetailsToggle from './modules/DetailsToggle'
 import HmbMenu from './modules/HmbMenu'
 import Linker from './modules/Linker'
-import Modal from './modules/Modal'
 import NavCurrent from './modules/NavCurrent'
 import SmoothScroll from './modules/SmoothScroll'
 import SweetScrollInit from './modules/SweetScrollInit'
+import PageExample from './pages/PageExample'
 import PageTop from './pages/PageTop'
 import GetClassName from './utils/getClassName'
 import GetDocumentH from './utils/getDocumentHeight'
@@ -54,9 +53,6 @@ const onLoad = () => {
   // HmbMenu
   new HmbMenu()
 
-  // modal
-  new Modal()
-
   // DetailsToggle
   new DetailsToggle()
 
@@ -72,10 +68,13 @@ const onLoad = () => {
   // get body className
   const className = GetClassName(document.body)
 
+  // example // TODO 不使用時は削除してください
+  if (className.endsWith('example')) PageExample()
+
   // top
   if (className.endsWith('top')) PageTop()
 
-  EL.HTML.classList.add('is-loaded')
+  document.documentElement.classList.add('is-loaded')
 }
 
 const onScroll = () => {
@@ -83,13 +82,13 @@ const onScroll = () => {
 
   // add className is-scroll
   y > 0
-    ? EL.HTML.classList.add('is-scroll')
-    : EL.HTML.classList.remove('is-scroll')
+    ? document.documentElement.classList.add('is-scroll')
+    : document.documentElement.classList.remove('is-scroll')
 
   // add className is-footer
   GetDocumentH() <= y
-    ? EL.HTML.classList.add('is-footer')
-    : EL.HTML.classList.remove('is-footer')
+    ? document.documentElement.classList.add('is-footer')
+    : document.documentElement.classList.remove('is-footer')
 }
 
 let oldInnerWidth = window.innerWidth

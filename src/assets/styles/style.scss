@@ -6,7 +6,7 @@
 // 3. PCレイアウト・SPレイアウトでファイルを分ける場合、ファイル末尾に`-lg or -sm`等の文字列を含めます。
 
 // plugins
-@use "../../../node_modules/ress/ress.css";
+@use "node_modules/ress/ress.css";
 
 // Foundation
 @use "./Foundation/functions";
@@ -31,6 +31,6 @@
 // Utilities
 @use "./Utilities/u-plugin";
 
-// Pages
+// Pages（注意：接頭辞付けません）
 @use "./Pages/top-lg";
 @use "./Pages/top-sm";

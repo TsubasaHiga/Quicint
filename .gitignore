@@ -156,12 +156,7 @@ $RECYCLE.BIN/
 #*map/
 # env.json
 
-dist/assets/styles/
-dist/assets/scripts/*
-!dist/assets/scripts/vendors/
-dist/assets/images/
-dist/**/*.html
-
+dist
 dist-production
 
 .vscode/*

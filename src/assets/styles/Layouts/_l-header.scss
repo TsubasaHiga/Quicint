@@ -30,7 +30,7 @@
     }
   }
 
-  @include media(sm) {
+  @include mq-down(md) {
 
     &__inner {
       height: map.get($map: $headerH, $key: sm);
