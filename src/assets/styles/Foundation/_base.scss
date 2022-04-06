@@ -15,7 +15,9 @@
   }
 
   &::selection {
-    background-color: map.get($map: $color, $key: color-black);
+    /* stylelint-disable */
+    // 使用する最に stylelint-disableコメント削除
+    /* stylelint-enable */
   }
 }
 
@@ -29,13 +31,10 @@ html {
   line-height: math.div(33, 14);
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 
-  @include media(sm) {
+  @include mq-down(md) {
     $vw: (math.div(14, $smBasis)) * 100vw;
 
     font-size: $vw;
-    padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
-  }
-  @include media(sm) {
     padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
   }
 }
@@ -46,13 +45,11 @@ body {
   margin: 0 auto;
   min-height: 100%;
   position: relative;
-  -ms-text-size-adjust: 100%;
   text-size-adjust: none;
   width: 100%;
   word-wrap: break-word;
 
-  // アンチエイリアス
-  @include media(retina) {
+  @include mq(retina) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -63,7 +60,7 @@ a {
   text-decoration: none;
 
   &[href ^= "tel:"] {
-    @include media(lg) {
+    @include mq-up(md) {
       pointer-events: none;
     }
   }
@@ -124,7 +121,7 @@ sup {
   top: -.7em;
   vertical-align: unset;
 
-  @include media(sm) {
+  @include mq-down(md) {
     font-size: rem(10);
     top: -.4em;
   }

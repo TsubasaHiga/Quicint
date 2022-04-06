@@ -1,5 +1,3 @@
-const ElementCount = (element: HTMLElement): number => {
-  return element.childElementCount
-}
+const ElementCount = (element: HTMLElement): number => element.childElementCount
 
 export default ElementCount

@@ -12,8 +12,6 @@
   },
   "cSpell.ignoreRegExpList": ["[０-９Ａ-Ｚａ-ｚぁ-んァ-ヶ亜-熙纊-黑]+"],
   "cSpell.enabledLanguageIds": [
-    "javascript",
-    "javascriptreact",
     "typescript",
     "typescriptreact"
   ],

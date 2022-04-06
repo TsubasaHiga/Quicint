@@ -25,7 +25,7 @@
   margin-top: map.get($map: $headerH, $key: lg);
   position: relative;
 
-  @include media(sm) {
+  @include mq-down(md) {
     margin-top: map.get($map: $headerH, $key: sm);
   }
 }
@@ -36,24 +36,26 @@
   margin: 0 auto;
   position: relative;
 
-  @include media(lg) {
+  @include mq-up(md) {
     min-width: $mainW;
     width: $mainW;
   }
-  @include media(sm) {
+  @include mq-down(md) {
     padding: 0 map.get($map: $space, $key: sm);
     width: 100%;
   }
 }
 
 .l-lg {
-  @include media(sm) {
+
+  @include mq-down(md) {
     display: none !important;
   }
 }
 
 .l-sm {
-  @include media(lg) {
+
+  @include mq-up(md) {
     display: none !important;
   }
 }

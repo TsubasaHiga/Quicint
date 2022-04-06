@@ -30,7 +30,7 @@ class HmbMenu {
     this.isActive = true
 
     EL.NAV.style.visibility = ''
-    EL.HTML.classList.add('is-nav-active')
+    document.documentElement.classList.add('is-nav-active')
 
     EL.MAIN_WRAP?.addEventListener('touchmove', Pd, { passive: false })
     EL.MAIN_WRAP?.addEventListener('wheel', Pd, { passive: false })
@@ -39,7 +39,7 @@ class HmbMenu {
   hide(): void {
     this.isActive = false
 
-    EL.HTML.classList.remove('is-nav-active')
+    document.documentElement.classList.remove('is-nav-active')
 
     EL.MAIN_WRAP?.removeEventListener('touchmove', Pd)
     EL.MAIN_WRAP?.removeEventListener('wheel', Pd)
