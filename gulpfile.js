@@ -8,6 +8,7 @@ const gulp = require('gulp')
 const cleanGarbage = require('./gulpfilejs/tasks/cleanGarbage')
 const js = require('./gulpfilejs/tasks/js')
 const jsBuild = require('./gulpfilejs/tasks/jsBuild')
+const cleanAll = require('./gulpfilejs/tasks/cleanAll')
 const cleanImg = require('./gulpfilejs/tasks/cleanImg')
 const cleanEjs = require('./gulpfilejs/tasks/cleanEjs')
 const scss = require('./gulpfilejs/tasks/scss')
@@ -24,8 +25,8 @@ const jsoncFileCeck = require('./gulpfilejs/tasks/jsoncFileCeck')
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
 exports.development = gulp.series(
   jsoncFileCeck,
+  cleanAll,
   scss,
-  cleanImg,
   img,
   imgManual,
   ejsCompile,
@@ -33,11 +34,10 @@ exports.development = gulp.series(
 )
 exports.production = gulp.series(
   jsoncFileCeck,
+  cleanAll,
   scssProduction,
-  cleanImg,
   img,
   imgManual,
-  cleanEjs,
   ejsCompile,
   jsBuild,
   cleanGarbage,
@@ -46,11 +46,10 @@ exports.production = gulp.series(
 exports.checkJson = jsoncFileCeck
 exports.zip = gulp.series(
   jsoncFileCeck,
+  cleanAll,
   scssProduction,
-  cleanImg,
   img,
   imgManual,
-  cleanEjs,
   ejsCompile,
   jsBuild,
   cleanGarbage,

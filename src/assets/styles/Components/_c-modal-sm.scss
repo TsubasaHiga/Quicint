@@ -5,7 +5,7 @@
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 
-@include mq-down(md) {
+@include mqw-down {
 
   .c-modal {
     $this:&;

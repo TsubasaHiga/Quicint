@@ -40,6 +40,33 @@ Quicint（クイント）は、テンプレートエンジンにEJSを用いたH
 ![yarn][img-yarn]
 ![babel][img-babel]
 
+## 目次
+
+<!-- TOC -->
+
+- [Quicint](#quicint)
+  - [目次](#目次)
+  - [動作確認環境](#動作確認環境)
+    - [macOS](#macos)
+    - [Windows OS](#windows-os)
+  - [Setup](#setup)
+    - [Install](#install)
+    - [VS Code必須プラグインのインストール](#vs-code必須プラグインのインストール)
+    - [初期ファイル生成とローカル開発](#初期ファイル生成とローカル開発)
+  - [Option](#option)
+    - [環境設定](#環境設定)
+    - [サイト設定](#サイト設定)
+  - [Specification](#specification)
+  - [Scripts](#scripts)
+    - [Basic](#basic)
+    - [Lint](#lint)
+  - [Directory](#directory)
+  - [Pre-installation Plugin](#pre-installation-plugin)
+  - [Supported browser](#supported-browser)
+  - [Licence](#licence)
+
+<!-- /TOC -->
+
 ## 動作確認環境
 
 ### macOS
@@ -81,18 +108,21 @@ $ yarn -v
 ## Setup
 
 以下の順にセットアップを実施します。
-
 ### Install
 
 ``` bash
 # git clone
 git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
-yarn install
 
-# install with yarn
-yarn add quicint
-cd node_module/quicint
+# install
+yarn install
 ```
+
+### VS Code必須プラグインのインストール
+
+検索欄に`@recommended`を入力すると、ワークスペース内で推奨されるプラグインリストが表示されます。それぞれインストールを行ってください。
+
+![スクリーンショット](docs/assets/images/1.png)
 
 ### 初期ファイル生成とローカル開発
 
@@ -223,7 +253,7 @@ yarn run serve
 {
   "siteName": "HTML5案件用のボイラープレートQuicit",
   "siteDomain": "https://example.com",
-  "sitePath": "./",
+  "sitePath": "/",
   "metaAuthor": "サンプルテキスト",
   "metaAppid": "0123456789",
   "metaTwitterSite": "サンプルテキスト",
@@ -240,7 +270,7 @@ yarn run serve
 
 | item            | detail                                                          |
 | --------------- | --------------------------------------------------------------- |
-| Node.js         | 12.x required                                                   |
+| Node.js         | >= 12.x                                                         |
 | Package manager | yarn                                                            |
 | Build system    | Gulp v4                                                         |
 | Module bundler  | webpack                                                         |
@@ -296,34 +326,26 @@ yarn run lint:ejs
 
 ``` bash
 .
-├── dist
-│   ├── assets
-│   │   ├── images
-│   │   ├── scripts
-│   │   └── styles
-│   ├── example
-│   │   └── index.html
-│   ├── .htaccess
-│   ├── index.html
-│   └── robots.txt
+├── .husky/
+├── dist/
+├── docs/
 ├── gulpfilejs/
 ├── src
+│   ├── @types
 │   ├── assets
-│   │   ├── images
-│   │   ├── scripts
-│   │   └── styles
-│   ├── inc/
-│   ├── example/
-│   ├── parts/
+│   ├── example
+│   ├── inc
+│   ├── modules
 │   └── index.ejs
-├── .babelrc
 ├── .editorconfig
 ├── .eslintignore
 ├── .eslintrc.json
 ├── .gitignore
+├── .ncurc.json
 ├── .npmrc
 ├── .prettierignore
 ├── .prettierrc
+├── .stylelintignore
 ├── .stylelintrc.json
 ├── LICENSE
 ├── README.md

@@ -1,0 +1,8 @@
+@charset "utf-8";
+
+@mixin mobile() {
+
+  html[data-type = "mobile"] & {
+    @content;
+  }
+}

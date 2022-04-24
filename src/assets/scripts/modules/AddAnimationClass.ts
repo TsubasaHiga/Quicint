@@ -1,5 +1,7 @@
 import autoBind from 'auto-bind'
 
+import GetDeviceType from '../utils/getDeviceType'
+
 type typeOptions = {
   root: null | HTMLElement
   rootMargin: string
@@ -9,14 +11,19 @@ class AddAnimationClass {
   elements: NodeListOf<HTMLElement>
   options: typeOptions
 
-  constructor(rootMargin = '0% 0px') {
+  constructor(
+    rootMargin = {
+      lg: '0% 0px',
+      sm: '0% 0px',
+    }
+  ) {
     autoBind(this)
 
     this.elements = document.querySelectorAll('.u-animation')
 
     this.options = {
       root: null,
-      rootMargin: rootMargin,
+      rootMargin: GetDeviceType() === 'g' ? rootMargin.lg : rootMargin.sm,
       threshold: 0,
     }
 

@@ -1,10 +1,10 @@
 @charset "utf-8";
 
 @use "../variables" as *;
-@use "./mq-up" as *;
+@use "./canhover" as *;
 
-@mixin hoverOpacity($opacity, $ms: false, $ease: false) {
-  @include mq-up(md) {
+@mixin hoverOpacity($opacity: .5, $ms: false, $ease: false) {
+  @include canhover {
     @if $ease {
       transition: opacity $ms $ease;
     }

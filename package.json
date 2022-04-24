@@ -1,7 +1,7 @@
 {
   "name": "quicint",
   "description": "Quick initialize HTML5 EJS Boilerplate",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "author": "HigaTsubasa",
   "license": "MIT",
   "main": "src/assets/scripts/main.ts",
@@ -13,8 +13,8 @@
     "resetImg": "cross-env NODE_ENV=development gulp resetImg",
     "resetEjs": "cross-env NODE_ENV=production gulp resetEjs",
     "garbage": "cross-env NODE_ENV=production gulp garbage",
-    "lint:scss": "stylelint \"src/**/*.scss\"",
-    "lint:ts": "eslint \"src/**/*.ts\"",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "lint:scripts": "eslint \"src/**/*.{ts,js}\"",
     "lint:ejs": "ejslint \"src/**/*.ejs\"",
     "prepare": "husky install"
   },
@@ -25,11 +25,11 @@
   },
   "lint-staged": {
     "*.scss": [
-      "yarn lint:scss",
+      "yarn lint:styles",
       "git add"
     ],
-    "*.ts": [
-      "yarn lint:ts",
+    "*.{ts,js}": [
+      "yarn lint:scripts",
       "git add"
     ],
     "*.ejs": [
@@ -97,7 +97,6 @@
     "stylelint-order": "^5.0.0",
     "stylelint-scss": "^4.2.0",
     "terser-webpack-plugin": "^5.3.1",
-    "throttle-debounce": "^3.0.1",
     "through2": "^4.0.2",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.3",
@@ -120,6 +119,7 @@
     "ress": "^5.0.2",
     "stickyfilljs": "^2.1.0",
     "sweet-scroll": "^4.0.0",
+    "throttle-debounce": "^4.0.1",
     "ua-parser-js": "^1.0.2"
   },
   "resolutions": {

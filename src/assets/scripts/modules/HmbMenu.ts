@@ -19,7 +19,7 @@ class HmbMenu {
     this.deviceType = GetDeviceType()
 
     this.hmb = document.querySelector('#hmb')
-    this.hmbBg = document.querySelector('#hmb__bg')
+    this.hmbBg = document.querySelector('#hmb-bg')
 
     this.hmb?.addEventListener('click', this.switchShowHide, false)
     this.hmbBg?.addEventListener('click', this.switchShowHide, false)

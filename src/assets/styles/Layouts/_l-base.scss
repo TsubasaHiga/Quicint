@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @use "sass:map";
+@use "sass:math";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
@@ -25,7 +26,7 @@
   margin-top: map.get($map: $headerH, $key: lg);
   position: relative;
 
-  @include mq-down(md) {
+  @include mqw-down {
     margin-top: map.get($map: $headerH, $key: sm);
   }
 }
@@ -36,26 +37,40 @@
   margin: 0 auto;
   position: relative;
 
-  @include mq-up(md) {
+  @include mqw-up {
     min-width: $mainW;
     width: $mainW;
   }
-  @include mq-down(md) {
+  @include mqw-down {
     padding: 0 map.get($map: $space, $key: sm);
     width: 100%;
   }
 }
 
-.l-lg {
+.l-mqw-up {
 
-  @include mq-down(md) {
+  @include mqw-down {
     display: none !important;
   }
 }
 
-.l-sm {
+.l-mqw-down {
 
-  @include mq-up(md) {
+  @include mqw-up {
+    display: none !important;
+  }
+}
+
+.l-mqw-xmd-up {
+
+  @include mqw-down(xmd) {
+    display: none !important;
+  }
+}
+
+.l-mqw-xmd-down {
+
+  @include mqw-up(xmd) {
     display: none !important;
   }
 }

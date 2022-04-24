@@ -110,7 +110,7 @@ const ejsCompile = () => {
         }
       )
     )
-    .pipe(gulp.dest(setting.io.output.html))
+    .pipe(gulp.dest(setting.io.output.root))
 }
 
 module.exports = ejsCompile

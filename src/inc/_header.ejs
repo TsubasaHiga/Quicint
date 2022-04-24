@@ -10,7 +10,7 @@ const metaData = (typeof meta === 'undefined') ? '' : meta;
 const SITESETTING = (typeof siteSetting === 'undefined') ? '' : siteSetting;
 %>
 
-<header class="l-header">
+<header id="header" class="l-header">
   <div class="l-header__inner">
     <a class="l-header__logo" href="/">
       <% if(metaData.pageName === 'top') { %>
@@ -24,8 +24,5 @@ const SITESETTING = (typeof siteSetting === 'undefined') ? '' : siteSetting;
     <%- include('_nav') %>
   </div>
 
-  <button id="hmb" class="c-hmb l-sm" aria-label="メニューボタン">
-    <span></span>
-  </button>
-  <div id="hmb__bg" class="c-hmb-bg"></div>
+  <%- include('_hmb' ) %>
 </header>

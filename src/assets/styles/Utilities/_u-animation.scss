@@ -1,0 +1,42 @@
+@charset "utf-8";
+
+@use "sass:map";
+@use "sass:math";
+@use "../Foundation/variables" as *;
+@use "../Foundation/mixin" as *;
+@use "../Foundation/functions" as *;
+
+.u-animation {
+
+  $time: 700ms;
+  $delay: 0ms;
+  $ease: $easeOutCubic;
+
+  &[data-animation = "fade-in-up"] {
+    opacity: 0;
+    transform: translateY(70px);
+    transition: transform $time $ease, opacity $time - 270ms $ease;
+    will-change: transform, opacity;
+
+    @include mqw-down {
+      transform: translateY(50px);
+    }
+
+    &.is-animation {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  &[data-animation = "fade-in-left"] {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: transform $time $ease, opacity $time $ease;
+    will-change: transform, opacity;
+
+    &.is-animation {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+}
