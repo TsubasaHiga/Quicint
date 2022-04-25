@@ -2,10 +2,10 @@
 
 @use "../variables" as *;
 @use "./icon-ini" as *;
-@use "./mq-up" as *;
+@use "./canhover" as *;
 
 @mixin hoverDark($target: false, $pos: after) {
-  @include mq-up(md) {
+  @include canhover {
     @if ($target) {
 
       &:hover {

@@ -10,12 +10,11 @@ import AddUaData from './modules/AddUaData'
 import DetailsToggle from './modules/DetailsToggle'
 import HmbMenu from './modules/HmbMenu'
 import Linker from './modules/Linker'
-import NavCurrent from './modules/NavCurrent'
 import SmoothScroll from './modules/SmoothScroll'
 import SweetScrollInit from './modules/SweetScrollInit'
 import PageExample from './pages/PageExample'
 import PageTop from './pages/PageTop'
-import GetClassName from './utils/getClassName'
+import GetClassNames from './utils/getClassNames'
 import GetDocumentH from './utils/getDocumentHeight'
 import Set100vh from './utils/set100vh'
 import SetOrientation from './utils/setOrientation'
@@ -44,9 +43,6 @@ const onLoad = () => {
   // SweetScrollInit
   new SweetScrollInit()
 
-  // NavCurrent
-  new NavCurrent()
-
   // SmoothScroll
   new SmoothScroll(false)
 
@@ -60,19 +56,22 @@ const onLoad = () => {
   new Linker()
 
   // addAnimationClass
-  new AddAnimationClass()
+  new AddAnimationClass({
+    lg: '-0% 0px',
+    sm: '-0% 0px',
+  })
 
   // onScroll
   onScroll()
 
   // get body className
-  const className = GetClassName(document.body)
+  const className = GetClassNames(document.body)
 
   // example // TODO 不使用時は削除してください
-  if (className.endsWith('example')) PageExample()
+  if (className.includes('example')) PageExample()
 
   // top
-  if (className.endsWith('top')) PageTop()
+  if (className.includes('top')) PageTop()
 
   document.documentElement.classList.add('is-loaded')
 }

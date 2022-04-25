@@ -81,7 +81,8 @@
       "styles": "dist/assets/styles/",
       "images": "dist/assets/images/",
       "scripts": "dist/assets/scripts/",
-      "html": "dist/"
+      "root": "dist/",
+      "rootProduction": "dist-production/"
     },
     "setting": "./setting.json",
     "siteSetting": "./setting-site.json",

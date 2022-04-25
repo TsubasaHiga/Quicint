@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+@use "../variables" as *;
+@use "sass:map";
+
+@mixin mqw-down($breakpoint: md) {
+  @media screen and (max-width: map-get($breakpointW, $breakpoint) - 1px) {
+    @content;
+  }
+}
