@@ -1,9 +1,11 @@
 'use strict'
 
 const genDir = require('../utils/genDir')
+const paths = require('../constant/paths')
+const setting = require(paths.setting)
 
 const genPublishDir = (cb) => {
-  genDir('dist-production', 'publish')
+  genDir(setting.io.output.rootProduction, 'publish')
   cb()
 }
 

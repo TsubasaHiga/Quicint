@@ -11,7 +11,7 @@ const webpackDev = require(paths.webpackDev)
 
 const js = () => {
   return gulp
-    .src(setting.io.input.scripts + '**/*.ts')
+    .src(setting.io.input.scripts + '**/*.{ts,js}')
     .pipe(
       plumber({
         errorHandler: (err) => {

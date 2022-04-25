@@ -6,6 +6,6 @@ const paths = require('../constant/paths')
 const setting = require(paths.setting)
 
 const cleanGarbage = () =>
-  del(setting.io.output.html + '**/*{maps,.map,.DS_Store,.LICENSE,Thumbs.db}')
+  del(setting.io.output.root + '**/*{maps,.map,.DS_Store,.LICENSE,Thumbs.db}')
 
 module.exports = cleanGarbage

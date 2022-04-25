@@ -1,6 +1,7 @@
 @charset "utf-8";
 
 @use "sass:map";
+@use "sass:math";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
@@ -9,7 +10,7 @@
   align-items: center;
   display: flex;
 
-  @include mq-up(md) {
+  @include mqw-up {
     height: 100%;
   }
 
@@ -24,7 +25,7 @@
     height: 100%;
     position: relative;
 
-    @include mq-up(md) {
+    @include mqw-up {
       @include notfirst {
         margin-left: 15px;
         padding-left: 15px;
@@ -40,7 +41,7 @@
     justify-content: center;
     position: relative;
 
-    @include mq-up(md) {
+    @include mqw-up {
       height: 100%;
 
       &:after {
@@ -64,7 +65,7 @@
     }
   }
 
-  @include mq-down(md) {
+  @include mqw-down {
     background-color: #f5f6f7;
     left: 0;
     opacity: 0;

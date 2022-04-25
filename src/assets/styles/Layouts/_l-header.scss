@@ -1,10 +1,10 @@
 @charset "utf-8";
 
 @use "sass:map";
+@use "sass:math";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
-@use "sass:math";
 
 .l-header {
   position: relative;
@@ -30,7 +30,7 @@
     }
   }
 
-  @include mq-down(md) {
+  @include mqw-down {
 
     &__inner {
       height: map.get($map: $headerH, $key: sm);

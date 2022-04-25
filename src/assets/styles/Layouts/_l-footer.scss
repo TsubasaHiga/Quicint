@@ -1,9 +1,10 @@
 @charset "utf-8";
 
+@use "sass:map";
+@use "sass:math";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
-@use "sass:map";
 
 .l-footer {
   align-items: center;
@@ -27,7 +28,7 @@
     text-align: center;
   }
 
-  @include mq-down(md) {
+  @include mqw-down {
 
     &__inner {
       min-width: 100%;

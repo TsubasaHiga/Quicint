@@ -23,8 +23,10 @@
 @forward "mixins/last";
 @forward "mixins/letterSpacing";
 @forward "mixins/mq";
-@forward "mixins/mq-down";
-@forward "mixins/mq-up";
+@forward "mixins/mqw-down";
+@forward "mixins/mqw-up";
+@forward "mixins/mqh-down";
+@forward "mixins/mqh-up";
 @forward "mixins/notEllipsis";
 @forward "mixins/notfirst";
 @forward "mixins/notlast";
@@ -44,3 +46,6 @@
 @forward "mixins/touchSupport";
 @forward "mixins/triangle";
 @forward "mixins/vh100";
+@forward "mixins/dvh100";
+@forward "mixins/canhover";
+@forward "mixins/mobile";

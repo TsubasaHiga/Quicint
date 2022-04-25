@@ -4,20 +4,19 @@
 
 // layout
 // ----------------------------------------------------------
-// break point - min-width
-$breakpoint-up: (
-  "sm": "screen and (min-width:640px)",
-  "md": "screen and (min-width:768px)",
-  "xmd": "screen and (min-width:1100px)",
-  "lg": "screen and (min-width:1260px)",
-  "xlg": "screen and (min-width:1430px)"
+// break point - width
+$breakpointW: (
+  lg: 1300px,
+  xmd: 1100px,
+  md: 768px,
+  xs: 321px,
 ) !default;
 
-// break point - max-width
-$breakpoint-down: (
-  "md": "screen and (max-width:767px)",
-  "xmd": "screen and (max-width:1099px)",
-  "lg": "screen and (max-width:1259px)"
+// break point - height
+$breakpointH: (
+  xmd: 845px,
+  md: 668px,
+  xs: 400px,
 ) !default;
 
 // mainW

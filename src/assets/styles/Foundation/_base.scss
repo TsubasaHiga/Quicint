@@ -1,10 +1,10 @@
 @charset "utf-8";
 
+@use "sass:map";
+@use "sass:math";
 @use "./variables" as *;
 @use "./mixin" as *;
 @use "./functions" as *;
-@use "sass:math";
-@use "sass:map";
 
 * {
   box-sizing: border-box;
@@ -15,9 +15,7 @@
   }
 
   &::selection {
-    /* stylelint-disable */
-    // 使用する最に stylelint-disableコメント削除
-    /* stylelint-enable */
+    background-color: rgba(map-get($map: $color, $key: color-black), .1);
   }
 }
 
@@ -31,7 +29,7 @@ html {
   line-height: math.div(33, 14);
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 
-  @include mq-down(md) {
+  @include mqw-down {
     $vw: (math.div(14, $smBasis)) * 100vw;
 
     font-size: $vw;
@@ -41,7 +39,7 @@ html {
 
 body {
   font-family: $fontFamily;
-  letter-spacing: rem(.22);
+  letter-spacing: .05em;
   margin: 0 auto;
   min-height: 100%;
   position: relative;
@@ -60,7 +58,7 @@ a {
   text-decoration: none;
 
   &[href ^= "tel:"] {
-    @include mq-up(md) {
+    @include mqw-up {
       pointer-events: none;
     }
   }
@@ -121,7 +119,7 @@ sup {
   top: -.7em;
   vertical-align: unset;
 
-  @include mq-down(md) {
+  @include mqw-down {
     font-size: rem(10);
     top: -.4em;
   }

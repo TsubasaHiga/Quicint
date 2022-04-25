@@ -1,10 +1,12 @@
 @charset "utf-8";
 
+@use "sass:map";
+@use "sass:math";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
 @use "../Foundation/functions" as *;
 
-@include mq-down(md) {
+@include mqw-down {
 
   .top {
     /* stylelint-disable */
