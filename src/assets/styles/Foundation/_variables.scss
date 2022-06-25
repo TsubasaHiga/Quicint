@@ -6,9 +6,12 @@
 // ----------------------------------------------------------
 // break point - width
 $breakpointW: (
+  xxlg: 1821px,
+  xlg: 1536px,
   lg: 1300px,
   xmd: 1100px,
   md: 768px,
+  sm: 375px,
   xs: 321px,
 ) !default;
 
@@ -16,19 +19,16 @@ $breakpointW: (
 $breakpointH: (
   xmd: 845px,
   md: 668px,
-  xs: 400px,
+  sm: 635px,
+  xs: 549px,
 ) !default;
 
 // mainW
 $mainW: rem(1280);
 
 // Basis vw
-$basis: 1440;
+$basis: 1280;
 $smBasis: 375;
-
-// Basis vh
-$basisVh: 800;
-$smBasisVh: 667; // iPhoneX hide toolbar min-height
 
 // Basis space
 $space: (

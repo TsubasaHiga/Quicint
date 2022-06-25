@@ -17,9 +17,9 @@
     height: map.get($map: $headerH, $key: lg);
     justify-content: space-between;
     margin: 0 auto;
-    min-width: $mainW;
+    padding: 0 map.get($map: $space, $key: lg);
     position: relative;
-    width: $mainW;
+    width: 100%;
   }
 
   &__logo {
@@ -34,9 +34,7 @@
 
     &__inner {
       height: map.get($map: $headerH, $key: sm);
-      min-width: 100%;
       padding: 0 map.get($map: $space, $key: sm);
-      width: 100%;
     }
   }
 }

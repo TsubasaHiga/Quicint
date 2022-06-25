@@ -1,8 +1,3 @@
-import 'core-js/stable'
-
-import objectFitImages from 'object-fit-images'
-import picturefill from 'picturefill'
-import Stickyfill from 'stickyfilljs'
 import { debounce, throttle } from 'throttle-debounce'
 
 import AddAnimationClass from './modules/AddAnimationClass'
@@ -12,25 +7,16 @@ import HmbMenu from './modules/HmbMenu'
 import Linker from './modules/Linker'
 import SmoothScroll from './modules/SmoothScroll'
 import SweetScrollInit from './modules/SweetScrollInit'
-import PageExample from './pages/PageExample'
-import PageTop from './pages/PageTop'
+import PageExample from './pages/example'
+import PageTop from './pages/top'
 import GetClassNames from './utils/getClassNames'
 import GetDocumentH from './utils/getDocumentHeight'
 import Set100vh from './utils/set100vh'
 import SetOrientation from './utils/setOrientation'
 
-// require
-require('intersection-observer')
-require('focus-visible')
-
 const onDOMContentLoaded = () => {
   // AddUaData
   new AddUaData()
-
-  // Polyfill
-  objectFitImages('img')
-  picturefill()
-  Stickyfill.add(document.querySelectorAll('.sticky'))
 }
 
 const onLoad = () => {
@@ -77,7 +63,7 @@ const onLoad = () => {
 }
 
 const onScroll = () => {
-  const y = Math.round(window.pageYOffset)
+  const y = Math.round(window.scrollY || window.pageYOffset)
 
   // add className is-scroll
   y > 0

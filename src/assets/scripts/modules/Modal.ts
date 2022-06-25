@@ -19,12 +19,14 @@ class Modal {
 
   debouncedHandleResize: any
 
+  onModalOpenFunction: CallableFunction | null
   onModalHiddenFunction: CallableFunction | null
 
   type: string
 
   constructor(
     modalId: string,
+    onModalOpenFunction: CallableFunction | null = null,
     onModalHiddenFunction: CallableFunction | null = null,
     type = 'y'
   ) {
@@ -49,6 +51,9 @@ class Modal {
     // リサイズ時の処理
     this.debouncedHandleResize = debounce(100, this.onResize)
 
+    // onModalOpenFunction
+    this.onModalOpenFunction = onModalOpenFunction ? onModalOpenFunction : null
+
     // onModalHiddenFunction
     this.onModalHiddenFunction = onModalHiddenFunction
       ? onModalHiddenFunction
@@ -58,7 +63,7 @@ class Modal {
     this.type = type
   }
 
-  modalSearch() {
+  modalSearch(isOpen = false) {
     const modal = document.querySelector(
       `[data-modal="${this.modalId}"]`
     ) as HTMLElement
@@ -84,7 +89,7 @@ class Modal {
       return
     }
 
-    this.modalOpen()
+    if (isOpen) this.modalOpen()
     this.modalClose?.addEventListener('click', this.modalHidden, false)
     this.modalBg?.addEventListener('click', this.modalHidden, false)
   }
@@ -145,10 +150,12 @@ class Modal {
         },
         onComplete: () => {
           this.modalClose?.classList.add('is-open')
+          if (this.onModalOpenFunction) this.onModalOpenFunction()
         },
         onReverseComplete: () => {
           BgScrollStop(false)
           this.compareContentSizeH(false)
+          if (this.onModalHiddenFunction) this.onModalHiddenFunction()
         },
       })
       .to(this.modal, 0.2, { opacity: 1, visibility: 'visible' })
@@ -178,10 +185,6 @@ class Modal {
     this.modalClose?.removeEventListener('click', this.modalHidden)
     this.modalBg?.removeEventListener('click', this.modalHidden)
     window.removeEventListener('resize', this.debouncedHandleResize)
-
-    if (this.onModalHiddenFunction) {
-      this.onModalHiddenFunction()
-    }
 
     this.isModalOpen = false
   }

@@ -1,6 +1,7 @@
 import autoBind from 'auto-bind'
 import SweetScroll from 'sweet-scroll'
 
+import DEFINE from '../constant/define'
 import GetDeviceType from '../utils/getDeviceType'
 
 type optionsType = {
@@ -26,18 +27,18 @@ class SweetScrollInit {
     this.optionsLg = {
       offset: 0,
       easing: 'easeInOutQuart',
-      duration: 900,
+      duration: DEFINE.SCROLL_DURATION_LG,
     }
 
     this.optionsSm = {
       offset: 0,
       easing: 'easeInOutQuart',
-      duration: 1200,
+      duration: DEFINE.SCROLL_DURATION_SM,
     }
 
     this.init()
 
-    window.addEventListener('resize', this.resize, false)
+    window.addEventListener('resize', this.onResize, false)
   }
 
   init(): void {
@@ -69,7 +70,7 @@ class SweetScrollInit {
     this.sweetScroll.to(hash, { updateURL: 'replace' })
   }
 
-  resize(): void {
+  onResize(): void {
     if (this.deviceType === GetDeviceType()) {
       return
     }

@@ -17,7 +17,7 @@ const breakpointSm = attr.breakpoint ? attr.breakpoint.sm : DEFINE.BREAKPOINTSM
   <%= sitePath + attr.src %>__sm@3x.<%= attr.ext %> 3x">
   <% } %>
 
-  <% if(!attr.lg2xOnly) { %>
+  <% if(!attr.lg2xOnly && !attr.lg1xOnly) { %>
     <source media="(min-width: <%= breakpointLg %>)" srcset="<%= sitePath + attr.src %>__lg.<%= attr.ext %> 1x,
   <%= sitePath + attr.src %>__lg@2x.<%= attr.ext %> 2x">
   <img src="<%= sitePath + attr.src %>__lg.<%= attr.ext %>" alt="<%= attr.alt %>"<%- lazy %>>
@@ -25,5 +25,9 @@ const breakpointSm = attr.breakpoint ? attr.breakpoint.sm : DEFINE.BREAKPOINTSM
 
   <% if(attr.lg2xOnly) { %>
     <img src="<%= sitePath + attr.src %>__lg@2x.<%= attr.ext %>" alt="<%= attr.alt %>"<%- lazy %>>
+  <% } %>
+
+  <% if(attr.lg1xOnly) { %>
+    <img src="<%= sitePath + attr.src %>__lg.<%= attr.ext %>" alt="<%= attr.alt %>"<%- lazy %>>
   <% } %>
 </picture>
