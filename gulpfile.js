@@ -43,6 +43,14 @@ exports.production = gulp.series(
   cleanGarbage,
   genPublishDir
 )
+exports.productionNoImg = gulp.series(
+  jsoncFileCeck,
+  scssProduction,
+  ejsCompile,
+  jsBuild,
+  cleanGarbage,
+  genPublishDir
+)
 exports.checkJson = jsoncFileCeck
 exports.zip = gulp.series(
   jsoncFileCeck,
@@ -58,3 +66,4 @@ exports.zip = gulp.series(
 exports.resetImg = gulp.series(cleanImg, img, imgManual)
 exports.resetEjs = gulp.series(cleanEjs, ejsCompile)
 exports.garbage = cleanGarbage
+exports.jsBuild = gulp.series(jsBuild)

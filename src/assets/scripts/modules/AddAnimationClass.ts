@@ -23,13 +23,11 @@ class AddAnimationClass {
 
     this.options = {
       root: null,
-      rootMargin: GetDeviceType() === 'g' ? rootMargin.lg : rootMargin.sm,
+      rootMargin: GetDeviceType() === 'lg' ? rootMargin.lg : rootMargin.sm,
       threshold: 0,
     }
 
-    if (this.elements.length <= 0) {
-      return
-    }
+    if (this.elements.length <= 0) return
 
     this.init()
   }
@@ -53,9 +51,7 @@ class AddAnimationClass {
 
   addClass(entries: IntersectionObserverEntry[]): void {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-animation')
-      }
+      if (entry.isIntersecting) entry.target.classList.add('is-animation')
     })
   }
 }

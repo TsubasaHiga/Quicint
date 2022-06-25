@@ -6,6 +6,8 @@ const newer = require('gulp-newer')
 const mozjpeg = require('imagemin-mozjpeg')
 const imagemin = require('gulp-imagemin')
 const pngquant = require('imagemin-pngquant')
+const imageminWebp = require('imagemin-webp');
+const rename = require('gulp-rename')
 
 const paths = require('../constant/paths')
 const setting = require(paths.setting)
@@ -37,8 +39,22 @@ const imgManual = (cb) => {
           pngquant(setting.pngquantManual),
           mozjpeg(setting.mozjpegManual),
           imagemin.gifsicle(setting.gifsicleManual),
+          imageminWebp(setting.webpManual)
         ])
       )
+      .pipe(rename((path) => {
+        const fileFullPath = `${path.dirname}/${path.basename + path.extname}`
+
+        if(setting.webpConvertSettings.ignore.includes(fileFullPath)) {
+          return
+        }
+
+        if(setting.webpConvertSettings.targetExtnames.includes(path.extname)) {
+          {
+            path.extname = '.webp';
+          }
+        }
+      }))
       .pipe(gulp.dest(setting.io.output.images))
   } else {
     cb()

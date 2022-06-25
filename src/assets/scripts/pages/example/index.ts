@@ -1,4 +1,4 @@
-import Modal from '../modules/Modal'
+import Modal from '../../modules/Modal'
 
 const PageExample = (): void => {
   console.log('example')
@@ -6,7 +6,8 @@ const PageExample = (): void => {
   const modalBtnElement = document.querySelector('#modal-btn')
   if (modalBtnElement) {
     const modalInstance = new Modal('example')
-    modalBtnElement.addEventListener('click', modalInstance.modalSearch, false)
+    modalInstance.modalSearch()
+    modalBtnElement.addEventListener('click', modalInstance.modalOpen, false)
   }
 }
 

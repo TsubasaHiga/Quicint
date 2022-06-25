@@ -108,11 +108,15 @@ $ yarn -v
 ## Setup
 
 以下の順にセットアップを実施します。
+
 ### Install
 
 ``` bash
 # git clone
-git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
+git clone https://github.com/TsubasaHiga/Quicint.git your-project
+
+# cd
+cd your-project
 
 # install
 yarn install
@@ -131,10 +135,10 @@ yarn install
 
 ``` bash
 # Initial file generation
-yarn run development
+yarn development
 
 # serve
-yarn run serve
+yarn serve
 ```
 
 ## Option
@@ -260,7 +264,7 @@ yarn run serve
   "metaTwitterCreator": "サンプルテキスト",
   "publishFileName": "Quicint",
   "themeColor": "#000",
-  "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
+  "webFontUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
 }
 ```
 
@@ -285,35 +289,35 @@ yarn run serve
 
 ``` bash
 # ローカルサーバーの起動と各種ファイルのWatchが可能です。通常はこちらで制作を行います。
-yarn run serve
+yarn serve
 
 # developmentビルドを行います。`dist/`配下に書き出されます。
-yarn run development
+yarn development
 
 # productionビルドを行います。`dist-production/`配下に書き出されます。
-yarn run production
+yarn prod
 
 # 各種ファイルをMinifyし.Zipファイルとして指定ディレクトリへ書き出します。書き出しディレクトリはsetting.jsonのpublishDirで指定可能です。
-yarn run zip
+yarn zip
 
 # `src/assets/images/`を正として、再画像圧縮を行います。
-yarn run resetImg
+yarn resetImg
 
 # `src/**/*.ejs`を正として、再書き出しを行います。
-yarn run resetEjs
+yarn resetEjs
 ```
 
 ### Lint
 
 ``` bash
 # stylelint
-yarn run lint:scss
+yarn lint:scss
 
 # eslint
-yarn run lint:ts
+yarn lint:ts
 
 # ejs-lint
-yarn run lint:ejs
+yarn lint:ejs
 ```
 
 ## Directory
