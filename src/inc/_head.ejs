@@ -53,9 +53,9 @@ if(metaData.hierarchy) {
     <link rel="stylesheet" href="<%= sitePath %>assets/styles/style.css?rev">
 
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="preload" as="style" href="<%= SITESETTING.googleFonts %>" />
-    <link rel="stylesheet" href="<%= SITESETTING.googleFonts %>" media="print" onload="this.media='all'" />
-    <noscript><link rel="stylesheet" href="<%= SITESETTING.googleFonts %>" /></noscript>
+    <link rel="preload" as="style" href="<%= SITESETTING.webFontUrl %>" />
+    <link rel="stylesheet" href="<%= SITESETTING.webFontUrl %>" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="<%= SITESETTING.webFontUrl %>" /></noscript>
 
     <% if(metaData.addInlineStyle) { %><%- metaData.addInlineStyle %><% } %>
 

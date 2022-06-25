@@ -29,6 +29,16 @@ html {
   line-height: math.div(33, 14);
   -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
 
+  @include mqw-up(xlg) {
+    $vw: (math.div(12, $basis)) * 100vw;
+
+    font-size: $vw;
+  }
+  @include mqw-up(xxlg) {
+    $vw: (math.div(10, $basis)) * 100vw;
+
+    font-size: $vw;
+  }
   @include mqw-down {
     $vw: (math.div(14, $smBasis)) * 100vw;
 
@@ -38,8 +48,9 @@ html {
 }
 
 body {
+  @include letterSpacing(50);
+
   font-family: $fontFamily;
-  letter-spacing: .05em;
   margin: 0 auto;
   min-height: 100%;
   position: relative;
@@ -47,7 +58,7 @@ body {
   width: 100%;
   word-wrap: break-word;
 
-  @include mq(retina) {
+  @include mq(retina2x) {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -123,10 +134,6 @@ sup {
     font-size: rem(10);
     top: -.4em;
   }
-}
-
-[data-js-focus-visible] :focus:not([data-focus-visible-added]) {
-  outline: none;
 }
 
 // 状態

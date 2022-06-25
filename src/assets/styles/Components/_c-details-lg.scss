@@ -16,7 +16,7 @@
   }
 
   [data-details-toggle-btn] {
-    @include fz(12,12,500);
+    @include fz(12,12);
     @include hoverOpacity(.5);
 
     align-items: center;

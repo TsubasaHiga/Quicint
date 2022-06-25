@@ -2,8 +2,6 @@
   "reject": [
     "gulp-imagemin",
     "imagemin-mozjpeg",
-    "auto-bind",
-    "swiper",
-    "browser-sync"
+    "imagemin-webp"
   ]
 }

@@ -3,8 +3,14 @@
 @mixin mq($size, $px: false) {
 
   // retina only
-  @if ($size == "retina") {
+  @if ($size == "retina2x") {
     @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+      @content;
+    }
+  }
+  // retina only
+  @if ($size == "retina3x") {
+    @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 3dppx) {
       @content;
     }
   }

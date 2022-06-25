@@ -8,6 +8,7 @@
 
 .l-mainwrap {
   opacity: 0;
+  transition: opacity 1200ms $comES;
 
   .is-loaded & {
     opacity: 1;
@@ -23,27 +24,19 @@
 }
 
 .l-page {
-  margin-top: map.get($map: $headerH, $key: lg);
   position: relative;
-
-  @include mqw-down {
-    margin-top: map.get($map: $headerH, $key: sm);
-  }
 }
 
 .l-container {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
+  padding: 0 map.get($map: $space, $key: lg);
   position: relative;
+  width: 100%;
 
-  @include mqw-up {
-    min-width: $mainW;
-    width: $mainW;
-  }
   @include mqw-down {
     padding: 0 map.get($map: $space, $key: sm);
-    width: 100%;
   }
 }
 

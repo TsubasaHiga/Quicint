@@ -4,6 +4,7 @@
 @use "sass:math";
 @use "../Foundation/variables" as *;
 @use "../Foundation/mixin" as *;
+@use "../Foundation/functions" as *;
 
 .c-btn {
   /* stylelint-disable */

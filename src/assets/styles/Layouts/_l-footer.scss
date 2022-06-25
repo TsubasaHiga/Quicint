@@ -9,7 +9,6 @@
 .l-footer {
   align-items: center;
   display: flex;
-  height: 50px;
   justify-content: center;
   margin-top: 50px;
 
@@ -19,9 +18,9 @@
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    min-width: $mainW;
+    padding: 0 map.get($map: $space, $key: lg);
     position: relative;
-    width: $mainW;
+    width: 100%;
   }
 
   &__copyright {
@@ -31,8 +30,7 @@
   @include mqw-down {
 
     &__inner {
-      min-width: 100%;
-      width: 100%;
+      padding: 0 map.get($map: $space, $key: sm);
     }
   }
 }

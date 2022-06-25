@@ -108,11 +108,15 @@ $ yarn -v
 ## Setup
 
 以下の順にセットアップを実施します。
+
 ### Install
 
 ``` bash
 # git clone
-git clone git@github.com/TsubasaHiga/Quicint.git name-of-your-project
+git clone https://github.com/TsubasaHiga/Quicint.git your-project
+
+# cd
+cd your-project
 
 # install
 yarn install
@@ -260,7 +264,7 @@ yarn serve
   "metaTwitterCreator": "サンプルテキスト",
   "publishFileName": "Quicint",
   "themeColor": "#000",
-  "googleFonts": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
+  "webFontUrl": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700"
 }
 ```
 
