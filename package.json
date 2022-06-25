@@ -84,6 +84,7 @@
     "image-size": "^1.0.1",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.2",
+    "imagemin-webp": "^6.0.0",
     "jsdom": "^19.0.0",
     "json-loader": "^0.5.7",
     "lint-staged": "^12.5.0",

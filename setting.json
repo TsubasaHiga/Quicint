@@ -21,19 +21,26 @@
   },
   "htmlminProduction": {
     "collapseWhitespace": false,
-    "removeComments": true
+    "removeComments": false
   },
   "htmlbeautify": {
     "indent_size": 2,
     "preserve_newlines": false
   },
+  "webpConvertSettings": {
+    "targetExtnames": [".png", ".jpg"],
+    "ignore": [
+      "./apple-touch-icon.png",
+      "./ogpimg.png"
+    ]
+  },
   "pngquant": {
-    "quality": [0.6, 0.7],
+    "quality": [0.8, 0.9],
     "speed": 1,
     "floyd": 0
   },
   "mozjpeg": {
-    "quality": 75,
+    "quality": 95,
     "progressive": true
   },
   "svgo": {
@@ -56,19 +63,27 @@
   "gifsicle": {
     "optimizationLevel": 3
   },
+  "webp": {
+    "quality": 92,
+    "method": 6
+  },
   "pngquantManual": {
     "quality": [0.8, 0.9],
     "speed": 1,
     "floyd": 0
   },
   "mozjpegManual": {
-    "quality": 95,
+    "quality": 90,
     "progressive": true
   },
   "gifsicleManual": {
     "optimizationLevel": 3
   },
-  "imageManualLists": ["**/*@2x.{png,jpg,gif,svg}"],
+  "webpManual": {
+    "quality": 92,
+    "method": 6
+  },
+  "imageManualLists": ["**/*@2x.{png,jpg,gif,svg}", "**/*@3x.{png,jpg,gif,svg}"],
   "publishDir": "Desktop",
   "io": {
     "input": {
