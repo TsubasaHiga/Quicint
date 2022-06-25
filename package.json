@@ -7,8 +7,8 @@
   "main": "src/assets/scripts/main.ts",
   "scripts": {
     "serve": "cross-env NODE_ENV=development gulp",
-    "development": "cross-env NODE_ENV=development gulp development",
-    "production": "cross-env NODE_ENV=production gulp production",
+    "dev": "cross-env NODE_ENV=development gulp development",
+    "prod": "cross-env NODE_ENV=production gulp production",
     "zip": "cross-env NODE_ENV=production gulp zip",
     "resetImg": "cross-env NODE_ENV=development gulp resetImg",
     "resetEjs": "cross-env NODE_ENV=production gulp resetEjs",
