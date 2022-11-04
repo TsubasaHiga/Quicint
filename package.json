@@ -64,7 +64,6 @@
     "eslint-import-resolver-webpack": "^0.13.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
-    "fibers": "^5.0.1",
     "figlet": "^1.5.2",
     "fs": "0.0.2",
     "gulp": "^4.0.2",

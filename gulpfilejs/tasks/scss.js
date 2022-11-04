@@ -9,7 +9,6 @@ const postcss = require('gulp-postcss')
 const postcssEasingGradients = require('postcss-easing-gradients')
 const mqpacker = require('css-mqpacker')
 const gulpif = require('gulp-if')
-const Fiber = require('fibers')
 
 const browserSync = require('../modules/browserSync')
 
@@ -22,7 +21,7 @@ const scss = () => {
   return gulp
     .src(setting.io.input.styles + '**/*.scss', { sourcemaps: true })
     .pipe(
-      sass({ fiber: Fiber, outputStyle: 'compressed' }).on(
+      sass({ outputStyle: 'compressed' }).on(
         'error',
         sass.logError
       )
