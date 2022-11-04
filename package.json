@@ -15,9 +15,12 @@
     "resetImg": "cross-env NODE_ENV=development gulp resetImg",
     "resetEjs": "cross-env NODE_ENV=production gulp resetEjs",
     "garbage": "cross-env NODE_ENV=production gulp garbage",
-    "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:scripts": "eslint \"src/**/*.{ts,js}\"",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:ejs": "ejslint \"src/**/*.ejs\"",
+    "fix:scripts": "yarn lint:scripts --fix",
+    "fix:styles": "yarn lint:styles --fix",
+    "format": "prettier --write --ignore-path .gitignore \"./**/*.{js,json}\"",
     "prepare": "husky install"
   },
   "husky": {
@@ -41,6 +44,7 @@
   },
   "devDependencies": {
     "@types/gsap": "^3.0.0",
+    "@types/is-touch-device": "^1.0.0",
     "@types/object-fit-images": "^3.2.3",
     "@types/picturefill": "^3.0.1",
     "@types/throttle-debounce": "^5.0.0",

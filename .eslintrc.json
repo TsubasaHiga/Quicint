@@ -4,10 +4,7 @@
     "es6": true,
     "node": true
   },
-  "extends": [
-    "eslint:recommended",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
   "parserOptions": {
     "ecmaVersion": 11,
     "sourceType": "module"
@@ -27,10 +24,7 @@
   "overrides": [
     {
       "files": ["**/*.ts"],
-      "extends": [
-        "plugin:@typescript-eslint/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
-      ],
+      "extends": ["plugin:@typescript-eslint/recommended", "plugin:@typescript-eslint/eslint-recommended"],
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "project": "./tsconfig.json"
@@ -55,10 +49,5 @@
       }
     }
   ],
-  "ignorePatterns": [
-    ".eslintrc.js",
-    "webpack.common.js",
-    "webpack.dev.js",
-    "webpack.prod.js"
-  ]
+  "ignorePatterns": [".eslintrc.js", "webpack.common.js", "webpack.dev.js", "webpack.prod.js"]
 }

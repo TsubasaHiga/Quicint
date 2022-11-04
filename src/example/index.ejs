@@ -36,17 +36,17 @@ const pageData = {
 };
 %>
 
-<%- include(dir + 'inc/_head', {meta: pageData}) %>
+<%- include(dir + 'html-partials/common-includes/_head', {meta: pageData}) %>
 <!-- main -->
 <main class="l-page">
 
   <!-- include modal html -->
-  <%- include(dir + 'modules/_modal', {data: {
+  <%- include(dir + 'html-partials/ui/_modal', {data: {
     modalName: 'example',
   }}) %>
 
-  <div class="l-container">
-    <%- include('../modules/_breadcrumbs', {meta: pageData}) %>
+  <div class="l-container l-spacer">
+    <%- include('../html-partials/ui/_breadcrumbs', {meta: pageData}) %>
 
     <!-- example: modal open button -->
     <div class="example-box">
@@ -90,4 +90,4 @@ const pageData = {
 
   </div>
 </main>
-<%- include(dir + 'inc/_footer', {meta: pageData}) %>
+<%- include(dir + 'html-partials/ui/_footer', {meta: pageData}) %>

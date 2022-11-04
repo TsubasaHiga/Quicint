@@ -11,16 +11,14 @@
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "cSpell.ignoreRegExpList": ["[０-９Ａ-Ｚａ-ｚぁ-んァ-ヶ亜-熙纊-黑]+"],
-  "cSpell.enabledLanguageIds": [
-    "typescript",
-    "typescriptreact"
-  ],
+  "cSpell.enabledLanguageIds": ["typescript", "typescriptreact"],
   "cSpell.words": [
     "gsap",
     "luxy",
+    "mainwrap",
     "picturefill",
     "Stickyfill",
-    "stickyfilljs",
+    "stickyfilljs"
   ],
   "files.eol": "\n"
 }

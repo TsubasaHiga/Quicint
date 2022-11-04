@@ -27,18 +27,20 @@ $breakpointH: (
 $mainW: rem(1280);
 
 // Basis vw
-$basis: 1280;
-$smBasis: 375;
+$basisW: 1280;
+$smBasisW: 375;
 
 // Basis space
 $space: (
-  lg: rem(50),
-  sm: rem(20),
+  xmd: rem(60),
+  md: rem(20),
+  sm: rem(15),
+  xs: rem(10),
 );
 
 // headerH
 $headerH: (
-  lg: rem(100),
+  md: rem(100),
   sm: rem(60),
 );
 

@@ -1,6 +1,6 @@
 import autoBind from 'auto-bind'
 
-import GetDeviceType from '../utils/getDeviceType'
+import GetDeviceType from '~/utils/getDeviceType'
 
 type typeOptions = {
   root: null | HTMLElement
@@ -14,7 +14,7 @@ class AddAnimationClass {
   constructor(
     rootMargin = {
       lg: '0% 0px',
-      sm: '0% 0px',
+      sm: '0% 0px'
     }
   ) {
     autoBind(this)
@@ -24,7 +24,7 @@ class AddAnimationClass {
     this.options = {
       root: null,
       rootMargin: GetDeviceType() === 'lg' ? rootMargin.lg : rootMargin.sm,
-      threshold: 0,
+      threshold: 0
     }
 
     if (this.elements.length <= 0) return

@@ -14,10 +14,10 @@
     align-items: center;
     background-color: #fff;
     display: flex;
-    height: map.get($map: $headerH, $key: lg);
+    height: map.get($map: $headerH, $key: md);
     justify-content: space-between;
     margin: 0 auto;
-    padding: 0 map.get($map: $space, $key: lg);
+    padding: 0 map.get($map: $space, $key: md);
     position: relative;
     width: 100%;
   }

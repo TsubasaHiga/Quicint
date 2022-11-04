@@ -20,19 +20,14 @@ const setting = require(paths.setting)
 const scss = () => {
   return gulp
     .src(setting.io.input.styles + '**/*.scss', { sourcemaps: true })
-    .pipe(
-      sass({ outputStyle: 'compressed' }).on(
-        'error',
-        sass.logError
-      )
-    )
+    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(
       postcss([
         autoprefixer({ grid: true }),
         postcssEasingGradients(),
         mqpacker(),
         cssnano({ autoprefixer: false }),
-        cssDeclarationSorter({ order: 'smacss' }),
+        cssDeclarationSorter({ order: 'smacss' })
       ])
     )
     .pipe(gulp.dest(setting.io.output.styles, { sourcemaps: '/maps' }))

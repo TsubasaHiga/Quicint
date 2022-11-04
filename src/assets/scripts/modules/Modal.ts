@@ -2,7 +2,7 @@ import autoBind from 'auto-bind'
 import { gsap, Power2 } from 'gsap'
 import { debounce } from 'throttle-debounce'
 
-import BgScrollStop from '../utils/bgScrollStop'
+import BgScrollStop from '~/utils/bgScrollStop'
 class Modal {
   isModalOpen: boolean
 
@@ -55,18 +55,14 @@ class Modal {
     this.onModalOpenFunction = onModalOpenFunction ? onModalOpenFunction : null
 
     // onModalHiddenFunction
-    this.onModalHiddenFunction = onModalHiddenFunction
-      ? onModalHiddenFunction
-      : null
+    this.onModalHiddenFunction = onModalHiddenFunction ? onModalHiddenFunction : null
 
     // モーダルのタイプ
     this.type = type
   }
 
   modalSearch(isOpen = false) {
-    const modal = document.querySelector(
-      `[data-modal="${this.modalId}"]`
-    ) as HTMLElement
+    const modal = document.querySelector(`[data-modal="${this.modalId}"]`) as HTMLElement
 
     if (!modal) {
       return
@@ -79,13 +75,7 @@ class Modal {
     this.modalClose = modal.querySelector('[data-modal-close]')
     this.modalBg = modal.querySelector('[data-modal-bg]')
 
-    if (
-      !this.modalMain ||
-      !this.modalContent ||
-      !this.modalContentWrap ||
-      !this.modalClose ||
-      !this.modalBg
-    ) {
+    if (!this.modalMain || !this.modalContent || !this.modalContentWrap || !this.modalClose || !this.modalBg) {
       return
     }
 
@@ -100,10 +90,7 @@ class Modal {
     }
 
     if (addStyleIfContentSizeHLarger) {
-      if (
-        this.modalContent.getBoundingClientRect().height >
-        this.modalMain.getBoundingClientRect().height
-      ) {
+      if (this.modalContent.getBoundingClientRect().height > this.modalMain.getBoundingClientRect().height) {
         this.modalMain.style.height = '100%'
       }
     }
@@ -123,22 +110,22 @@ class Modal {
     const modalAnimation: ModalAnimationType = {
       slide: {
         from: {
-          x: 10,
+          x: 10
         },
         to: {
           x: 0,
-          opacity: 1,
-        },
+          opacity: 1
+        }
       },
       y: {
         from: {
-          y: 10,
+          y: 10
         },
         to: {
           y: 0,
-          opacity: 1,
-        },
-      },
+          opacity: 1
+        }
+      }
     }
 
     this.gsapInstance = gsap
@@ -146,7 +133,7 @@ class Modal {
         paused: true,
         defaults: {
           ease: Power2.easeInOut,
-          duration: 0.4,
+          duration: 0.4
         },
         onComplete: () => {
           this.modalClose?.classList.add('is-open')
@@ -156,14 +143,10 @@ class Modal {
           BgScrollStop(false)
           this.compareContentSizeH(false)
           if (this.onModalHiddenFunction) this.onModalHiddenFunction()
-        },
+        }
       })
       .to(this.modal, 0.2, { opacity: 1, visibility: 'visible' })
-      .fromTo(
-        this.modalMain,
-        modalAnimation[this.type].from,
-        modalAnimation[this.type].to
-      )
+      .fromTo(this.modalMain, modalAnimation[this.type].from, modalAnimation[this.type].to)
 
     BgScrollStop()
     this.gsapInstance.play()

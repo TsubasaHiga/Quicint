@@ -1,7 +1,7 @@
 import autoBind from 'auto-bind'
 
-import UaType from '../types/UaType'
-import GetUaData from '../utils/getUaData'
+import UaType from '~/types/UaType'
+import GetUaData from '~/utils/getUaData'
 
 const luxy = require('luxy.js')
 
@@ -19,7 +19,7 @@ class SmoothScroll {
 
     this.options = {
       wrapper: '#l-mainwrap',
-      wrapperSpeed: 0.095,
+      wrapperSpeed: 0.095
     }
 
     if (state) {

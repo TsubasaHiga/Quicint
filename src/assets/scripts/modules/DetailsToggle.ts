@@ -1,6 +1,12 @@
 import autoBind from 'auto-bind'
 import { gsap, Power3 } from 'gsap'
 
+import GetDeviceType from '~/utils/getDeviceType'
+
+/**
+ * 詳細開閉
+ * @description 対象要素 '.c-details'
+ */
 class DetailsToggle {
   detailsList: NodeListOf<HTMLButtonElement>
 
@@ -19,51 +25,55 @@ class DetailsToggle {
         return
       }
 
-      btn.addEventListener(
-        'click',
-        (e) => {
-          const parent = (e.currentTarget as HTMLElement)
-            .parentNode as HTMLElement
-          const state = parent.dataset.detailsToggle
-
-          if (!state) {
-            return
-          }
-
-          if (state === 'open') this.close(parent)
-          if (state === 'close') this.open(parent)
-        },
-        false
-      )
+      this.setInitialOpen(details)
+      btn.addEventListener('click', this.switchOpenClose, false)
     })
   }
 
-  open(element: HTMLElement): void {
-    const content = element?.querySelector('[data-details-toggle-content]')
+  setInitialOpen(element: HTMLElement): void {
+    const deviceType = GetDeviceType() as 'lg' | 'sm'
+    const initialState = element.dataset[`${deviceType}InitialState`]
+    if (!initialState) return
 
-    if (!content) {
-      return
+    if (initialState === 'open') this.open(element, false)
+    if (initialState === 'close') this.close(element, false)
+  }
+
+  switchOpenClose(e: Event): void {
+    const parent = (e.currentTarget as HTMLElement).parentNode as HTMLElement
+    const state = parent.dataset.detailsToggle
+    if (!state) return
+
+    if (state === 'open') this.close(parent, true)
+    if (state === 'close') this.open(parent, true)
+  }
+
+  open(element: HTMLElement, useAnimation: boolean): void {
+    const content = element?.querySelector('[data-details-toggle-content]')
+    if (!content) return
+
+    const animate = {
+      height: 'auto',
+      ease: Power3.easeInOut
     }
 
-    gsap.to(content, {
-      height: 'auto',
-      ease: Power3.easeInOut,
-    })
+    if (useAnimation) gsap.to(content, animate)
+    if (!useAnimation) gsap.set(content, animate)
 
     element.dataset.detailsToggle = 'open'
   }
 
-  close(element: HTMLElement): void {
+  close(element: HTMLElement, useAnimation: boolean): void {
     const content = element?.querySelector('[data-details-toggle-content]')
+    if (!content) return
 
-    if (!content) {
-      return
+    const animate = {
+      height: 0,
+      ease: Power3.easeInOut
     }
 
-    gsap.to(content, {
-      height: 0,
-      ease: Power3.easeInOut,
-    })
+    if (useAnimation) gsap.to(content, animate)
+    if (!useAnimation) gsap.set(content, animate)
 
     element.dataset.detailsToggle = 'close'
   }

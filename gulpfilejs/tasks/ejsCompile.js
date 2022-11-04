@@ -36,43 +36,28 @@ const ejsCompile = () => {
   }
 
   return gulp
-    .src([
-      setting.io.input.ejs + '**/*.ejs',
-      '!' + setting.io.input.ejs + '**/_*.ejs',
-    ])
+    .src([setting.io.input.ejs + '**/*.ejs', '!' + setting.io.input.ejs + '**/_*.ejs'])
     .pipe(
       ejs(
         {
           node_env: process.env.NODE_ENV,
           sitePath: sitePath,
           siteSetting: siteSetting,
-          define: define,
+          define: define
         },
         {},
         { ext: '.html' }
       )
     )
     .pipe(rename({ extname: '.html' }))
-    .pipe(
-      gulpif(process.env.NODE_ENV === 'development', htmlmin(setting.htmlmin))
-    )
-    .pipe(
-      gulpif(
-        process.env.NODE_ENV === 'production',
-        htmlmin(setting.htmlminProduction)
-      )
-    )
-    .pipe(
-      replace(
-        /\.(js|css|gif|jpg|jpeg|png|apng|svg|mp4|webp)\?rev/g,
-        '.$1?rev=' + revision
-      )
-    )
+    .pipe(gulpif(process.env.NODE_ENV === 'development', htmlmin(setting.htmlmin)))
+    .pipe(gulpif(process.env.NODE_ENV === 'production', htmlmin(setting.htmlminProduction)))
+    .pipe(replace(/\.(js|css|gif|jpg|jpeg|png|apng|svg|mp4|webp)\?rev/g, '.$1?rev=' + revision))
     .pipe(htmlbeautify(setting.htmlbeautify))
     .pipe(
       through(
         {
-          objectMode: true,
+          objectMode: true
         },
         (chunk, enc, cb) => {
           if (chunk.isNull()) {
@@ -89,10 +74,7 @@ const ejsCompile = () => {
               if (!regexp.test(img.src)) {
                 const imgSrc = img.src.replace(sitePath, '')
                 const imgSize = sizeOf('dist/' + imgSrc)
-                const imgScale =
-                  typeof img.dataset.scale !== 'undefined'
-                    ? img.dataset.scale
-                    : 1
+                const imgScale = typeof img.dataset.scale !== 'undefined' ? img.dataset.scale : 1
 
                 img.height = imgSize.height / imgScale
                 img.width = imgSize.width / imgScale
