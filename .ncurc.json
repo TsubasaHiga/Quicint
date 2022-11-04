@@ -1,7 +1,3 @@
 {
-  "reject": [
-    "gulp-imagemin",
-    "imagemin-mozjpeg",
-    "imagemin-webp"
-  ]
+  "reject": ["gulp-imagemin", "imagemin-mozjpeg", "imagemin-webp"]
 }

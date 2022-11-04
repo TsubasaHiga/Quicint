@@ -31,12 +31,25 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  padding: 0 map.get($map: $space, $key: lg);
   position: relative;
   width: 100%;
+}
 
+.l-spacer {
+  padding-left: map.get($map: $space, $key: md);
+  padding-right: map.get($map: $space, $key: md);
+
+  @include mqw-up(xmd) {
+    padding-left: map.get($map: $space, $key: xmd);
+    padding-right: map.get($map: $space, $key: xmd);
+  }
   @include mqw-down {
-    padding: 0 map.get($map: $space, $key: sm);
+    padding-left: map.get($map: $space, $key: sm);
+    padding-right: map.get($map: $space, $key: sm);
+  }
+  @include mqw-down(xs) {
+    padding-left: map.get($map: $space, $key: xs);
+    padding-right: map.get($map: $space, $key: xs);
   }
 }
 

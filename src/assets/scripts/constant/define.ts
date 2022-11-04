@@ -1,6 +1,0 @@
-export default {
-  BREAKPOINT: 767,
-
-  SCROLL_DURATION_LG: 900,
-  SCROLL_DURATION_SM: 1200,
-}

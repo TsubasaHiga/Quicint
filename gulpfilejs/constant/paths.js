@@ -7,5 +7,5 @@ module.exports = {
   settingSite: path.join(__dirname, '../../setting-site.json'),
   define: path.join(__dirname, '../../define.json'),
   webpackDev: path.join(__dirname, '../../webpack.dev'),
-  webpackProd: path.join(__dirname, '../../webpack.prod'),
+  webpackProd: path.join(__dirname, '../../webpack.prod')
 }

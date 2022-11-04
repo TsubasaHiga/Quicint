@@ -1,0 +1,53 @@
+@charset "utf-8";
+
+@use "sass:map";
+@use "../variables" as *;
+@use "./mqw-up" as *;
+
+@mixin customScrollbar($isOverflowX: true) {
+
+  @include mqw-up {
+
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-clip: padding-box;
+      background-color: rgba(map-get($map: $color, $key: color-gray), .5);
+    }
+
+    @if ($isOverflowX) {
+
+      &::-webkit-scrollbar {
+        height: 8px;
+      }
+
+      &::-webkit-scrollbar-track {
+        margin: 0 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-bottom: 2px solid transparent;
+        border-top: 2px solid transparent;
+      }
+    }
+
+    @else {
+
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        margin: 4px 0;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        border-left: 2px solid transparent;
+        border-radius: 100px;
+        border-right: 2px solid transparent;
+      }
+    }
+  }
+}

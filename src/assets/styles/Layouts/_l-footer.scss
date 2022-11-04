@@ -18,7 +18,7 @@
     flex-direction: column;
     justify-content: center;
     margin: 0 auto;
-    padding: 0 map.get($map: $space, $key: lg);
+    padding: 0 map.get($map: $space, $key: md);
     position: relative;
     width: 100%;
   }

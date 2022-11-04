@@ -23,15 +23,7 @@ const watch = require('./gulpfilejs/tasks/watch')
 const jsoncFileCeck = require('./gulpfilejs/tasks/jsoncFileCeck')
 
 exports.default = gulp.series(jsoncFileCeck, gulp.parallel(watch, sync))
-exports.development = gulp.series(
-  jsoncFileCeck,
-  cleanAll,
-  scss,
-  img,
-  imgManual,
-  ejsCompile,
-  js
-)
+exports.development = gulp.series(jsoncFileCeck, cleanAll, scss, img, imgManual, ejsCompile, js)
 exports.production = gulp.series(
   jsoncFileCeck,
   cleanAll,
@@ -43,14 +35,7 @@ exports.production = gulp.series(
   cleanGarbage,
   genPublishDir
 )
-exports.productionNoImg = gulp.series(
-  jsoncFileCeck,
-  scssProduction,
-  ejsCompile,
-  jsBuild,
-  cleanGarbage,
-  genPublishDir
-)
+exports.productionNoImg = gulp.series(jsoncFileCeck, scssProduction, ejsCompile, jsBuild, cleanGarbage, genPublishDir)
 exports.checkJson = jsoncFileCeck
 exports.zip = gulp.series(
   jsoncFileCeck,

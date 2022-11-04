@@ -29,10 +29,7 @@
   },
   "webpConvertSettings": {
     "targetExtnames": [".png", ".jpg"],
-    "ignore": [
-      "./apple-touch-icon.png",
-      "./ogpimg.png"
-    ]
+    "ignore": ["./apple-touch-icon.png", "./ogpimg.png"]
   },
   "pngquant": {
     "quality": [0.8, 0.9],

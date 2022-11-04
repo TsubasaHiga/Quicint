@@ -32,6 +32,10 @@
         @include arrow(8,1,#000,bottom);
 
         margin-right: 5px;
+
+        @include mqw-down {
+          @include arrow(6,1,#000,bottom);
+        }
       }
     }
   }

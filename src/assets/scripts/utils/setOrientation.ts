@@ -12,9 +12,7 @@ class SetOrientation {
 
   check() {
     const isLandscape = window.matchMedia('(orientation: landscape)').matches
-    document.documentElement.dataset.orientation = isLandscape
-      ? 'landscape'
-      : 'portrait'
+    document.documentElement.dataset.orientation = isLandscape ? 'landscape' : 'portrait'
   }
 }
 

@@ -20,27 +20,27 @@
 }
 
 html {
-  $vw: (math.div(14, $basis)) * 100vw;
+  $vw: (math.div(14, $basisW)) * 100vw;
 
   color: map.get($map: $color, $key: color-black);
   font-size: $vw;
   -webkit-font-smoothing: antialiased;
   height: 100%;
   line-height: math.div(33, 14);
-  -webkit-tap-highlight-color: rgb(0 0 0 / 0%);
+  -webkit-tap-highlight-color: rgb(#000, 0);
 
   @include mqw-up(xlg) {
-    $vw: (math.div(12, $basis)) * 100vw;
+    $vw: (math.div(12, $basisW)) * 100vw;
 
     font-size: $vw;
   }
   @include mqw-up(xxlg) {
-    $vw: (math.div(10, $basis)) * 100vw;
+    $vw: (math.div(10, $basisW)) * 100vw;
 
     font-size: $vw;
   }
   @include mqw-down {
-    $vw: (math.div(14, $smBasis)) * 100vw;
+    $vw: (math.div(14, $smBasisW)) * 100vw;
 
     font-size: $vw;
     padding: 0 env(safe-area-inset-right) 0 env(safe-area-inset-left);
@@ -112,12 +112,6 @@ table {
   }
 }
 
-// IE11のクリアボタンを非表示
-
-input::-ms-clear {
-  display: none;
-}
-
 ul,
 ol {
   list-style: none;
@@ -134,15 +128,4 @@ sup {
     font-size: rem(10);
     top: -.4em;
   }
-}
-
-// 状態
-
-[aria-hidden = "false"] {
-  visibility: visible;
-}
-
-[aria-hidden = "true"] {
-  display: none;
-  visibility: hidden;
 }

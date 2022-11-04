@@ -1,10 +1,6 @@
 {
-  "extends": [
-    "stylelint-config-standard-scss"
-  ],
-  "plugins": [
-    "stylelint-order"
-  ],
+  "extends": ["stylelint-config-standard-scss"],
+  "plugins": ["stylelint-order"],
   "rules": {
     "at-rule-no-unknown": [
       true,
@@ -62,9 +58,7 @@
     "selector-pseudo-class-no-unknown": [
       true,
       {
-        "ignorePseudoClasses": [
-          "global"
-        ]
+        "ignorePseudoClasses": ["global"]
       }
     ],
     "scss/at-else-empty-line-before": null,
@@ -85,24 +79,27 @@
     "at-rule-empty-line-before": [
       "always",
       {
-        "except": [
-          "after-same-name"
-        ],
-        "ignore": [
-          "after-comment",
-          "first-nested"
-        ]
+        "except": ["after-same-name"],
+        "ignore": ["after-comment", "first-nested"]
       }
     ],
     "media-feature-name-no-vendor-prefix": null,
-    "property-no-vendor-prefix":null,
+    "property-no-vendor-prefix": null,
     "value-no-vendor-prefix": null,
     "selector-no-vendor-prefix": null,
     "scss/no-global-function-names": null,
     "selector-class-pattern": null,
+    "selector-id-pattern": null,
     "scss/at-if-closing-brace-newline-after": null,
     "scss/at-if-closing-brace-space-after": null,
     "scss/at-extend-no-missing-placeholder": null,
-    "max-line-length": null
+    "max-line-length": null,
+    "declaration-block-no-redundant-longhand-properties": [
+      true,
+      {
+        "ignoreShorthands": ["/flex/"]
+      }
+    ],
+    "color-function-notation": "legacy"
   }
 }

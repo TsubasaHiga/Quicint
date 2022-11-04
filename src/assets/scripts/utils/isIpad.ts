@@ -1,6 +1,9 @@
 import GetOrientation from './getOrientation'
 import GetUaData from './getUaData'
 
+/**
+ * iPadかどうかを判定します
+ */
 const IsIpad = (orientation = 'portrait'): boolean => {
   const clientData = GetUaData()
 

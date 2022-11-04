@@ -6,5 +6,5 @@ export default {
   FOOTER: document.getElementsByTagName('footer')[0],
   NAV: document.getElementsByTagName('nav')[0],
   MAIN_WRAP: document.querySelector('#l-mainwrap'),
-  MAIN_WRAP_INNER: document.querySelector('#l-mainwrap-inner'),
+  MAIN_WRAP_INNER: document.querySelector('#l-mainwrap-inner')
 }

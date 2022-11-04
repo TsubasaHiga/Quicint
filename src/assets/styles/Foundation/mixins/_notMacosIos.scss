@@ -2,7 +2,7 @@
 
 @mixin notMacosIos {
 
-  html:not([data-osname = "mac-os"]):not([data-osname = "ios"]) & {
+  html:not([data-osname = "mac-os"], [data-osname = "ios"]) & {
     @content;
   }
 }
