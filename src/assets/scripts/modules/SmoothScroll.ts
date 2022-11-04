@@ -1,8 +1,9 @@
 import autoBind from 'auto-bind'
 
-import UaType from '../types/UaType'
-import GetUaData from '../utils/getUaData'
+import UaType from '~/types/UaType'
+import GetUaData from '~/utils/getUaData'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const luxy = require('luxy.js')
 
 type optionsType = {
@@ -19,7 +20,7 @@ class SmoothScroll {
 
     this.options = {
       wrapper: '#l-mainwrap',
-      wrapperSpeed: 0.095,
+      wrapperSpeed: 0.095
     }
 
     if (state) {

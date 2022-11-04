@@ -63,6 +63,7 @@ if(metaData.hierarchy) {
   </head>
 
   <body id="gotop" class="<%= meta.pageName %>">
+    <%- include('_analytics-body') %>
     <div id="l-mainwrap" class="l-mainwrap">
-      <%- include('_header', {meta: meta}) %>
+      <%- include('../ui/_header', {meta: meta}) %>
       <div id="l-mainwrap-inner" class="l-mainwrap__inner">

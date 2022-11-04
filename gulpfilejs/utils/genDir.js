@@ -12,8 +12,7 @@ const genDir = (dirname, type) => {
   dirname = typeof dirname !== 'undefined' ? dirname : 'publish_data'
 
   const distname = 'dist'
-  const userHome =
-    process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
+  const userHome = process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME']
   const publishDir = path.join(userHome, setting.publishDir)
 
   const srcIgnore = [
@@ -22,7 +21,7 @@ const genDir = (dirname, type) => {
     '!' + distname + '/**/*.map',
     '!' + distname + '/**/*.DS_Store',
     '!' + distname + '/**/*.LICENSE',
-    '!' + distname + '/**/*Thumbs.db',
+    '!' + distname + '/**/*Thumbs.db'
   ]
 
   if (type === 'zip') {
@@ -33,7 +32,7 @@ const genDir = (dirname, type) => {
       .pipe(
         notify({
           title: '納品データをZIP化しました 🗜',
-          message: '出力先：' + publishDir + '/' + dirname + '.zip',
+          message: '出力先：' + publishDir + '/' + dirname + '.zip'
         })
       )
   } else {

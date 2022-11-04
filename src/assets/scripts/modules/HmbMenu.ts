@@ -1,9 +1,9 @@
 import autoBind from 'auto-bind'
 import { debounce } from 'throttle-debounce'
 
-import EL from '../constant/elements'
-import GetDeviceType from '../utils/getDeviceType'
-import Pd from '../utils/preventDefault'
+import EL from '~/const/elements'
+import GetDeviceType from '~/utils/getDeviceType'
+import Pd from '~/utils/preventDefault'
 
 class HmbMenu {
   isActive: boolean

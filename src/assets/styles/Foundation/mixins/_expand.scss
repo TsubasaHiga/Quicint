@@ -1,5 +1,0 @@
-@charset "utf-8";
-
-@mixin expand($top, $right, $bottom, $left) {
-  margin: #{$top}px #{$right}px #{$bottom}px #{$left}px;
-}

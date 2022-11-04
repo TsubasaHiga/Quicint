@@ -11,11 +11,11 @@
 // vw
 @function vw($num, $size: lg) {
   @if ($size == lg) {
-    @return (math.div($num,$basis)) * 100vw;
+    @return (math.div($num,$basisW)) * 100vw;
   }
 
   @else if($size == sm) {
-    @return (math.div($num, $smBasis)) * 100vw;
+    @return (math.div($num, $smBasisW)) * 100vw;
   }
 }
 
@@ -28,4 +28,9 @@
   @else if($size == sm) {
     @return (math.div($num, 600)) * 100vh;
   }
+}
+
+// convert-rgb
+@function convert-rgb($color) {
+  @return red($color), green($color), blue($color);
 }

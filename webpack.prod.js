@@ -10,10 +10,10 @@ module.exports = merge(common, {
         terserOptions: {
           compress: { drop_console: true },
           output: {
-            comments: false,
-          },
-        },
-      }),
-    ],
-  },
+            comments: false
+          }
+        }
+      })
+    ]
+  }
 })

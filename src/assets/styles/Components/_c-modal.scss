@@ -34,6 +34,11 @@
     transform: translateY(10px);
     width: 600px;
     z-index: 1;
+
+    @include mqw-down {
+      margin: 0 30px;
+      width: 100%;
+    }
   }
 
   &__content {
@@ -41,6 +46,10 @@
     overflow: auto;
     padding: 50px;
     width: 100%;
+
+    @include mqw-down {
+      padding: 30px;
+    }
   }
 
   &__content-wrap {
@@ -70,6 +79,13 @@
       }
     }
 
+    @include mqw-down {
+      height: 45px;
+      right: 15px;
+      top: 15px;
+      width: 45px;
+    }
+
     span {
       align-items: center;
       display: flex;
@@ -88,6 +104,10 @@
         transition: transform $comMS $comES;
         width: 1px;
         will-change: transform;
+
+        @include mqw-down {
+          height: 20px;
+        }
       }
 
       &:before {

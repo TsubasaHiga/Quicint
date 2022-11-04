@@ -1,8 +1,8 @@
 import autoBind from 'auto-bind'
 import SweetScroll from 'sweet-scroll'
 
-import DEFINE from '../constant/define'
-import GetDeviceType from '../utils/getDeviceType'
+import { values } from '~/const/values'
+import GetDeviceType from '~/utils/getDeviceType'
 
 type optionsType = {
   offset: number
@@ -27,13 +27,13 @@ class SweetScrollInit {
     this.optionsLg = {
       offset: 0,
       easing: 'easeInOutQuart',
-      duration: DEFINE.SCROLL_DURATION_LG,
+      duration: values.SCROLL_DURATION_LG
     }
 
     this.optionsSm = {
       offset: 0,
       easing: 'easeInOutQuart',
-      duration: DEFINE.SCROLL_DURATION_SM,
+      duration: values.SCROLL_DURATION_SM
     }
 
     this.init()

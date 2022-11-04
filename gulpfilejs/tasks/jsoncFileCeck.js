@@ -11,25 +11,16 @@ const paths = require('../constant/paths')
 
 const jsoncFileCeck = (cb) => {
   // 環境設定ファイルの読み込み
-  const setting = isExistFile(paths.setting)
-    ? JSON.parse(fs.readFileSync(paths.setting, 'utf8'))
-    : ''
+  const setting = isExistFile(paths.setting) ? JSON.parse(fs.readFileSync(paths.setting, 'utf8')) : ''
 
   // サイト設定ファイルの読み込み.
-  const siteSetting = isExistFile(paths.settingSite)
-    ? JSON.parse(fs.readFileSync(paths.settingSite, 'utf8'))
-    : ''
+  const siteSetting = isExistFile(paths.settingSite) ? JSON.parse(fs.readFileSync(paths.settingSite, 'utf8')) : ''
 
   // ejs defineファイルの読み込み.
-  const define = isExistFile(paths.define)
-    ? JSON.parse(fs.readFileSync(paths.define, 'utf8'))
-    : ''
+  const define = isExistFile(paths.define) ? JSON.parse(fs.readFileSync(paths.define, 'utf8')) : ''
 
   if (setting && siteSetting && define) {
-    gulp
-      .src([setting.io.setting, setting.io.siteSetting, setting.io.define])
-      .pipe(jsonlint())
-      .pipe(jsonlint.reporter())
+    gulp.src([setting.io.setting, setting.io.siteSetting, setting.io.define]).pipe(jsonlint()).pipe(jsonlint.reporter())
 
     figlet(siteSetting.publishFileName, (err, data) => {
       if (err) {

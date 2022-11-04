@@ -14,10 +14,10 @@ const pageData = {
 };
 %>
 
-<%- include(dir + 'inc/_head', {meta: pageData}) %>
+<%- include(dir + 'html-partials/common-includes/_head', {meta: pageData}) %>
 <!-- main -->
 <main class="l-page">
-  <div class="l-container">
+  <div class="l-container l-spacer">
 
     <!-- contents -->
     <h1>H1 見出し1</h1>
@@ -156,4 +156,4 @@ const pageData = {
 
   </div>
 </main>
-<%- include(dir + 'inc/_footer', {meta: pageData}) %>
+<%- include(dir + 'html-partials/ui/_footer', {meta: pageData}) %>

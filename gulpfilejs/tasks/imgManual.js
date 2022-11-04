@@ -6,7 +6,7 @@ const newer = require('gulp-newer')
 const mozjpeg = require('imagemin-mozjpeg')
 const imagemin = require('gulp-imagemin')
 const pngquant = require('imagemin-pngquant')
-const imageminWebp = require('imagemin-webp');
+const imageminWebp = require('imagemin-webp')
 const rename = require('gulp-rename')
 
 const paths = require('../constant/paths')
@@ -30,7 +30,7 @@ const imgManual = (cb) => {
           errorHandler: (err) => {
             console.log(err)
             this.emit('end')
-          },
+          }
         })
       )
       .pipe(newer(setting.io.output.images))
@@ -42,19 +42,21 @@ const imgManual = (cb) => {
           imageminWebp(setting.webpManual)
         ])
       )
-      .pipe(rename((path) => {
-        const fileFullPath = `${path.dirname}/${path.basename + path.extname}`
+      .pipe(
+        rename((path) => {
+          const fileFullPath = `${path.dirname}/${path.basename + path.extname}`
 
-        if(setting.webpConvertSettings.ignore.includes(fileFullPath)) {
-          return
-        }
-
-        if(setting.webpConvertSettings.targetExtnames.includes(path.extname)) {
-          {
-            path.extname = '.webp';
+          if (setting.webpConvertSettings.ignore.includes(fileFullPath)) {
+            return
           }
-        }
-      }))
+
+          if (setting.webpConvertSettings.targetExtnames.includes(path.extname)) {
+            {
+              path.extname = '.webp'
+            }
+          }
+        })
+      )
       .pipe(gulp.dest(setting.io.output.images))
   } else {
     cb()

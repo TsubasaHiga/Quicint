@@ -1,16 +1,22 @@
 @charset "utf-8";
 
 @mixin safari($size: false) {
-  @if ($size == "sm") {
+  @if ($size == "lg") {
 
-    html[data-browsername = "mobile-safari"] & {
+    html[data-browsername = "safari"] & {
       @content;
     }
   }
 
-  @else {
+  @else if ($size == "sm") {
 
-    html[data-browsername = "safari"] & {
+    html[data-browsername = "mobile-safari"] & {
+      @content;
+    }
+  } @else {
+
+    html[data-browsername = "safari"] &,
+    html[data-browsername = "mobile-safari"] & {
       @content;
     }
   }

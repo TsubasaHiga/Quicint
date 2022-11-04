@@ -5,8 +5,7 @@ const setting = require(paths.setting)
 
 const getImageLists = (onlyManual) => {
   // defaultLists
-  const defaultLists =
-    setting.io.input.images + '**/*.{png,apng,jpg,gif,svg,ico}'
+  const defaultLists = setting.io.input.images + '**/*.{png,apng,jpg,gif,svg,ico}'
 
   // lists
   const lists = []

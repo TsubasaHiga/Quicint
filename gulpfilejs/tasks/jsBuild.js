@@ -17,7 +17,7 @@ const jsBuild = () => {
         errorHandler: (err) => {
           console.log(err)
           this.emit('end')
-        },
+        }
       })
     )
     .pipe(webpackStream(webpackProd, webpack))

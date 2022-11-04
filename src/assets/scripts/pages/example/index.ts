@@ -1,4 +1,4 @@
-import Modal from '../../modules/Modal'
+import Modal from '~/modules/Modal'
 
 const PageExample = (): void => {
   console.log('example')

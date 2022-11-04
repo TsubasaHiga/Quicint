@@ -44,7 +44,7 @@ const onLoad = () => {
   // addAnimationClass
   new AddAnimationClass({
     lg: '-0% 0px',
-    sm: '-0% 0px',
+    sm: '-0% 0px'
   })
 
   // onScroll
@@ -66,9 +66,7 @@ const onScroll = () => {
   const y = Math.round(window.scrollY || window.pageYOffset)
 
   // add className is-scroll
-  y > 0
-    ? document.documentElement.classList.add('is-scroll')
-    : document.documentElement.classList.remove('is-scroll')
+  y > 0 ? document.documentElement.classList.add('is-scroll') : document.documentElement.classList.remove('is-scroll')
 
   // add className is-footer
   GetDocumentH() <= y

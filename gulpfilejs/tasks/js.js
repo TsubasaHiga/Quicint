@@ -17,7 +17,7 @@ const js = () => {
         errorHandler: (err) => {
           console.log(err)
           this.emit('end')
-        },
+        }
       })
     )
     .pipe(webpackStream(webpackDev, webpack))
