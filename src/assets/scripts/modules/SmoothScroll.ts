@@ -3,6 +3,7 @@ import autoBind from 'auto-bind'
 import UaType from '~/types/UaType'
 import GetUaData from '~/utils/getUaData'
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const luxy = require('luxy.js')
 
 type optionsType = {
