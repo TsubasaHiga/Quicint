@@ -85,7 +85,7 @@
     "gulp-sass": "^5.1.0",
     "gulp-zip": "^5.1.0",
     "husky": "8.0.1",
-    "image-size": "^1.0.2",
+    "image-size": "npm:image-size-next@1.2.2",
     "imagemin-mozjpeg": "^9.0.0",
     "imagemin-pngquant": "^9.0.2",
     "imagemin-webp": "^6.0.0",
